@@ -1,0 +1,12 @@
+{
+	"manifest_version": 3,
+	"name": "message receiver",
+	"version": "1.0",
+	"description": "recevoir un message d'une autre webext",
+	"icons": { "48": "icon-128.png" },
+	"permissions": [ "storage", "tabs", "activeTab", "scripting" ],
+	"host_permissions": [ "<all_urls>" ],
+	"background": { "service_worker": "service-worker.js" },
+	// "externally_connectable": { "matches": [ "<all_urls>" ], "ids": ["*"] },
+	"action": {}
+}

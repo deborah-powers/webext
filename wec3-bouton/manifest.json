@@ -1,0 +1,10 @@
+{
+	"manifest_version": 3,
+	"name": "webext bouton",
+	"version": "1.0",
+	"description": "exemple de webext se déclenchant au clique sur un bouton",
+	"icons": { "48": "icon-128.png" },
+	"permissions": [ "storage", "tabs", "activeTab", "scripting" ],
+	"background": { "service_worker": "service-worker.js" },
+	"action": {}
+}
