@@ -5,21 +5,35 @@
 	html, body {
 		width: 16em;
 		height: 8em;
+		margin: 0;
 	}
+	html { padding: 0; }
 	body {
 		padding: 1%;
-		margin: 0;
+		font-family: serif;
 		background-color: ivory;
-		text-align: center;
-	}
-	h1 {
-		display: inline-block;
-		font-size: 1.2em;
 		color: ivory;
-		background-color: hotpink;
 		text-align: center;
 	}
+	p {
+		display: inline-block;
+		box-sizing: border-box;
+		padding: 0.5em;
+		margin: 0;
+		font-family: inherit;
+		text-align: inherit;
+		color: inherit;
+		background-color: hotpink;
+		border-width: 2px;
+		border-style: solid;
+		border-color: maroon;
+		border-radius: 1em;
+		font-size: 1.2em;
+		width: 49%;
+	}
+	p:first-letter { text-transform: uppercase; }
 </style></head><body>
-	<h1>sauvegardez le texte de la page</h1>
+	<p>sauvegarder en temps que page indépandante</p>
+	<p>sauvegarder le contenu seul</p>
 	<script type='text/javascript' src='popup.js'></script>
 </body></html>

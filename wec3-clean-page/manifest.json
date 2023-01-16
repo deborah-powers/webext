@@ -5,6 +5,7 @@
 	"description": "nettoyer mes pages web",
 	"icons": { "48": "icon-128.png" },
 	"permissions": [ "storage", "tabs", "activeTab", "scripting" ],
+	"host_permissions": [ "<all_urls>" ],
 	"background": { "service_worker": "service-worker.js" },
 	"action": {}
 }
