@@ -1,0 +1,10 @@
+body {
+	margin-bottom: 2em;
+	line-height: 1.5em;
+	word-spacing: 0.16em;
+	letter-spacing: 0.12em;
+}
+/* {
+	word-spacing: inherit;
+	letter-spacing: inherit;
+}*/

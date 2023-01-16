@@ -1,0 +1,121 @@
+j'utilise les exemples wef-xxx.
+
+https://developer.mozilla.org/fr/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension
+https://developer.mozilla.org/fr/docs/Mozilla/Add-ons/WebExtensions/Your_second_WebExtension
+https://developer.mozilla.org/fr/docs/Mozilla/Add-ons/WebExtensions/Add_a_button_to_the_toolbar
+
+======================== publier une extension dans chrome ========================
+
+https://support.google.com/chrome/a/answer/2714278?hl=fr#:~:text=Pour%20ajouter%20une%20application%20ou,dans%20le%20Chrome%20Web%20Store.
+https://support.google.com/chrome/a/answer/2649489
+https://developer.chrome.com/docs/webstore/publish?hl=fr
+me connecter à la console d'administration de google avec un compte administrateur. powers.dev est mon compte administrateur, que j'utilise pour mon github. powers89 est aussi un compte administrateur.
+
+mon extension est chargée dans le gestionnaire d'extensions, non empaquetée.
+me créer un compte de développeur chrome web store. payer 5E.
+activer la validation en deux étapes.
+compresser mon extension au format .zip
+https://chrome.google.com/webstore/devconsole/3094d15f-41a7-492a-ae44-82ccdf3f9617?hl=fr
+
+dans le gestionnaire d'extension,
+empaqueter l'extension
+
+résultat:
+Extension : C:\Users\LENOVO\Desktop\webext\we3-md-maison.crx
+Fichier de clé : C:\Users\LENOVO\Desktop\webext\we3-md-maison.pem
+
+https://chrome.google.com/webstore/devconsole/3094d15f-41a7-492a-ae44-82ccdf3f9617/oogpeihldfjfakheibjdifojcjkloapl/edit
+
+Conservez votre fichier de clé en lieu sûr. Vous en aurez besoin lors de la création de nouvelles versions de l'extension.
+
+======================== installation locale ========================
+
+************************ pour edge ************************
+
+edge://extensions/
+
+************************ pour chrome ************************
+
+chrome://extensions/
+activer le mode développeur
+bouton "charger l'extension non empaquetée"
+
+"service worker registration failed" chrome web extension
+'browser_action' requires manifest version of 2 or lower.
+
+
+************************ pour firefox, provisoire ************************
+
+about:debugging#/runtime/this-firefox
+bouton "charger un module complémentaire temporaire"
+sélectionner un des fichiers de mon extension
+
+l'uploader sur https://addons.mozilla.org/fr/developers/addons
+
+************************ pour firefox, permanente ************************
+
+firefox utilise le manifest V2. il me faut firefox édition développeur.
+
+besoin de l'outil de commance web-ext, qui dépend de nodejs.
+installer node et npm.
+npm install --global web-ext
+dans firefox, about:config
+xpinstall.signatures.required = false
+
+dans mon manifest, rajouter la signature gecko.
+"browser_specific_settings": { "gecko": { "id": "some-name@deborah-powers.fr" }}
+
+> cd le/dossier/de/mon/extension
+> web-ext build
+> web-ext build --overwrite-dest
+un .zip est créé.
+
+dans firefox, about:addons
+bouton paramètres / installer un module depuis un fichier
+pointer mon zip.
+
+débogage sur
+about:debugging#/runtime/this-firefox
+
+--- erreurs ---
+
+ce module complémentaire n'a pas pu être installé car il semble corrompu
+--> extension inadaptée à firefox. elle est probablement au manifest v3, ou l'id gecko est absent.
+
+ce module complémentaire n'a pas pu être installé car il n'a pas été vérifié
+--> j'utilise firefox de base, qui ne permet pas l'installation d'extentions non signées.
+
+== utiliser eval dans le manifest v3
+
+source: https://medium.com/geekculture/how-to-use-eval-in-a-v3-chrome-extension-f21ca8c2160c
+alternative: https://dev.to/ergofriend/eval-with-wasm-instead-of-sandbox-with-web-extensions-3icm
+
+dans manifest.json
+code	"sandbox": { "pages": [ "sandbox.html" ],
+dans popup.html
+code	<iframe src='../sandbox.html' style='display:none'></iframe>
+dans sandbox.html
+<html><script>
+code
+window.addEventListener ('message', async function (event) {
+	event.source.window.postMessage (eval (event.data), event.origin);
+});
+</script></html>
+/
+
+
+======================== divers ========================
+
+dans manifest.json
+content_scripts.matches = <all_urls> ou https://*/* ou encore une liste d'urls.
+"web_accessible_resources": []
+liste des images et autres injectés dans la page. pas pour les scripts js.
+
+utiliser un script inline dans chrome
+dans manifest.json
+"minimum_chrome_version": "46",
+"content_security_policy": "script-src 'self' 'sha256-WOdSzz11/3cpqOdrm89LBL2UPwEU9EhbDtMy2OciEhs='",
+
+une popup a du mal à contenir un script mais elle peux charger une feuille de style css ou un script js. ils doivent être contenus dans le dossier de l'extension. il n'y a pas besoin de les préciser dans le manifest.
+
+faire communiquer deux wext entre elle: cf wec3-message-sender et wec3-message-receiver.

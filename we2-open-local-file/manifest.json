@@ -1,0 +1,10 @@
+{
+	"manifest_version": 2,
+	"name": "fichier local",
+	"version": "1.0",
+	"description": "librairie pour ouvrir un fichier local",
+	"icons": { "48": "icon-128.png" },
+	"permissions": [ "storage", "tabs", "activeTab", "scripting" ],
+	"host_permissions": [ "<all_urls>" ],
+	"background": { "service_worker": "service-worker.js" }
+}

@@ -1,0 +1,57 @@
+[onclick], [ondblclick], [oncontextmenu], [onmouseup], [onmousedown], [onmouseenter], [onmouseleave], [onmousemove], [onmouseout], [onmouseover] {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: orangered !important;
+}
+[onclick][disabled], [ondblclick][disabled], [oncontextmenu][disabled], [onmouseup][disabled], [onmousedown][disabled], [onmouseenter][disabled],
+[onmouseleave][disabled], [onmousemove][disabled], [onmouseout][disabled], [onmouseover][disabled],
+button[disabled], [role='button'][disabled], input[type='button'][disabled], input[type='reset'][disabled], input[type='submit'][disabled],
+button[aria-hidden='true'], [role='button'][aria-hidden='true'],
+input[type='button'][aria-hidden='true'], input[type='reset'][aria-hidden='true'], input[type='submit'][aria-hidden='true']
+	{ border-style: dotted !important; }
+button, [role='button'] {
+	border-style: dashed !important;
+	border-width: 4px !important;
+}
+button { border-color: #696 !important; }
+[role='button'] { border-color: #690 !important; }
+
+button[onmouseup], button[onmousedown], button[onmouseenter], button[onmouseleave], button[onmousemove], button[onmouseout], button[onmouseover],
+button[onclick], button[ondblclick], button[oncontextmenu],
+[role='button'][onmouseup], [role='button'][onmousedown], [role='button'][onmouseenter], [role='button'][onmouseleave], [role='button'][onmousemove],
+[role='button'][onmouseout], [role='button'][onmouseover], [role='button'][onclick], [role='button'][ondblclick], [role='button'][oncontextmenu]
+	{ border-style: solid !important; }
+
+input[type='button'], input[type='reset'], input[type='submit']{
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: #399 !important;
+}
+.rgaa-event { border-color: green !important; }
+button.rgaa-error, [role='button'].rgaa-error{ border-style: dashed !important; }
+
+[onclick]:focus, [ondblclick]:focus, [oncontextmenu]:focus, [onmouseup]:focus, [onmousedown]:focus, [onmouseenter]:focus, [onmouseleave]:focus,
+[onmousemove]:focus, [onmouseout]:focus, [onmouseover]:focus, a:focus, [role='link']:focus,
+button:focus, [role='button']:focus, input[type='button']:focus, input[type='reset']:focus, input[type='submit']:focus {
+	border-style: double !important;
+	border-width: 8px !important;
+}
+button:hover:before { content: 'bouton ' attr(role) '\A' attr(infos); }
+[role='button']:hover:before { content: 'role bouton\A' attr(infos); }
+a.rgaa-event:hover:before { content: 'ancre avec évênement js ' attr(role) '\A' attr(infos); }
+[role='link'].rgaa-event:hover:before { content: 'role lien avec évênement js\A' attr(infos); }
+a.rgaa-event:hover:before { content: 'bouton avec évênement js ' attr(role) '\A' attr(infos); }
+[role='button'].rgaa-event:hover:before { content: 'role bouton avec évênement js\A' attr(infos); }
+
+/* éléments non cliquables */
+[disabled], [aria-hidden='true'], [role='presentation'], [role='img'] {
+	border-width: 4px !important;
+	border-style: solid !important;
+	border-color: limegreen !important;
+}
+/*
+.rgaa-event:hover:before { content: 'évênement ' attr(role) '\A' attr(infos); }
+input[type='button']:hover:before, input[type='reset']:hover:before, input[type='submit']:hover:before
+	{ content: 'input boutton '; }
+input { border-color: #39F !important; }
+*/

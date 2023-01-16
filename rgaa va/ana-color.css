@@ -1,0 +1,11 @@
+.rgaa-nobg { background-color: gold; }
+.rgaa-notx { color: deeppink; }
+/*
+.rgaa-nobg.rgaa-notx { background-color: paleturquoise; }
+*/
+.rgaa-bgimage {
+	border-style: solid;
+	border-width: 4px;
+	border-color: deeppink;
+}
+.rgaa-nobgcolor { border-style: dashed; }

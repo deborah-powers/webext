@@ -1,0 +1,20 @@
+{
+	"manifest_version": 3,
+	"name": "test eval",
+	"version": "1.0",
+	"description": "tester l'import de librairie externe",
+	"icons": { "48": "icon-128.png" },
+	"permissions": [ "tabs", "activeTab", "scripting" ],
+	"host_permissions": [ "<all_urls>" ],
+	"content_security_policy": {
+		"extension_pages": "script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'self';",
+		"sandbox": "sandbox allow-scripts allow-forms allow-popups allow-modals; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' 'unsafe-eval'; child-src 'self';"
+	},
+	"sandbox": { "pages": [ "sandbox.html" ]},
+//	"background": { "service_worker": "action.js" },
+	"action": {
+		"default_icon": { "48": "icon-128.png" },
+		"default_title": "test eval",
+		"default_popup": "menu.html"
+	}
+}

@@ -1,0 +1,10 @@
+{
+	"manifest_version": 3,
+	"name": "library caller",
+	"version": "1.0",
+	"description": "utiliser une extension librarire",
+	"icons": { "48": "icon-128.png" },
+	"permissions": [ "storage", "tabs", "activeTab", "scripting" ],
+	"background": { "service_worker": "service-worker.js" },
+	"action": {}
+}

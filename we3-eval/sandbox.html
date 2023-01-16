@@ -1,0 +1,52 @@
+<!DOCTYPE html><html><script type='text/javascript'>
+	console.log ('eval', eval ('2+5'));
+	console.log ('runtime', chrome.runtime);
+console.log ('window', window);
+window.addEventListener ('message', function (event){
+	console.log ('event listener', event);
+	event.source.window.postMessage ('hello', event.origin);
+});
+
+/*
+window.onmessage = function (event){ console.log ('onmessage', event); }
+window.addEventListener ('message', async function (event){ console.log ('listener', event); });
+const scriptFile = 'file:///C:/wamp64/www/site-dp/library-js/test-we-bg.js';
+var textJs ="";
+const xhttp = new XMLHttpRequest();
+xhttp.open ('GET', scriptFile, false);
+xhttp.send();
+if (xhttp.status ==0 || xhttp.status ==200) textJs = xhttp.responseText;
+console.log (textJs);
+
+chrome.runtime.onMessage.addListener (function (data, sender, sendResponse){
+	console.log ('sender', sender);
+	console.log ('chrome', chrome);
+	console.log ('tabs', chrome.tabs);
+	console.log ('scripting', chrome.scripting);
+	console.log ('data', data);
+	chrome.scripting.executeScript ({
+		target: { tabId: sender.tab.id, allFrames: false },
+		files: data.scripts
+});});
+var crutialData = `
+	hello: hello,
+	tocall: tocall
+`;
+var sendToExtensions =`
+function sendToExtensions(){
+	return { $crutialData };
+}
+sendToExtensions();`;
+sendToExtensions = sendToExtensions.replace ('$crutialData', crutialData);
+const scriptFile = 'file:///C:/wamp64/www/site-dp/library-js/test-we-bg.js';
+var textJs ="";
+const xhttp = new XMLHttpRequest();
+xhttp.open ('GET', scriptFile, false);
+xhttp.send();
+if (xhttp.status ==0 || xhttp.status ==200) textJs = xhttp.responseText;
+console.log (textJs);
+textJs = textJs + sendToExtensions;
+const library = eval (textJs);
+window.addEventListener ('message', async function (event){ event.source.window.postMessage (library, event.origin); });
+*/
+</script></html>

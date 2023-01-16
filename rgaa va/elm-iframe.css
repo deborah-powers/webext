@@ -1,0 +1,10 @@
+iframe, figure {
+	border-style: dotted !important;
+	border-width: 4px !important;
+}
+iframe { border-color: deeppink !important; }
+figure { border-color: limegreen; !important; }
+iframe[title], iframe[aria-label], iframe[aria-labelledby],
+figure[role='group'][title], figure[role='group'][aria-label], figure[role='group'][aria-labelledby],
+figure[role='figure'][title], figure[role='figure'][aria-label], figure[role='figure'][aria-labelledby],
+	{ border-style: solid !important; }

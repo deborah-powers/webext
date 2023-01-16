@@ -1,0 +1,14 @@
+{
+	"manifest_version": 3,
+	"name": "rgaa deborah",
+	"version": "1.0",
+	"description": "mon outil pour auditer une page web selon le rgaa",
+	"icons": { "48": "icon-128.png" },
+	"externally_connectable": { "matches": [ "<all_urls>" ]},
+	"permissions": [ "tabs", "activeTab", "scripting" ],
+	"action": {
+		"default_icon": { "48": "icon-128.png" },
+		"default_title": "rgaa deborah",
+		"default_popup": "menu.html"
+	}
+}

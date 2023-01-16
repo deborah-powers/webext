@@ -1,0 +1,26 @@
+/* body [tabindex] {
+body [tabindex='-1'], */
+body [tabindex]:not(body [tabindex='-1']) {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: orange !important;
+}
+[disabled], button[disabled], a[disabled], input[disabled], select[disabled], textarea[disabled], [role='button'][disabled], [role='link'][disabled],
+[role='presentation'][tabindex], [aria-hidden='true'][tabindex], [tabindex][role='presentation'], [tabindex][aria-hidden='true']
+	{ border-style: dashed !important; }
+
+a:hover:after { content: 'lien'; }
+a[tabindex]:hover:after { content: 'lien, tabindex: ' attr(tabindex); }
+[role='link']:hover:after { content: 'rôle lien'; }
+[role='link'][tabindex]:hover:after { content: 'rôle lien, tabindex: ' attr(tabindex); }
+button:hover:after { content: 'bouton'; }
+button[tabindex]:hover:after { content: 'bouton, tabindex: ' attr(tabindex); }
+[role='button']:hover:after { content: 'rôle bouton'; }
+[role='button'][tabindex]:hover:after { content: 'rôle bouton, tabindex: ' attr(tabindex); }
+
+input + label:hover:after { content: 'input, probablement radio ou checkbox'; }
+input[tabindex] + label:hover:after { content: 'input, probablement radio ou checkbox tabindex: ' attr(tabindex); }
+select:hover:after { content: 'select'; }
+select[tabindex]:hover:after { content: 'select, tabindex: ' attr(tabindex); }
+textarea:hover:after { content: 'textarea'; }
+textarea[tabindex]:hover:after { content: 'textarea, tabindex: ' attr(tabindex); }

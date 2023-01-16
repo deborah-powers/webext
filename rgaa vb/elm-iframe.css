@@ -1,0 +1,21 @@
+iframe, figure {
+	border-style: dotted !important;
+	border-width: 4px !important;
+}
+iframe { border-color: deeppink !important; }
+figure { border-color: limegreen !important; }
+iframe[title], iframe[aria-label], iframe[aria-labelledby],
+figure[role='group'][title], figure[role='group'][aria-label], figure[role='group'][aria-labelledby],
+figure[role='figure'][title], figure[role='figure'][aria-label], figure[role='figure'][aria-labelledby],
+	{ border-style: solid !important; }
+figcaption {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: magenta !important;
+}
+iframe:hover:after { content: 'tître manquant' '\A' attr(infos); }
+iframe[title]:hover:after { content: 'title: ' attr(title) '\A' attr(infos); }
+figure:hover:after { content: 'rôle: ' attr(role, 'manquant') '\Atitle: manquant'; }
+figure[title]:hover:after { content: 'rôle: ' attr(role, 'manquant') '\Atitle: ' attr(title) '\A' attr(infos); }
+figure[aria-label]:hover:after { content: 'rôle: ' attr(role, 'manquant') '\Alabel: ' attr(aria-label) '\A' attr(infos); }
+figure[aria-labelledby]:hover:after { content: 'rôle: ' attr(role, 'manquant') '\Alabelled by: ' attr(aria-labelledby) '\A' attr(infos); }

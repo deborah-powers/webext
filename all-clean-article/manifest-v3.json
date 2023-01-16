@@ -1,0 +1,11 @@
+{
+	"manifest_version": 3,
+	"name": "nettoyeur d'articles",
+	"version": "1.0",
+	"description": "nettoyer mes pages web",
+	"icons": { "48": "icon-128.png" },
+	"permissions": [ "tabs", "activeTab", "scripting" ],
+	"host_permissions": [ "https://www.fanfiction.net/s/*" ],
+	"background": { "service_worker": "service-worker-v3.js" },
+	"action": {}
+}

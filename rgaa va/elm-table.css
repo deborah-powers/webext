@@ -1,0 +1,31 @@
+table {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: deeppink !important;
+}
+table[role='presentation'], table[role='none'] { border-color: limegreen !important; }
+
+
+table.rgaa-error { border-style: dashed !important; }
+table.rgaa-double th, table.rgaa-complex th, table.rgaa-complex td {
+	border-style: dashed;
+	border-width: 4px !important;
+	border-color: deeppink !important;
+}
+table.rgaa-double th[scope], table.rgaa-complex th[id], table.rgaa-complex td[headers] { border-style: solid !important; }
+th.rgaa-highlight { background-color: hotpink !important; }
+[role='table'] {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: cadetblue !important;
+}
+[role='rowgroup'], [role='row'], [role='cell'], [role='rowheader'], [role='columnheader'] {
+	border-style: dashed;
+	border-width: 2px !important;
+	border-color: cadetblue !important;
+}
+[role='table'] > [role='rowgroup'], [role='table'] [role='row'],
+[role='row'] > [role='cell'], [role='row'] > [role='rowheader'], [role='row'] > [role='columnheader'] {
+	border-style: solid !important;
+}
+table.highlight, th.highlight { border-width: 8px !important; }

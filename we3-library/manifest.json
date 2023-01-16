@@ -1,0 +1,16 @@
+{
+	"manifest_version": 3,
+	"name": "libraire",
+	"version": "1.0",
+	"description": "webext librairie appellée par d'autres webext",
+	"icons": { "48": "icon-128.png" },
+	"permissions": [ "storage", "tabs", "activeTab", "scripting" ],
+	"host_permissions": [ "<all_urls>" ],
+	"background": { "service_worker": "service-worker.js" },
+	"content_scripts": [{
+		"matches": [ "<all_urls>" ],
+		"js": [ "textFct.js", "file.js", "htmlFct.js", "pageFct.js", "logger.js", "sommaire.js" ]
+	}],
+	// "externally_connectable": { "matches": [ "<all_urls>" ], "ids": ["*"] },
+	"action": {}
+}

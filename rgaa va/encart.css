@@ -1,0 +1,59 @@
+section#encart-rgaa {
+	position: fixed;
+	top: 60%;
+	left: 0;
+	z-index: 1;
+	width: 40%;
+	min-height: 40%;
+	background-color: ivory;
+	border: double 8px deeppink;
+	border-radius: 1em;
+	color: #420;
+	cursor: move;
+	display: grid;
+	grid-template-columns: 7fr 1fr 1fr 1fr;
+	grid-template-rows: 1fr 3fr;
+	font-size: 1em;
+	font-weight: normal;
+	font-family: georgia, serif;
+}
+section#encart-rgaa >* {
+	background-color: transparent;
+	margin: 0;
+	font-size: inherit;
+	font-weight: inherit;
+	font-family: inherit;
+	color: inherit;
+}
+section#encart-rgaa > h2 {
+	font-size: 1.2em;
+}
+section#encart-rgaa > p {
+	grid-column: 1/5;
+	padding: 0 5%;
+}
+section#encart-rgaa > span {
+	text-align: center;
+	color: ivory;
+	background-color: deeppink;
+	border-radius: 1em;
+	line-height: 1em;
+	display: inline-block;
+	vertical-align: middle;
+}
+span.cross {
+	height: 2em;
+	width: 2em;
+	clip-path: polygon(0 20%, 20% 0, 50% 40%, 80% 0, 100% 20%, 60% 50%, 100% 80%, 80% 100%, 50% 60%, 20% 100%, 0 80%, 40% 50%);
+}
+span.arrow {
+	height: 1em;
+	width: 2em;
+	margin: 0 0.5em;
+	clip-path: polygon(0 50%, 40% 0%, 40% 30%, 60% 30%, 60% 0%, 100% 50%, 60% 100%, 60% 70%, 40% 70%, 40% 100%);
+}
+span.arrow.vertical {
+	height: 2em;
+	width: 1em;
+	clip-path: polygon(50% 0%, 0% 40%, 30% 40%, 30% 60%, 0% 60%, 50% 100%, 100% 60%, 70% 60%, 70% 40%, 100% 40%);
+}

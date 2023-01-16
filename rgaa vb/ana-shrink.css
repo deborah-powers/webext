@@ -1,0 +1,7 @@
+body {
+	border: solid 4px deeppink;
+	width: 320px !important;
+	height: 256px !important;
+	margin: auto;
+	overflow: scroll !important;
+}
