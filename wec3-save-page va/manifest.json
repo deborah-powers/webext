@@ -1,0 +1,15 @@
+{
+	"manifest_version": 3,
+	"name": "nettoyeur et enregistreur de pages",
+	"version": "1.0",
+	"description": "nettoyer mes pages web",
+	"icons": { "48": "icon-128.png" },
+	"permissions": [ "storage", "tabs", "activeTab", "scripting" ],
+	"host_permissions": [ "<all_urls>" ],
+	"externally_connectable": { "matches": [ "<all_urls>" ]},
+	"action": {
+		"default_icon": { "48": "icon-128.png" },
+		"default_title": "afficher la popup",
+		"default_popup": "popup.html"
+	}
+}

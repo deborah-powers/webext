@@ -33,12 +33,12 @@ String.prototype.count = function (word){
 String.prototype.strip = function(){
 	var toStrip = '\n \t/';
 	var text = this;
-	while (toStrip.includes (text[0])) text = text.slice (1);
-	while (toStrip.includes (text [text.length -1])) text = text.slice (0, text.length -1);
+	var i=0, j=1;
+	while (toStrip.index (text[0]) >=0) text = text.slice (1);
+	while (toStrip.index (text [text.length -1]) >=0) text = text.slice (0, text.length -1);
 	return text;
 }
 function sendToBackend(){
-	// récupérer les métadonnées
 	const data = {
 		title: 'nouvel article',
 		link: window.location.href,
@@ -47,14 +47,14 @@ function sendToBackend(){
 		subject: "",
 		autlink: window.location.href
 	};
-	const title = document.head.getElementsByTagName ('title')[0].innerHTML.toLowerCase().clean();
+	const title = document.head.getElementsByTagName ('title')[0].innerHTML.clean();
 	if (exists (title)) data.title = title;
-	if (exists (document.getElementById ('infos-page').getElementById ('author')))
-		data.author = document.getElementById ('infos-page').getElementById ('author').innerText.toLowerCase().clean();
-	if (exists (document.getElementById ('infos-page').getElementById ('subject')))
-		data.subject = document.getElementById ('infos-page').getElementById ('subject').innerText.toLowerCase().clean();
-	if (exists (document.getElementById ('infos-page').getElementById ('autlink')))
-		data.autlink = document.getElementById ('infos-page').getElementById ('autlink').innerText;
+	const metas = document.head.getElementsByTagName ('meta');
+	for (var m=0; m< metas.length; m++){
+		if (metas[m].name === 'author') data.author = metas[m].content;
+		else if (metas[m].name === 'subject') data.subject = metas[m].content;
+		else if (metas[m].name === 'autlink') data.autlink = metas[m].content;
+	}
 	// ecrire le body propre dans un fichier grâce à un backend python
 	const urlBE = 'http://localhost:1407/';
 	var xhttp = new XMLHttpRequest();

@@ -4,23 +4,17 @@ https://developer.mozilla.org/fr/docs/Mozilla/Add-ons/WebExtensions/Your_first_W
 https://developer.mozilla.org/fr/docs/Mozilla/Add-ons/WebExtensions/Your_second_WebExtension
 https://developer.mozilla.org/fr/docs/Mozilla/Add-ons/WebExtensions/Add_a_button_to_the_toolbar
 
-======================== divers ========================
-
-dans manifest.json
-content_scripts.matches = <all_urls> ou https://*/* ou encore une liste d'urls.
-"web_accessible_resources": []
-liste des images et autres injectés dans la page. pas pour les scripts js.
-
-utiliser un script inline dans chrome
-dans manifest.json
-"minimum_chrome_version": "46",
-"content_security_policy": "script-src 'self' 'sha256-WOdSzz11/3cpqOdrm89LBL2UPwEU9EhbDtMy2OciEhs='",
-
-une popup a du mal à contenir un script mais elle peux charger une feuille de style css ou un script js. ils doivent être contenus dans le dossier de l'extension. il n'y a pas besoin de les préciser dans le manifest.
-
-
 
 ======================== installation provisoire ========================
+
+************************ pour chrome ************************
+
+chrome://extensions/
+activer le mode développeur
+bouton "charger l'extension non empaquetée"
+
+"service worker registration failed" chrome web extension
+'browser_action' requires manifest version of 2 or lower.
 
 ************************ pour firefox ************************
 
@@ -37,13 +31,18 @@ renommer le .zip en .xpi
 
 l'uploader sur https://addons.mozilla.org/fr/developers/addons
 
+======================== divers ========================
 
+dans manifest.json
+content_scripts.matches = <all_urls> ou https://*/* ou encore une liste d'urls.
+"web_accessible_resources": []
+liste des images et autres injectés dans la page. pas pour les scripts js.
 
-************************ pour chrome ************************
+utiliser un script inline dans chrome
+dans manifest.json
+"minimum_chrome_version": "46",
+"content_security_policy": "script-src 'self' 'sha256-WOdSzz11/3cpqOdrm89LBL2UPwEU9EhbDtMy2OciEhs='",
 
-chrome://extensions/
-activer le mode développeur
-bouton "charger l'extension non empaquetée"
+une popup a du mal à contenir un script mais elle peux charger une feuille de style css ou un script js. ils doivent être contenus dans le dossier de l'extension. il n'y a pas besoin de les préciser dans le manifest.
 
-"service worker registration failed" chrome web extension
-'browser_action' requires manifest version of 2 or lower.
+faire communiquer deux wext entre elle: cf wec3-message-sender et wec3-message-receiver.

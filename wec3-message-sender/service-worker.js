@@ -2,7 +2,7 @@
 https://stackoverflow.com/questions/71369177/chrome-extension-onmessage-addlistener-vs-chrome-runtime-onmessage-addlistener-o
 */
 function coloriseBg(){
-	const wextMessageReceiver = "hoecdmhfghghboehkefgenbkldjjeigh";
+	const wextMessageReceiver = "pieplmdnmciljgmogpjpfcfkapbnbenj";
 	const divs = document.getElementsByTagName ('div');
 	for (var d=0; d< divs.length; d++) divs[d].style.backgroundColor = 'pink';
 	chrome.runtime.sendMessage (wextMessageReceiver, {getTargetData: true},
@@ -11,7 +11,7 @@ function coloriseBg(){
 }
 function coloriseBgConectionShort(){
 	// connection brêve, récupérer un message puis lancer une fonction locale
-	const wextMessageReceiver = "hoecdmhfghghboehkefgenbkldjjeigh";
+	const wextMessageReceiver = "pieplmdnmciljgmogpjpfcfkapbnbenj";
 	var color = 'pink';
 	const divs = document.getElementsByTagName ('div');
 	chrome.runtime.sendMessage (
@@ -26,7 +26,9 @@ function coloriseBgConectionShort(){
 }
 function coloriseBgConectionLong (tabId){
 	// connection longue, possibilité d'executer les fonctions de la webext destinataire
-	const wextMessageReceiver = "hoecdmhfghghboehkefgenbkldjjeigh";
+	const wextMessageReceiver = "pieplmdnmciljgmogpjpfcfkapbnbenj";
+	console.log ("coucou je suis le l'envoyeur");
+	document.body.style.border = '20px solid red';
 	const divs = document.getElementsByTagName ('div');
 	var port = chrome.runtime.connect (wextMessageReceiver);
 	port.postMessage ({ message: 'coucou', tabId: tabId });

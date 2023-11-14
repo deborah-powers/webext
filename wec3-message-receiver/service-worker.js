@@ -2,9 +2,9 @@
 https://stackoverflow.com/questions/71369177/chrome-extension-onmessage-addlistener-vs-chrome-runtime-onmessage-addlistener-o
 */
 function coloriseBg(){
-	console.log ('coucou');
+	console.log ('coucou je suis le receveur');
 	const divs = document.getElementsByTagName ('div');
-	for (var d=0; d< divs.length; d++) divs[d].style.backgroundColor = 'lime';
+	for (var d=0; d< divs.length; d++) divs[d].style.backgroundColor = 'lightgreen';
 }
 chrome.action.onClicked.addListener (function (tab){
 	if (! tab.url.includes ('chrome://')){
