@@ -1,7 +1,7 @@
 function cleanPage (tabId){
 	chrome.scripting.executeScript ({
 		target: {tabId: tabId, allFrames: true },
-		files: [ 'cleanLib.js', 'metas.js', 'cleanPage.js' ]
+		files: [ 'cleanLib.js', 'metas.js', 'cleanAction.js' ]
 	});
 	chrome.scripting.insertCSS ({
 		target: {tabId: tabId, allFrames: true},

@@ -171,9 +171,14 @@ HTMLElement.prototype.delIds = function(){
 }
 HTMLElement.prototype.findTag = function (tagName){
 	var container = this.getElementsByTagName (tagName)[0];
-	if (! exists (container)) container = this.getElementsByClassName (tagName)[0];
 	if (! exists (container)) container = document.getElementById (tagName);
-	if (exists (container)) this.innerHTML = container.innerHTML;
+	if (! exists (container)) container = this.getElementsByClassName (tagName)[0];
+	if (exists (container)) return container;
+	else return null;
+}
+HTMLElement.prototype.findTagReplace = function (tagName){
+	const container = this.findTag (tagName);
+	if (container !== null) this.innerHTML = container.innerHTML;
 }
 HTMLElement.prototype.findTagList = function (tagName){
 	var containerList = this.getElementsByTagName (tagName);
@@ -190,7 +195,7 @@ HTMLElement.prototype.findTagList = function (tagName){
 }}
 HTMLBodyElement.prototype.cleanBody = function(){
 	this.innerHTML = this.innerHTML.clean();
-	this.findTag ('main');
+	this.findTagReplace ('main');
 	if (this.innerHTML.count ('</article>') >0) this.findTagList ('article');
 	for (var a= this.attributes.length -1; a>=0; a--) this.removeAttribute (this.attributes[a].name);
 	this.clean();
