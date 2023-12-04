@@ -1,12 +1,7 @@
 var header =`<title></title>
 	<meta name='viewport' content='width=device-width,initial-scale=1'/>
 	<meta charset='utf-8'/>`;
-var body =`<!DOCTYPE html><html><head>
-	<title>appartement</title>
-	<meta name='viewport' content='width=device-width,initial-scale=1'/>
-	<meta charset='utf-8'/>
-	<style type='text/css'></style>
-</head><body>
+var body =`
 	<h1>appartement</h1>
 	<h2>appartement</h2>
 	<p>surface: $surface</p>
@@ -21,8 +16,7 @@ var body =`<!DOCTYPE html><html><head>
 	<p>taxe foncière: $tf</p>
 	<h2>agence, $agence</h2>
 	<p>numéro: $agenceNum</p>
-	<p>courriel: $agenceMail</p>
-</body></html>`;
+	<p>courriel: $agenceMail</p>`;
 
 // récupérer le titre et nettoyer les headers
 var title = document.head.getElementsByTagName ('title')[0].innerHTML;

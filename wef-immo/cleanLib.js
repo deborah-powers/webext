@@ -103,55 +103,53 @@ String.prototype.cleanEmptyTags = function(){
 	return text;
 }
 HTMLElement.prototype.removeComments = function(){
-	if (this.innerHTML.includes ('<!--')){
-		this.innerHTML = this.innerHTML.replaceAll ('-->', '<!--');
-		listCom = this.innerHTML.split ('<!--');
-		this.innerHTML = "";
-		for (var i=0; i< listCom.length; i+=2) this.innerHTML = this.innerHTML + listCom[i];
-		this.innerHTML = this.innerHTML.clean();
-	}
-	/*
+	if (! [ 'IMG', 'BR', 'HR', 'INPUT' ].includes (this.tagName)){
+		for (var c= this.childNodes.length -1; c>=0; c--){
+			if (this.childNodes[c].constructor.name === 'Comment') this.removeChild (this.childNodes[c]);
+			else if (this.childNodes[c].constructor.name === 'Text' && this.childNodes[c].length <2
+					&& ! "0123456789abcdefghijklmnopqrstuvwxyz.:;,!?".includes (this.childNodes[c].textContent))
+				this.removeChild (this.childNodes[c]);
+		}
+		for (var c=0; c< this.children.length; c++) this.children[c].removeComments();
+}}
+SVGSVGElement.prototype.removeComments = function(){
 	for (var c= this.childNodes.length -1; c>=0; c--){
 		if (this.childNodes[c].constructor.name === 'Comment') this.removeChild (this.childNodes[c]);
 		else if (this.childNodes[c].constructor.name === 'Text' && this.childNodes[c].length <2
 				&& ! "0123456789abcdefghijklmnopqrstuvwxyz.:;,!?".includes (this.childNodes[c].textContent))
 			this.removeChild (this.childNodes[c]);
-	}
-	for (var c=0; c< this.children.length; c++) this.children[c].removeComments();
-	*/
-}
+}}
 HTMLElement.prototype.removeEmptyTag = function(){
 	if ([ 'SCRIPT', 'NOSCRIPT', 'HEADER', 'FOOTER' ].includes (this.tagName)) this.parentElement.removeChild (this);
-	else if (! [ 'IMG', 'BR', 'HR', 'INPUT', 'TEXTAREA' ].includes (this.tagName)){
-		if (! exists (this.innerHTML) || ! exists (this.innerText) && this.children.length ===0)
-			this.parentElement.removeChild (this);
+	else if (! [ 'IMG', 'BR', 'HR', 'INPUT', 'TEXTAREA', 'svg' ].includes (this.tagName)){
+		if (! exists (this.innerHTML) || ! exists (this.innerText) && this.children.length ===0) this.parentElement.removeChild (this);
 		else if ('svg' !== this.tagName){
-		console.log ('c', this.children.length, this.children);
-			for (var c=0; c< this.children.length; c++) this.children[c].removeEmptyTag();
-		console.log ('f');
+			for (var c=0; c< this.children.length; c++) if (this.children[c].tagName !== 'svg') this.children[c].removeEmptyTag();
 			if (! exists (this.innerHTML) || ! exists (this.innerText) && this.children.length ===0) this.parentElement.removeChild (this);
-		console.log ('v');
 }}}
 HTMLElement.prototype.simplifyNesting = function(){
-	for (var c= this.children.length -1; c>=0; c--) this.children[c].simplifyNesting();
-	if (this.children.length ===1 && this.childNodes.length ===1){
-		if ([ 'A', 'IMG', 'BR', 'HR', 'INPUT', 'TEXTAREA', 'svg' ].includes (this.children[0].tagName)){
-			this.parentElement.insertBefore (this.children[0], this);
-			this.parentElement.removeChild (this);
-		}
-		else if (this.children.length >0) this.innerHTML = this.children[0].innerHTML;
-}}
+	if (! [ 'IMG', 'BR', 'HR', 'INPUT', 'svg' ].includes (this.tagName)){
+		for (var c= this.children.length -1; c>=0; c--) if (this.children[c].tagName !== 'svg') this.children[c].simplifyNesting();
+		if (this.children.length ===1 && this.childNodes.length ===1){
+			if ([ 'A', 'IMG', 'BR', 'HR', 'INPUT', 'TEXTAREA', 'svg' ].includes (this.children[0].tagName)){
+				this.parentElement.insertBefore (this.children[0], this);
+				this.parentElement.removeChild (this);
+			}
+			else if (this.children.length >0) this.innerHTML = this.children[0].innerHTML;
+}}}
 HTMLElement.prototype.clean = function(){
 	if (! [ 'IMG', 'BR', 'HR', 'INPUT', 'svg' ].includes (this.tagName)){
 		this.removeComments();
-		console.log ('b');
 		this.removeEmptyTag();
-		console.log ('w');
 		this.simplifyNesting();
-		console.log ('y');
-		for (var c=0; c< this.children.length; c++) this.children[c].clean();
+		for (var c=0; c< this.children.length; c++) if (this.children[c].tagName !== 'svg') this.children[c].clean();
 }}
 // est-ce que je conserve la classe et l'id ?
+HTMLElement.prototype.delAttribute = function(){
+	for (var a= this.attributes.length -1; a>=0; a--) if (! 'id class'.includes (this.attributes[a].name))
+		this.removeAttribute (this.attributes[a].name);
+	for (var c=0; c< this.children.length; c++) if (this.children[c].tagName !== 'svg') this.children[c].delAttribute();
+}
 HTMLImageElement.prototype.delAttribute = function(){
 	for (var a= this.attributes.length -1; a>=0; a--) if (! 'id src alt'.includes (this.attributes[a].name))
 		this.removeAttribute (this.attributes[a].name);
@@ -159,14 +157,6 @@ HTMLImageElement.prototype.delAttribute = function(){
 HTMLInputElement.prototype.delAttribute = function(){
 	for (var a= this.attributes.length -1; a>=0; a--) if (! 'id type name value'.includes (this.attributes[a].name))
 		this.removeAttribute (this.attributes[a].name);
-}
-HTMLElement.prototype.delAttribute = function(){
-	console.dir (this.attributes);
-	for (var a= this.attributes.length -1; a>=0; a--) if (! 'id class'.includes (this.attributes[a].name)){
-		console.log (a, this.attributes[a].name);
-		this.removeAttribute (this.attributes[a].name);
-	}
-	for (var c=0; c< this.children.length; c++) this.children[c].delAttribute();
 }
 HTMLAnchorElement.prototype.delAttribute = function(){
 	for (var a= this.attributes.length -1; a>=0; a--) if (! 'id class href'.includes (this.attributes[a].name))
@@ -183,6 +173,10 @@ HTMLButtonElement.prototype.delAttribute = function(){
 		this.removeAttribute (this.attributes[a].name);
 	for (var c=0; c< this.children.length; c++) this.children[c].delAttribute();
 }
+SVGSVGElement.prototype.delAttribute = function(){
+	for (var a= this.attributes.length -1; a>=0; a--) if (! 'id class xmlns width height version xmlns:xlink'.includes (this.attributes[a].name))
+		this.removeAttribute (this.attributes[a].name);
+}
 HTMLElement.prototype.delIds = function(){
 	if (exists (this.getAttribute ('class'))) this.removeAttribute ('class');
 	if (exists (this.getAttribute ('id'))) this.removeAttribute ('id');
@@ -196,7 +190,7 @@ HTMLElement.prototype.findTag = function (tagName){
 	else return null;
 }
 HTMLElement.prototype.findTagReplace = function (tagName){
-	var container = this.findTag (tagName);
+	const container = this.findTag (tagName);
 	if (container != null) this.innerHTML = container.innerHTML;
 }
 HTMLElement.prototype.findTagList = function (tagName){
@@ -212,14 +206,12 @@ HTMLElement.prototype.findTagList = function (tagName){
 		containerList = document.getElementById (tagName);
 		if (exists (containerList)) this.innerHTML = containerList.innerHTML;
 }}
-HTMLElement.prototype.cleanBody = function(){
+HTMLBodyElement.prototype.cleanBody = function(){
 	this.innerHTML = this.innerHTML.clean();
-	this.findTagReplace ('main');
+//	this.findTagReplace ('main');
 	if (this.innerHTML.count ('</article>') >0) this.findTagList ('article');
 	for (var a= this.attributes.length -1; a>=0; a--) this.removeAttribute (this.attributes[a].name);
-	console.log ('a');
 	this.clean();
-	console.log ('a');
 	this.innerHTML = this.innerHTML.cleanEmptyTags();
-	console.log ('a');
+	this.delAttribute();
 }

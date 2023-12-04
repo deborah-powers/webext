@@ -1,5 +1,3 @@
-const cssCode = 'body { background-color: orange; }';
-
 function initAction (tab){
 	chrome.pageAction.setIcon ({tabId: tab.id, path: 'icon-128.png' });
 	chrome.pageAction.setTitle ({tabId: tab.id, title: 'launch appli' });
