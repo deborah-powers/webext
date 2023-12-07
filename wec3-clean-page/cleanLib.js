@@ -103,37 +103,46 @@ String.prototype.cleanEmptyTags = function(){
 	return text;
 }
 HTMLElement.prototype.removeComments = function(){
+	if (! [ 'IMG', 'BR', 'HR', 'INPUT' ].includes (this.tagName)){
+		for (var c= this.childNodes.length -1; c>=0; c--){
+			if (this.childNodes[c].constructor.name === 'Comment') this.removeChild (this.childNodes[c]);
+			else if (this.childNodes[c].constructor.name === 'Text' && this.childNodes[c].length <2
+					&& ! "0123456789abcdefghijklmnopqrstuvwxyz.:;,!?".includes (this.childNodes[c].textContent))
+				this.removeChild (this.childNodes[c]);
+		}
+		for (var c=0; c< this.children.length; c++) this.children[c].removeComments();
+}}
+SVGSVGElement.prototype.removeComments = function(){
 	for (var c= this.childNodes.length -1; c>=0; c--){
 		if (this.childNodes[c].constructor.name === 'Comment') this.removeChild (this.childNodes[c]);
 		else if (this.childNodes[c].constructor.name === 'Text' && this.childNodes[c].length <2
 				&& ! "0123456789abcdefghijklmnopqrstuvwxyz.:;,!?".includes (this.childNodes[c].textContent))
 			this.removeChild (this.childNodes[c]);
-	}
-	for (var c=0; c< this.children.length; c++) this.children[c].removeComments();
-}
+}}
 HTMLElement.prototype.removeEmptyTag = function(){
 	if ([ 'SCRIPT', 'NOSCRIPT', 'HEADER', 'FOOTER' ].includes (this.tagName)) this.parentElement.removeChild (this);
-	else if (! [ 'IMG', 'BR', 'HR', 'INPUT', 'TEXTAREA' ].includes (this.tagName)){
+	else if (! [ 'IMG', 'BR', 'HR', 'INPUT', 'TEXTAREA', 'svg' ].includes (this.tagName)){
 		if (! exists (this.innerHTML) || ! exists (this.innerText) && this.children.length ===0) this.parentElement.removeChild (this);
 		else if ('svg' !== this.tagName){
-			for (var c=0; c< this.children.length; c++) this.children[c].removeEmptyTag();
+			for (var c=0; c< this.children.length; c++) if (this.children[c].tagName !== 'svg') this.children[c].removeEmptyTag();
 			if (! exists (this.innerHTML) || ! exists (this.innerText) && this.children.length ===0) this.parentElement.removeChild (this);
 }}}
 HTMLElement.prototype.simplifyNesting = function(){
-	for (var c= this.children.length -1; c>=0; c--) this.children[c].simplifyNesting();
-	if (this.children.length ===1 && this.childNodes.length ===1){
-		if ([ 'A', 'IMG', 'BR', 'HR', 'INPUT', 'TEXTAREA', 'svg' ].includes (this.children[0].tagName)){
-			this.parentElement.insertBefore (this.children[0], this);
-			this.parentElement.removeChild (this);
-		}
-		else if (this.children.length >0) this.innerHTML = this.children[0].innerHTML;
-}}
+	if (! [ 'IMG', 'BR', 'HR', 'INPUT', 'svg' ].includes (this.tagName)){
+		for (var c= this.children.length -1; c>=0; c--) if (this.children[c].tagName !== 'svg') this.children[c].simplifyNesting();
+		if (this.children.length ===1 && this.childNodes.length ===1){
+			if ([ 'A', 'IMG', 'BR', 'HR', 'INPUT', 'TEXTAREA', 'svg' ].includes (this.children[0].tagName)){
+				this.parentElement.insertBefore (this.children[0], this);
+				this.parentElement.removeChild (this);
+			}
+			else if (this.children.length >0) this.innerHTML = this.children[0].innerHTML;
+}}}
 HTMLElement.prototype.clean = function(){
 	if (! [ 'IMG', 'BR', 'HR', 'INPUT', 'svg' ].includes (this.tagName)){
 		this.removeComments();
 		this.removeEmptyTag();
 		this.simplifyNesting();
-		for (var c=0; c< this.children.length; c++) this.children[c].clean();
+		for (var c=0; c< this.children.length; c++) if (this.children[c].tagName !== 'svg') this.children[c].clean();
 }}
 // est-ce que je conserve la classe et l'id ?
 HTMLImageElement.prototype.delAttribute = function(){
@@ -147,7 +156,7 @@ HTMLInputElement.prototype.delAttribute = function(){
 HTMLElement.prototype.delAttribute = function(){
 	for (var a= this.attributes.length -1; a>=0; a--) if (! 'id class'.includes (this.attributes[a].name))
 		this.removeAttribute (this.attributes[a].name);
-	for (var c=0; c< this.children.length; c++) this.children[c].delAttribute();
+	for (var c=0; c< this.children.length; c++) if (this.children[c].tagName !== 'svg') this.children[c].delAttribute();
 }
 HTMLAnchorElement.prototype.delAttribute = function(){
 	for (var a= this.attributes.length -1; a>=0; a--) if (! 'id class href'.includes (this.attributes[a].name))
@@ -200,4 +209,5 @@ HTMLBodyElement.prototype.cleanBody = function(){
 	for (var a= this.attributes.length -1; a>=0; a--) this.removeAttribute (this.attributes[a].name);
 	this.clean();
 	this.innerHTML = this.innerHTML.cleanEmptyTags();
+	this.delAttribute();
 }
