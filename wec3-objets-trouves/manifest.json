@@ -1,0 +1,12 @@
+{
+	"manifest_version": 3,
+	"name": "objets trouvés",
+	"version": "1.0",
+	"description": "remplir le formulaire des objets trouvés",
+	"icons": { "48": "icon-128.png" },
+	"permissions": [ "activeTab", "scripting" ],
+	"content_scripts": [{
+		"matches": [ "https://ratp.franceobjetstrouves.fr/annonce/objets-perdus" ],
+		"js": ["background.js"]
+	}]
+}

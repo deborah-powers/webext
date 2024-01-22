@@ -37,12 +37,30 @@ String.prototype.strip = function(){
 	while (toStrip.includes (text [text.length -1])) text = text.slice (0, text.length -1);
 	return text;
 }
-function sendToBackend(){
+function sendToBackend (article){
+	document.body.delIds();
+	if (! exists (article.title)) article.title = 'nouvel article';
+	if (! exists (article.author)) article.author = 'anonyme';
+	if (! exists (article.authlink)) article.authlink ="";
+	if (! exists (article.subject)) article.subject ="";
+	if (! exists (article.text)) article.text = document.body.innerHTML;
+	article.link = window.location.href;
+	// ecrire le body propre dans un fichier grâce à un backend python
+	const urlBE = 'http://localhost:1407/';
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function(){
+		if (this.readyState ===4 && this.status === 200) console.log ("les données ont bien été envoyées au back-end.\nsa réponse:", this.responseText);
+//		else console.log ("l'échange avec le back-end est en erreur.\nécoute-il sur le port 1407 ?\nétat =", this.readyState, 'status =', this.status);
+	};
+	xhttp.open ('POST', urlBE, true);
+	xhttp.send (JSON.stringify (article));
+}
+function sendToBackendVa(){
 	// récupérer les métadonnées
 	const data = {
 		title: 'nouvel article',
 		link: window.location.href,
-		body: document.body.innerHTML,
+		text: document.body.innerHTML,
 		author: "",
 		subject: "",
 		autlink: window.location.href

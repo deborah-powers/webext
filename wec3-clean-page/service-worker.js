@@ -1,11 +1,11 @@
 function cleanPage (tabId){
 	chrome.scripting.executeScript ({
 		target: {tabId: tabId, allFrames: true },
-		files: [ 'cleanLib.js', 'cleanAction.js' ]
+		files: [ 'text-clean.js', 'text.js', 'page-clean.js', 'cleanAction.js' ]
 	});
 	chrome.scripting.insertCSS ({
 		target: {tabId: tabId, allFrames: true},
-		files: ['structure.css', 'perso.css'],
+		files: ['structure.css', 'perso.css']
 	});
 }
 chrome.action.onClicked.addListener (function (tab){
