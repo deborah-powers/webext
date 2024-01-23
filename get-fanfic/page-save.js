@@ -8,7 +8,7 @@ const data = {
 	text: document.body.innerHTML
 };
 var title = document.head.getElementsByTagName ('title')[0].innerHTML.toLowerCase().cleanTxt();
-if (exists (title)) data.title = title;
+// if (exists (title)) data.title = title;
 const dataJson = JSON.stringify (data);
 // ecrire le body propre dans un fichier grâce à un backend python
 var xhttp = new XMLHttpRequest();
