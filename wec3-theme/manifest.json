@@ -1,9 +1,10 @@
 /*
-https://github.com/Patrick-Batenburg/GoogleChromeThemeCreationGuide?tab=readme-ov-file#ntp_background
+https://github.com/Patrick-Batenburg/GoogleChromeThemeCreationGuide?tab=readme-ov-file
 qui masque qui
 images.theme_frame_overlay > images.theme_frame > colors.frame
 images.theme_toolbar > colors.toolbar
 un tint modifie la couleur d'une image
+une property se rapporte aux images
 */
 {
 	"manifest_version": 3,
@@ -21,7 +22,7 @@ un tint modifie la couleur d'une image
 			"tab_background_text": [75, 94, 94],	// couleur des titres des onglets innactifs
 			"bookmark_text": [75, 94, 94],			// couleur des favoris dans la barre de favoris
 			"button_background": [75, 94, 94]		// bouton fermer - réduire la fenêtre
-		},
+		}
 /*		"images": {
 			"theme_frame": "frame.png",	// barre tout en haut, où les onglets s'affichent
 			"theme_frame_overlay": "frame_overplay.png",	// barre tout en haut, coin gauche
@@ -30,6 +31,6 @@ un tint modifie la couleur d'une image
 			"theme_ntp_attribution": "attribution.png"
 		},
 		"tints": { "buttons": [0.33, 0.5, 0.47] },
-*/
 		"properties": { "ntp_background_alignment": "bottom" }
+*/
 }}
