@@ -5,10 +5,22 @@ const urlBackend = 'http://localhost:1407/';
 const data = {
 	title: 'nouvel article',
 	link: window.location.href,
-	text: document.body.innerHTML
+	text: document.body.innerHTML,
+	author: "",
+	authLink: "",
+	subject: ""
 };
+const meta = document.head.getElementsByTagName ('meta');
+for (var m=0; m< meta.length; m++){
+	if (meta[m].name === 'author') data.author = meta[m].content;
+	else if (meta[m].name === 'autlink') data.authLink = meta[m].content;
+	else if (meta[m].name === 'subject') data.subject = meta[m].content;
+}
 var title = document.head.getElementsByTagName ('title')[0].innerHTML.toLowerCase().cleanTxt();
-// if (exists (title)) data.title = title;
+if (exists (title)) data.title = title;
+
+console.log (data);
+
 const dataJson = JSON.stringify (data);
 // ecrire le body propre dans un fichier grâce à un backend python
 var xhttp = new XMLHttpRequest();
