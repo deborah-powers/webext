@@ -9,7 +9,7 @@ var tableau = document.getElementById ('trEX_TRC_MAP_VW$0_row25');
 var inputs = null;
 if (tableau !== null){
 	inputs = tableau.getElementsByTagName ('input');
-	for (var d=1; d<6; d++) inputs[d].value = '7.4';
+	for (var d=1; d<6; d++) inputs[d].value = '7,4';
 }
 // page b
 tableau = document.getElementById ('trUC_EX_TDLY_FR2$0_row1');
