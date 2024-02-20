@@ -8,4 +8,5 @@ title = title.toLowerCase().cleanTxt();
 header = header.replace ('<title></title>', '<title>' + title + '</title>');
 document.head.innerHTML = header;
 document.body.cleanBody();
+document.body.delIds();
 document.body.innerHTML = document.body.innerHTML.usePlaceholders();
