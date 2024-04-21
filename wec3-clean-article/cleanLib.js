@@ -47,10 +47,20 @@ function sendToBackend (article){
 	article.link = window.location.href;
 	// ecrire le body propre dans un fichier grâce à un backend python
 	const urlBE = 'http://localhost:1407/';
+	var messageErreur = "l'échange avec le back-end est en erreur.\nécoute-il sur le port 1407 ?\nétat =$etat, status =$status";
 	var xhttp = new XMLHttpRequest();
+	xhttp.onerror = function(){
+		messageErreur = messageErreur.replace ('$etat', this.readyState);
+		messageErreur = messageErreur.replace ('$status', this.status);
+		console.log (messageErreur);
+	}
 	xhttp.onreadystatechange = function(){
 		if (this.readyState ===4 && this.status === 200) console.log ("les données ont bien été envoyées au back-end.\nsa réponse:", this.responseText);
-//		else console.log ("l'échange avec le back-end est en erreur.\nécoute-il sur le port 1407 ?\nétat =", this.readyState, 'status =', this.status);
+		else if (this.readyState ===0){
+			messageErreur = messageErreur.replace ('$etat', this.readyState);
+			messageErreur = messageErreur.replace ('$status', this.status);
+			console.log (messageErreur);
+		}
 	};
 	xhttp.open ('POST', urlBE, true);
 	xhttp.send (JSON.stringify (article));
@@ -216,13 +226,28 @@ HTMLElement.prototype.findTagReplace = function (tagName){
 	if (container !== null) this.innerHTML = container.innerHTML;
 }
 HTMLElement.prototype.findTagList = function (tagName){
+	var finalList =[];
+	var containerList = this.getElementsByTagName (tagName);
+	if (exists (containerList)){ for (var i=0; i< containerList.length; i++) finalList.push (containerList[i]); }
+	else{
+		containerList = this.getElementsByClassName (tagName);
+		if (exists (containerList)){ for (var i=0; i< containerList.length; i++) finalList.push (containerList[i]); }
+		else{
+			containerList = this.getElementById (tagName);
+			if (exists (containerList)) finalList.push (containerList);
+		}
+	}
+	return finalList;
+}
+HTMLElement.prototype.findTagListReplace = function (tagName){
 	var containerList = this.getElementsByTagName (tagName);
 	if (! exists (containerList)) containerList = this.getElementsByClassName (tagName);
 	if (exists (containerList)){
 		if (containerList.length ===1) this.innerHTML = containerList[0].innerHTML;
 		else if (containerList.length >1){
-			this.innerHTML = containerList[0].outerHTML;
-			for (var c=1; c< containerList.length; c++) this.innerHTML = this.innerHTML + containerList[c].outerHTML;
+			var innerHtml = containerList[0].outerHTML;
+			for (var c=1; c< containerList.length; c++) innerHtml = innerHtml + containerList[c].outerHTML;
+			this.innerHTML = innerHtml;
 	}}
 	else{
 		containerList = document.getElementById (tagName);

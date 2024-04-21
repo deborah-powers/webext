@@ -3,6 +3,7 @@
 import json
 from http.server import HTTPServer, SimpleHTTPRequestHandler, test
 import textFct
+from fileCls import Article
 
 htmlTest = """<html>
 <head><title>Title goes here.</title></head>
@@ -10,7 +11,7 @@ htmlTest = """<html>
 <p>This is a test.</p>
 </body></html>
 """
-fileHtml = Html ('b/nouvel-article.html')
+fileHtml = Article ('b/nouvel-article.html')
 
 def cleanTitle (title):
 	chars = "\t\n\\'.:;,_-/"
@@ -19,8 +20,6 @@ def cleanTitle (title):
 	title = title.lower()
 	while '  ' in title: title = title.replace ('  ',' ')
 	return title
-
-
 
 class BackEndCors (SimpleHTTPRequestHandler):
 	def end_headers (self):
@@ -52,11 +51,12 @@ class BackEndCors (SimpleHTTPRequestHandler):
 		postBody = json.loads (self.readBody())
 		fileHtml.title = textFct.cleanHtml (postBody['title'])
 		fileHtml.title = cleanTitle (fileHtml.title)
-		fileHtml.text = textFct.cleanHtml (postBody['body'])
+		fileHtml.text = textFct.cleanHtml (postBody['text'])
 		fileHtml.link = postBody['link']
 		fileHtml.author = postBody['author']
 		fileHtml.subject = postBody['subject']
-		fileHtml.autlink = postBody['autlink']
+		fileHtml.autlink = postBody['authlink']
+		print (fileHtml.title, fileHtml.path)
 		fileHtml.write()
 		self.writeBody ('ok')
 
