@@ -50,14 +50,14 @@ class BackEndCors (SimpleHTTPRequestHandler):
 		self.end_headers()
 		postBody = json.loads (self.readBody())
 		fileHtml.title = textFct.cleanHtml (postBody['title'])
-		fileHtml.title = cleanTitle (fileHtml.title)
+		# fileHtml.title = cleanTitle (fileHtml.title)
 		fileHtml.text = textFct.cleanHtml (postBody['text'])
 		fileHtml.link = postBody['link']
 		fileHtml.author = postBody['author']
 		fileHtml.subject = postBody['subject']
 		fileHtml.autlink = postBody['authlink']
-		print (fileHtml.title, fileHtml.path)
-		fileHtml.write()
+		article = fileHtml.toText()
+		article.write()
 		self.writeBody ('ok')
 
 if __name__ == '__main__':

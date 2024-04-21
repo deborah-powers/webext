@@ -17,6 +17,7 @@ body {
 	background-color: ivory;
 	min-height: 100vh;
 	padding: 2%;
+	font-size: 1.2em;
 }
 html { background-color: var(--button-bg); }
 h1, h2, h3, h4, p { margin-bottom: 1em; }

@@ -26,7 +26,7 @@ else if (window.location.href.includes ('https://archiveofourown.org/works/')){
 	document.body.findTagReplace ('main');
 	document.body.findTagReplace ('inner');
 	// trouver le sujet
-	var tag = document.body.findTag ('dl');
+	var tag = document.body.findTag ('wrapper');
 	tag.findTagListReplace ('dd');
 	tag.findTagListReplace ('a');
 	fanfic.subject ="";
@@ -42,6 +42,7 @@ else if (window.location.href.includes ('https://archiveofourown.org/works/')){
 	document.body.findTagReplace ('chapters');
 	document.body.findTagListReplace ('userstuff module');
 	document.body.innerHTML = document.body.innerHTML.replaceAll ('<h3 class="landmark heading" id="work">Chapter Text</h3>', "");
+	document.body.innerHTML = document.body.innerHTML.replaceAll ('<h3 class="landmark heading" id="work">Work Text:</h3>', "");
 }
 else if (window.location.href.includes ('https://www.gutenberg.org/cache/epub/')){
 	// les métadonnées
