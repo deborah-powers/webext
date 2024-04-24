@@ -22,18 +22,9 @@ class FanficSubject{
 			if (text.includes (this.values[v])){
 				isIncluded = ', '+ this.name;
 				v= this.values.length;
-			}
-			v++;
-		}
+		} v++; }
 		return isIncluded;
-	}
-}
-function findSubject (title){
-	var subject ="";
-	for (var s=0; s< FanficSubject.subjects.length; s++) subject = FanficSubject.subjects[s].includes (title)
-	if (subject ==="") subject = 'fiction';
-	else subject = subject.substring (2);
-}
+}}
 class Fanfic{
 	constructor(){
 		this.title ="";
@@ -83,7 +74,7 @@ HTMLElement.prototype.removeAnnotations = function(){
 		else if (text.slice (0,3).includes ('a/n')) this.parentElement.removeChild (this);
 }}
 String.prototype.usePlaceholders = function(){
-	const placeholders = ('y/n', 'e/c', 'h/c', 'l/n');
+	const placeholders = ('y/n', 'e/c', 'h/c', 'f/n', 'l/n');
 	var text = this;
 	for (var p=0; p< placeholders.length; p++){
 		text = text.replaceAll (placeholders[p].toUpperCase(), placeholders[p]);
@@ -92,6 +83,7 @@ String.prototype.usePlaceholders = function(){
 		text = text.replaceAll ('{'+ placeholders[p] +'}', placeholders[p]);
 	}
 	text = text.replaceAll ('y/n', 'Deborah');
+	text = text.replaceAll ('f/n', 'Deborah');
 	text = text.replaceAll ('e/c', 'grey');
 	text = text.replaceAll ('h/c', 'dark blond');
 	text = text.replaceAll ('l/n', 'Powers');
