@@ -27,7 +27,7 @@ function coloriseBgConectionShort (tabId){
 }
 function coloriseBgConectionLong (tabId){
 	// connection longue, possibilité d'executer les fonctions de la webext destinataire
-	const wextMessageReceiver = "cklnfaccgogglclldkfdoalbcojcpbfc";
+	const wextMessageReceiver = "iiofkikajlcahhglfljjdlddcabniilg";
 	console.log ("coucou je suis l'envoyeur");
 	document.body.style.border = '20px solid red';
 	const divs = document.getElementsByTagName ('div');

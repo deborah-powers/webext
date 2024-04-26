@@ -1,0 +1,10 @@
+{
+	"manifest_version": 3,
+	"name": "message sender",
+	"version": "1.0",
+	"description": "envoyer un message à une autre webext",
+	"icons": { "48": "icon-128.png" },
+	"permissions": [ "storage", "tabs", "activeTab", "scripting" ],
+	"background": { "service_worker": "service-worker.js" },
+	"action": {}
+}
