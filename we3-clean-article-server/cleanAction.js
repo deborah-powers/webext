@@ -1,3 +1,7 @@
+var header =`<title></title>
+	<meta name='viewport' content='width=device-width,initial-scale=1'/>
+	<meta charset='utf-8'/>
+`;
 document.body.cleanBody();
 var fanfic = new Fanfic();
 
@@ -51,16 +55,14 @@ else if (window.location.href.includes ('https://www.gutenberg.org/cache/epub/')
 	// le texte
 	document.body.findTagListReplace ('chapter');
 }
-else{
-	document.body.findTagReplace ('main');
-//	document.body.findTagReplace ('section');
-}
+else document.body.findTagReplace ('main');
+
 fanfic.cleanTitle();
 fanfic.findSubject();
-document.body.cleanBody();
 document.body.removeAnnotations();
 document.body.innerHTML = document.body.innerHTML.usePlaceholders();
+header = header.replace ('<title></title>', '<title>' + fanfic.title + '</title>');
+document.head.innerHTML = header;
 document.body.delIds();
-document.body.removeEmptyTag();
 fanfic.text = document.body.innerHTML;
-fanfic.toPage();
+sendToBackend (fanfic.toData());

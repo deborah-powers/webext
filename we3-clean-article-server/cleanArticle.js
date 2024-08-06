@@ -1,11 +1,3 @@
-var header =`<title></title>
-	<meta name='viewport' content='width=device-width,initial-scale=1'/>
-	<meta charset='utf-8'/>
-	<meta name='link' content=''/>
-	<meta name='author' content=''/>
-	<meta name='autlink' content=''/>
-	<meta name='subject' content=''/>
-`;
 class FanficSubject{
 	static subjects =[
 		new FanficSubject ('romance', [ ' sex', 'x reader', 'rasmus', 'ville valo', 'jyrki', 'him (band)', '30 seconds to mars', 'integra', 'axi', 'damned caeli' ]),
@@ -71,15 +63,6 @@ class Fanfic{
 			link: this.link
 		};
 		return fanfic;
-	}
-	toPage(){
-		header = header.replace ('<title></title>', '<title>' + this.title + '</title>');
-		header = header.replace ("'link' content=''", "'link' content='"+ this.link +"'");
-		header = header.replace ("'author' content=''", "'author' content='"+ this.author +"'");
-		header = header.replace ("'autlink' content=''", "'autlink' content='"+ this.autlink +"'");
-		header = header.replace ("'subject' content=''", "'subject' content='"+ this.subject +"'");
-		document.head.innerHTML = header;
-		document.body.innerHTML = this.text;
 	}
 }
 HTMLElement.prototype.removeAnnotations = function(){

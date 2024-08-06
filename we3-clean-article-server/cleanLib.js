@@ -148,15 +148,7 @@ SVGSVGElement.prototype.removeComments = function(){
 			this.removeChild (this.childNodes[c]);
 }}
 HTMLElement.prototype.removeEmptyTag = function(){
-	for (var c=0; c< this.children.length; c++){
-		if ([ 'SCRIPT', 'NOSCRIPT', 'HEADER', 'FOOTER', 'STYLE', 'script' ].includes (this.children[c].tagName)) this.removeChild (this.children[c]);
-		else if (! [ 'IMG', 'BR', 'HR', 'INPUT', 'TEXTAREA', 'svg' ].includes (this.children[c].tagName)){
-			if (! exists (this.children[c].innerHTML) || (! exists (this.children[c].innerText) && this.children[c].children.length ===0))
-				this.removeChild (this.children[c]);
-			else this.children[c].removeEmptyTag();
-}}}
-HTMLElement.prototype.removeEmptyTag_va = function(){
-	if ([ 'SCRIPT', 'NOSCRIPT', 'HEADER', 'FOOTER', 'STYLE', 'script' ].includes (this.tagName)) this.parentElement.removeChild (this);
+	if ([ 'SCRIPT', 'NOSCRIPT', 'HEADER', 'FOOTER' ].includes (this.tagName)) this.parentElement.removeChild (this);
 	else if (! [ 'IMG', 'BR', 'HR', 'INPUT', 'TEXTAREA', 'svg' ].includes (this.tagName)){
 		if (! exists (this.innerHTML) || ! exists (this.innerText) && this.children.length ===0) this.parentElement.removeChild (this);
 		else if ('svg' !== this.tagName){
