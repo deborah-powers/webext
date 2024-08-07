@@ -148,15 +148,7 @@ SVGSVGElement.prototype.removeComments = function(){
 			this.removeChild (this.childNodes[c]);
 }}
 HTMLElement.prototype.removeEmptyTag = function(){
-	for (var c=0; c< this.children.length; c++){
-		if ([ 'SCRIPT', 'NOSCRIPT', 'HEADER', 'FOOTER', 'STYLE', 'script' ].includes (this.children[c].tagName)) this.removeChild (this.children[c]);
-		else if (! [ 'IMG', 'BR', 'HR', 'INPUT', 'TEXTAREA', 'svg' ].includes (this.children[c].tagName)){
-			if (! exists (this.children[c].innerHTML) || (! exists (this.children[c].innerText) && this.children[c].children.length ===0))
-				this.removeChild (this.children[c]);
-			else this.children[c].removeEmptyTag();
-}}}
-HTMLElement.prototype.removeEmptyTag_va = function(){
-	if ([ 'SCRIPT', 'NOSCRIPT', 'HEADER', 'FOOTER', 'STYLE', 'script' ].includes (this.tagName)) this.parentElement.removeChild (this);
+	if ([ 'SCRIPT', 'NOSCRIPT', 'HEADER', 'FOOTER' ].includes (this.tagName)) this.parentElement.removeChild (this);
 	else if (! [ 'IMG', 'BR', 'HR', 'INPUT', 'TEXTAREA', 'svg' ].includes (this.tagName)){
 		if (! exists (this.innerHTML) || ! exists (this.innerText) && this.children.length ===0) this.parentElement.removeChild (this);
 		else if ('svg' !== this.tagName){
@@ -229,6 +221,20 @@ HTMLElement.prototype.delIds = function(){
 SVGSVGElement.prototype.delIds = function(){
 	if (exists (this.getAttribute ('class'))) this.removeAttribute ('class');
 	if (exists (this.getAttribute ('id'))) this.removeAttribute ('id');
+}
+HTMLElement.prototype.getByAttribute = function (attr, value){
+	var objAttr = this.getAttribute (attr);
+	if (value === objAttr) return this;
+	else{
+		var c=0;
+		tagOk = null;
+		while (c< this.children.length && tagOk === null){
+			tagOk = this.children[c].getByAttribute (attr, value);
+			c+=1;
+		}
+		if (tagOk === undefined) tagOk = null;
+		return tagOk;
+	}
 }
 HTMLElement.prototype.findTag = function (tagName){
 	var container = this.getElementsByTagName (tagName)[0];

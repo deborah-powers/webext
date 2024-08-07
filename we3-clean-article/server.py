@@ -1,9 +1,12 @@
 #!/usr/bin/python3.9
 # -*- coding: utf-8 -*-
+from sys import path
+path.append ('C:\\Users\\deborah.powers\\Desktop\\python')
 import json
 from http.server import HTTPServer, SimpleHTTPRequestHandler, test
 import textFct
 from fileCls import Article
+import loggerFct as log
 
 htmlTest = """<html>
 <head><title>Title goes here.</title></head>
@@ -11,7 +14,7 @@ htmlTest = """<html>
 <p>This is a test.</p>
 </body></html>
 """
-fileHtml = Article ('b/nouvel-article.html')
+fileHtml = Article ('b/\t.html')
 
 def cleanTitle (title):
 	chars = "\t\n\\'.:;,_-/"
@@ -50,6 +53,8 @@ class BackEndCors (SimpleHTTPRequestHandler):
 		self.end_headers()
 		postBody = json.loads (self.readBody())
 		fileHtml.title = textFct.cleanHtml (postBody['title'])
+		fileHtml.title = fileHtml.title[:100].strip()
+		fileHtml.toPath()
 		# fileHtml.title = cleanTitle (fileHtml.title)
 		fileHtml.text = textFct.cleanHtml (postBody['text'])
 		fileHtml.link = postBody['link']
