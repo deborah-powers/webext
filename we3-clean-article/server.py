@@ -52,6 +52,7 @@ class BackEndCors (SimpleHTTPRequestHandler):
 		self.send_response (200)
 		self.end_headers()
 		postBody = json.loads (self.readBody())
+		fileHtml.path = 'b/\t.html'
 		fileHtml.title = textFct.cleanHtml (postBody['title'])
 		fileHtml.title = fileHtml.title[:100].strip()
 		fileHtml.toPath()

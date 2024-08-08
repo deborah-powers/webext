@@ -58,6 +58,7 @@ else if (window.location.href.includes ('https://www.gutenberg.org/cache/epub/')
 else{
 	fanfic.title = document.getElementsByTagName ('title')[0].innerHTML;
 	document.body.findTagReplace ('main');
+	if (document.body.innerHTML.count ('</article>') ===1) document.body.findTagReplace ('article');
 }
 
 fanfic.cleanTitle();
