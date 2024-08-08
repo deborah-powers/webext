@@ -37,6 +37,11 @@ class Fanfic{
 	}
 	cleanTitle(){
 		const chars = "\t\n\\'.:;,_-/";
+		if (this.title.includes ('|')){
+			const f= this.title.indexOf ('|');
+			this.title = this.title.substring (0,f);
+			this.title = this.title.strip();
+		}
 		this.title = this.title.toLowerCase();
 		this.author = this.author.toLowerCase();
 		for (var c=0; c< chars.length; c++){
