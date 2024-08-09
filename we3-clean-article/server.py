@@ -55,6 +55,7 @@ class BackEndCors (SimpleHTTPRequestHandler):
 		fileHtml.path = 'b/\t.html'
 		fileHtml.title = textFct.cleanHtml (postBody['title'])
 		fileHtml.title = fileHtml.title[:100].strip()
+		log.logMsg (fileHtml)
 		fileHtml.toPath()
 		# fileHtml.title = cleanTitle (fileHtml.title)
 		fileHtml.text = textFct.cleanHtml (postBody['text'])

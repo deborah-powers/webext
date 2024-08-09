@@ -55,6 +55,13 @@ else if (window.location.href.includes ('https://www.gutenberg.org/cache/epub/')
 	// le texte
 	document.body.findTagListReplace ('chapter');
 }
+else if (window.location.href.includes ('https://www.test-recette.fr/recette/')){
+	fanfic.title = document.getElementsByTagName ('title')[0].innerHTML;
+	fanfic.author = 'test-recette';
+	fanfic.authlink = 'https://www.test-recette.fr/recette/';
+	document.body.findTagReplace ('container');
+	document.body.innerHTML = document.body.children[0].innerHTML;
+}
 else{
 	fanfic.title = document.getElementsByTagName ('title')[0].innerHTML;
 	document.body.findTagReplace ('main');
@@ -67,6 +74,6 @@ document.body.removeAnnotations();
 document.body.innerHTML = document.body.innerHTML.usePlaceholders();
 header = header.replace ('<title></title>', '<title>' + fanfic.title + '</title>');
 document.head.innerHTML = header;
-document.body.delIds();
+//document.body.delIds();
 fanfic.text = document.body.innerHTML;
 sendToBackend (fanfic.toData());
