@@ -1,0 +1,234 @@
+/* donner une forme aux balises
+<p class='shape cloud'>
+dépend de structure.css
+*/
+/* les flèches entre les éléments */
+hr.arrow {
+	display: inline-block;
+	height: 1em;
+	width: 1em;
+	background-color: var(--text-color);
+	clip-path: polygon(100% 50%, 60% 0%, 60% 30%, 0% 30%, 0% 70%, 60% 70%, 60% 100%);
+	vertical-align: middle;
+}
+hr.arrow.left { clip-path: polygon(0% 50%, 40% 0%, 40% 30%, 100% 30%, 100% 70%, 40% 70%, 40% 100%); }
+hr.arrow.bottom { clip-path: polygon(50% 100%, 0% 60%, 30% 60%, 30% 0%, 70% 0%, 70% 60%, 100% 60%); }
+hr.arrow.top { clip-path: polygon(50% 0%, 0% 40%, 30% 40%, 30% 100%, 70% 100%, 70% 40%, 100% 40%); }
+hr.arrow.horizontal {
+	width: 2em;
+	clip-path: polygon(0 50%, 40% 0%, 40% 30%, 60% 30%, 60% 0%, 100% 50%, 60% 100%, 60% 70%, 40% 70%, 40% 100%);
+}
+hr.arrow.vertical {
+	height: 2em;
+	clip-path: polygon(50% 0%, 0% 40%, 30% 40%, 30% 60%, 0% 60%, 50% 100%, 100% 60%, 70% 60%, 70% 40%, 100% 40%);
+}
+/* les éléments fléchés */
+/* les icones */
+.icon {
+	width: 3em;
+	height: 3em;
+	background-color: var(--bord-color);
+	background-image: radial-gradient(var(--bord-color) 60%, var(--text-color) 60%);
+	text-align: center;
+}
+.icon.modify {
+	clip-path: polygon(0 20%, 20% 0, 90% 72%, 100% 100%, 72% 90%);
+/*	background-image: linear-gradient(135deg, var(--text-color) 30%, var(--bord-color) 30%, var(--bord-color) 70%, var(--text-color) 70%); */
+}
+.icon.delete {
+/*	clip-path: polygon(0 0, 50% 40%, 100% 0, 60% 50%, 100% 100%, 50% 60%, 0 100%, 40% 50%); */
+	clip-path: polygon(0 20%, 20% 0, 50% 40%, 80% 0, 100% 20%, 60% 50%, 100% 80%, 80% 100%, 50% 60%, 20% 100%, 0 80%, 40% 50%);
+}
+.shape {
+	width: 3em;
+	height: 3em;
+	margin-left: 1em;
+	z-index: 2;
+	position: relative;
+	background-color: var(--fond-color, #AAA);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	text-align: center;
+}
+.shape:before, .shape:after {
+	content: "";
+	position: absolute;
+	z-index: -2;
+	width: inherit;
+	height: inherit;
+	background-color: inherit;
+	border-style: inherit;
+	border-width: inherit;
+	border-color: inherit;
+}
+.cloud {
+	margin-left: 2em;
+	margin-top: 1em;
+	padding-top: 1em;
+	border-radius: 100% 100% 0 0;
+}
+.cloud:before, .cloud:after {	bottom: 0;	border-radius: 100%;	}
+.cloud:before {	width: 4em;	height: 75%;	left: -2em;	}
+.cloud:after {	width: 3em;	height: 60%;	right: -1.5em;	}
+.heart {	margin-top: 2em;	margin-bottom: 1em;	transform: rotate(45deg);	}
+.heart:before, .heart:after {	border-radius: 50%;	}
+.heart:before {	left: 0%;	top: -50%;	}
+.heart:after {	left: -50%;	}
+.outline {
+	width: 3em;
+	height: 3em;
+	text-align: center;
+	background-color: var(--fond-color);
+	border-style: none;
+	mask-repeat: no-repeat;
+	mask-position: center;
+	mask-size: contain;
+}
+.arrow-left { clip-path: polygon(0% 50%, 50% 0%, 100% 0%, 50% 50%, 100% 100%, 50% 100%); }
+.arrow-left.reverse { transform: scaleX(-1); }
+.outline.arrow-up { clip-path: polygon(50% 0%, 100% 30%, 70% 30%, 70% 100%, 30% 100%, 30% 30%, 0% 30%, 50% 0%); }
+.outline.arrow-up.reverse { transform: scaleX(-1); }
+.cross {
+	background-image:
+		linear-gradient(45deg, transparent 45%, var(--bord-color) 45%, var(--bord-color) 55%, transparent 55%),
+		linear-gradient(135deg, transparent 45%, var(--bord-color) 45%, var(--bord-color) 55%, transparent 55%);
+}
+.moon {
+	background-color: transparent;
+	border-radius: 50%;	padding-top: 1em;
+	box-shadow: -1em 0 0 0 var(--fond-color, #AAA);
+	margin-left: 1em;
+}
+.outline.heart {
+	mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0,0 100,100'><path id='heart-a' d='m 0,50 q 0,20 50,50 q 50,-30 50,-50 c 0,-60 -50,-60 -50,-10 c 0,-50 -50,-50 -50,10'/></svg>");
+	/*
+	mask-image: url('/home/lenovo/Bureau/site-dp/exemples/mask-heart.svg');
+	-webkit-mask: url('/home/lenovo/Bureau/site-dp/exemples/mask-heart.svg') no-repeat center;
+	*/
+}
+boule {
+	display: block;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	text-align: center;
+	font-size: 1em;
+	border-radius: 50%;
+	background-image: radial-gradient(at 26% 50%, var(--fond-color), var(--bord-color));
+	/* préciser width, height et background-color */
+	width: 6em;
+	height: 6em;
+}
+boule.horizontal { animation-name: boule-spin-y; }
+boule.vertical { animation-name: boule-spin-x; }
+@keyframes boule-spin-y {
+	0% { background-image: radial-gradient(circle at 0% 50%, transparent, #0003); }
+	5% { background-image: radial-gradient(circle at 5% 50%, transparent, #0003); }
+	10% { background-image: radial-gradient(circle at 10% 50%, transparent, #0003); }
+	15% { background-image: radial-gradient(circle at 15% 50%, transparent, #0003); }
+	20% { background-image: radial-gradient(circle at 20% 50%, transparent, #0003); }
+	25% { background-image: radial-gradient(circle at 25% 50%, transparent, #0003); }
+	30% { background-image: radial-gradient(circle at 30% 50%, transparent, #0003); }
+	35% { background-image: radial-gradient(circle at 35% 50%, transparent, #0003); }
+	40% { background-image: radial-gradient(circle at 40% 50%, transparent, #0003); }
+	45% { background-image: radial-gradient(circle at 45% 50%, transparent, #0003); }
+	50% { background-image: radial-gradient(circle at 50% 50%, transparent, #0003); }
+	55% { background-image: radial-gradient(circle at 55% 50%, transparent, #0003); }
+	60% { background-image: radial-gradient(circle at 60% 50%, transparent, #0003); }
+	65% { background-image: radial-gradient(circle at 65% 50%, transparent, #0003); }
+	70% { background-image: radial-gradient(circle at 70% 50%, transparent, #0003); }
+	75% { background-image: radial-gradient(circle at 75% 50%, transparent, #0003); }
+	80% { background-image: radial-gradient(circle at 80% 50%, transparent, #0003); }
+	85% { background-image: radial-gradient(circle at 85% 50%, transparent, #0003); }
+	90% { background-image: radial-gradient(circle at 90% 50%, transparent, #0003); }
+	95% { background-image: radial-gradient(circle at 95% 50%, transparent, #0003); }
+	100% { background-image: radial-gradient(circle at 100% 50%, transparent, #0003); }
+}
+@keyframes boule-spin-x {
+	0% { background-image: radial-gradient(circle at 50% 0%, transparent, #0003); }
+	5% { background-image: radial-gradient(circle at 50% 5%, transparent, #0003); }
+	10% { background-image: radial-gradient(circle at 50% 10%, transparent, #0003); }
+	15% { background-image: radial-gradient(circle at 50% 15%, transparent, #0003); }
+	20% { background-image: radial-gradient(circle at 50% 20%, transparent, #0003); }
+	25% { background-image: radial-gradient(circle at 50% 25%, transparent, #0003); }
+	30% { background-image: radial-gradient(circle at 50% 30%, transparent, #0003); }
+	35% { background-image: radial-gradient(circle at 50% 35%, transparent, #0003); }
+	40% { background-image: radial-gradient(circle at 50% 40%, transparent, #0003); }
+	45% { background-image: radial-gradient(circle at 50% 45%, transparent, #0003); }
+	50% { background-image: radial-gradient(circle at 50% 50%, transparent, #0003); }
+	55% { background-image: radial-gradient(circle at 50% 55%, transparent, #0003); }
+	60% { background-image: radial-gradient(circle at 50% 60%, transparent, #0003); }
+	65% { background-image: radial-gradient(circle at 50% 65%, transparent, #0003); }
+	70% { background-image: radial-gradient(circle at 50% 70%, transparent, #0003); }
+	75% { background-image: radial-gradient(circle at 50% 75%, transparent, #0003); }
+	80% { background-image: radial-gradient(circle at 50% 80%, transparent, #0003); }
+	85% { background-image: radial-gradient(circle at 50% 85%, transparent, #0003); }
+	90% { background-image: radial-gradient(circle at 50% 90%, transparent, #0003); }
+	95% { background-image: radial-gradient(circle at 50% 95%, transparent, #0003); }
+	100% { background-image: radial-gradient(circle at 50% 100%, transparent, #0003); }
+}
+cylindre {
+	width: 6em;
+	height: 10em;
+	--inclinaison: 10%;
+	--bord: none;
+	--fond: var(--fond-color);
+	font-size: 1em;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: stretch;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	text-align: center;
+	border-radius: 50%/var(--inclinaison);
+	background-image: linear-gradient(90deg, var(--bord-color) 20%, var(--fond-color) 80%, var(--bord-color));
+}
+cylindre >* {
+	height: calc(2* var(--inclinaison));
+	border-radius: 50%;
+	margin: 0;
+	background: var(--fond);
+	border: var(--bord);
+}
+cylindre.horizontal {
+	flex-direction: row;
+	border-radius: var(--inclinaison)/50%;
+	width: 10em;
+	height: 6em;
+	background: linear-gradient(0deg, var(--bord-color) 20%, var(--fond-color) 80%, var(--bord-color));
+}
+cylindre.horizontal >* {
+	width: calc(2* var(--inclinaison));
+	height: 100%;
+}
+cylindre.tourne { animation-name: tourne-cylindre; }
+@keyframes tourne-cylindre {
+	0% { background: linear-gradient(90deg, var(--bord-color), var(--fond-color) 20%, var(--bord-color)); }
+	10% { background: linear-gradient(90deg, var(--bord-color), var(--fond-color) 27%, var(--bord-color)); }
+	20% { background: linear-gradient(90deg, var(--bord-color), var(--fond-color) 34%, var(--bord-color)); }
+	30% { background: linear-gradient(90deg, var(--bord-color), var(--fond-color) 41%, var(--bord-color)); }
+	40% { background: linear-gradient(90deg, var(--bord-color), var(--fond-color) 48%, var(--bord-color)); }
+	50% { background: linear-gradient(90deg, var(--bord-color), var(--fond-color) 55%, var(--bord-color)); }
+	60% { background: linear-gradient(90deg, var(--bord-color), var(--fond-color) 62%, var(--bord-color)); }
+	70% { background: linear-gradient(90deg, var(--bord-color), var(--fond-color) 69%, var(--bord-color)); }
+	80% { background: linear-gradient(90deg, var(--bord-color), var(--fond-color) 76%, var(--bord-color)); }
+	90% { background: linear-gradient(90deg, var(--bord-color), var(--fond-color) 83%, var(--bord-color)); }
+	100% { background: linear-gradient(90deg, var(--bord-color), var(--fond-color) 90%, var(--bord-color)); }
+}
+cylindre.horizontal.tourne { animation-name: tourne-cylindre-horizontal; }
+@keyframes tourne-cylindre-horizontal {
+	0% { background: linear-gradient(0deg, var(--bord-color), var(--fond-color) 20%, var(--bord-color)); }
+	10% { background: linear-gradient(0deg, var(--bord-color), var(--fond-color) 27%, var(--bord-color)); }
+	20% { background: linear-gradient(0deg, var(--bord-color), var(--fond-color) 34%, var(--bord-color)); }
+	30% { background: linear-gradient(0deg, var(--bord-color), var(--fond-color) 41%, var(--bord-color)); }
+	40% { background: linear-gradient(0deg, var(--bord-color), var(--fond-color) 48%, var(--bord-color)); }
+	50% { background: linear-gradient(0deg, var(--bord-color), var(--fond-color) 55%, var(--bord-color)); }
+	60% { background: linear-gradient(0deg, var(--bord-color), var(--fond-color) 62%, var(--bord-color)); }
+	70% { background: linear-gradient(0deg, var(--bord-color), var(--fond-color) 69%, var(--bord-color)); }
+	80% { background: linear-gradient(0deg, var(--bord-color), var(--fond-color) 76%, var(--bord-color)); }
+	90% { background: linear-gradient(0deg, var(--bord-color), var(--fond-color) 83%, var(--bord-color)); }
+	100% { background: linear-gradient(0deg, var(--bord-color), var(--fond-color) 90%, var(--bord-color)); }
+}

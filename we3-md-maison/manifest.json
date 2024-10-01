@@ -1,0 +1,13 @@
+{
+	"manifest_version": 3,
+	"name": "to mardown",
+	"version": "1.0",
+	"description": "appliquer un markdown maison sur mes fichiers textes",
+	"icons": { "48": "icon-128.png" },
+	"permissions": [ "activeTab", "scripting" ],
+	"content_scripts": [{
+		"matches": ["http://*/*.txt", "https://*/*.txt", "file:///*/*.txt"],
+		"js": ["text-clean.js", "text.js", "background.js"],
+		"css": ["structure.css", "shapes.css"]
+	}]
+}
