@@ -6,7 +6,7 @@
 	"icons": { "48": "icon-128.png" },
 	"permissions": [ "activeTab", "scripting" ],
 	"content_scripts": [{
-		"matches": ["http://*/*.txt", "https://*/*.txt", "file:///*/*.txt"],
+		"matches": ["http://*/*.txt", "https://*/*.txt", "file:///*/*.txt", "http://*/*.mdd", "https://*/*.mdd", "file:///*/*.mdd"],
 		"js": ["text-clean.js", "text.js", "background.js"],
 		"css": ["structure.css", "shapes.css"]
 	}]
