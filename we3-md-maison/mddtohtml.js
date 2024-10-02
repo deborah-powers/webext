@@ -242,7 +242,7 @@ def toHtml (text):
 	if '<' not in text [0:3]: text = '<p>'+ text
 	if '>' not in text [-3:]: text = text +'</p>'
 	# les images
-	imgExtension =( 'jpg', 'jpeg', 'bmp', 'gif', 'png')
+	imgExtension =[ 'jpg', 'jpeg', 'bmp', 'gif', 'png']
 	imgCharStart = '>\n\t\'",;!()[]{}:'
 	for ext in imgExtension:
 		if '.'+ ext in text:
