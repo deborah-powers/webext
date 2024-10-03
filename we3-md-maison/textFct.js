@@ -1,3 +1,4 @@
+/* basé sur python/textFct.py */
 const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZaàâbcdeéêèëfghiîïjkmlmnoôpqrstuûvwxyz0123456789-\xe7\xc7';
 const punctuation = '.?!:\n\t';
 const weirdChars =[
@@ -71,3 +72,6 @@ String.prototype.cleanTxt = function(){
 	text = text.replaceAll ('\n ', '\n');
 	return text;
 }
+var text = 'bla bla';
+console.log (cleanBasic (text));
+console.log (cleanTxt (text));
