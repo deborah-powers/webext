@@ -38,38 +38,42 @@ String.prototype.toList = function(){
 String.prototype.toTable = function(){
 	if (this.includes ('\t')){
 		var paragraphList = this.split ('\n');
-		len_chn = paragraphList.length;
-		d=-1; c=-1; i=0
-		while (i< len_chn:
+		var d=-1; var c=-1; var i=0;
+		while (i< paragraphList.length){
 			// rechercher une table
-			d=-1; c=-1
-			if (d==-1 and c==-1 and '\t' in paragraphList[i]:
+			d=-1; c=-1;
+			if (d==-1 && c==-1 && paragraphList[i].includes ('\t')){
 				c= paragraphList[i].count ('\t');
-				d=i; i+=1
-			while (i< len_chn and paragraphList[i].count ('\t') ==c: i+=1
-			c=i-d
+				d=i; i+=1;
+			}
+			while (i< paragraphList.length && paragraphList[i].count ('\t') ==c) i+=1;
+			c=i-d;
 			// une table a ete trouve
-			if (c>1 and d>0:
+			if (c>1 && d>0){
 				rtable = range (d, i);
-				for (var l=0; l< j in rtable:
+				for (var l=0; l< j in rtable){
 					// entre les cases
 					paragraphList [j] = paragraphList [j].replaceAll ('\t', '</td><td>');
 					// bordure des cases
-					paragraphList [j] = '<tr><td>' + paragraphList [j] +'</td></tr>'
+					paragraphList [j] = '<tr><td>' + paragraphList [j] +'</td></tr>';
+				}
 				// les limites de la table
-				paragraphList [d] = '<table>\n' + paragraphList [d]
-				paragraphList [i-1] = paragraphList [i-1] +'\n</table>'
-			i+=1
+				paragraphList [d] = '<table>\n' + paragraphList [d];
+				paragraphList [i-1] = paragraphList [i-1] +'\n</table>';
+			}
+			i+=1;
+		}
 		text = paragraphList.join ('\n');
 		// les titres de colonnes ou de lignes
-		if (':</td></tr>' text.includes ())
+		if ( text.includes (':</td></tr>')){
 			paragraphList = text.split (':</td></tr>');
 			paragraphRange = range (paragraphList.length -1);
 			for (var l=0; l< p in paragraphRange:
 				d= paragraphList[p].lastIndexOf ('<tr><td>');
 				paragraphList[p] = paragraphList[p].substring (0,d) +'<tr><th>'+ paragraphList[p][d+8:].replaceAll ('td>', 'th>');
 			text = '</th></tr>'.join (paragraphList);
-		if (':</td>' text.includes ())
+		}
+		if ( text.includes (':</td>'))
 			paragraphList = text.split (':</td>');
 			paragraphRange = range (paragraphList.length -1);
 			for (var l=0; l< p in paragraphRange:
