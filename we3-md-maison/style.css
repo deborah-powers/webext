@@ -1,0 +1,26 @@
+/* ajouter de la couleur à mes pages
+dépend de structure
+*/
+body {
+	max-width: 36cm;
+	min-height: 100vh;
+	padding: 2%;
+	font-size: 1.2em;
+}
+html { background-color: var(--button-bg); }
+h1, h2, h3, h4, p, ul, ol { margin-bottom: 1em; }
+ul, ol { margin-left: 1em; }
+xmp { margin-bottom: 1em; }
+circle, ellipse {
+	fill: pink;
+	stroke: red;
+}
+/* la barre de progression */
+progress {
+	background-color: var(--fond-color);
+	height: 2em;
+	width: 100%;
+}
+::-moz-progress-bar { background-color: var(--text-color); }
+progress::-webkit-progress-value { background-color: var(--text-color); }
+progress::-webkit-progress-bar { background-color: var(--fond-color); }

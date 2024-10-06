@@ -4,6 +4,29 @@ https://developer.mozilla.org/fr/docs/Mozilla/Add-ons/WebExtensions/Your_first_W
 https://developer.mozilla.org/fr/docs/Mozilla/Add-ons/WebExtensions/Your_second_WebExtension
 https://developer.mozilla.org/fr/docs/Mozilla/Add-ons/WebExtensions/Add_a_button_to_the_toolbar
 
+======================== publier une extension dans chrome ========================
+
+https://support.google.com/chrome/a/answer/2714278?hl=fr#:~:text=Pour%20ajouter%20une%20application%20ou,dans%20le%20Chrome%20Web%20Store.
+https://support.google.com/chrome/a/answer/2649489
+https://developer.chrome.com/docs/webstore/publish?hl=fr
+me collecter à la console d'administration de google avec un compte administrateur. powers.dev est mon compte administrateur, que j'utilise pour mon github. powers89 est aussi un compte administrateur.
+
+mon extension est chargée dans le gestionnaire d'extensions, non empaquetée.
+me créer un compte de développeur chrome web store. payer 5E.
+activer la validation en deux étapes.
+compresser mon extension au format .zip
+https://chrome.google.com/webstore/devconsole/3094d15f-41a7-492a-ae44-82ccdf3f9617?hl=fr
+
+dans le gestionnaire d'extension,
+empaqueter l'extension
+
+résultat:
+Extension : C:\Users\LENOVO\Desktop\webext\we3-md-maison.crx
+Fichier de clé : C:\Users\LENOVO\Desktop\webext\we3-md-maison.pem
+
+https://chrome.google.com/webstore/devconsole/3094d15f-41a7-492a-ae44-82ccdf3f9617/oogpeihldfjfakheibjdifojcjkloapl/edit
+
+Conservez votre fichier de clé en lieu sûr. Vous en aurez besoin lors de la création de nouvelles versions de l'extension.
 
 ======================== installation provisoire ========================
 

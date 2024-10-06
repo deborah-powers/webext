@@ -160,6 +160,7 @@ String.prototype.toImage = function(){
 					title = title.cleanTxt();
 				}
 				title = title.replaceAll ('_'," ");
+				title = title.replaceAll ('.'," ")
 				textList[i] = textList[i].substring (0,f) + "<img src='" + textList[i].substring (f).replaceAll ('http', 'ht/tp') +"."+ imgExtension[h] +"' alt='" + title +"'/>";
 			}
 			text = textList.join ("");
@@ -191,6 +192,7 @@ String.prototype.toLink = function(){
 			else textList[p] = textList[p].substring (f);
 			title = title.replaceAll ('_',' ');
 			title = title.replaceAll ('-',' ');
+			title = title.replaceAll ('.'," ")
 			textList[p] = textTmp +"'>"+ title +'</a> '+ textList[p];
 		}
 		var text = textList.join (" <a href='http");

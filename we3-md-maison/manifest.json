@@ -4,10 +4,7 @@
 	"version": "1.0",
 	"description": "appliquer un markdown maison sur mes fichiers textes",
 	"icons": { "48": "icon-128.png" },
-	"permissions": [ "activeTab", "scripting" ],
-	"content_scripts": [{
-		"matches": ["http://*/*.txt", "https://*/*.txt", "file:///*/*.txt", "http://*/*.mdd", "https://*/*.mdd", "file:///*/*.mdd"],
-		"js": ["textFct.js", "htmlFct.js", "background.js"],
-		"css": ["structure.css", "shapes.css", "perso.css"]
-	}]
+	"permissions": [ "storage", "tabs", "activeTab", "scripting" ],
+	"background": { "service_worker": "service-worker.js" },
+	"action": {}
 }
