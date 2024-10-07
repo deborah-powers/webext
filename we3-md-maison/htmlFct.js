@@ -173,24 +173,27 @@ String.prototype.toLink = function(){
 		var textList = this.split ('http');
 		for (var p=1; p< textList.length; p++){
 			var textTmp = textList[p];
-			var e=-1; var f=-1; var d=-1;
+			var d=-1; var e=-1; var f=-1;
 			for (var c=0; c< endingChars.length; c++) if (textTmp.includes (endingChars[c])){
 				f= textTmp.indexOf (endingChars[c]);
-				textTmp = textTmp .substring (0,f);
+				textTmp = textTmp.substring (0,f);
 			}
 			textTmp = textTmp.strip ('/');
 			d= textTmp.lastIndexOf ('/') +1;
 			e= textTmp.length;
 			if (textTmp.substring (d).includes ('.')) e= textTmp.lastIndexOf ('.');
-			var title = textTmp.substring (d,e).replaceAll ('-',' ');
+			var title ="";
 			if (textList[p].substring (f,f+2) === ' ('){
 				e= textList[p].indexOf (')');
 				title = textList[p].substring (f+2, e);
 				textList[p] = textList[p].substring (e+1);
 			}
-			else textList[p] = textList[p].substring (f);
-			title = title.replaceAll ('_',' ');
-			title = title.replaceAll ('-',' ');
+			else{
+				title = textTmp.substring (d,e).replaceAll ('-',' ');
+				title = title.replaceAll ('_',' ');
+				title = title.replaceAll ('-',' ');
+				textList[p] = textList[p].substring (f);
+			}
 			textList[p] = textTmp +"'>"+ title +'</a> '+ textList[p];
 		}
 		var text = textList.join (" <a href='http");
