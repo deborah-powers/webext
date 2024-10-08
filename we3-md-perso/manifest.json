@@ -7,7 +7,7 @@
 	"permissions": [ "activeTab", "scripting" ],
 	"content_scripts": [{
 		"matches": ["http://*/*.txt", "https://*/*.txt", "file:///*/*.txt", "http://*/*.mdd", "https://*/*.mdd", "file:///*/*.mdd"],
-		"js": ["textFct.js", "htmlFct.js", "background.js"],
+		"js": ["textFct.js", "htmlFct.js", "action.js"],
 		"css": ["structure.css", "shapes.css", "perso.css"]
 	}]
 }

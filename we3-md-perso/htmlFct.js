@@ -6,10 +6,7 @@ String.prototype.toHtml = function(){
 	var text = this.cleanTxt();
 	// transformer la mise en page en balises
 	text = '\n' + text + '\n';
-	for (tag of tagHtml){
-		console.log (tag);
-		if (text.includes (tag[1])){ text = text.replaceAll (tag[1], tag[0]); }
-	}
+	for (tag of tagHtml) if (text.includes (tag[1])){ text = text.replaceAll (tag[1], tag[0]); }
 	// autres modifications
 	text = text.toList();
 	text = text.toTable();
@@ -160,7 +157,6 @@ String.prototype.toImage = function(){
 					title = title.cleanTxt();
 				}
 				title = title.replaceAll ('_'," ");
-				title = title.replaceAll ('.'," ")
 				textList[i] = textList[i].substring (0,f) + "<img src='" + textList[i].substring (f).replaceAll ('http', 'ht/tp') +"."+ imgExtension[h] +"' alt='" + title +"'/>";
 			}
 			text = textList.join ("");
@@ -174,25 +170,27 @@ String.prototype.toLink = function(){
 		var textList = this.split ('http');
 		for (var p=1; p< textList.length; p++){
 			var textTmp = textList[p];
-			var e=-1; var f=-1; var d=-1;
+			var d=-1; var e=-1; var f=-1;
 			for (var c=0; c< endingChars.length; c++) if (textTmp.includes (endingChars[c])){
 				f= textTmp.indexOf (endingChars[c]);
-				textTmp = textTmp .substring (0,f);
+				textTmp = textTmp.substring (0,f);
 			}
 			textTmp = textTmp.strip ('/');
 			d= textTmp.lastIndexOf ('/') +1;
 			e= textTmp.length;
 			if (textTmp.substring (d).includes ('.')) e= textTmp.lastIndexOf ('.');
-			var title = textTmp.substring (d,e).replaceAll ('-',' ');
+			var title ="";
 			if (textList[p].substring (f,f+2) === ' ('){
 				e= textList[p].indexOf (')');
 				title = textList[p].substring (f+2, e);
 				textList[p] = textList[p].substring (e+1);
 			}
-			else textList[p] = textList[p].substring (f);
-			title = title.replaceAll ('_',' ');
-			title = title.replaceAll ('-',' ');
-			title = title.replaceAll ('.'," ")
+			else{
+				title = textTmp.substring (d,e).replaceAll ('-',' ');
+				title = title.replaceAll ('_',' ');
+				title = title.replaceAll ('-',' ');
+				textList[p] = textList[p].substring (f);
+			}
 			textList[p] = textTmp +"'>"+ title +'</a> '+ textList[p];
 		}
 		var text = textList.join (" <a href='http");

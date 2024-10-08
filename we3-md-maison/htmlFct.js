@@ -6,10 +6,7 @@ String.prototype.toHtml = function(){
 	var text = this.cleanTxt();
 	// transformer la mise en page en balises
 	text = '\n' + text + '\n';
-	for (tag of tagHtml){
-		console.log (tag);
-		if (text.includes (tag[1])){ text = text.replaceAll (tag[1], tag[0]); }
-	}
+	for (tag of tagHtml) if (text.includes (tag[1])){ text = text.replaceAll (tag[1], tag[0]); }
 	// autres modifications
 	text = text.toList();
 	text = text.toTable();
