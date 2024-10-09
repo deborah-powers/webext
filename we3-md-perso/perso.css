@@ -1,6 +1,7 @@
 /* ajouter de la couleur à mes pages
 dépend de structure
 */
+@media screen {
 :root {
 	--text-color: #603;
 	--fond-color: #FBD;
@@ -14,8 +15,10 @@ dépend de structure
 	--foldable-border: solid;
 }
 option:hover {
-	color: red;
-	background-color: green;
+	color: var(--button-color);
+	background-color: var(--button-bg);
+}
+html { background-color: var(--button-bg); }
 }
 body {
 	max-width: 36cm;
@@ -23,17 +26,17 @@ body {
 	padding: 2%;
 	font-size: 1.2em;
 }
-html { background-color: var(--button-bg); }
 h1, h2, h3, h4, p, ul, ol { margin-bottom: 1em; }
+h1, h2 { page-break-before: always; }
 ul, ol { margin-left: 1em; }
 xmp { margin-bottom: 1em; }
 circle, ellipse {
-	fill: pink;
-	stroke: red;
+	fill: var(--fond-color);
+	stroke: var(--bord-color);
 }
 div.texto {
 	width: 10cm;
-	border: 4px solid lightgrey;
+	border: 4px solid var(--fond-color);
 	border-radius: 1em;
 	padding: 0.5em;
 }
@@ -41,11 +44,12 @@ div.texto > p {
 	width: 70%;
 	border-radius: 1em;
 	padding: 0.5em;
-	background-color: lightgrey;
+	background-color: var(--fond-color);
 }
 div.texto > p.lui {
 	margin-left: 30%;
-	background-color: #ABF;
+	background-color: var(--bord-color);
+	color: var(--page-color);
 }
 /* la barre de progression */
 progress {

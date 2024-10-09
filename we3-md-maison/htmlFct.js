@@ -2,6 +2,11 @@
 dépend de textFct.js
 basé sur python/htmlFct.py
 */
+const tagHtml =[
+	['\n<h1>', '\n=== '], ['</h1>\n', ' ===\n'], ['\n<h2>', '\n*** '], ['</h2>\n', ' ***\n'], ['\n<h3>', '\n--- '], ['</h3>\n', ' ---\n'], ['\n<h4>', '\n___ '], ['</h4>\n', ' ___\n'],
+	['\n<hr>', '\n\n***\n\n'], ["\n<img src='", '\nImg\t'], ['\n<figure>', '\nFig\n'], ['</figure>', '\n/fig\n'], ['\n<xmp>', '\ncode\n'], ['</xmp>', '\n/code\n'],
+	['\n<li>', '\n\t']
+];
 String.prototype.toHtml = function(){
 	var text = this.cleanTxt();
 	// transformer la mise en page en balises
@@ -231,20 +236,17 @@ String.prototype.cleanHtml = function(){
 	text = text.replaceAll ('<br>', '<br/>');
 	text = text.replaceAll ('<hr>', '<hr/>');
 	while (text.includes ('<br/><br/>')) text = text.replaceAll ('<br/><br/>', '<br/>');
-	const tagHtml =[ 'span', 'p', 'div', 'section', 'tr', 'caption', 'table' ];
+	const tagHtml =
+	[ 'span', 'strong', 'em', 'b', 'p', 'h1', 'h2', 'h3', 'h4', 'div', 'section', 'article', 'tr', 'caption', 'table', 'figcaption', 'figure', 'nav', 'aside' ];
 	for (var tag of tagHtml) text = text.replaceAll ('<'+ tag +'></'+ tag +'>', "");
+	text = text.replaceAll ('>','> ');
+	text = text.replaceAll ('<',' <');
+	text = text.replaceAll ('>  <','><');
 	text = text.replaceAll (' </', '</');
+	for (var tag of tagHtml) text = text.replaceAll ('<'+ tag +'> ', '<'+ tag +'>');
 	return text;
 }
-String.prototype.count = function (tag){
-	if (this.includes (tag)){
-		var nb=0;
-		var pos =-1;
-		while (this.substring (pos +1).includes (tag)){
-			nb+=1;
-			pos = this.indexOf (tag, pos +1);
-		}
-		return nb;
-	}
-	else return 0;
+HTMLElement.prototype.fromText = function (text){
+	text = text.toHtml();
+	this.innerHTML = text;
 }

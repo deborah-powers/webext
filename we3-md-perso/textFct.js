@@ -34,16 +34,22 @@ const codeKeywords =[
 	'def', 'class', 'console.log', 'var', 'const ', 'function ', 'private ', 'protected', 'public',
 	'log.debug', 'log.info'
 ];
-const tagHtml =[
-	['\n<h1>', '\n=== '], ['</h1>\n', ' ===\n'], ['\n<h2>', '\n*** '], ['</h2>\n', ' ***\n'], ['\n<h3>', '\n--- '], ['</h3>\n', ' ---\n'], ['\n<h4>', '\n___ '], ['</h4>\n', ' ___\n'],
-	['\n<hr>', '\n\n***\n\n'], ["\n<img src='", '\nImg\t'], ['\n<figure>', '\nFig\n'], ['</figure>', '\n/fig\n'], ['\n<xmp>', '\ncode\n'], ['</xmp>', '\n/code\n'],
-	['\n<li>', '\n\t']
-];
-String.prototype.toHtml = function(){
-	var text = this.cleanTxt();
-}
-/* ======================== transformation du texte simple en html ======================== */
 
+String.prototype.usePlaceholders = function(){
+	const placeholders = ('y/n', 'e/c', 'h/c', 'l/n');
+	var text = this.cleanTxt();
+	for (var p=0; p< placeholders.length; p++){
+		text = text.replaceAll (placeholders[p].upper(), placeholders[p]);
+		text = text.replaceAll ('('+ placeholders[p] +')', placeholders[p]);
+		text = text.replaceAll ('['+ placeholders[p] +']', placeholders[p]);
+		text = text.replaceAll ('{'+ placeholders[p] +'}', placeholders[p]);
+	}
+	text = text.replaceAll ('y/n', 'Deborah');
+	text = text.replaceAll ('e/c', 'grey');
+	text = text.replaceAll ('h/c', 'dark blond');
+	text = text.replaceAll ('l/n', 'Powers');
+	return text;
+}
 
 /* ======================== nettoyage du texte ======================== */
 
@@ -136,12 +142,25 @@ String.prototype.capitalize = function(){
 	return text;
 }
 String.prototype.capitalizeOneWord = function(){ return this[0].toUpperCase() + this.substring (1); }
-String.prototype.strip = function(){
-	const toStrip = '\n \t/';
+String.prototype.strip = function (char){
+	var toStrip = '\n \t/';
+	if (char !== undefined) toStrip = toStrip + char;
 	var d=0;
 	while (d< this.length && toStrip.includes (this[d])) d++;
 	var f= this.length -1;
 	while (f>=0 && toStrip.includes (this[f])) f--;
 	f=f+1;
 	return this.slice (d,f);
+}
+String.prototype.count = function (char){
+	if (! this.includes (char)) return 0;
+	else{
+		var nbOccurences =0;
+		var pos =0;
+		while (this.substring (pos).includes (char)){
+			pos =1+ this.indexOf (char, pos);
+			nbOccurences +=1;
+		}
+		return nbOccurences;
+	}
 }
