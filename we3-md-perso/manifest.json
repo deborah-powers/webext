@@ -6,8 +6,8 @@
 	"icons": { "48": "icon-128.png" },
 	"permissions": [ "activeTab", "scripting" ],
 	"content_scripts": [{
-		"matches": ["http://*/*.txt", "https://*/*.txt", "file:///*/*.txt", "http://*/*.mdd", "https://*/*.mdd", "file:///*/*.mdd"],
-		"js": ["textFct.js", "htmlFct.js", "action.js"],
+		"matches": ["http://*/*.txt", "https://*/*.txt", "file:///*/*.txt", "http://*/*.md", "https://*/*.md", "file:///*/*.md"],
+		"js": ["textFct.js", "htmlFct.js", "action.js", "action-recette.js"],
 		"css": ["structure.css", "shapes.css", "perso.css"]
 	}]
 }
