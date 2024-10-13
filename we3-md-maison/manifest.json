@@ -4,7 +4,7 @@
 	"version": "1.0",
 	"description": "appliquer un markdown maison sur mes fichiers textes",
 	"icons": { "48": "icon-128.png" },
-	"permissions": [ "storage", "tabs", "activeTab", "scripting" ],
+	"permissions": [ "activeTab", "scripting" ],
 	"background": { "service_worker": "service-worker.js" },
 	"action": {}
 }

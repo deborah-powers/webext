@@ -1,36 +1,37 @@
-var text = document.body.children[0].innerHTML.toHtml();
-text = text.toHtmlShapes();
-// text = text.toLowerCase();
-document.body.innerHTML = text.strip();
+// récupérer les metadonnées de mes articles
+var head = "<h1><a href='$lien'>$titre</a></h1><p>par <a href='$laut'>$auteur</a></p><p>à propos de $sujet</p>";
 
-// récupérer les meta de mes articles
-HTMLElement.prototype.findMeta = function(){
-	if (! this.innerText.includes (': ')) return [];
-	var f= this.innerText.indexOf (': ');
-	if (f<2 || f>9) return [];
-	else{
-		const res =[ this.innerText.substring (0,f), this.innerText.substring (f+2) ];
-		document.body.removeChild (this);
-		return res;
-}}
-if (document.body.innerHTML.substring (3,10) === 'Sujet: '){
-	var head = "<h1><a href='$Lien'>$Titre</a></h1><p>par <a href='$Laut'>$Auteur</a></p><p>à propos de $Sujet</p>";
-	if (document.body.innerHTML.includes ('<p>Date: ')) head = head + '<p>date: $Date</p>';
-	var meta = document.body.children[0].findMeta();
-	while (meta.length ===2){
-		head = head.replace ('$'+ meta[0], meta[1]);
-		meta = document.body.children[0].findMeta();
+function titleFromUrl(){
+	var d=1+ window.location.pathname.lastIndexOf ('/');
+	var title = window.location.pathname.substring (d);
+	if (title.includes ('.')){
+		d= title.lastIndexOf ('.');
+		title = title.substring (0,d);
 	}
-	if (head.includes ('$Titre')){
-		var d=1+ window.location.pathname.lastIndexOf ('/');
-		var titre = window.location.pathname.substring (d);
-		if (titre.includes ('.')){
-			d= titre.lastIndexOf ('.');
-			titre = titre.substring (0,d);
-		}
-		titre = titre.replaceAll ('%20'," ");
-		head = head.replace ('$Titre', titre);
-	}
-	document.body.innerHTML = head + document.body.innerHTML;
+	title = title.replaceAll ('%20'," ");
+	title = title.replaceAll ('.'," ");
+	title = title.replaceAll ('_'," ");
+	title = title.replaceAll ('-'," ");
+	return title;
 }
-const metaNames =[ 'sujet', 'auteur', 'lien', 'laut', 'date', 'titre' ];
+function findMetaLocal (meta){
+	if (meta !=={} && meta['lien'] !== undefined){
+		if (meta['titre'] === undefined) meta['titre'] = titleFromUrl();
+		// afficher les meta dans le header
+		if (meta['lien'] === 'o'){
+			head = head.replace ("<a href='$lien'>", "");
+			head = head.replace ('</a>', "");
+		}
+		else meta['lien'] = meta['lien'].replaceAll (" ","");
+		if (meta['laut'] === 'o'){
+			head = head.replace ("<a href='$laut'>", "");
+			head = head.replace ('</a></p>', '</p>');
+		}
+		else meta['laut'] = meta['laut'].replaceAll (" ","");
+		if (meta['date'] !== undefined) head = head + '<p>date: $date</p>';
+		for (const [key, value] of Object.entries (meta)) head = head.replace ('$'+ key, value);
+		if (! head.includes ('$lien')) text = head + text;
+		document.body.innerHTML = head + document.body.innerHTML;
+}}
+var meta = prepareText();
+findMetaLocal (meta);
