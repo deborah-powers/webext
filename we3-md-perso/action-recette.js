@@ -19,21 +19,24 @@ h2.ok { background-color: teal; }
 h2.ko { background-color: crimson; }
 h3 { border-bottom-style: solid; }
 </style>`;
+head = '<h1>test de $module</h1><p>$contexte</p><p>cahier $cahier, feuille $feuille</p><p>testé par $testeuse, sur $environnement</p>';
+
 if (window.location.origin === 'file://' && window.location.href.includes ('/rf%20')){
+	// afficher les métadonnées
+	head = head.printMetadata (meta);
 	// mettre en forme les blocs de test
 	const tests = document.getElementsByTagName ('h2');
-	for (var h=0; h< tests.length; h++){
-		if (tests[h].nextElementSibling.innerText.substring (0,7) === 'Titre: '){
-			tests[h].innerHTML = tests[h].innerHTML + tests[h].nextElementSibling.innerText.substring (5);
-			if (tests[h].nextElementSibling.nextElementSibling.nextElementSibling.innerText === 'Resultat obtenu: Ok') tests[h].className = 'ok';
-			else if (tests[h].nextElementSibling.nextElementSibling.nextElementSibling.innerText.includes ('Resultat obtenu: Ko')) tests[h].className = 'ko';
-			tests[h].parentElement.removeChild (tests[h].nextElementSibling);
-		}
+	for (var h=0; h< tests.length; h++) if (tests[h].nextElementSibling.innerText.substring (0,7) === 'Titre: '){
+		tests[h].innerHTML = tests[h].innerHTML + tests[h].nextElementSibling.innerText.substring (5);
+		if (tests[h].nextElementSibling.nextElementSibling.nextElementSibling.innerText === 'Resultat obtenu: Ok') tests[h].className = 'ok';
+		else if (tests[h].nextElementSibling.nextElementSibling.nextElementSibling.innerText.includes ('Resultat obtenu: Ko')) tests[h].className = 'ko';
+		tests[h].parentElement.removeChild (tests[h].nextElementSibling);
 	}
 	document.body.innerHTML = document.body.innerHTML.replaceAll ('<p>Resultat obtenu: Ok</p>', "");
 	document.body.innerHTML = document.body.innerHTML.replaceAll ('<p>Resultat obtenu: Ko.', '<p>test ko.');
 	document.body.innerHTML = document.body.innerHTML.replaceAll ('<p>Resultat obtenu: Ko,', '<p>test ko.');
 	document.body.innerHTML = document.body.innerHTML.replaceAll ('Resultat obtenu: Non réalisable,', 'test irréalisable.');
 	document.body.innerHTML = document.body.innerHTML.replaceAll ('Resultat obtenu: Non réalisable.', 'test irréalisable.');
+	document.body.innerHTML = head + document.body.innerHTML;
 	document.head.innerHTML = document.head.innerHTML + styleRf;
 }

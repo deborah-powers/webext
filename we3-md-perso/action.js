@@ -29,8 +29,8 @@ function findMetaLocal (meta){
 		}
 		else meta['laut'] = meta['laut'].replaceAll (" ","");
 		if (meta['date'] !== undefined) head = head + '<p>date: $date</p>';
-		for (const [key, value] of Object.entries (meta)) head = head.replace ('$'+ key, value);
-		if (! head.includes ('$lien')) text = head + text;
+		head = head.printMetadata (meta);
+		if (! head.includes ('$')) text = head + text;
 		document.body.innerHTML = head + document.body.innerHTML;
 }}
 var meta = prepareText();
