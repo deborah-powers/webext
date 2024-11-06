@@ -17,7 +17,7 @@ body, head, head > title {}
 */
 body {
 	margin: auto;
-	padding: 0 0 1em 0;
+	padding: 0;
 	background-color: var(--page-color, white);
 	color: var(--text-color, black);
 	font-family: serif;
@@ -28,21 +28,22 @@ body {
 	padding: 0;
 	margin: 0;
 	font-size: 1em;
-	/* line-height: 2em; */
+	line-height: 1.5em;
 	vertical-align: top;
 	font-family: inherit;
 	font-style: normal;
 	font-weight: normal;
 	text-decoration: none;
 	color: inherit;
-	background: none;
+	background-color: inherit;
 	outline: none;
 	border-width: 2px;
 	border-style: none;
 	border-color: var(--bord-color, #AAA);
 }
-*:first-letter { text-transform: uppercase; }
+*:first-letter, title:first-letter { text-transform: uppercase; }
 *:before, *:after { box-sizing: border-box; }
+p { line-height: 1.5em; }
 /* nouveauté, les blocs de code */
 xmp {
 	margin: 0 2%;
@@ -63,7 +64,6 @@ th, td {
 	padding: 0.2em;
 	border: solid 2px var(--button-bg, #DDD);
 }
-li { margin-left: 2%; }
 /* afficher le title comme un h1 */
 head > title, h1 {
 	text-align: center;
@@ -79,12 +79,28 @@ hr {
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
 	background-color: var(--text-color, black);
+	border-radius: 50%;
 }
-a, b, em, i, span, strong { padding: 0 0.5em; }
-/* a { display: block } */
-a:hover { font-weight: bold }
+a, b, em, i, span, strong { padding: 0 0.2em; }
+strong { font-weight: bold; }
+ul, ol {
+	margin-top: 1em;
+	margin-bottom: 1em;
+	margin-left: 2%;
+}
+ul >*, ol >* {
+	display: list-item;
+	margin: 0 !important;
+}
+/*
+li { margin-left: 2%; }
+a { display: block }
+*/
+a:hover, a:focus { font-weight: bold }
+body >a, div >a { display: block; }
+img { mix-blend-mode: multiply; }
 /* les boutons */
-button, input, select, textarea, nav >*, a.button { padding: 0.4em; }
+button, input[type='button'], input[type='submit'], input[type='reset'], select, textarea, nav >*, a.button { padding: 0.4em; }
 button, input, select, textarea { outline: none; }
 button, a.button, nav >*, input[type='button'], input[type='submit'], input[type='reset'], input[type='file'], select {
 	text-align: center;
@@ -98,10 +114,12 @@ button, a.button, nav >*, input[type='button'], input[type='submit'], input[type
 	border-style: var(--button-border, none);
 }
 select { width: 100%; }
+select:focus { background-color: var(--text-color, black); }
 option {
 	background-color: var(--page-color, white);
 	color: var(--text-color, black);
 }
+button:focus, a.button:focus, nav a:focus, input[type='button']:focus, input[type='submit']:focus, input[type='reset']:focus,
 button:hover, a.button:hover, nav a:hover, input[type='button']:hover, input[type='submit']:hover, input[type='reset']:hover {
 	background-color: var(--button-bg-hover, #DDD);
 	color: var(--button-color-hover, black);
@@ -201,6 +219,21 @@ img#banner {
 	object-fit: cover;
 	margin: 0;
 }
+/* carousel d'image */
+.carousel, carousel {
+	width: 100%;
+	height: 12cm;
+	display: flex;
+	justify-content: space-between;
+	align-items: stretch;
+}
+.carousel > button, carousel > button { flex-grow: 1; }
+.carousel > img, carousel > img {
+	flex-grow: 2;
+	max-width: 50%;
+	object-fit: contain;
+	background-color: var(--text-color, black);
+}
 /* affichage pour les tablettes */
 @media (max-width: 992px){}
 /* affichage pour les smartphones */
@@ -209,7 +242,6 @@ img#banner {
 		background-image: none;
 		padding-top: 0;
 	}
-	img { max-width: 100%; }
 	img +*, .right +* { clear: right }
 	nav { flex-wrap: wrap }
 }
@@ -226,19 +258,15 @@ button#install-pwa { display: none; }
 /* scroll bar de firefox */
 :root {
 	overflow: auto;
-	scrollbar-color: var(--text-color) var(--page-color);
+	scrollbar-color: var(--text-color, black) var(--page-color, white);
 	scrollbar-width: 1em;
 }
 /* scroll bar de chrome
 div::-webkit-scrollbar { width: 1em; }
 */
 ::-webkit-scrollbar { width: 1em; }
-::-webkit-scrollbar-track { background-color: var(--page-color); }
+::-webkit-scrollbar-track { background-color: var(--page-color, white); }
 ::-webkit-scrollbar-thumb {
-	background-color: var(--text-color);
+	background-color: var(--text-color, black);
 	border-radius: 1em;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> afd48b1 (boulot 08/21  9:52)

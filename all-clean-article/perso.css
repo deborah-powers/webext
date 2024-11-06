@@ -1,0 +1,68 @@
+/* ajouter de la couleur à mes pages
+dépend de structure
+*/
+:root {
+	--text-color: #603;
+	--fond-color: #FBD;
+	--bord-color: #C36;
+	--button-color: ivory;
+	--page-color: ivory;
+	--button-color-hover: var(--button-color);
+	--button-bg: #C36;
+	--button-bg-hover: #399;
+	--button-border: none;
+	--foldable-border: solid;
+}
+option:hover {
+	color: var(--button-color);
+	background-color: var(--button-bg);
+}
+body {
+	max-width: 36cm;
+	min-height: 100vh;
+	padding: 2%;
+	font-size: 1.2em;
+	background-color: var(--page-color);
+	margin: auto;
+}
+html { background-color: var(--button-bg); }
+h1, h2, h3, h4, p, ul, ol { margin-bottom: 1em; }
+xmp { margin-bottom: 1em; }
+circle, ellipse {
+	fill: var(--fond-color);
+	stroke: var(--bord-color);
+}
+div.texto {
+	width: 10cm;
+	border: 4px solid var(--fond-color);
+	border-radius: 1em;
+	padding: 0.5em;
+}
+div.texto > p {
+	width: 70%;
+	border-radius: 1em;
+	padding: 0.5em;
+	background-color: var(--fond-color);
+}
+div.texto > p.lui {
+	margin-left: 30%;
+	background-color: var(--bord-color);
+	color: var(--page-color);
+}
+/* les poèmes */
+body.poesie {
+	max-width: 30cm;
+	font-size: 1.5em;
+	--text-color: purple;
+	text-align: center;
+}
+body.poesie > hr { margin: 1em 0; }
+/* la barre de progression */
+progress {
+	background-color: var(--fond-color);
+	height: 2em;
+	width: 100%;
+}
+::-moz-progress-bar { background-color: var(--text-color); }
+progress::-webkit-progress-value { background-color: var(--text-color); }
+progress::-webkit-progress-bar { background-color: var(--fond-color); }
