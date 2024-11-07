@@ -1,5 +1,5 @@
 {
-	"manifest_version": 3,
+	"manifest_version": 2,
 	"name": "to mardown",
 	"version": "1.0",
 	"description": "appliquer un markdown maison sur mes fichiers textes",
@@ -9,5 +9,6 @@
 		"matches": ["http://*/*.txt", "https://*/*.txt", "file:///*/*.txt", "http://*/*.md", "https://*/*.md", "file:///*/*.md"],
 		"js": ["textFct.js", "htmlFct.js", "action.js", "action-recette.js"],
 		"css": ["structure.css", "shapes.css", "perso.css"]
-	}]
+	}],
+	"browser_specific_settings": { "gecko": { "id": "md-perso@deborah-powers.fr" }}
 }
