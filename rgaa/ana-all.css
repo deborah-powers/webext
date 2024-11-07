@@ -1,0 +1,12 @@
+.label { border: solid 4px deeppink; }
+a .label { border-style: dashed; }
+button .label { border-style: dotted; }
+span.label {
+	display: block;
+	color: #420;
+	font-size: 20px;
+	font-weight: normal;
+	text-align: left;
+	border: none;
+	width: 0;
+}

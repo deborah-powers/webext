@@ -72,6 +72,14 @@ pointer mon zip.
 débogage sur
 about:debugging#/runtime/this-firefox
 
+--- erreurs ---
+
+ce module complémentaire n'a pas pu être installé car il semble corrompu
+--> extension inadaptée à firefox. elle est probablement au manifest v3, ou l'id gecko est absent.
+
+ce module complémentaire n'a pas pu être installé car il n'a pas été vérifié
+--> j'utilise firefox de base, qui ne permet pas l'installation d'extentions non signées.
+
 ======================== divers ========================
 
 dans manifest.json
