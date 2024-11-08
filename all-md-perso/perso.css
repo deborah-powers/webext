@@ -1,7 +1,6 @@
 /* ajouter de la couleur à mes pages
 dépend de structure
 */
-@media screen {
 :root {
 	--text-color: #603;
 	--fond-color: #FBD;
@@ -18,17 +17,16 @@ option:hover {
 	color: var(--button-color);
 	background-color: var(--button-bg);
 }
-html { background-color: var(--button-bg); }
-}
 body {
 	max-width: 36cm;
 	min-height: 100vh;
 	padding: 2%;
 	font-size: 1.2em;
+	background-color: var(--page-color);
+	margin: auto;
 }
+html { background-color: var(--button-bg); }
 h1, h2, h3, h4, p, ul, ol { margin-bottom: 1em; }
-h1, h2 { page-break-before: always; }
-ul, ol { margin-left: 1em; }
 xmp { margin-bottom: 1em; }
 circle, ellipse {
 	fill: var(--fond-color);
@@ -51,6 +49,14 @@ div.texto > p.lui {
 	background-color: var(--bord-color);
 	color: var(--page-color);
 }
+/* les poèmes */
+body.poesie {
+	max-width: 30cm;
+	font-size: 1.5em;
+	--text-color: purple;
+	text-align: center;
+}
+body.poesie > hr { margin: 1em 0; }
 /* la barre de progression */
 progress {
 	background-color: var(--fond-color);

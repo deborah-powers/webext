@@ -35,7 +35,7 @@ body {
 	font-weight: normal;
 	text-decoration: none;
 	color: inherit;
-	background: none;
+	background-color: inherit;
 	outline: none;
 	border-width: 2px;
 	border-style: none;
@@ -98,11 +98,7 @@ a { display: block }
 */
 a:hover, a:focus { font-weight: bold }
 body >a, div >a { display: block; }
-img {
-	mix-blend-mode: multiply;
-	max-width: 100%;
-	max-height: 10em;
-}
+img { mix-blend-mode: multiply; }
 /* les boutons */
 button, input[type='button'], input[type='submit'], input[type='reset'], select, textarea, nav >*, a.button { padding: 0.4em; }
 button, input, select, textarea { outline: none; }
