@@ -1,3 +1,8 @@
+HTMLElement.prototype.getAttribute = function (attrName){
+	if (this.attributes[attrName] === undefined) return 'absent';
+	else if (this.attributes[attrName].value ==="" || " \t".includes (this.attributes[attrName].value)) return 'vide';
+	else return this.attributes[attrName].value;
+}
 HTMLElement.prototype.verifyAttr = function (attrName){
 	var message = attrName +' = ';
 	if (this.attributes[attrName] === undefined) message = message + 'nul';
@@ -26,28 +31,39 @@ HTMLElement.prototype._addLabel = function(){
 	label.innerHTML = label.innerHTML +'<br/>'+ this.verifyAttr ('aria-label');
 	label.innerHTML = label.innerHTML +'<br/>'+ this.verifyAttr ('aria-labelledby');
 	this.parentElement.insertBefore (label, this);
-	this.addEventListener ('mouseenter', function (event){
-		event.target.previousElementSibling.style.display = 'block';
-		event.preventDefault();
-	});
-	this.addEventListener ('mouseleave', function (event){
-		event.target.previousElementSibling.style.display = 'none';
-		event.preventDefault();
+	this.addEventListener ('mouseover', function (event){
+		if (event.target.previousElementSibling.style.display === 'block') event.target.previousElementSibling.style.display = 'none';
+		else event.target.previousElementSibling.style.display = 'block';
 	});
 	return label;
 }
-HTMLElement.prototype.addLabel = function(){ return this._addLabel(); }
-HTMLElement.prototype._addBorder = function (bordColor){
-	var label = null;
-	this.style.border = 'solid 4px '+ bordColor;
+HTMLElement.prototype._addLabel_vb = function(){
+	var alt = this.getAttribute ('alt');
+	label.innerHTML = 'alt = '+ alt;
+	if ('vide absent'.includes (alt)){
+		alt = this.getAttribute ('aria-labelledby');
+		if ('vide absent'.includes (alt)){
+			alt = this.getAttribute ('aria-label');
+			if ('vide absent'.includes (alt)){
+				alt = this.getAttribute ('title');
+				if ('vide absent'.includes (alt)) label.innerHTML = label.innerHTML +'<br/>pas de titre alternatif'
+				else label.innerHTML = label.innerHTML +'<br/>title = '+ alt;
+			}
+			else label.innerHTML = label.innerHTML +'<br/>aria-label = '+ alt;
+		}
+		else label.innerHTML = label.innerHTML +'<br/>aria-labelledby = '+ alt;
+	}
+}
+HTMLElement.prototype.addLabel = function(){ const label = this._addLabel(); }
+HTMLElement.prototype.addBorder = function(){
+	this.style.border = 'solid 4px deeppink';
 	const container = this.isinLink();
 	if (container === 'link') this.style.borderStyle = 'dashed';
 	else if (container === 'button') this.style.borderStyle = 'dotted';
-	else if (! container) label = this.addLabel();
+//	var label = this.addLabel();
 }
-HTMLElement.prototype.addBorder = function (bordColor){ this._addBorder ('deeppink'); }
 HTMLElement.prototype.verifyRole = function (roleValue){
-	if (this.attributes['role'] !== undefined && this.attributes['role'].value === roleValue) this._addBorder ('magenta');
+	if (this.attributes['role'] !== undefined && this.attributes['role'].value === roleValue) this.addBorder();
 	else{
 		for (var c=0; c< this.children.length; c++) this.children[c].verifyRole (roleValue);
 	}

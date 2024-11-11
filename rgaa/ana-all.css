@@ -2,11 +2,33 @@
 a .label { border-style: dashed; }
 button .label { border-style: dotted; }
 span.label {
-	display: block;
+	display: none;
 	color: #420;
 	font-size: 20px;
 	font-weight: normal;
 	text-align: left;
 	border: none;
-	width: 0;
+	width: 100%;
 }
+section#modale {
+	position: fixed;
+	left: 100px;
+	top: 200px;
+	z-index: 1;
+	width: 50%;
+	height: 50%;
+	background-color: ivory;
+	border: double 8px deeppink;
+	border-radius: 1em;
+	cursor: move;
+	display: grid;
+	grid-template-columns: 4fr 1fr;
+	grid-template-rows: 1fr 3fr;
+}
+section#modale >* {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	background-color: none;
+}
+section#modale p { grid-column: 1/3; }

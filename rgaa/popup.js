@@ -18,7 +18,7 @@ function chooseAction (event){
 			});
 			chrome.scripting.executeScript ({
 				target: {tabId: activeTab.id, allFrames: true },
-				files: [ 'ana-all.js', 'ana-image.js' ]
+				files: [ 'modal-drag.js', 'ana-all.js', 'ana-image.js' ]
 			});
 		}
 });}
