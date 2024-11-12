@@ -1,14 +1,11 @@
+HTMLElement.prototype.label ="";
 HTMLElement.prototype.getAttribute = function (attrName){
 	if (this.attributes[attrName] === undefined) return 'absent';
 	else if (this.attributes[attrName].value ==="" || " \t".includes (this.attributes[attrName].value)) return 'vide';
 	else return this.attributes[attrName].value;
 }
 HTMLElement.prototype.verifyAttr = function (attrName){
-	var message = attrName +' = ';
-	if (this.attributes[attrName] === undefined) message = message + 'nul';
-	else if (this.attributes[attrName].value ==="" || " \t".includes (this.attributes[attrName].value)) message = message + 'vide';
-	else message = message + this.attributes[attrName].value;
-	return message;
+	return attrName +' = '+ this.getAttribute (attrName);
 }
 HTMLElement.prototype.isinLink = function (roleValue){
 	if (this.tagName === 'BODY') return null;
@@ -17,6 +14,18 @@ HTMLElement.prototype.isinLink = function (roleValue){
 	else return this.parentElement.isinLink();
 }
 HTMLElement.prototype._addLabel = function(){
+	if (this.label !=="") this.label = this.label +'<br/>';
+	this.label = this.label + this.verifyAttr ('title');
+	this.label = this.label +'<br/>'+ this.verifyAttr ('role');
+	this.label = this.label +'<br/>'+ this.verifyAttr ('aria-label');
+	this.label = this.label +'<br/>'+ this.verifyAttr ('aria-labelledby');
+	this.addEventListener ('mouseover', function (event){
+		var modale = document.getElementById ('modale');
+		modale.children[2].innerHTML = event.target.label;
+		modale.style.display = 'block';
+	});
+}
+HTMLElement.prototype._addLabel_va = function(){
 	var label = document.createElement ('span');
 	/*
 	label.style.color = '#420';
@@ -54,7 +63,7 @@ HTMLElement.prototype._addLabel_vb = function(){
 		else label.innerHTML = label.innerHTML +'<br/>aria-labelledby = '+ alt;
 	}
 }
-HTMLElement.prototype.addLabel = function(){ const label = this._addLabel(); }
+HTMLElement.prototype.addLabel = function(){ this._addLabel(); }
 HTMLElement.prototype.addBorder = function(){
 	this.style.border = 'solid 4px deeppink';
 	const container = this.isinLink();
