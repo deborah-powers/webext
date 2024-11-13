@@ -14,7 +14,7 @@ function chooseAction (event){
 		else if (action === 'ana-image'){
 			chrome.scripting.insertCSS ({
 				target: {tabId: activeTab.id, allFrames: true},
-				files: [ 'ana-all.css', 'ana-image.css' ]
+				files: [ 'modal-style.css' ]
 			});
 			chrome.scripting.executeScript ({
 				target: {tabId: activeTab.id, allFrames: true },

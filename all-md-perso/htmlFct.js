@@ -173,9 +173,14 @@ String.prototype.toImage = function(){
 	return text;
 }
 String.prototype.toLink = function(){
-	if (this.includes ('http')){
+	var text = this.toLinkProtocol ('http');
+	text = text.toLinkProtocol ('file:///')
+	return text;
+}
+String.prototype.toLinkProtocol = function (protocol){
+	if (this.includes (protocol)){
 		const endingChars = '<;, !\t\n';
-		var textList = this.split ('http');
+		var textList = this.split (protocol);
 		for (var p=1; p< textList.length; p++){
 			var textTmp = textList[p];
 			var d=-1; var e=-1; var f=-1;
@@ -202,7 +207,7 @@ String.prototype.toLink = function(){
 			}
 			textList[p] = textTmp +"'>"+ title +'</a> '+ textList[p];
 		}
-		var text = textList.join (" <a href='http");
+		var text = textList.join (" <a href='" + protocol);
 		text = text.replaceAll ('> <a ', '><a ');
 		text = text.replaceAll ('</a> <', '</a><');
 		return text;

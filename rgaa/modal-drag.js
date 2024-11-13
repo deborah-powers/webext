@@ -2,13 +2,20 @@ var currentX =0;
 var boundaries =[];
 
 function dragDrop (event){
-	console.log ('dragDrop', event.target.tagName);
-	event.target.removeAttribute ('onmousemove');
-	event.target.removeAttribute ('onmouseup');
-	event.target.removeAttribute ('onmouseout');
+	if (event.target.tagName === 'SECTION'){
+		event.target.removeEventListener ('mousemove', dragMove);
+		event.target.removeEventListener ('mouseup', dragDrop);
+		event.target.removeEventListener ('mouseout', dragDrop);
+		event.target.removeEventListener ('click', dragDrop);
+	}
+	else{
+		event.target.parentElement.removeEventListener ('mousemove', dragMove);
+		event.target.parentElement.removeEventListener ('mouseup', dragDrop);
+		event.target.parentElement.removeEventListener ('mouseout', dragDrop);
+		event.target.parentElement.removeEventListener ('click', dragDrop);
+	}
 }
 function dragMove (event){
-	console.log ('dragMove', event.target.tagName);
 	var dx= event.screenX - currentX;
 	if (event.target.tagName === 'SECTION') event.target.move (dx);
 	else event.target.parentElement.move (dx);
@@ -19,6 +26,7 @@ function dragSelect (event){
 	event.target.addEventListener ('mousemove', dragMove);
 	event.target.addEventListener ('mouseup', dragDrop);
 	event.target.addEventListener ('mouseout', dragDrop);
+	event.target.addEventListener ('click', dragDrop);
 }
 function closeModal (event){ event.target.parentElement.style.display = 'none'; }
 HTMLElement.prototype.move = function (dx){
