@@ -39,10 +39,27 @@ SVGSVGElement.prototype.addAll = function(){
 		modale.style.display = 'grid';
 	});
 }
+HTMLCanvasElement.prototype.verifyAttributeRole = function(){
+	const role = this.getAttribute ('role');
+	this.infos = this.infos + '<br/>role = '+ role;
+	if (! 'presentation img'.includes (role)) this.infos = this.infos +' OBLIGATOIRE: img ou presentation';
+}
+HTMLObjectElement.prototype.verifyAttributeRole = function(){
+	const role = this.getAttribute ('role');
+	this.infos = this.infos + '<br/>role = '+ role;
+	if (! 'presentation img'.includes (role)) this.infos = this.infos +' OBLIGATOIRE: img ou presentation';
+}
 document.body.verifyRole ('img');
+document.body.verifyRole ('presentation');
 var images = document.getElementsByTagName ('img');
 for (var i=0; i< images.length; i++) images[i].addAll();
 images = document.getElementsByTagName ('area');
 for (var i=0; i< images.length; i++) images[i].addAll();
 images = document.getElementsByTagName ('svg');
+for (var i=0; i< images.length; i++) images[i].addAll();
+images = document.getElementsByTagName ('text');
+for (var i=0; i< images.length; i++) images[i].style.fill = 'yellow';
+images = document.getElementsByTagName ('canvas');
+for (var i=0; i< images.length; i++) images[i].addAll();
+images = document.getElementsByTagName ('object');
 for (var i=0; i< images.length; i++) images[i].addAll();

@@ -50,6 +50,7 @@ Element.prototype.addBorder = function(){
 	const container = this.isinLink();
 	if (container === 'link') this.style.borderStyle = 'dashed';
 	else if (container === 'button') this.style.borderStyle = 'dotted';
+	if (this.innerHTML ==="" && this.tagName !== 'IMG') this.infos = this.infos + '<br/>contenu vide OBLIGATOIRE';
 }
 Element.prototype.addAll = function(){
 	this.addBorder();
