@@ -49,9 +49,27 @@ HTMLObjectElement.prototype.verifyAttributeRole = function(){
 	this.infos = this.infos + '<br/>role = '+ role;
 	if (! 'presentation img'.includes (role)) this.infos = this.infos +' OBLIGATOIRE: img ou presentation';
 }
+HTMLInputElement.prototype.addInfos = function(){
+	this.infos = 'alt = ';
+	if (this.alt ===""){
+		if (this.attributes.getNamedItem ('alt') === null) this.infos = this.infos + 'absent. OBLIGATOIRE, même vide';
+		else this.infos = this.infos + 'vide';
+	}
+	else this.infos = this.infos + this.alt;
+	this._addInfos();
+}
+HTMLInputElement.addAll = function(){
+	if (this.type === 'image'){
+		this.addBorder();
+		this.addInfos();
+		this.addLabel();
+		this.addModal();
+}}
 document.body.verifyRole ('img');
 document.body.verifyRole ('presentation');
 var images = document.getElementsByTagName ('img');
+for (var i=0; i< images.length; i++) images[i].addAll();
+images = document.getElementsByTagName ('input');
 for (var i=0; i< images.length; i++) images[i].addAll();
 images = document.getElementsByTagName ('area');
 for (var i=0; i< images.length; i++) images[i].addAll();

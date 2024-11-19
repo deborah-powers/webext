@@ -1,5 +1,9 @@
 Element.prototype.label ="";
 Element.prototype.infos ="";
+String.prototype.isEmpty = function(){
+	if ('absent vide'.includes (this)) return true;
+	else return false;
+}
 Element.prototype.getAttribute = function (attrName){
 	if (this.attributes[attrName] === undefined) return 'absent';
 	else if (this.attributes[attrName].value ==="" || " \t".includes (this.attributes[attrName].value)) return 'vide';
@@ -52,10 +56,7 @@ Element.prototype.addBorder = function(){
 	else if (container === 'button') this.style.borderStyle = 'dotted';
 	if (this.innerHTML ==="" && this.tagName !== 'IMG') this.infos = this.infos + '<br/>contenu vide OBLIGATOIRE';
 }
-Element.prototype.addAll = function(){
-	this.addBorder();
-	this.addInfos();
-	this.addLabel();
+Element.prototype.addModal = function(){
 	this.addEventListener ('mouseover', function (event){
 		var modale = document.getElementById ('modale');
 		modale.children[0].innerHTML = event.target.tagName;
@@ -66,6 +67,12 @@ Element.prototype.addAll = function(){
 		modale.children[2].innerHTML = event.target.infos;
 		modale.style.display = 'grid';
 	});
+}
+Element.prototype.addAll = function(){
+	this.addBorder();
+	this.addInfos();
+	this.addLabel();
+	this.addModal();
 }
 Element.prototype.verifyRole = function (roleValue){
 	if (this.attributes['role'] !== undefined && this.attributes['role'].value === roleValue) this.addBorder();
