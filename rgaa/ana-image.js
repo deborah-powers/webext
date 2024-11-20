@@ -58,7 +58,7 @@ HTMLInputElement.prototype.addInfos = function(){
 	else this.infos = this.infos + this.alt;
 	this._addInfos();
 }
-HTMLInputElement.addAll = function(){
+HTMLInputElement.prototype.addAll = function(){
 	if (this.type === 'image'){
 		this.addBorder();
 		this.addInfos();
