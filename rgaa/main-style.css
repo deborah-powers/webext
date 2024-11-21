@@ -2,6 +2,7 @@
 	color: inherit;
 	box-sizing: border-box;
 }
+*:first-letter, title:first-letter { text-transform: uppercase; }
 body {
 	padding: 2%;
 	margin: 0;

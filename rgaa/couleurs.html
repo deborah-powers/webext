@@ -1,24 +1,16 @@
 <!DOCTYPE html><html><head>
-	<title></title>
 	<meta name='viewport' content='width=device-width,initial-scale=1'/>
 	<meta charset='utf-8'/>
-	<base target='_blank'>
 	<link rel='stylesheet' type='text/css' href='main-style.css' />
 <style type='text/css'>
-	div {
-		border: none;
-		background-color: #FEE;
-		width: 50%;
-		height: 4em;
-		display: inline-block;
-		margin: 0;
-	}
 	section {
 		display: grid;
 		grid-template-rows: 2em 1fr 1fr;
 		grid-template-columns: 1fr 1fr;
 		grid-auto-flow: column;
 	}
+	@media (max-width: 280px){ section { grid-template-rows: 4em 1fr 1fr; } }
+	@media (max-width: 184px){ section { grid-template-rows: 6em 1fr 1fr; } }
 	h2 { grid-column: 1/4; }
 	section#contrast {
 		grid-template-columns: 1fr 1fr 1fr;
@@ -30,40 +22,39 @@
 		border-radius: 0;
 		margin: 0;
 	}
-	p.OK {
-		background-color: deeppink;
-		color: ivory;
-	}
-	/*
 	input[type='color'] {
 		border: none;
-		border-color: transparent;
 		appearance: none;
 		-moz-appearance: none;
 		-o-appearance: none;
 		-webkit-appearance: none;
+		width: 50%;
+		height: 4em;
+		display: inline-block;
+		margin: 0;
 	}
-	input[type='color']::-moz-color-swatch {
-		border: none;
-	}
+	input[type='color']::-moz-color-swatch { border: none; }
 	input[type='color']::-webkit-color-swatch-wrapper {
 		padding: 0;
 		border-radius: 0;
 	}
 	input[type='color']::-webkit-color-swatch { border: none; }
-	*/
+	p.OK {
+		background-color: deeppink;
+		color: ivory;
+	}
+	button {
+		width: 100%;
+		height: 3em;
+		background-color: deeppink;
+		color: ivory;
+		border-radius: 0%;
+		outline: none;
+	}
 </style></head><body>
-	<div id='col-a-block'></div><div id='col-o-block'></div>
-	<section>
-		<h2>entrez la première couleur</h2>
-		<p>choisir:</p><input type='color' id='col-a-picker' onchange='pickColor("a",this.value)' />
-		<p>code couleur:</p><input type='text' id='col-a-code' onchange='pickColorCode("a",this.value)' />
-	</section>
-	<section>
-		<h2>entrez la seconde couleur</h2>
-		<p>choisir:</p><input type='color' id='col-o-picker' onchange='pickColor("o",this.value)' />
-		<p>code couleur:</p><input type='text' id='col-o-code' onchange='pickColorCode("o",this.value)' />
-	</section>
+	<input type='color' id='col-a-picker' onchange='pickColor("a",this.value)' /><input type='color' id='col-o-picker' onchange='pickColor("o",this.value)' />
+	<p>choisir la première couleur:</p><input type='text' id='col-a-code' onchange='pickColorCode("a",this.value)' />
+	<p>choisir la seconde couleur:</p><input type='text' id='col-o-code' onchange='pickColorCode("o",this.value)' />
 	<section id='contrast'>
 		<h2>qualité du contraste: $contrast:1</h2>
 		<p>.</p><p>AA</p><p>AAA</p>
@@ -74,6 +65,7 @@
 	<button onclick='chooseFromPage()'>choisir</button>
 </body><script type='text/javascript'>
 	// ------------------------ calculer le contraste ------------------------
+
 	function computefromSrgb (colSrgb){
 		var color =0;
 		if (colSrgb > 0.03928){
@@ -98,6 +90,7 @@
 		else return (luxo + 0.05) / (luxa + 0.05);
 	}
 	// ------------------------ préparer les couleurs ------------------------
+
 	function validateHex (hexCode){
 		// longueur du code
 		if (hexCode[0] === '#') hexCode = hexCode.substring (1);
@@ -125,13 +118,14 @@
 		return rgbArray;
 	}
 	function rgbToHex (rgbArray){
-		rgbArray[0] = rgbArray[0].toString (16);
-		if (rgbArray[0].length ===1) rgbArray[0] ='0'+ rgbArray[2];
-		rgbArray[1] = rgbArray[1].toString (16);
-		if (rgbArray[1].length ===1) rgbArray[1] ='0'+ rgbArray[2];
-		rgbArray[2] = rgbArray[2].toString (16);
-		if (rgbArray[2].length ===1) rgbArray[2] ='0'+ rgbArray[2];
-		var hexCode = '#'+ rgbArray[0] + rgbArray[1] + rgbArray[2];
+		var hexArray =[];
+		hexArray.push (rgbArray[0].toString (16));
+		hexArray.push (rgbArray[1].toString (16));
+		hexArray.push (rgbArray[2].toString (16));
+		if (hexArray[0].length ===1) hexArray[0] ='0'+ hexArray[0];
+		if (hexArray[1].length ===1) hexArray[1] ='0'+ hexArray[1];
+		if (hexArray[2].length ===1) hexArray[2] ='0'+ hexArray[2];
+		var hexCode = '#'+ hexArray[0] + hexArray[1] + hexArray[2];
 		hexCode = hexCode.toUpperCase();
 		return hexCode;
 	}
@@ -147,26 +141,10 @@
 		else rgbArray[3] = parseFloat (rgbArray[3]);
 		return rgbArray;
 	}
-	function rgbFromString_va (rgbString){
-		// rgbString = rgb(1,2,3)
-		if (rgbString.includes ('rgba')){
-			rgbString = rgbString.substring (5, rgbString.length -1);
-			const d= rgbString.lastIndexOf (',');
-			rgbString = rgbString.substring (0,d);
-		}
-		else rgbString = rgbString.substring (4, rgbString.length -1);
-		var rgbArray = rgbString.split (',');
-		rgbArray[0] = parseInt (rgbArray[0]);
-		rgbArray[1] = parseInt (rgbArray[1]);
-		rgbArray[2] = parseInt (rgbArray[2]);
-		return rgbArray;
-	}
 	// ------------------------ récupérer les couleurs entrées par l'utilisateur ------------------------
-	function rgbArrayToString (rgbArray){
-		return 'rgb(' + rgbArray[0].toString() +','+ rgbArray[1].toString() +','+ rgbArray[2].toString() +')';
-	}
+
 	function printColor (blocLetter, hexCode){
-		document.getElementById ('col-' + blocLetter + '-block').style.backgroundColor = hexCode;
+		document.getElementById ('col-' + blocLetter + '-picker').style.backgroundColor = hexCode;
 		document.getElementById ('col-' + blocLetter + '-picker').value = hexCode;
 		document.getElementById ('col-' + blocLetter + '-code').value = hexCode;
 	}
@@ -186,6 +164,7 @@
 		pickColor (blocLetter, hexCode);
 	}
 	// ------------------------ récupérer les couleurs sur la page ------------------------
+
 	function chooseFromPage(){ document.body.activeColorSelection(); }
 	HTMLElement.prototype.activeColorSelection = function(){
 		this.addEventListener ('mousedown', selectColor);
@@ -195,61 +174,54 @@
 		this.removeEventListener ('mousedown', selectColor);
 		for (var c=0; c< this.children.length; c++) this.children[c].stopColorSelection();
 	}
-	HTMLElement.prototype.computeRgbaColor = function (rgbaArrayText, rgbaArrayBg){
+	HTMLElement.prototype.computeRgbBg = function(){
 		const style = window.getComputedStyle (this);
-		if (rgbaArrayText[3] <1){
-			var rgbTmpText = rgbFromString (style.color);
-			rgbTmpText[0] *= rgbTmpText[3];
-			rgbTmpText[1] *= rgbTmpText[3];
-			rgbTmpText[2] *= rgbTmpText[3];
-			rgbaArrayText[0] += rgbTmpText[0];
-			rgbaArrayText[1] += rgbTmpText[1];
-			rgbaArrayText[2] += rgbTmpText[2];
-			rgbaArrayText[3] += rgbTmpText[3];
+		var rgbaBg = rgbFromString (style.backgroundColor);
+		if (rgbaBg[3] <1){
+			rgbaBg[0] *= rgbaBg[3];
+			rgbaBg[1] *= rgbaBg[3];
+			rgbaBg[2] *= rgbaBg[3];
+			var rgbaTmp = this.parentElement.computeRgbBg();
+			rgbaBg[0] += rgbaTmp[0];
+			rgbaBg[1] += rgbaTmp[1];
+			rgbaBg[2] += rgbaTmp[2];
+			rgbaBg[3] += 1;
+			if (rgbaBg[3] >1){
+				rgbaBg[0] /= rgbaBg[3];
+				rgbaBg[1] /= rgbaBg[3];
+				rgbaBg[2] /= rgbaBg[3];
+				rgbaBg[3] =1;
+		}}
+		return [ rgbaBg[0], rgbaBg[1], rgbaBg[2] ];
+	}
+	HTMLElement.prototype.computeRgbTxt = function (rgbBg){
+		const style = window.getComputedStyle (this);
+		var rgbaTxt = rgbFromString (style.color);
+		if (rgbaTxt[3] <1){
+			rgbaTxt[0] *= rgbaTxt[3];
+			rgbaTxt[1] *= rgbaTxt[3];
+			rgbaTxt[2] *= rgbaTxt[3];
+			rgbaTxt[0] += rgbBg[0];
+			rgbaTxt[1] += rgbBg[1];
+			rgbaTxt[2] += rgbBg[2];
+			rgbaTxt[3] += 1;
+			rgbaTxt[0] /= rgbaTxt[3];
+			rgbaTxt[1] /= rgbaTxt[3];
+			rgbaTxt[2] /= rgbaTxt[3];
+			rgbaTxt[3] =1;
 		}
-		if (rgbaArrayBg[3] <1){
-			var rgbTmpBg = rgbFromString (style.backgroundColor);
-			console.log (this.tagName, rgbTmpBg);
-			rgbTmpBg[0] *= rgbTmpBg[3];
-			rgbTmpBg[1] *= rgbTmpBg[3];
-			rgbTmpBg[2] *= rgbTmpBg[3];
-			rgbaArrayBg[0] += rgbTmpBg[0];
-			rgbaArrayBg[1] += rgbTmpBg[1];
-			rgbaArrayBg[2] += rgbTmpBg[2];
-			rgbaArrayBg[3] += rgbTmpBg[3];
-		}
-		if (rgbaArrayText[3] <1 || rgbaArrayBg[3] <1) this.parentElement.computeRgbaColor (rgbaArrayText, rgbaArrayBg);
-		else{
-			if (rgbaArrayText[3] >1){
-				rgbaArrayText[0] /= rgbaArrayText[3];
-				rgbaArrayText[1] /= rgbaArrayText[3];
-				rgbaArrayText[2] /= rgbaArrayText[3];
-			}
-			if (rgbaArrayBg[3] >1){
-				rgbaArrayBg[0] /= rgbaArrayBg[3];
-				rgbaArrayBg[1] /= rgbaArrayBg[3];
-				rgbaArrayBg[2] /= rgbaArrayBg[3];
-			}
-		}
-		console.log (this.tagName, rgbaArrayText, rgbaArrayBg);
-		return [ rgbaArrayText[0], rgbaArrayText[1], rgbaArrayText[2], rgbaArrayBg[0], rgbaArrayBg[1], rgbaArrayBg[2] ];
+		return [ rgbaTxt[0], rgbaTxt[1], rgbaTxt[2] ];
 	}
 	function selectColor (event){
-		const rgbArray = event.target.computeRgbaColor ([0,0,0,0], [0,0,0,0]);
-		const rgbArrayText =[ rgbArray[0], rgbArray[1], rgbArray[2] ];
-		const rgbArrayBg =[ rgbArray[3], rgbArray[4], rgbArray[4] ];
-		/*
-		const rgbArrayText = rgbFromString (style.color);
-		const rgbArrayBg = rgbFromString (style.backgroundColor);
-		*/
+		const rgbBg = event.target.computeRgbBg();
+		const rgbTxt = event.target.computeRgbTxt (rgbBg);
 		document.body.stopColorSelection();
 		// afficher les couleurs
-		console.log (rgbArrayText, rgbArrayBg);
-		const hexText = rgbToHex (rgbArrayText);
-		const hexBg = rgbToHex (rgbArrayBg);
+		const hexText = rgbToHex (rgbTxt);
+		const hexBg = rgbToHex (rgbBg);
 		printColor ('a', hexText);
 		printColor ('o', hexBg);
-		printContrast (rgbArrayText, rgbArrayBg);
+		printContrast (rgbTxt, rgbBg);
 	}
 	// ------------------------ afficher le contraste ------------------------
 
