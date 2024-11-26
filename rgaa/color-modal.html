@@ -1,70 +1,18 @@
-<style type='text/css'>
-#color-contrast > div { display: grid; }
-#color-contrast > div#color-picker {
-	grid-template-columns: 1fr 1fr;
-	grid-template-rows: 1fr 1fr 1fr 1fr;
-	grid-auto-flow: column;
-}
-#color-contrast button {
-	width: 100%;
-	height: 3em;
-	background-color: deeppink;
-	color: ivory;
-	border-radius: 0%;
-	outline: none;
-	grid-column: 1/3;
-}
-#color-contrast > div#color-quality {
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-template-rows: 2em 1fr 1fr;
-}
-@media (max-width: 280px){ #color-contrast > div#color-quality { grid-template-rows: 4em 1fr 1fr; } }
-@media (max-width: 184px){ #color-contrast > div#color-quality { grid-template-rows: 6em 1fr 1fr; } }
-#color-contrast > h2 { grid-column: 1/3; }
-#color-contrast > div > h2 { grid-column: 1/4; }
-#color-contrast input {
-	width: 100%;
-	height: 100%;
-	border-radius: 0;
-	margin: 0;
-}
-#color-contrast input[type='color'] {
-	border: none;
-	appearance: none;
-	-moz-appearance: none;
-	-o-appearance: none;
-	-webkit-appearance: none;
-	margin: 0;
-}
-#color-contrast input[type='color']::-moz-color-swatch { border: none; }
-#color-contrast input[type='color']::-webkit-color-swatch-wrapper {
-	padding: 0;
-	border-radius: 0;
-}
-#color-contrast input[type='color']::-webkit-color-swatch { border: none; }
-#color-contrast p.OK {
-	background-color: deeppink;
-	color: ivory;
-}
-</style>
+<!DOCTYPE html>
 <section id='color-contrast'>
 	<div id='color-picker'>
-		<button onclick='chooseFromPage()'>choisir dans la page</button>
+		<p id='color-text'>choisir dans la page</p>
 		<p>choisir la première couleur</p>
-		<input type='color' id='col-a-picker' onchange='pickColor("a",this.value)' />
-		<input type='text' id='col-a-code' onchange='pickColorCode("a",this.value)' />
+		<div class='color-picker' id='col-a-picker'></div>
+		<input type='text' class='color-code' id='col-a-code' />
 		<p>choisir la seconde couleur</p>
-		<input type='color' id='col-o-picker' onchange='pickColor("o",this.value)' />
-		<input type='text' id='col-o-code' onchange='pickColorCode("o",this.value)' />
+		<div class='color-picker' id='col-o-picker'></div>
+		<input type='text' class='color-code' id='col-o-code' />
 	</div>
 	<div id='color-quality'>
-		<h2>qualité du contraste: <span class='$contrastEtat'>$contrast:1</span> pour une taille de $fontSize</h2>
+		<h2>qualité du contraste: $contrast:1 <span>pour une taille de $fontSize</span></h2>
 		<p></p><p>AA</p><p>AAA</p>
-		<p>grand texte (>18pt)</p><p class='$grandTextAA'>$grandTextAA</p><p class='$grandTextAAA'>$grandTextAAA</p>
-		<p>petit texte (>14pt) ou gras</p><p class='$petitTextAA'>$petitTextAA</p><p class='$petitTextAAA'>$petitTextAAA</p>
+		<p>grand texte (> 18pt ou 24px)</p><p class='$grandTextAA'>$grandTextAA</p><p class='$grandTextAAA'>$grandTextAAA</p>
+		<p>petit texte (> 14pt ou 18px) ou gras</p><p class='$petitTextAA'>$petitTextAA</p><p class='$petitTextAAA'>$petitTextAAA</p>
 	</div>
-<script type='text/javascript' src='color-script.js'></script>
-<script type='text/javascript'>
-	pickColor ('a', '#0AF0AF');
-	pickColor ('o', '#CEFADA');
-</script></section>
+</section>

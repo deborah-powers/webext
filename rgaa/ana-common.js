@@ -64,7 +64,7 @@ Element.prototype.addModal = function(){
 		else if (event.target.className !== undefined && event.target.className !=="")
 			modale.children[0].innerHTML = modale.children[0].innerHTML +' .'+ event.target.className.replaceAll (" ",".");
 		modale.children[0].innerHTML = modale.children[0].innerHTML +" "+ event.target.label;
-		modale.children[2].innerHTML = event.target.infos;
+		modale.children[4].innerHTML = event.target.infos;
 		modale.style.display = 'grid';
 	});
 }

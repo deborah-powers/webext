@@ -35,7 +35,7 @@ SVGSVGElement.prototype.addAll = function(){
 		modale.children[0].innerHTML = 'SVG';
 		if (target.id !== undefined && target.id !=="") modale.children[0].innerHTML = modale.children[0].innerHTML +' #'+ target.id;
 		modale.children[0].innerHTML = modale.children[0].innerHTML +" "+ target.label;
-		modale.children[2].innerHTML = target.infos;
+		modale.children[4].innerHTML = target.infos;
 		modale.style.display = 'grid';
 	});
 }
