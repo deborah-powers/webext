@@ -1,4 +1,4 @@
-const modalHtml = `<link rel='stylesheet' type='text/css' href='color-style.css' />
+/* const modalHtml = `<link rel='stylesheet' type='text/css' href='color-style.css' />
 	<div id='color-picker'>
 		<button onclick='chooseFromPage()'>choisir dans la page</button>
 		<p>choisir la première couleur</p>
@@ -19,7 +19,7 @@ const modalHtml = `<link rel='stylesheet' type='text/css' href='color-style.css'
 	pickColor ('a', '#0AF0AF');
 	pickColor ('o', '#CEFADA');
 </script>`;
-/*
+
 var modale = document.createElement ('section');
 modale.innerHTML = modalHtml;
 modale.id = 'color-contrast';
