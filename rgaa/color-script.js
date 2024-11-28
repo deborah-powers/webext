@@ -1,12 +1,13 @@
 const colorFrame = document.getElementById ('color-contrast');
-const sectionConstast = colorFrame.getElementsByTagName ('div')[4];
+const sectionConstast = colorFrame.getElementsByTagName ('div')[1];
 const contrastBlock = sectionConstast.innerHTML;
 
 colorFrame.getElementsByTagName ('p')[0].addEventListener ('click', chooseFromPage);
 var colorInputs = colorFrame.getElementsByTagName ('input');
-colorInputs[0].addEventListener ('click', pickColorA);
-colorInputs[1].addEventListener ('click', pickColorI);
-colorInputs[2].addEventListener ('click', pickColorO);
+colorInputs[0].addEventListener ('change', pickColorA);
+colorInputs[1].addEventListener ('click', typeColorA);
+colorInputs[2].addEventListener ('change', pickColorO);
+colorInputs[3].addEventListener ('click', typeColorO);
 
 // pour les jeux de mots: ABCDEFGILOS
 // ------------------------ calculer le contraste ------------------------
@@ -32,13 +33,10 @@ function luxFromRgb (rgbArray){
 }
 function computeContrast (rgbA, rgbO){
 	const luxa = luxFromRgb (rgbA);
-	console.log ('a', rgbO);
 	const luxo = luxFromRgb (rgbO);
-	console.log ('b', rgbO);
-	var lux =0;
+	var lux = 0.2;
 	if (luxa > luxo) lux = (luxa + 0.05) / (luxo + 0.05);
 	else lux = (luxo + 0.05) / (luxa + 0.05);
-	// arrondir
 	lux = Math.round (lux * 10) /10;
 	return lux;
 }
@@ -90,42 +88,55 @@ function rgbFromString (rgbString){
 	rgbArray[0] = parseInt (rgbArray[0]);
 	rgbArray[1] = parseInt (rgbArray[1]);
 	rgbArray[2] = parseInt (rgbArray[2]);
-	/*
-	if (rgbArray.length ===3) rgbArray.push (1.0);
-	else rgbArray[3] = parseFloat (rgbArray[3]);
-	*/
+	if (rgbArray.length ===4) rgbArray[3] = parseFloat (rgbArray[3]);
+//	else rgbArray.push (1.0);
 	return rgbArray;
 }
 // ------------------------ récupérer les couleurs entrées par l'utilisateur ------------------------
 
 function printColor (blocLetter, hexCode){
 	document.getElementById ('col-' + blocLetter + '-picker').style.backgroundColor = hexCode;
+	document.getElementById ('col-' + blocLetter + '-picker').value = hexCode;
 	document.getElementById ('col-' + blocLetter + '-code').value = hexCode;
 }
+function printColorBord (rgbBrd, rgbPr){
+	const hexCode = rgbToHex (rgbBrd);
+	const hexCodePr = rgbToHex (rgbPr);
+	const blockBord = document.getElementById ('color-bord').style;
+	blockBord.backgroundColor = hexCode;
+	blockBord.color = hexCodePr;
+}
+function printColorBord_va (hexCode, hexCodePr){
+	const blockBord = document.getElementById ('color-bord').style;
+	blockBord.backgroundColor = hexCode;
+	blockBord.color = hexCodePr;
+}
 function pickColor (blocLetter, hexCode){
-	hexCode = validateHex (hexCode);
 	// afficher la couleur
 	printColor (blocLetter, hexCode);
 	// comparer les couleurs
 	var hexCode2 = hexCode;
-	if (blocLetter === 'a') hexCode2 = colorFrame.getElementsByClassName ('color-picker')[1].style.backgroundColor;
-	else hexCode2 = colorFrame.getElementsByClassName ('color-picker')[0].style.backgroundColor;
+	if (blocLetter === 'a') hexCode2 = document.getElementById ('col-o-picker').style.backgroundColor;
+	else hexCode2 = document.getElementById ('col-a-picker').style.backgroundColor;
 	var rgbA = rgbFromHex (hexCode);
 	var rgbO =[];
 	if (hexCode2[0] === '#') rgbO = rgbFromHex (hexCode2);
 	else if (hexCode2.substring (0,3) === 'rgb') rgbO = rgbFromString (hexCode2);
-	fontSize ="";
-	printContrast (rgbA, rgbO, [], [], "");
+	printContrast (rgbA, rgbO, "");
+}
+function typeColor (blocLetter, hexCode){
+	hexCode = validateHex (hexCode);
+	pickColor (blocLetter, hexCode);
 }
 function pickColorInit (blocLetter, hexCode){
 	hexCode = validateHex (hexCode);
 	// afficher la couleur
 	printColor (blocLetter, hexCode);
-	fontSize ="";
 }
 function pickColorA (event){ pickColor ('a', event.target.value); }
-function pickColorI (event){ pickColor ('i', event.target.value); }
 function pickColorO (event){ pickColor ('o', event.target.value); }
+function typeColorA (event){ typeColor ('a', event.target.value); }
+function typeColorO (event){ typeColor ('o', event.target.value); }
 
 // ------------------------ récupérer les couleurs sur la page ------------------------
 Array.prototype.isEqual = function (newList){
@@ -145,13 +156,22 @@ HTMLElement.prototype.activeColorSelection = function(){
 	this.addEventListener ('mousedown', selectColor);
 	for (var c=0; c< this.children.length; c++) this.children[c].activeColorSelection();
 }
-SVGSVGElement.prototype.activeColorSelection = function(){ this.addEventListener ('mousedown', selectColor); }
 HTMLElement.prototype.stopColorSelection = function(){
 	this.removeEventListener ('mousedown', selectColor);
 	for (var c=0; c< this.children.length; c++) this.children[c].stopColorSelection();
 }
+HTMLAnchorElement.prototype.activeColorSelection = function(){ this.addEventListener ('mouseover', selectColor); }
+HTMLAnchorElement.prototype.stopColorSelection = function(){ this.removeEventListener ('mouseover', selectColor); }
+HTMLButtonElement.prototype.activeColorSelection = function(){ this.addEventListener ('mouseover', selectColor); }
+HTMLButtonElement.prototype.stopColorSelection = function(){ this.removeEventListener ('mouseover', selectColor); }
+SVGSVGElement.prototype.activeColorSelection = function(){ this.addEventListener ('mousedown', selectColor); }
 SVGSVGElement.prototype.stopColorSelection = function(){ this.removeEventListener ('mousedown', selectColor); }
 // https://disic.github.io/guide-concepteur/6-couleurs.html
+function roundColor (colorNb){
+	colorNb = Math.round (colorNb);
+	if (colorNb >255) colorNb = 255;
+	return colorNb;
+}
 HTMLElement.prototype.computeRgbBg = function(){
 	const style = window.getComputedStyle (this);
 	var rgbaBg = rgbFromString (style.backgroundColor);
@@ -175,11 +195,14 @@ HTMLElement.prototype.computeRgbBg = function(){
 				rgbaBg[2] /= rgbaBg[3];
 				rgbaBg[3] =1;
 	}}}
+	rgbaBg[0] = roundColor (rgbaBg[0]);
+	rgbaBg[1] = roundColor (rgbaBg[1]);
+	rgbaBg[2] = roundColor (rgbaBg[2]);
 	return [ rgbaBg[0], rgbaBg[1], rgbaBg[2] ];
 }
-HTMLElement.prototype.computeRgbTxt = function (rgbBg, color){
-	// pour le texte et le bord. color = "rgba(x,y,z)"
-	var rgbaTxt = rgbFromString (color);
+HTMLElement.prototype.computeRgbTxt = function (rgbBg){
+	const style = window.getComputedStyle (this);
+	var rgbaTxt = rgbFromString (style.color);
 	if (rgbaTxt[3] <1){
 		rgbaTxt[0] *= rgbaTxt[3];
 		rgbaTxt[1] *= rgbaTxt[3];
@@ -198,27 +221,25 @@ HTMLElement.prototype.computeRgbTxt = function (rgbBg, color){
 function selectColor (event){
 	const style = window.getComputedStyle (event.target);
 	const rgbBg = event.target.computeRgbBg();
-	const rgbTxt = event.target.computeRgbTxt (rgbBg, style.color);
-	var rgbBrd =[];
-	if (style.borderStyle === 'none') rgbBrd = rgbBg;
-	else rgbBrd = event.target.computeRgbTxt (rgbBg, style.borderColor);
+	const rgbTxt = event.target.computeRgbTxt (rgbBg);
 	document.body.stopColorSelection();
 	// afficher les couleurs
 	const hexText = rgbToHex (rgbTxt);
 	const hexBg = rgbToHex (rgbBg);
-	const hexBord = rgbToHex (rgbBrd);
 	printColor ('a', hexText);
-	printColor ('i', hexBg);
-	printColor ('o', hexBord);
+	printColor ('o', hexBg);
+	// couleur de la bordure
+	var rgbBrd =[];
+	if (style.borderStyle === 'none') rgbBrd = rgbBg;
+	else rgbBrd = event.target.computeRgbTxt (rgbBg, style.borderColor);
 	const rgbPr = this.parentElement.computeRgbBg();
-	console.log (rgbBg, rgbBrd, rgbPr);
-	printContrast (rgbTxt, rgbBg, rgbBrd, rgbPr, style.fontSize);
+	printContrast (rgbTxt, rgbBg, style.fontSize, rgbBrd, rgbPr);
 }
 // ------------------------ afficher le contraste ------------------------
 
-function printContrast (rgbTxt, rgbBg, rgbBrd, rgbPr, fontSize){
-	const luxText = computeContrast (rgbTxt, rgbBg);
-	sectionConstast.innerHTML = contrastBlock.replace ('$luxText', luxText);
+function printContrast (rgbA, rgbO, fontSize, rgbBrd, rgbPr){
+	const lux = computeContrast (rgbA, rgbO);
+	sectionConstast.innerHTML = contrastBlock.replace ('$contrast', lux);
 	const spanSize = sectionConstast.getElementsByTagName ('span')[0];
 	if (fontSize ===""){
 		spanSize.style.display = 'none';
@@ -229,24 +250,29 @@ function printContrast (rgbTxt, rgbBg, rgbBrd, rgbPr, fontSize){
 		spanSize.style.display = 'inline';
 		sectionConstast.innerHTML = sectionConstast.innerHTML.replace ('$fontSize', fontSize);
 		const luxBord = computeContrast (rgbBrd, rgbPr);
-		console.log (rgbBrd, rgbPr, luxBord);
 		sectionConstast.innerHTML = sectionConstast.innerHTML.replace ('$luxBord', luxBord.toString() +':1');
 		if (luxBord >=3) sectionConstast.innerHTML = sectionConstast.innerHTML.replaceAll ('$bordAA', 'OK');
 		else sectionConstast.innerHTML = sectionConstast.innerHTML.replaceAll ('$bordAA', 'KO');
+		if (luxBord >1) printColorBord (rgbBrd, rgbPr);
+		else{
+			const luxOne = luxFromRgb (rgbBrd);
+			if (luxOne <0.5) printColorBord (rgbBrd, [255,255,255]);
+			else printColorBord (rgbBrd, [0,0,0]);
+		}
 	}
-	if (luxText <3){
+	if (lux <3){
 		sectionConstast.innerHTML = sectionConstast.innerHTML.replaceAll ('$grandTextAAA', 'KO');
 		sectionConstast.innerHTML = sectionConstast.innerHTML.replaceAll ('$petitTextAAA', 'KO');
 		sectionConstast.innerHTML = sectionConstast.innerHTML.replaceAll ('$grandTextAA', 'KO');
 		sectionConstast.innerHTML = sectionConstast.innerHTML.replaceAll ('$petitTextAA', 'KO');
 	}
-	else if (luxText <4.5){
+	else if (lux <4.5){
 		sectionConstast.innerHTML = sectionConstast.innerHTML.replaceAll ('$grandTextAAA', 'KO');
 		sectionConstast.innerHTML = sectionConstast.innerHTML.replaceAll ('$petitTextAAA', 'KO');
 		sectionConstast.innerHTML = sectionConstast.innerHTML.replaceAll ('$grandTextAA', 'OK');
 		sectionConstast.innerHTML = sectionConstast.innerHTML.replaceAll ('$petitTextAA', 'KO');
 	}
-	else if (luxText <7){
+	else if (lux <7){
 		sectionConstast.innerHTML = sectionConstast.innerHTML.replaceAll ('$grandTextAAA', 'OK');
 		sectionConstast.innerHTML = sectionConstast.innerHTML.replaceAll ('$petitTextAAA', 'KO');
 		sectionConstast.innerHTML = sectionConstast.innerHTML.replaceAll ('$grandTextAA', 'OK');
@@ -269,5 +295,4 @@ colorFrame.addEventListener ('dblclick', function (event){
 	else frame.style.left = '75%';
 });
 pickColorInit ('a', '#0AF0AF');
-pickColorInit ('i', '#CA6E07');
 pickColor ('o', '#CEFADA');
