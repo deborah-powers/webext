@@ -5,7 +5,7 @@ function chooseAction (event){
 		var activeTab = tabs[0];
 		chrome.scripting.removeCSS ({
 			target: {tabId: activeTab.id, allFrames: true},
-			files: [ 'ana-common.css', 'color-style.css' ]
+			files: [ 'ana-common.css', 'color.css' ]
 		});
 		if (action === 'del-style') chrome.scripting.executeScript ({
 			target: {tabId: activeTab.id, allFrames: true },
@@ -14,31 +14,39 @@ function chooseAction (event){
 		else if (action === 'ana-image'){
 			chrome.scripting.insertCSS ({
 				target: {tabId: activeTab.id, allFrames: true},
-				files: [ 'modal-style.css' ]
+				files: [ 'encart.css' ]
 			});
 			chrome.scripting.executeScript ({
 				target: {tabId: activeTab.id, allFrames: true },
-				files: [ 'modal-drag.js', 'ana-common.js', 'ana-image.js' ]
+				files: [ 'encart.js', 'ana-common.js', 'ana-image.js' ]
 		});}
 		else if (action === 'ana-iframe'){
 			chrome.scripting.insertCSS ({
 				target: {tabId: activeTab.id, allFrames: true},
-				files: [ 'modal-style.css' ]
+				files: [ 'encart.css' ]
 			});
 			chrome.scripting.executeScript ({
 				target: {tabId: activeTab.id, allFrames: true },
-				files: [ 'modal-drag.js', 'ana-common.js', 'ana-iframe.js' ]
+				files: [ 'encart.js', 'ana-common.js', 'ana-iframe.js' ]
 		});}
 		else if (action === 'ana-color'){
 			chrome.scripting.executeScript ({
 				target: {tabId: activeTab.id, allFrames: true },
-				files: [ 'ana-color.js', 'color-script.js' ]
+				files: [ 'volet.js', 'ana-color.js', 'color.js' ]
 			});
 			chrome.scripting.insertCSS ({
 				target: {tabId: activeTab.id, allFrames: true},
-				files: [ 'color-style.css' ]
+				files: [ 'volet.css', 'color.css' ]
+		});}
+		else if (action === 'ana-structure'){
+			chrome.scripting.executeScript ({
+				target: {tabId: activeTab.id, allFrames: true },
+				files: [ 'volet.js', 'ana-common.js', 'ana-structure.js' ]
 			});
-		}
+			chrome.scripting.insertCSS ({
+				target: {tabId: activeTab.id, allFrames: true},
+				files: [ 'volet.css' ]
+		});}
 });}
 document.addEventListener ('DOMContentLoaded', function(){
 	// document.body contient le body de la popup

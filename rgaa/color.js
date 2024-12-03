@@ -1,9 +1,8 @@
-const colorFrame = document.getElementById ('color-contrast');
-const sectionConstast = colorFrame.getElementsByTagName ('div')[1];
+const sectionConstast = voletRgaa.getElementsByTagName ('div')[1];
 const contrastBlock = sectionConstast.innerHTML;
 
-colorFrame.getElementsByTagName ('p')[0].addEventListener ('click', chooseFromPage);
-var colorInputs = colorFrame.getElementsByTagName ('input');
+voletRgaa.getElementsByTagName ('p')[0].addEventListener ('click', chooseFromPage);
+var colorInputs = voletRgaa.getElementsByTagName ('input');
 colorInputs[0].addEventListener ('change', pickColorA);
 colorInputs[1].addEventListener ('click', typeColorA);
 colorInputs[2].addEventListener ('change', pickColorO);
@@ -285,14 +284,5 @@ function printContrast (rgbA, rgbO, fontSize, rgbBrd, rgbPr){
 		sectionConstast.innerHTML = sectionConstast.innerHTML.replaceAll ('$petitTextAA', 'OK');
 	}
 }
-Element.prototype.findFrame = function(){
-	if (this.tagName === 'SECTION') return this;
-	else return this.parentElement.findFrame();
-}
-colorFrame.addEventListener ('dblclick', function (event){
-	const frame = event.target.findFrame();
-	if (frame.style.left ==='75%') frame.style.left = '0%';
-	else frame.style.left = '75%';
-});
 pickColorInit ('a', '#0AF0AF');
 pickColor ('o', '#CEFADA');

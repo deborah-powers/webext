@@ -1,3 +1,4 @@
+// dépend de encart.js et de ana-common.js
 HTMLImageElement.prototype.addInfos = function(){
 	this.infos = 'alt = ';
 	if (this.alt ===""){
@@ -30,13 +31,12 @@ SVGSVGElement.prototype.addAll = function(){
 	this.addInfos();
 	this.addLabel();
 	this.addEventListener ('mouseover', function (event){
-		var modale = document.getElementById ('modale');
 		const target = event.target.findParent();
-		modale.children[0].innerHTML = 'SVG';
-		if (target.id !== undefined && target.id !=="") modale.children[0].innerHTML = modale.children[0].innerHTML +' #'+ target.id;
-		modale.children[0].innerHTML = modale.children[0].innerHTML +" "+ target.label;
-		modale.children[4].innerHTML = target.infos;
-		modale.style.display = 'grid';
+		encartRgaa.children[0].innerHTML = 'SVG';
+		if (target.id !== undefined && target.id !=="") encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +' #'+ target.id;
+		encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +" "+ target.label;
+		encartRgaa.children[4].innerHTML = target.infos;
+		encartRgaa.style.display = 'grid';
 	});
 }
 HTMLCanvasElement.prototype.verifyAttributeRole = function(){

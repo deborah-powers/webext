@@ -1,0 +1,24 @@
+section#volet-rgaa {
+	height: 100vh;
+	width: 25%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	text-align: center;
+	color: #420;
+	background-color: ivory;
+	font-family: serif;
+	font-size: 18px;
+}
+section#volet-rgaa input {
+	padding-left: 1em;
+	width: 100%;
+	height: 100%;
+	border-radius: 0;
+	margin: 0;
+}
+section#volet-rgaa input[type='text'] {
+	color: inherit;
+	background-color: inherit;
+}

@@ -1,3 +1,4 @@
+// dépend de encart.js
 Element.prototype.label ="";
 Element.prototype.infos ="";
 String.prototype.isEmpty = function(){
@@ -58,14 +59,13 @@ Element.prototype.addBorder = function(){
 }
 Element.prototype.addModal = function(){
 	this.addEventListener ('mouseover', function (event){
-		var modale = document.getElementById ('modale');
-		modale.children[0].innerHTML = event.target.tagName;
-		if (event.target.id !== undefined && event.target.id !=="") modale.children[0].innerHTML = modale.children[0].innerHTML +' #'+ event.target.id;
+		encartRgaa.children[0].innerHTML = event.target.tagName;
+		if (event.target.id !== undefined && event.target.id !=="") encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +' #'+ event.target.id;
 		else if (event.target.className !== undefined && event.target.className !=="")
-			modale.children[0].innerHTML = modale.children[0].innerHTML +' .'+ event.target.className.replaceAll (" ",".");
-		modale.children[0].innerHTML = modale.children[0].innerHTML +" "+ event.target.label;
-		modale.children[4].innerHTML = event.target.infos;
-		modale.style.display = 'grid';
+			encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +' .'+ event.target.className.replaceAll (" ",".");
+		encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +" "+ event.target.label;
+		encartRgaa.children[4].innerHTML = event.target.infos;
+		encartRgaa.style.display = 'grid';
 	});
 }
 Element.prototype.addAll = function(){
@@ -77,6 +77,27 @@ Element.prototype.addAll = function(){
 Element.prototype.verifyRole = function (roleValue){
 	if (this.attributes['role'] !== undefined && this.attributes['role'].value === roleValue) this.addBorder();
 	else{ for (var c=0; c< this.children.length; c++) this.children[c].verifyRole (roleValue); }
+}
+/* ------ récupérer les éléments par l'attribut ------ */
+
+Element.prototype.AttributePresent = function (attrName){
+	if (this.attributes[attrName] === undefined) return false;
+	else if (this.attributes[attrName].value ==="" || " \t".includes (this.attributes[attrName].value)) return false;
+	else return true;
+}
+HTMLElement.prototype.getByAttribute = function (attrName){
+	var elements =[];
+	if (this.AttributePresent (attrName)) elements.push (this);
+	for (var c=0; c< this.children.length; c++){
+		elementsChild = this.children[c].getByAttribute (attrName);
+		for (var e=0; e< elementsChild.length; e++) elements.push (elementsChild[e]);
+	}
+	return elements;
+}
+SVGElement.prototype.getByAttribute = function(){
+	var elements =[];
+	if (this.AttributePresent (attrName)) elements.push (this);
+	return elements;
 }
 /* ------ pour le svg ------ */
 

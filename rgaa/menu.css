@@ -3,6 +3,10 @@
 	box-sizing: border-box;
 }
 *:first-letter, title:first-letter { text-transform: uppercase; }
+html, body {
+	width: 16em;
+	max-height: 16em;
+}
 body {
 	padding: 2%;
 	margin: 0;
@@ -11,6 +15,21 @@ body {
 	background-color: ivory;
 }
 h1 { font-size: 1.2em; }
+p.bouton {
+	padding: 0.5em;
+	border: solid 4px deeppink;
+	border-radius: 1em;
+	background-color: #F2E58F;
+}
+p.bouton:hover, p.bouton:focus {
+	color: ivory;
+	background-color: #420;
+}
+p.bouton:active {
+	color: ivory;
+	background-color: deeppink;
+	border-color: #420;
+}
 /* scroll bar de firefox */
 :root {
 	overflow: auto;
