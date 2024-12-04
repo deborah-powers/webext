@@ -175,6 +175,8 @@ String.prototype.toImage = function(){
 String.prototype.toLink = function(){
 	var text = this.toLinkProtocol ('http');
 	text = text.toLinkProtocol ('file:///')
+	text = text.toLinkProtocol ('C://')
+	text = text.toLinkProtocol ('C:\\\\')
 	return text;
 }
 String.prototype.toLinkProtocol = function (protocol){

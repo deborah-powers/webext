@@ -18,7 +18,16 @@ function chooseAction (event){
 			});
 			chrome.scripting.executeScript ({
 				target: {tabId: activeTab.id, allFrames: true },
-				files: [ 'encart.js', 'ana-common.js', 'ana-image.js' ]
+				files: [ 'ana-common.js', 'encart.js', 'ana-image.js' ]
+		});}
+		else if (action === 'ana-langue'){
+			chrome.scripting.insertCSS ({
+				target: {tabId: activeTab.id, allFrames: true},
+				files: [ 'encart.css' ]
+			});
+			chrome.scripting.executeScript ({
+				target: {tabId: activeTab.id, allFrames: true },
+				files: [ 'ana-common.js', 'encart.js', 'ana-langue.js' ]
 		});}
 		else if (action === 'ana-iframe'){
 			chrome.scripting.insertCSS ({
@@ -27,7 +36,7 @@ function chooseAction (event){
 			});
 			chrome.scripting.executeScript ({
 				target: {tabId: activeTab.id, allFrames: true },
-				files: [ 'encart.js', 'ana-common.js', 'ana-iframe.js' ]
+				files: [ 'ana-common.js', 'encart.js', 'ana-iframe.js' ]
 		});}
 		else if (action === 'ana-color'){
 			chrome.scripting.executeScript ({
@@ -41,11 +50,11 @@ function chooseAction (event){
 		else if (action === 'ana-structure'){
 			chrome.scripting.executeScript ({
 				target: {tabId: activeTab.id, allFrames: true },
-				files: [ 'volet.js', 'ana-common.js', 'ana-structure.js' ]
+				files: [ 'ana-common.js', 'volet.js', 'ana-structure.js' ]
 			});
 			chrome.scripting.insertCSS ({
 				target: {tabId: activeTab.id, allFrames: true},
-				files: [ 'volet.css' ]
+				files: [ 'volet.css', 'structure.css' ]
 		});}
 });}
 document.addEventListener ('DOMContentLoaded', function(){

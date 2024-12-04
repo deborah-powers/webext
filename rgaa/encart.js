@@ -1,5 +1,15 @@
 const encartHtml = "<h2>infos de l'élément inspecté</h2><span class='cross'></span><span class='arrow'></span><span class='arrow vertical'></span><p></p>";
 
+Element.prototype.addModal = function(){
+	this.addEventListener ('mouseover', function (event){
+		encartRgaa.children[0].innerHTML = event.target.tagName;
+		if (event.target.id !== undefined && event.target.id !=="") encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +' #'+ event.target.id;
+		else if (event.target.className !== undefined && event.target.className !=="")
+			encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +' .'+ event.target.className.replaceAll (" ",".");
+		encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +" "+ event.target.label;
+		encartRgaa.children[4].innerHTML = event.target.infos;
+		encartRgaa.style.display = 'grid';
+});}
 Element.prototype.findFrame = function(){
 	if (this.tagName === 'SECTION') return this;
 	else return this.parentElement.findFrame();

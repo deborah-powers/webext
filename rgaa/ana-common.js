@@ -1,4 +1,3 @@
-// dépend de encart.js
 Element.prototype.label ="";
 Element.prototype.infos ="";
 String.prototype.isEmpty = function(){
@@ -24,15 +23,10 @@ Element.prototype.isinLink = function (roleValue){
 	else return this.parentElement.isinLink();
 }
 Element.prototype.addLabel = function(){
-	if (this.infos.includes ('OBLIGATOIRE')) this.label = 'erreur';
+	if (this.infos.includes ('OBLIGATOIRE') || this.infos.includes ('ERREUR')) this.label = 'erreur';
 	else this.label = 'ok';
 }
-Element.prototype._addInfos = function(){
-	this.verifyAttributeTitle();
-	this.verifyAttributeRole();
-	this.verifyAttributeAriaLabel();
-}
-Element.prototype._addInfos_vb = function(){
+Element.prototype.addInfos_vb = function(){
 	var alt = this.getAttribute ('alt');
 	label.innerHTML = 'alt = '+ alt;
 	if ('vide absent'.includes (alt)){
@@ -49,7 +43,11 @@ Element.prototype._addInfos_vb = function(){
 		else label.innerHTML = label.innerHTML +'<br/>aria-labelledby = '+ alt;
 	}
 }
-Element.prototype.addInfos = function(){ this._addInfos(); }
+Element.prototype.addInfos = function(){
+	this.verifyAttributeTitle();
+	this.verifyAttributeRole();
+	this.verifyAttributeAriaLabel();
+}
 Element.prototype.addBorder = function(){
 	this.style.border = 'solid 4px deeppink';
 	const container = this.isinLink();
@@ -57,20 +55,10 @@ Element.prototype.addBorder = function(){
 	else if (container === 'button') this.style.borderStyle = 'dotted';
 	if (this.innerHTML ==="" && this.tagName !== 'IMG') this.infos = this.infos + '<br/>contenu vide OBLIGATOIRE';
 }
-Element.prototype.addModal = function(){
-	this.addEventListener ('mouseover', function (event){
-		encartRgaa.children[0].innerHTML = event.target.tagName;
-		if (event.target.id !== undefined && event.target.id !=="") encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +' #'+ event.target.id;
-		else if (event.target.className !== undefined && event.target.className !=="")
-			encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +' .'+ event.target.className.replaceAll (" ",".");
-		encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +" "+ event.target.label;
-		encartRgaa.children[4].innerHTML = event.target.infos;
-		encartRgaa.style.display = 'grid';
-	});
-}
+Element.prototype.addModal = function(){ console.log ("surcharger cette fonction afin d'utiliser l'encart ou le volet"); }
 Element.prototype.addAll = function(){
-	this.addBorder();
 	this.addInfos();
+	this.addBorder();
 	this.addLabel();
 	this.addModal();
 }
@@ -94,7 +82,7 @@ HTMLElement.prototype.getByAttribute = function (attrName){
 	}
 	return elements;
 }
-SVGElement.prototype.getByAttribute = function(){
+SVGElement.prototype.getByAttribute = function (attrName){
 	var elements =[];
 	if (this.AttributePresent (attrName)) elements.push (this);
 	return elements;
