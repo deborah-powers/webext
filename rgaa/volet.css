@@ -10,6 +10,9 @@ section#volet-rgaa {
 	background-color: ivory;
 	font-family: serif;
 	font-size: 18px;
+	overflow: auto;
+	scrollbar-color: deeppink ivory;
+	scrollbar-width: 5%;
 }
 section#volet-rgaa input {
 	padding-left: 1em;
@@ -21,4 +24,11 @@ section#volet-rgaa input {
 section#volet-rgaa input[type='text'] {
 	color: inherit;
 	background-color: inherit;
+}
+/* scroll bar de chrome */
+section#volet-rgaa::-webkit-scrollbar { width: 5%; }
+section#volet-rgaa::-webkit-scrollbar-track { background-color: ivory; }
+section#volet-rgaa::-webkit-scrollbar-thumb {
+	background-color: deeppink;
+	border-radius: 5%;
 }

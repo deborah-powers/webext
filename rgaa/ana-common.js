@@ -43,11 +43,12 @@ Element.prototype.addInfos_vb = function(){
 		else label.innerHTML = label.innerHTML +'<br/>aria-labelledby = '+ alt;
 	}
 }
-Element.prototype.addInfos = function(){
+Element.prototype._addInfos = function(){
 	this.verifyAttributeTitle();
 	this.verifyAttributeRole();
 	this.verifyAttributeAriaLabel();
 }
+Element.prototype.addInfos = function(){ this._addInfos(); }
 Element.prototype.addBorder = function(){
 	this.style.border = 'solid 4px deeppink';
 	const container = this.isinLink();
@@ -57,8 +58,8 @@ Element.prototype.addBorder = function(){
 }
 Element.prototype.addModal = function(){ console.log ("surcharger cette fonction afin d'utiliser l'encart ou le volet"); }
 Element.prototype.addAll = function(){
-	this.addInfos();
 	this.addBorder();
+	this.addInfos();
 	this.addLabel();
 	this.addModal();
 }

@@ -56,6 +56,15 @@ function chooseAction (event){
 				target: {tabId: activeTab.id, allFrames: true},
 				files: [ 'volet.css', 'structure.css' ]
 		});}
+		else if (action === 'ana-balis'){
+			chrome.scripting.executeScript ({
+			target: {tabId: activeTab.id, allFrames: true },
+			files: [ 'ana-common.js', 'volet.js', 'ana-balis.js' ]
+			});
+			chrome.scripting.insertCSS ({
+				target: {tabId: activeTab.id, allFrames: true},
+				files: [ 'volet.css', ]
+		});}
 });}
 document.addEventListener ('DOMContentLoaded', function(){
 	// document.body contient le body de la popup
