@@ -3,7 +3,7 @@ section#volet-rgaa {
 	width: 25%;
 	position: fixed;
 	top: 0;
-	left: 0;
+	left: 75%;
 	z-index: 100;
 	text-align: center;
 	color: #420;

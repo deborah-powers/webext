@@ -1,16 +1,33 @@
 p.legend {
-	border-style: solid;
-	border-width: 4px;
-	border-color: deeppink;
+	padding: 0.5em;
+	border: solid 4px deeppink;
+	border-radius: 1em;
+	background-color: #F2E58F;
 }
-
-.legend:nth-child(5) { border-color: red; }
-.legend:nth-child(6) { border-color: orange; }
-.legend:nth-child(7) { border-color: #B90; }
-.legend:nth-child(8) { border-color: limegreen; }
-.legend:nth-child(9) { border-color: green; }
-.legend:nth-child(10) { border-color: green; }
-.legend:nth-child(11) { border-color: deepskyblue; }
-.legend:nth-child(12) { border-color: blue; }
-.legend:nth-child(13) { border-color: purple; }
-
+p.legend:hover, p.legend:focus {
+	color: ivory;
+	background-color: #420;
+}
+p.legend:active {
+	color: ivory;
+	background-color: deeppink;
+	border-color: #420;
+}
+.rgaa-highlight {
+	border: solid 4px deeppink !important;
+	background-color: ivory !important;
+}
+.rgaa-error {
+	border: solid 4px red !important;
+	background-color: #F2E58F !important;
+}
+/* les balises interdites /
+basefont, big, blink, center, font, marquee, s, strike, tt {
+	border: solid 2px red !important;
+	background-color: #F2E58F !important;
+}
+*[align], *[alink], *[background], *[bgcolor], *[border], *[cellpadding], *[cellspacing], *[char], *[charoff], *[clear], *[compact], *[color], *[frameborder], *[hspace], *[link], *[marginheight], *[marginwidth], *[text], *[valign], *[vlink], *[vspace] {
+	border: solid 2px red !important;
+	background-color: #F2E58F !important;
+}
+*/
