@@ -1,0 +1,26 @@
+area, canvas, img, input[type='image'], object, svg {
+	border-style: dotted;
+	border-width: 4px;
+	border-color: deeppink;
+	background-color: ivory;
+	color: #420;
+}
+*[role='img'], *[role='presentation'] {
+	border-style: solid;
+	border-width: 4px;
+	border-color: deeppink;
+	background-color: ivory;
+	color: #420;
+}
+img[alt][src] { border-style: solid; }
+input[type='image'][alt] { border-style: solid; }
+a * { border-style: dashed; }
+/*
+img[alt], img[src] { border-style: dashed; }
+img { border-color: limegreen; }
+area { border-color: azure; }
+canvas { border-color: cyan; }
+input[type='image'] { border-color: indigo; }
+object { border-color: orangered; }
+svg { border-color: salmon; }
+*/

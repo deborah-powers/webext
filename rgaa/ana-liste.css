@@ -1,0 +1,17 @@
+ol, ul, dl {
+	border-style: solid;
+	border-width: 4px;
+	border-color: deeppink;
+	background-color: ivory;
+	color: #420;
+}
+ol >*, ul >*, dl >* {
+	background-color: deeppink;
+	color: ivory;
+}
+ol > li, ul > li, dl > dt, dl > dd {
+	background-color: inherit;
+	color: inherit;
+}
+ol.rgaa-empty, ul.rgaa-empty, dl.rgaa-empty { height: 2em; }
+li.rgaa-empty { background-color: lime; }

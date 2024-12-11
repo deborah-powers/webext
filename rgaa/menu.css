@@ -5,7 +5,8 @@
 *:first-letter, title:first-letter { text-transform: uppercase; }
 html, body {
 	width: 16em;
-	max-height: 16em;
+/*	max-height: 16em; */
+	height: 100%vh;
 }
 body {
 	padding: 2%;

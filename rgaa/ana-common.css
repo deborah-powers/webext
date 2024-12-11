@@ -1,0 +1,15 @@
+.rgaa-highlight {
+	border-style: solid;
+	border-width: 4px;
+	border-color: deeppink;
+	background-color: ivory;
+	color: #420;
+/*	color: #420 !important; */
+}
+.rgaa-error {
+	border: solid 4px red;
+	background-color: #F2E58F;
+	color: #420;
+}
+a > *.rgaa-highlight { border-style: dashed; }
+button *.rgaa-highlight { border-style: dotted; }

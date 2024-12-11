@@ -1,0 +1,17 @@
+iframe {
+	border-style: dotted;
+	border-width: 4px;
+	border-color: deeppink;
+	background-color: ivory;
+	color: #420;
+}
+iframe[title] { border-style: solid; }
+figure {
+	border-style: dotted;
+	border-width: 4px;
+	border-color: limegreen;
+	background-color: ivory;
+	color: #420;
+}
+figure[title][role='figure'], figure[title][role='group'], figure[aria-label][role='figure'], figure[aria-label][role='group']
+	{ border-style: solid; }

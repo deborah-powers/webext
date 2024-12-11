@@ -19,6 +19,7 @@ Element.prototype.addInfos = function(){
 		else this.infos = this.infos + 'direction: '+ direction +'. ERREUR, elle doit valoir ltr ou rtl. celle du parent est prise par défaut<br/>';
 		this.infos = this.infos + pageLang;
 }}
+/*
 Element.prototype.addBorder = function(){
 	var border = 'dotted 4px deeppink';
 	if (this.dir === 'ltr') border = border.replace ('deeppink', 'lime');
@@ -26,7 +27,7 @@ Element.prototype.addBorder = function(){
 	else if (this.dir !=="") border = border.replace ('deeppink', '#420');
 	if (this.lang !=="") border = border.replace ('dotted', 'solid');
 	this.style.border = border;
-}
+}*/
 // la langue des blocs
 var blocLang = document.body.getByAttribute ('dir');
 for (var i=0; i< blocLang.length; i++) blocLang[i].addAll();

@@ -50,6 +50,11 @@ Element.prototype._addInfos = function(){
 }
 Element.prototype.addInfos = function(){ this._addInfos(); }
 Element.prototype.addBorder = function(){
+	// fonctionne avec ana-common.css
+	this.classList.add ('rgaa-highlight');
+	if (this.innerHTML ==="" && this.tagName !== 'IMG') this.infos = this.infos + '<br/>contenu vide OBLIGATOIRE';
+}
+Element.prototype.addBorder_va = function(){
 	this.style.border = 'solid 4px deeppink';
 	const container = this.isinLink();
 	if (container === 'link') this.style.borderStyle = 'dashed';
@@ -58,7 +63,7 @@ Element.prototype.addBorder = function(){
 }
 Element.prototype.addModal = function(){ console.log ("surcharger cette fonction afin d'utiliser l'encart ou le volet"); }
 Element.prototype.addAll = function(){
-	this.addBorder();
+//	this.addBorder();
 	this.addInfos();
 	this.addLabel();
 	this.addModal();
@@ -66,6 +71,12 @@ Element.prototype.addAll = function(){
 Element.prototype.verifyRole = function (roleValue){
 	if (this.attributes['role'] !== undefined && this.attributes['role'].value === roleValue) this.addBorder();
 	else{ for (var c=0; c< this.children.length; c++) this.children[c].verifyRole (roleValue); }
+}
+function removeHighlight(){
+	var toUnlight = document.getElementsByClassName ('rgaa-error');
+	for (var h= toUnlight.length -1; h>=0; h--) toUnlight[h].classList.remove ('rgaa-error');
+	toUnlight = document.getElementsByClassName ('rgaa-highlight');
+	for (var h= toUnlight.length -1; h>=0; h--) toUnlight[h].classList.remove ('rgaa-highlight');
 }
 /* ------ récupérer les éléments par l'attribut ------ */
 

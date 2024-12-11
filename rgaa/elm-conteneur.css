@@ -1,0 +1,35 @@
+/* éléments de la page */
+header, main, footer, aside, nav, article, section, div {
+	border-style: solid;
+	border-width: 4px;
+	border-color: deeppink;
+	background-color: ivory;
+	color: #420;
+}
+header { border-color: magenta; }
+footer { border-color: purple; }
+main { border-color: mediumvioletred; }
+aside { border-color: limegreen; }
+nav { border-color: skyblue; }
+article { border-color: red; }
+section { border-color: orange; }
+.rgaa-error { border-style: dashed; }
+
+/* légende dans le volet */
+p.legend {
+	padding: 0.5em;
+	border: none;
+	border-radius: 1em;
+	background-color: deeppink;
+	color: ivory;
+	display: inline-block;
+	min-width: 4em;
+	margin: 2%;
+}
+p.legend#header { background-color: magenta; }
+p.legend#footer { background-color: purple; }
+p.legend#main { background-color: mediumvioletred; }
+p.legend#aside { background-color: limegreen; }
+p.legend#nav { background-color: skyblue; }
+p.legend#article { background-color: red; }
+p.legend#section { background-color: orange; }

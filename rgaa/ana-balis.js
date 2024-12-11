@@ -12,16 +12,6 @@ HTMLElement.prototype.isTitle = function(){
 	for (var c=0; c< this.children.length; c++) text = text + this.children[c].isTitle();
 	return text;
 }
-HTMLUListElement.prototype.addBorder = function(){
-	this.style.border = 'solid 4px #420';
-	for (var c=0; c< this.children.length; c++){
-		if (![ 'LI', 'OL', 'UL' ].includes (this.children[c].tagName)) this.children[c].style.border = 'solid 2px lime';
-}}
-HTMLOListElement.prototype.addBorder = function(){
-	this.style.border = 'solid 4px #420';
-	for (var c=0; c< this.children.length; c++){
-		if (![ 'LI', 'OL', 'UL' ].includes (this.children[c].tagName)) this.children[c].style.border = 'solid 2px lime';
-}}
 HTMLAnchorElement.prototype.enSerie = function(){
 	var nba =0;
 	if (this.tagName === 'A') nba =1;
@@ -48,10 +38,6 @@ HTMLAnchorElement.prototype.inListe_va = function(){
 }
 var titleText = document.body.isTitle();
 voletRgaa.innerHTML = titleText;
-var listes = document.getElementsByTagName ('ul');
-for (var i=0; i< listes.length; i++) listes[i].addBorder();
-var listes = document.getElementsByTagName ('ol');
-for (var i=0; i< listes.length; i++) listes[i].addBorder();
 // liste de a dans une liste
 listes = document.getElementsByTagName ('a');
 for (var i=0; i< listes.length; i++) listes[i].inListe();

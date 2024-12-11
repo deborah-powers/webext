@@ -4,8 +4,11 @@ Element.prototype.addModal = function(){
 	this.addEventListener ('mouseover', function (event){
 		encartRgaa.children[0].innerHTML = event.target.tagName;
 		if (event.target.id !== undefined && event.target.id !=="") encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +' #'+ event.target.id;
-		else if (event.target.className !== undefined && event.target.className !=="")
-			encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +' .'+ event.target.className.replaceAll (" ",".");
+		else if (event.target.className !== undefined && event.target.className !=="" && event.target.className !== 'rgaa-highlight'){
+			var className = event.target.className.replaceAll (" ",".");
+			className = className.replace ('.rgaa-highlight', "");
+			encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +' .'+ className;
+		}
 		encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +" "+ event.target.label;
 		encartRgaa.children[4].innerHTML = event.target.infos;
 		encartRgaa.style.display = 'grid';

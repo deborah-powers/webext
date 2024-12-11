@@ -1,0 +1,8 @@
+basefont, big, blink, center, font, marquee, s, strike, tt {
+	border: solid 2px deeppink;
+	background-color: ivory;
+}
+*[align], *[alink], *[background], *[bgcolor], *[border], *[cellpadding], *[cellspacing], *[char], *[charoff], *[clear], *[compact], *[color], *[frameborder], *[hspace], *[link], *[marginheight], *[marginwidth], *[text], *[valign], *[vlink], *[vspace] {
+	border: solid 2px deeppink;
+	background-color: ivory;
+}

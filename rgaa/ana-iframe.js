@@ -7,7 +7,6 @@ HTMLIFrameElement.prototype.verifyAttributeTitle = function(){
 	if ('absent vide'.includes (title)) this.infos = this.infos +' OBLIGATOIRE';
 }
 HTMLElement.prototype.addAllFigure = function(){
-	this.addBorder();
 	this.addInfos();
 	const title = this.getAttribute ('title');
 	const label = this.getAttribute ('aria-label');

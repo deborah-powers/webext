@@ -1,0 +1,12 @@
+*[dir] {
+	border-style: dotted;
+	border-width: 4px;
+	border-color: deeppink;
+}
+*[lang] {
+	border-style: solid;
+	border-width: 4px;
+	border-color: deeppink;
+}
+*[dir='ltr'] { border-color: lime; }
+*[dir='rtl'] { border-color: red; }

@@ -27,7 +27,6 @@ SVGSVGElement.prototype.verifyAttributeRole = function(){
 	if (! 'presentation img'.includes (role)) this.infos = this.infos +' OBLIGATOIRE: img ou presentation';
 }
 SVGSVGElement.prototype.addAll = function(){
-	this.addBorder();
 	this.addInfos();
 	this.addLabel();
 	this.addEventListener ('mouseover', function (event){
