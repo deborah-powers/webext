@@ -20,7 +20,7 @@ monTitre = 'erreur, la langue doit être précisée dans la balise html';
 if (document.documentElement.lang !=="") monTitre = document.documentElement.lang +' (lang)';
 else if (document.documentElement.attributes['xml:lang'] !== undefined) monTitre = document.documentElement.attributes['xml:lang'].value +' (xml:lang)';
 voletHtml = voletHtml.replace ('$lang', monTitre);
-voletRgaa.innerHTML = voletHtml;
+voletRgaa.innerHTML = voletRgaa.innerHTML + voletHtml;
 
 // structure des blocs
 const conteneurs =[ 'HEADER', 'FOOTER', 'MAIN', 'ASIDE', 'NAV', 'ARTICLE', 'SECTION', 'DIV' ];

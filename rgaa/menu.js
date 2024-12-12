@@ -5,7 +5,10 @@ function chooseAction (event){
 		var activeTab = tabs[0];
 		chrome.scripting.removeCSS ({
 			target: {tabId: activeTab.id, allFrames: true},
-			files: [ 'ana-common.css', 'volet.css', 'encart.css', 'ana-image.css', 'ana-langue.css', 'ana-iframe.css', 'elm-interdit.css', 'ana-liste.css', 'color.css', 'ana-structure.css', 'elm-interdit.css' ]
+			files: [
+				'ana-common.css', 'volet.css', 'encart.css', 'ana-image.css', 'ana-langue.css', 'ana-iframe.css', 'elm-interdit.css',
+				'ana-liste.css', 'color.css', 'ana-structure.css', 'elm-interdit.css', 'elm-titre.css'
+				]
 		});
 		var listStyle =[];
 		var listScript =[];
@@ -24,8 +27,8 @@ function chooseAction (event){
 			listScript =[ 'ana-common.js', 'encart.js', 'ana-iframe.js' ];
 		}
 		else if (action === 'ana-color'){
-			listStyle =[ 'ana-common.css', 'volet.css', 'color.css' ];
-			listScript =[ 'volet.js', 'ana-color.js', 'color.js' ];
+			listStyle =[ 'ana-common.css', 'volet.css', 'ana-color.css' ];
+			listScript =[ 'volet.js', 'ana-color.js' ];
 		}
 		else if (action === 'elm-interdit') listStyle =[ 'elm-interdit.css' ];
 		else if (action === 'elm-vide'){
@@ -35,6 +38,10 @@ function chooseAction (event){
 		else if (action === 'elm-conteneur'){
 			listStyle =[ 'volet.css', 'elm-conteneur.css' ];
 			listScript =[ 'volet.js', 'elm-conteneur.js' ];
+		}
+		else if (action === 'elm-titre'){
+			listStyle =[ 'volet.css', 'elm-titre.css' ];
+			listScript =[ 'volet.js', 'elm-titre.js' ];
 		}
 		else if (action === 'ana-liste'){
 			listStyle =[ 'ana-liste.css' ];

@@ -25,6 +25,25 @@ section#volet-rgaa input[type='text'] {
 	color: inherit;
 	background-color: inherit;
 }
+/* flèches de déplacement de la modale */
+hr.arrow {
+	text-align: center;
+	color: ivory;
+	background-color: deeppink;
+	border-radius: 1em;
+	line-height: 1em;
+	display: inline-block;
+	vertical-align: middle;
+	height: 1em;
+	width: 2em;
+	margin: 0 0.5em;
+	clip-path: polygon(0 50%, 40% 0%, 40% 30%, 60% 30%, 60% 0%, 100% 50%, 60% 100%, 60% 70%, 40% 70%, 40% 100%);
+}
+hr.arrow.vertical {
+	height: 2em;
+	width: 1em;
+	clip-path: polygon(50% 0%, 0% 40%, 30% 40%, 30% 60%, 0% 60%, 50% 100%, 100% 60%, 70% 60%, 70% 40%, 100% 40%);
+}
 /* scroll bar de chrome */
 section#volet-rgaa::-webkit-scrollbar { width: 5%; }
 section#volet-rgaa::-webkit-scrollbar-track { background-color: ivory; }
