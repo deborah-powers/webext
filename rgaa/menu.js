@@ -26,9 +26,13 @@ function chooseAction (event){
 			listStyle =[ 'encart.css', 'ana-iframe.css' ];
 			listScript =[ 'ana-common.js', 'encart.js', 'ana-iframe.js' ];
 		}
+		else if (action === 'ana-contrast'){
+			listStyle =[ 'ana-common.css', 'volet.css', 'ana-contrast.css' ];
+			listScript =[ 'volet.js', 'ana-contrast.js' ];
+		}
 		else if (action === 'ana-color'){
-			listStyle =[ 'ana-common.css', 'volet.css', 'ana-color.css' ];
-			listScript =[ 'volet.js', 'ana-color.js' ];
+			listStyle =[ 'ana-color.css' ];
+			listScript =[ 'ana-color.js' ];
 		}
 		else if (action === 'elm-interdit') listStyle =[ 'elm-interdit.css' ];
 		else if (action === 'elm-vide'){

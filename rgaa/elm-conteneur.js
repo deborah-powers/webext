@@ -19,6 +19,7 @@ voletHtml = voletHtml.replace ('$doctype', monTitre);
 monTitre = 'erreur, la langue doit être précisée dans la balise html';
 if (document.documentElement.lang !=="") monTitre = document.documentElement.lang +' (lang)';
 else if (document.documentElement.attributes['xml:lang'] !== undefined) monTitre = document.documentElement.attributes['xml:lang'].value +' (xml:lang)';
+else monTitre = navigator.language;
 voletHtml = voletHtml.replace ('$lang', monTitre);
 voletRgaa.innerHTML = voletRgaa.innerHTML + voletHtml;
 

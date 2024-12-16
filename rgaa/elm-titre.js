@@ -12,3 +12,4 @@ Element.prototype.isTitle = function(){
 	return text;
 }
 voletRgaa.innerHTML = document.body.isTitle();
+
