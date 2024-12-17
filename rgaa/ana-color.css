@@ -1,5 +1,14 @@
-.rgaa-nobg { border: solid 2px deeppink; }
-.rgaa-notx { background-color: lime; }
-/*
-.rgaa-nobg.rgaa-notx { border: solid 2px orange; }
-*/
+.rgaa-nobg {
+	background-color: rgb(255, 228, 225); /* mistyrose */
+	color: rgb(85, 107, 47); /* darkolivegreen */
+}
+.rgaa-notx {
+	background-color: lightyellow;
+	color: darkolivegreen;
+}
+.rgaa-nobg.rgaa-notx { background-color: paleturquoise; }
+.rgaa-nobgcolor {
+	border-style: solid;
+	border-width: 4px;
+	border-color: deeppink;
+}

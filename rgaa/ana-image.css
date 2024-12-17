@@ -15,6 +15,16 @@ area, canvas, img, input[type='image'], object, svg {
 img[alt][src] { border-style: solid; }
 input[type='image'][alt] { border-style: solid; }
 a * { border-style: dashed; }
+.rgaa-bgimg {
+	border-style: solid;
+	border-width: 4px;
+	border-color: deeppink;
+}
+.rgaa-nobgcolor {
+	border-style: dotted;
+	border-width: 4px;
+	border-color: deeppink;
+}
 /*
 img[alt], img[src] { border-style: dashed; }
 img { border-color: limegreen; }

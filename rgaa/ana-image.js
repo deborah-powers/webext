@@ -64,6 +64,31 @@ HTMLInputElement.prototype.addAll = function(){
 		this.addLabel();
 		this.addModal();
 }}
+HTMLElement.prototype.addInfos = function(){
+	this.infos = "ERREUR, il manque une couleur de fond pour doubler l'image";
+	this.label = this.addLabelModal() +' erreur';
+}
+HTMLElement.prototype.addInfosParent = function(){
+	this.infos = this.parentElement.infos;
+	this.label = this.parentElement.label +' - '+ this.addLabelModal();
+	for (var c=0; c< this.children.length; c++) this.children[c].addInfosParent();
+}
+HTMLElement.prototype.bgImageDoublee = function(){
+	const style = window.getComputedStyle (this);
+	if (style.backgroundImage !== 'none'){
+	//	this.classList.add ('rgaa-bgimg');
+		if (style.backgroundColor.includes ('rgba') && style.backgroundColor.includes (' 0)')){
+			this.addInfos();
+			this.addModal();
+			this.classList.add ('rgaa-nobgcolor');
+			for (var c=0; c< this.children.length; c++) this.children[c].addInfosParent();
+	}}
+	else{ for (var c=0; c< this.children.length; c++) this.children[c].bgImageDoublee(); }
+}
+HTMLScriptElement.prototype.bgImageDoublee = function(){ return; }
+SVGSVGElement.prototype.bgImageDoublee = function(){ return; }
+
+document.body.bgImageDoublee();
 document.body.verifyRole ('img');
 document.body.verifyRole ('presentation');
 var images = document.getElementsByTagName ('img');

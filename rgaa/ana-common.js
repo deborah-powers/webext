@@ -22,9 +22,21 @@ Element.prototype.isinLink = function (roleValue){
 	else if (this.tagName === 'BUTTON' || (this.tagName === 'INPUT' || 'button submit reset'.includes (this.type))) return 'button';
 	else return this.parentElement.isinLink();
 }
+Element.prototype.addLabelModal = function(){
+	var labelModal = this.tagName;
+	if (this.id !== undefined && this.id !=="") labelModal = labelModal +' #'+ this.id + this.label;
+	if (this.className !== undefined && this.className !==""){
+		var newClass = this.replaceMyClasses();
+		if (newClass){
+			newClass = newClass.replaceAll (" ",".");
+			labelModal = labelModal +' .'+ newClass +' '+ this.label;
+	}}
+	return labelModal;
+}
 Element.prototype.addLabel = function(){
 	if (this.infos.includes ('OBLIGATOIRE') || this.infos.includes ('ERREUR')) this.label = 'erreur';
 	else this.label = 'ok';
+	this.label = this.addLabelModal() +" "+ this.label;
 }
 Element.prototype.addInfos_vb = function(){
 	var alt = this.getAttribute ('alt');
@@ -54,16 +66,8 @@ Element.prototype.addBorder = function(){
 	this.classList.add ('rgaa-highlight');
 	if (this.innerHTML ==="" && this.tagName !== 'IMG') this.infos = this.infos + '<br/>contenu vide OBLIGATOIRE';
 }
-Element.prototype.addBorder_va = function(){
-	this.style.border = 'solid 4px deeppink';
-	const container = this.isinLink();
-	if (container === 'link') this.style.borderStyle = 'dashed';
-	else if (container === 'button') this.style.borderStyle = 'dotted';
-	if (this.innerHTML ==="" && this.tagName !== 'IMG') this.infos = this.infos + '<br/>contenu vide OBLIGATOIRE';
-}
 Element.prototype.addModal = function(){ console.log ("surcharger cette fonction afin d'utiliser l'encart ou le volet"); }
 Element.prototype.addAll = function(){
-//	this.addBorder();
 	this.addInfos();
 	this.addLabel();
 	this.addModal();

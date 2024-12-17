@@ -1,6 +1,6 @@
 section#encart-rgaa {
 	position: fixed;
-	top: 0;
+	top: 60%;
 	left: 0;
 	z-index: 1;
 	width: 40%;
@@ -11,12 +11,22 @@ section#encart-rgaa {
 	color: #420;
 	cursor: move;
 	display: grid;
-	grid-template-columns: 4fr 1fr 1fr 1fr;
+	grid-template-columns: 7fr 1fr 1fr 1fr;
 	grid-template-rows: 1fr 3fr;
+	font-size: 1em;
+	font-weight: normal;
+	font-family: georgia, serif;
 }
 section#encart-rgaa >* {
 	background-color: transparent;
 	margin: 0;
+	font-size: inherit;
+	font-weight: inherit;
+	font-family: inherit;
+	color: inherit;
+}
+section#encart-rgaa > h2 {
+	font-size: 1.2em;
 }
 section#encart-rgaa > p {
 	grid-column: 1/5;

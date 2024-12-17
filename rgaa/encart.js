@@ -1,15 +1,17 @@
 const encartHtml = "<h2>infos de l'élément inspecté</h2><span class='cross'></span><span class='arrow'></span><span class='arrow vertical'></span><p></p>";
-
+Element.prototype.replaceMyClasses = function(){
+	const myClasses =[ 'rgaa-highlight', 'rgaa-error', 'rgaa-nobg', 'rgaa-notx', 'rgaa-bgimg', 'rgaa-nobgcolor' ];
+	var newClass = this.className.replace (myClasses[0]);
+	for (var c=1; c< myClasses.length; c++) newClass = newClass.replace (myClasses[c], "");
+	while (newClass.includes ("  ")) newClass = newClass.replaceAll ("  "," ");
+	if (newClass[0] ===" ") newClass = newClass.substring (1,);
+	if (newClass [newClass.length -1] ===" ") newClass = newClass.substring (0, newClass.length -1);
+	return newClass;
+}
 Element.prototype.addModal = function(){
 	this.addEventListener ('mouseover', function (event){
-		encartRgaa.children[0].innerHTML = event.target.tagName;
-		if (event.target.id !== undefined && event.target.id !=="") encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +' #'+ event.target.id;
-		else if (event.target.className !== undefined && event.target.className !=="" && event.target.className !== 'rgaa-highlight'){
-			var className = event.target.className.replaceAll (" ",".");
-			className = className.replace ('.rgaa-highlight', "");
-			encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +' .'+ className;
-		}
-		encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +" "+ event.target.label;
+	//	const labelModal = event.target.addLabelModal();
+		encartRgaa.children[0].innerHTML = event.target.label;
 		encartRgaa.children[4].innerHTML = event.target.infos;
 		encartRgaa.style.display = 'grid';
 });}
