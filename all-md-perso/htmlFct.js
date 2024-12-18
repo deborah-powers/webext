@@ -168,8 +168,7 @@ String.prototype.toImage = function(){
 				textList[i] = textList[i].substring (0,f) + "<img src='" + textList[i].substring (f).replaceAll ('http', 'ht/tp') +"."+ imgExtension[h] +"' alt='" + title +"'/>";
 			}
 			text = textList.join ("");
-		}
-	}
+	}}
 	return text;
 }
 String.prototype.toLink = function(){
@@ -199,8 +198,7 @@ String.prototype.toLinkProtocol = function (protocol){
 				e= textList[p].indexOf (')');
 				title = textList[p].substring (f+2, e);
 				textList[p] = textList[p].substring (e+1);
-			}
-			else{
+			}else{
 				title = textTmp.substring (d,e).replaceAll ('-',' ');
 				title = title.replaceAll ('_',' ');
 				title = title.replaceAll ('.',' ');
@@ -254,8 +252,7 @@ String.prototype.setXmpWidth = function(){
 				if (textTmp.length <100){
 					textTmp = textTmp +" "+ xmpLine[l];
 					if (l=== xmpLine.length -1) xmpBlock[b] = xmpBlock[b] +'\n '+ textTmp;
-				}
-				else{
+				}else{
 					xmpBlock[b] = xmpBlock[b] +'\n '+ textTmp;
 					textTmp = xmpLine[l];
 	}}}}

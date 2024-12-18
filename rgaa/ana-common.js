@@ -55,12 +55,12 @@ Element.prototype.addInfos_vb = function(){
 		else label.innerHTML = label.innerHTML +'<br/>aria-labelledby = '+ alt;
 	}
 }
-Element.prototype._addInfos = function(){
+Element.prototype.addInfos = function(){
 	this.verifyAttributeTitle();
 	this.verifyAttributeRole();
 	this.verifyAttributeAriaLabel();
+	// Element.prototype.addInfos.call (this); appeler dans une descendante
 }
-Element.prototype.addInfos = function(){ this._addInfos(); }
 Element.prototype.addBorder = function(){
 	// fonctionne avec ana-common.css
 	this.classList.add ('rgaa-highlight');

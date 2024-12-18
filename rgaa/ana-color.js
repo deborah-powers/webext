@@ -1,8 +1,19 @@
-/*
-console.dir ('window', window);
-console.dir ('browser', browser);
-console.dir ('navigator', navigator);
-*/
+// les couleurs systèmes. dans les paramètres de mon navigateur, fixer des couleurs incongrues
+var colorText = 'rgb(0, 0, 0)';
+var colorBg = 'rgba(0, 0, 0, 0)';
+var colorLink = 'rgb(0, 0, 0)';
+var colorLinkVisitated = 'rgb(0, 0, 0)';
+// uniquement pour firefox
+if (navigator.userAgent.substring (0,8) === 'Mozilla/'){
+	const systemStyle = window.getDefaultComputedStyle (document.body);
+	colorText = systemStyle.color;
+	colorBg = systemStyle.backgroundColor;
+	if (document.body.innerHTML.includes ('</a>')){
+		const link = document.getElementsByTagName ('a')[0];
+		const systemStyleLink = window.getDefaultComputedStyle (link);
+		console.dir (systemStyleLink);
+		colorLink = systemStyleLink.color;
+}}
 Element.prototype.transparentAncestor = function(){
 	var transparentAncestor = false;
 	if (this.parentElement.className.includes ('rgaa-nobg')) transparentAncestor = true;
@@ -15,24 +26,37 @@ Element.prototype.transparentAncestor = function(){
 Element.prototype.hasTextChild = function(){
 	if (this.innerText ==="") return false;
 	var textChild = false;
-	for (var c=0; c< this.childNodes.length; c++){ if (this.childNodes[c].tagName === undefined){
+	for (var c=0; c< this.childNodes.length; c++) if (this.childNodes[c].tagName === undefined){
 		const emptyChar = '\t\n ';
 		var textTmp = this.childNodes[c].textContent.replaceAll (emptyChar[0],"");
-		for (var c=1; c< emptyChar.length; c++) textTmp = textTmp.replaceAll (emptyChar[c], "");
-		if (textTmp !==""){
-			console.log (this.tagName, c, textTmp);
-			textChild = true;
-		}
-	}}
+		for (var e=1; e< emptyChar.length; e++) textTmp = textTmp.replaceAll (emptyChar[e], "");
+		textChild = textTmp !=="";
+	}
 	return textChild;
 }
 HTMLElement.prototype.colorTransparent = function(){
 	if (this.innerText !==""){
-	if (this.hasTextChild()){
+		if (this.hasTextChild()){
 			const style = window.getComputedStyle (this);
-			if (style.backgroundColor.includes ('rgba') && style.backgroundColor.includes (' 0)')) this.classList.add ('rgaa-nobg');
-			if (style.color.includes ('rgba') && style.color.includes (' 0)')) this.classList.add ('rgaa-notx');
-			else if (style.color.includes ('85, 107, 47')) this.classList.add ('rgaa-notx');	// cf ana-color.css. la balise a déjà la classe rgaa-nobg
+			if (style.color === colorText){
+				this.classList.add ('rgaa-notx');
+				if (style.backgroundColor === colorBg) this.classList.add ('rgaa-nobg');
+			}
+			else if (style.backgroundColor === colorBg) this.classList.add ('rgaa-nobg');
+		}
+		for (var c=0; c< this.children.length; c++) this.children[c].colorTransparent();
+}}
+HTMLElement.prototype.colorTransparent_va = function(){
+	if (this.innerText !==""){
+		if (this.hasTextChild()){
+			const style = window.getComputedStyle (this);
+			console.log (this.tagName, style.color, style.backgroundColor);
+		//	if (style.backgroundColor.includes ('rgba') && style.backgroundColor.includes (' 0)')) this.classList.add ('rgaa-nobg');
+			if (style.color.includes ('rgba') && style.color.includes (' 0)')){
+				this.classList.add ('rgaa-notx');
+			}
+			else if (style.color.includes ('152, 251, 152'))
+				this.classList.add ('rgaa-notx');	// cf ana-color.css. la balise a déjà la classe rgaa-nobg
 		}
 		for (var c=0; c< this.children.length; c++) this.children[c].colorTransparent();
 }}
@@ -53,3 +77,7 @@ SVGSVGElement.prototype.bgImageDoublee = function(){ return; }
 
 document.body.bgImageDoublee();
 document.body.colorTransparent();
+/*
+128,0,64
+0,255,255
+*/

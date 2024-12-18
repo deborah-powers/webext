@@ -6,7 +6,7 @@ HTMLImageElement.prototype.addInfos = function(){
 		else this.infos = this.infos + 'vide';
 	}
 	else this.infos = this.infos + this.alt;
-	this._addInfos();
+	Element.prototype.addInfos.call (this);
 }
 HTMLAreaElement.prototype.addInfos = function(){
 	this.infos = 'alt = ';
@@ -15,7 +15,7 @@ HTMLAreaElement.prototype.addInfos = function(){
 		else this.infos = this.infos + 'vide';
 	}
 	else this.infos = this.infos + this.alt;
-	this._addInfos();
+	Element.prototype.addInfos.call (this);
 }
 SVGElement.prototype.findParent = function(){
 	if (this.tagName === 'svg') return this;
@@ -55,7 +55,7 @@ HTMLInputElement.prototype.addInfos = function(){
 		else this.infos = this.infos + 'vide';
 	}
 	else this.infos = this.infos + this.alt;
-	this._addInfos();
+	Element.prototype.addInfos.call (this);
 }
 HTMLInputElement.prototype.addAll = function(){
 	if (this.type === 'image'){

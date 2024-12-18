@@ -1,12 +1,17 @@
+.rgaa-nobg { background-color: gold; }
+.rgaa-notx { color: deeppink; }
+/*
+.rgaa-nobg.rgaa-notx { background-color: deeppink; }
 .rgaa-nobg {
-	background-color: rgb(255, 228, 225); /* mistyrose */
-	color: rgb(85, 107, 47); /* darkolivegreen */
+	background-color: mistyrose; / rgb(255, 228, 225) /
+	color: darkolivegreen; / rgb(85, 107, 47) /
 }
 .rgaa-notx {
 	background-color: lightyellow;
 	color: darkolivegreen;
 }
 .rgaa-nobg.rgaa-notx { background-color: paleturquoise; }
+*/
 .rgaa-nobgcolor {
 	border-style: solid;
 	border-width: 4px;
