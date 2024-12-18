@@ -1,15 +1,6 @@
 .rgaa-nobg { background-color: gold; }
 .rgaa-notx { color: deeppink; }
 /*
-.rgaa-nobg.rgaa-notx { background-color: deeppink; }
-.rgaa-nobg {
-	background-color: mistyrose; / rgb(255, 228, 225) /
-	color: darkolivegreen; / rgb(85, 107, 47) /
-}
-.rgaa-notx {
-	background-color: lightyellow;
-	color: darkolivegreen;
-}
 .rgaa-nobg.rgaa-notx { background-color: paleturquoise; }
 */
 .rgaa-nobgcolor {

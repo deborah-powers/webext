@@ -11,7 +11,6 @@ if (navigator.userAgent.substring (0,8) === 'Mozilla/'){
 	if (document.body.innerHTML.includes ('</a>')){
 		const link = document.getElementsByTagName ('a')[0];
 		const systemStyleLink = window.getDefaultComputedStyle (link);
-		console.dir (systemStyleLink);
 		colorLink = systemStyleLink.color;
 }}
 Element.prototype.transparentAncestor = function(){
@@ -38,25 +37,12 @@ HTMLElement.prototype.colorTransparent = function(){
 	if (this.innerText !==""){
 		if (this.hasTextChild()){
 			const style = window.getComputedStyle (this);
-			if (style.color === colorText){
+/*			if (style.color === colorText && style.backgroundColor === colorBg){
 				this.classList.add ('rgaa-notx');
-				if (style.backgroundColor === colorBg) this.classList.add ('rgaa-nobg');
-			}
-			else if (style.backgroundColor === colorBg) this.classList.add ('rgaa-nobg');
-		}
-		for (var c=0; c< this.children.length; c++) this.children[c].colorTransparent();
-}}
-HTMLElement.prototype.colorTransparent_va = function(){
-	if (this.innerText !==""){
-		if (this.hasTextChild()){
-			const style = window.getComputedStyle (this);
-			console.log (this.tagName, style.color, style.backgroundColor);
-		//	if (style.backgroundColor.includes ('rgba') && style.backgroundColor.includes (' 0)')) this.classList.add ('rgaa-nobg');
-			if (style.color.includes ('rgba') && style.color.includes (' 0)')){
-				this.classList.add ('rgaa-notx');
-			}
-			else if (style.color.includes ('152, 251, 152'))
-				this.classList.add ('rgaa-notx');	// cf ana-color.css. la balise a déjà la classe rgaa-nobg
+				this.classList.add ('rgaa-nobg');
+			}*/
+			if (style.color === colorText && style.backgroundColor !== colorBg) this.classList.add ('rgaa-notx');
+			else if (style.color !== colorText && style.backgroundColor === colorBg) this.classList.add ('rgaa-nobg');
 		}
 		for (var c=0; c< this.children.length; c++) this.children[c].colorTransparent();
 }}
