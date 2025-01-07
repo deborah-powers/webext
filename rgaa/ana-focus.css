@@ -1,0 +1,12 @@
+.rgaa-focusable {
+	border-color: deeppink;
+	border-style: dotted;
+	border-width: 4px;
+}
+/*
+.focusable_vb {
+	background-color: gold;
+}
+.focusable:focus { border-color: limegreen; }
+*[tabindex] { border: solid 4px deeppink; }
+*/

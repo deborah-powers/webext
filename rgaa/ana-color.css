@@ -3,8 +3,9 @@
 /*
 .rgaa-nobg.rgaa-notx { background-color: paleturquoise; }
 */
-.rgaa-nobgcolor {
+.rgaa-bgimage {
 	border-style: solid;
 	border-width: 4px;
 	border-color: deeppink;
 }
+.rgaa-nobgcolor { border-style: dashed; }

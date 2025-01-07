@@ -3,6 +3,7 @@ var colorText = 'rgb(0, 0, 0)';
 var colorBg = 'rgba(0, 0, 0, 0)';
 var colorLink = 'rgb(0, 0, 0)';
 var colorLinkVisitated = 'rgb(0, 0, 0)';
+
 // uniquement pour firefox
 if (navigator.userAgent.substring (0,8) === 'Mozilla/'){
 	const systemStyle = window.getDefaultComputedStyle (document.body);
@@ -41,25 +42,34 @@ HTMLElement.prototype.colorTransparent = function(){
 				this.classList.add ('rgaa-notx');
 				this.classList.add ('rgaa-nobg');
 			}*/
-			if (style.color === colorText && style.backgroundColor !== colorBg) this.classList.add ('rgaa-notx');
-			else if (style.color !== colorText && style.backgroundColor === colorBg) this.classList.add ('rgaa-nobg');
+			if (style.color === colorText) this.classList.add ('rgaa-notx');
+			if (style.backgroundColor === colorBg) this.classList.add ('rgaa-nobg');
 		}
 		for (var c=0; c< this.children.length; c++) this.children[c].colorTransparent();
 }}
 HTMLScriptElement.prototype.colorTransparent = function(){ return; }
 SVGSVGElement.prototype.colorTransparent = function(){ return; }
 
+function delBgImage (event){ event.target.style.backgroundImage = 'none'; }
 HTMLElement.prototype.bgImageDoublee = function(){
 	const style = window.getComputedStyle (this);
-	if (style.backgroundImage !== 'none'){
-	//	this.classList.add ('rgaa-bgimg');
-		if (style.backgroundColor.includes ('rgba') && style.backgroundColor.includes (' 0)'))
-			this.classList.add ('rgaa-nobgcolor');
+	if (style.backgroundImage !== 'none' && this.innerText && this.innerText.exists()){
+		this.classList.add ('rgaa-bgimage');
+		if (style.backgroundColor.includes ('rgba') && style.backgroundColor.includes (' 0)')) this.classList.add ('rgaa-nobgcolor');
+		else this.addEventListener ('mouseover', delBgImage);
 	}
 	else{ for (var c=0; c< this.children.length; c++) this.children[c].bgImageDoublee(); }
 }
 HTMLScriptElement.prototype.bgImageDoublee = function(){ return; }
 SVGSVGElement.prototype.bgImageDoublee = function(){ return; }
+
+String.prototype.exists = function(){
+	var text = this.replaceAll (" ","");
+	text = text.replaceAll ("\n","");
+	text = text.replaceAll ("\t","");
+	if (text ==="") return false;
+	else return true;
+}
 
 document.body.bgImageDoublee();
 document.body.colorTransparent();

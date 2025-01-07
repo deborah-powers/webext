@@ -116,3 +116,11 @@ String.prototype.count = function (phrase){
 	}
 	return nb;
 }
+String.prototype.exists = function(){
+	console.log ('exists');
+	var text = this.replaceAll (" ","");
+	text = text.replaceAll ("\n","");
+	text = text.replaceAll ("\t","");
+	if (text ==="") return false;
+	else return true;
+}
