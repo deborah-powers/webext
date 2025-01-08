@@ -6,10 +6,9 @@ function chooseAction (event){
 		chrome.scripting.removeCSS ({
 			target: {tabId: activeTab.id, allFrames: true},
 			files: [
-				'ana-common.css', 'volet.css', 'encart.css', 'ana-image.css', 'ana-langue.css', 'ana-iframe.css', 'elm-interdit.css',
-				'ana-liste.css', 'color.css', 'ana-structure.css', 'elm-interdit.css', 'elm-titre.css', 'elm-cocus.css'
-				]
-		});
+				'ana-color.css', 'ana-common.css', 'ana-contrast.css', 'ana-focus.css', 'ana-iframe.css', 'ana-image.css', 'ana-langue.css',
+				'ana-liste.css', 'elm-conteneur.css', 'elm-interdit.css', 'elm-titre.css', 'encart.css', 'volet.css'
+		]});
 		var listStyle =[];
 		var listScript =[];
 		// choisir les actions

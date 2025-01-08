@@ -1,12 +1,17 @@
-.rgaa-focusable {
+/* ce style masque le signalement originale du focus.
+il permet de suivre le parcour du focus.
+il faut compléter l'analyse en rechargeant la page.
+si un style est appliqué aux éléments focus, le mien sera masqué
+*/
+.rgaa-focusable, {
 	border-color: deeppink;
-	border-style: dotted;
+	border-style: solid;
 	border-width: 4px;
 }
+.rgaa-focusable:focus { border-style: dashed; }
 /*
 .focusable_vb {
 	background-color: gold;
 }
-.focusable:focus { border-color: limegreen; }
 *[tabindex] { border: solid 4px deeppink; }
 */
