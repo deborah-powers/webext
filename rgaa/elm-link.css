@@ -1,0 +1,4 @@
+a { color: cadetblue; }
+a[href] { color: deeppink; }
+a[href=""] { color: cadetblue; }
+a[href='#'] { color: limegreen; }

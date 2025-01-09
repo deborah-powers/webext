@@ -7,7 +7,7 @@ function chooseAction (event){
 			target: {tabId: activeTab.id, allFrames: true},
 			files: [
 				'ana-color.css', 'ana-common.css', 'ana-contrast.css', 'ana-focus.css', 'ana-iframe.css', 'ana-image.css', 'ana-langue.css',
-				'ana-liste.css', 'elm-conteneur.css', 'elm-interdit.css', 'elm-titre.css', 'encart.css', 'volet.css'
+				'ana-liste.css', 'elm-conteneur.css', 'elm-interdit.css', 'elm-link.css', 'elm-titre.css', 'encart.css', 'volet.css'
 		]});
 		var listStyle =[];
 		var listScript =[];
@@ -32,6 +32,10 @@ function chooseAction (event){
 		else if (action === 'ana-color'){
 			listStyle =[ 'ana-color.css' ];
 			listScript =[ 'ana-color.js' ];
+		}
+		else if (action === 'elm-link'){
+			listStyle =[ 'elm-link.css' ];
+			listScript =[ 'elm-link.js' ];
 		}
 		else if (action === 'elm-interdit'){
 			listStyle =[ 'encart.css', 'elm-interdit.css' ];
