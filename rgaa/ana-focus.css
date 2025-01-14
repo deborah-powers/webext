@@ -1,17 +1,15 @@
 /* ce style masque le signalement originale du focus.
 il permet de suivre le parcour du focus.
 il faut compléter l'analyse en rechargeant la page.
-si un style est appliqué aux éléments focus, le mien sera masqué
+si un style est appliqué aux éléments focus, le mien sera masqué.
+
+cadre rose vif: élément focusable
+cadre vert: élément focusable possédant l'attribut aria-hidden, ou dont un ancêtre le possède. c'est interdit.
 */
-.rgaa-focusable, {
+.rgaa-focusable {
 	border-color: deeppink;
 	border-style: solid;
-	border-width: 4px;
+	border-width: 4px !important;
 }
-.rgaa-focusable:focus { border-style: dashed; }
-/*
-.focusable_vb {
-	background-color: gold;
-}
-*[tabindex] { border: solid 4px deeppink; }
-*/
+*[aria-hidden] .rgaa-focusable, *[aria-hidden].rgaa-focusable { border-color: limegreen !important; }
+.rgaa-focusable:focus { border-style: dashed !important; }

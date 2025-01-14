@@ -7,7 +7,7 @@ function chooseAction (event){
 			target: {tabId: activeTab.id, allFrames: true},
 			files: [
 				'ana-color.css', 'ana-common.css', 'ana-contrast.css', 'ana-focus.css', 'ana-iframe.css', 'ana-image.css', 'ana-langue.css',
-				'ana-liste.css', 'elm-conteneur.css', 'elm-interdit.css', 'elm-link.css', 'elm-titre.css', 'encart.css', 'volet.css'
+				'ana-liste.css', 'elm-conteneur.css', 'elm-hidden.css', 'elm-interdit.css', 'elm-link.css', 'elm-titre.css', 'encart.css', 'volet.css'
 		]});
 		var listStyle =[];
 		var listScript =[];
@@ -29,6 +29,7 @@ function chooseAction (event){
 			listStyle =[ 'ana-common.css', 'volet.css', 'ana-contrast.css' ];
 			listScript =[ 'volet.js', 'ana-contrast.js' ];
 		}
+		else if (action === 'elm-font') listScript =[ 'elm-font.js' ];
 		else if (action === 'ana-color'){
 			listStyle =[ 'ana-color.css' ];
 			listScript =[ 'ana-color.js' ];
@@ -44,6 +45,10 @@ function chooseAction (event){
 		else if (action === 'elm-vide'){
 			listStyle =[ 'ana-common.css' ];
 			listScript =[ 'elm-vide.js' ];
+		}
+		else if (action === 'elm-hidden'){
+			listStyle =[ 'elm-hidden.css' ];
+			listScript =[ 'elm-hidden.js' ];
 		}
 		else if (action === 'ana-focus'){
 			listStyle =[ 'ana-focus.css' ];

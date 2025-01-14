@@ -12,7 +12,9 @@ Element.prototype.showFocusable = function(){
 			this.style.borderWidth = borderWidth.toString() + 'px';
 		}
 		this.addEventListener ('mouseover', setFocus);
-	}
+}}
+HTMLElement.prototype.showFocusable = function(){
+	Element.prototype.showFocusable.call (this);
 	for (var c=0; c< this.children.length; c++) this.children[c].showFocusable();
 }
 document.body.showFocusable();

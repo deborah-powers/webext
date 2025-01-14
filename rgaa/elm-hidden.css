@@ -1,0 +1,30 @@
+/*
+vert: .rgaa-hidden, élément caché par le css display: none
+rose: élément visible possédant l'attribut aria-hidden
+trait plein: absence de l'attribut aria-hidden
+tirets:  présence de l'attribut aria-hidden avec la bonne valeur, true
+boules: présence de l'attribut aria-hidden avec une mauvais valeur
+déprécié
+bleu: *[hidden], élément caché par l'attribut hidden
+*/
+.rgaa-hidden {
+	display: inline-block !important;
+	visibility: visible !important;
+	font-size: 1em !important;
+	border: solid 4px limegreen;
+	padding: 1%;
+}
+*[hidden] { border-color: limegreen; }
+*[aria-hidden] {
+	border: dotted 4px deeppink;
+}
+*[aria-hidden='true'] {
+	border-style: dashed;
+}
+.rgaa-hidden[aria-hidden] {
+	border-color: limegreen;
+}
+/*
+*[hidden][aria-hidden] {
+	border-color: cadetblue;
+}*/
