@@ -63,6 +63,7 @@ dans mon manifest, rajouter la signature gecko.
 
 > cd le/dossier/de/mon/extension
 > web-ext build
+> web-ext build --overwrite-dest
 un .zip est créé.
 
 dans firefox, about:addons

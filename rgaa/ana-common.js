@@ -4,18 +4,26 @@ String.prototype.isEmpty = function(){
 	if ('absent vide'.includes (this)) return true;
 	else return false;
 }
-Element.prototype.getAttribute = function (attrName){
+Element.prototype.getAttributeValue = function (attrName){
 	if (this.attributes[attrName] === undefined) return 'absent';
 	else if (this.attributes[attrName].value ==="" || " \t".includes (this.attributes[attrName].value)) return 'vide';
 	else return this.attributes[attrName].value;
 }
-Element.prototype.verifyAttributeTitle = function(){ this.infos = this.infos + '<br/>title = '+ this.getAttribute ('title'); }
-Element.prototype.verifyAttributeRole = function(){ this.infos = this.infos + '<br/>role = '+ this.getAttribute ('role'); }
-Element.prototype.verifyAttributeAriaLabel = function(){
-	this.infos = this.infos + '<br/>aria-label = '+ this.getAttribute ('aria-label');
-	this.infos = this.infos + '<br/>aria-labelledby = '+ this.getAttribute ('aria-labelledby');
+Element.prototype.verifyTitle = function(){
+	var title = this.getAttributeValue ('title');
+	if (! 'vide absent'.includes (title)) this.infos = this.infos + 'title: '+ title +'<br/>';
+	title = this.getAttributeValue ('aria-label');
+	if (! 'vide absent'.includes (title)) this.infos = this.infos + 'label: '+ title +'<br/>';
+	title = this.getAttributeValue ('aria-labelledby');
+	if (! 'vide absent'.includes (title)){
+		this.infos = this.infos + 'labelledby: '+ title +'<br/>';
+		var titleTag = document.getElementById (title);
+		if (titleTag === undefined || titleTag === null) this.infos = this.infos + 'label perdu';
+		else this.infos = this.infos + titleTag.innerText;
+	}
 }
-Element.prototype.verifyAttribute = function (attrName){ this.infos = '<br/>' + attrName +' = '+ this.getAttribute (attrName); }
+Element.prototype.verifyRole = function(){ this.infos = this.infos + '<br/>role = '+ this.getAttributeValue ('role') +'<br/>'; }
+Element.prototype.verifyAttribute = function (attrName){ this.infos = '<br/>' + attrName +' = '+ this.getAttributeValue (attrName); }
 Element.prototype.isinLink = function (roleValue){
 	if (this.tagName === 'BODY') return null;
 	else if (this.tagName === 'A' || (this.attributes['role'] !== undefined && this.attributes['role'].value === 'link')) return 'link';
@@ -39,14 +47,14 @@ Element.prototype.addLabel = function(){
 	this.label = this.addLabelModal() +" "+ this.label;
 }
 Element.prototype.addInfos_vb = function(){
-	var alt = this.getAttribute ('alt');
+	var alt = this.getAttributeValue ('alt');
 	label.innerHTML = 'alt = '+ alt;
 	if ('vide absent'.includes (alt)){
-		alt = this.getAttribute ('aria-labelledby');
+		alt = this.getAttributeValue ('aria-labelledby');
 		if ('vide absent'.includes (alt)){
-			alt = this.getAttribute ('aria-label');
+			alt = this.getAttributeValue ('aria-label');
 			if ('vide absent'.includes (alt)){
-				alt = this.getAttribute ('title');
+				alt = this.getAttributeValue ('title');
 				if ('vide absent'.includes (alt)) label.innerHTML = label.innerHTML +'<br/>pas de titre alternatif'
 				else label.innerHTML = label.innerHTML +'<br/>title = '+ alt;
 			}
@@ -56,9 +64,8 @@ Element.prototype.addInfos_vb = function(){
 	}
 }
 Element.prototype.addInfos = function(){
-	this.verifyAttributeTitle();
-	this.verifyAttributeRole();
-	this.verifyAttributeAriaLabel();
+	this.verifyRole();
+	this.verifyTitle();
 	// Element.prototype.addInfos.call (this); appeler dans une descendante
 }
 Element.prototype.addBorder = function(){
@@ -66,15 +73,9 @@ Element.prototype.addBorder = function(){
 	this.classList.add ('rgaa-highlight');
 	if (this.innerHTML ==="" && this.tagName !== 'IMG') this.infos = this.infos + '<br/>contenu vide OBLIGATOIRE';
 }
-Element.prototype.addModal = function(){ console.log ("surcharger cette fonction afin d'utiliser l'encart ou le volet"); }
-Element.prototype.addAll = function(){
-	this.addInfos();
-	this.addLabel();
-	this.addModal();
-}
-Element.prototype.verifyRole = function (roleValue){
+Element.prototype.verifyRoleByValue = function (roleValue){
 	if (this.attributes['role'] !== undefined && this.attributes['role'].value === roleValue) this.addBorder();
-	else{ for (var c=0; c< this.children.length; c++) this.children[c].verifyRole (roleValue); }
+	else{ for (var c=0; c< this.children.length; c++) this.children[c].verifyRoleByValue (roleValue); }
 }
 function removeHighlight(){
 	var toUnlight = document.getElementsByClassName ('rgaa-error');

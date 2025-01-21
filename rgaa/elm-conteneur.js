@@ -12,8 +12,11 @@ voletHtml = voletHtml.replace ('$titre', monTitre);
 // le doctype
 monTitre = 'présent';
 if (document.doctype === null || document.doctype === undefined) monTitre = 'erreur, pas de doctype';
-else if (document.doctype.publicId !== null && document.doctype.publicId !== undefined && document.doctype.publicId !=="" && ! ' \n\t'.includes (document.doctype.publicId))
-	monTitre = document.doctype.publicId;
+else if (document.doctype.publicId !== null && document.doctype.publicId !== undefined){
+	if (document.doctype.publicId ==="") monTitre = 'html 5';
+	else if (document.doctype.publicId.substring (0,19) === '-//W3C//DTD HTML 4.') monTitre = 'html 4 (' + document.doctype +')';
+	else monTitre = 'inconnu (' + document.doctype +')';
+}
 voletHtml = voletHtml.replace ('$doctype', monTitre);
 // la langue
 monTitre = 'erreur, la langue doit être précisée dans la balise html';

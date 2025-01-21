@@ -1,0 +1,11 @@
+table { border: solid 4px deeppink; }
+table[role='presentation'], table[role='none'] { border-color: green; }
+table[role='presentation'] thead, table[role='none'] thead, table[role='presentation'] tfoot, table[role='none'] tfoot,
+table[role='presentation'] colgroup, table[role='none'] colgroup,
+table[role='presentation'] caption, table[role='none'] caption, table[role='presentation'] th, table[role='none'] th
+	{ border: solid 4px orangered; }
+table[role='presentation'] td[scope], table[role='none'] td[scope], table[role='presentation'] th[span], table[role='none'] th[span], table[role='presentation'] th[axis], table[role='none'] th[axis]
+	{ border: dotted 4px deeppink; }
+table[role='presentation'] th[scope], table[role='none'] th[scope], table[role='presentation'] td[span], table[role='none'] td[span], table[role='presentation'] td[axis], table[role='none'] td[axis]
+	{ border-style: dotted; }
+[role='rowheader'], [role='columnheader'] {}

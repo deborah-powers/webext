@@ -28,16 +28,19 @@ function moveTopModal (event){
 	if (frame.style.top ==='0%'){
 		frame.style.top = 'unset';
 		frame.style.bottom = '0%';
-	}
-	else{
+	}else{
 		frame.style.top = '0%';
 		frame.style.bottom = 'unset';
-	}
-}
+}}
 function moveLeftModal (event){
 	const frame = event.target.findFrame();
 	if (frame.style.left ==='60%') frame.style.left = '0%';
 	else frame.style.left = '60%';
+}
+Element.prototype.addAll = function(){
+	this.addInfos();
+	this.addLabel();
+	this.addModal();
 }
 const encartRgaa = document.createElement ('section');
 encartRgaa.id = 'encart-rgaa';
