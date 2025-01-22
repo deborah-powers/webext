@@ -7,7 +7,9 @@
 /*	color: #420 !important; */
 }
 .rgaa-error {
-	border: solid 4px red;
+	border-style: solid;
+	border-width: 4px;
+	border-color: orangered;
 	background-color: #F2E58F;
 	color: #420;
 }
