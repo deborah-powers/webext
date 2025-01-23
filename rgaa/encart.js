@@ -34,6 +34,15 @@ Element.prototype.addAll = function(){
 	this.addLabel();
 	this.addModal();
 }
+HTMLElement.prototype.transmitInfos = function(){
+	this.label = this.addLabelModal() +' ; '+ this.parentElement.label;
+	this.infos = this.parentElement.infos;
+	for (var c=0; c< this.children.length; c++) this.children[c].transmitInfos();
+}
+HTMLElement.prototype.addAll = function(){
+	Element.prototype.addAll.call (this);
+	for (var c=0; c< this.children.length; c++) this.children[c].transmitInfos();
+}
 const encartRgaa = document.createElement ('section');
 encartRgaa.id = 'encart-rgaa';
 encartRgaa.innerHTML = encartHtml;

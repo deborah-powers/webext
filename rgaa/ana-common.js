@@ -131,7 +131,7 @@ HTMLElement.prototype.getByAttribute = function (attrName){
 }
 Element.prototype.getByAttributeValue = function (attrName, attrValue){
 	var elements =[];
-	if (this.getAttributeValue === attrValue) elements.push (this);
+	if (this.getAttribute (attrName) === attrValue) elements.push (this);
 	return elements;
 }
 HTMLElement.prototype.getByAttributeValue = function (attrName, attrValue){

@@ -18,18 +18,11 @@ table.rgaa-dbe th[scope] { border-style: solid !important; }
 	border-color: cadetblue !important;
 }
 [role='rowgroup'], [role='row'], [role='cell'], [role='rowheader'], [role='columnheader'] {
-	border-style: solid !important;
+	border-style: dashed;
 	border-width: 2px !important;
 	border-color: cadetblue !important;
 }
-/*
-table[role='presentation'] caption, table[role='presentation'] thead, table[role='presentation'] tfoot,
-table[role='presentation'] colgroup, table[role='presentation'] th,
-table[role='none'] caption, table[role='none'] thead, table[role='none'] tfoot, table[role='none'] colgroup, table[role='none'] th,
-table[role='presentation'] td[span], table[role='presentation'] td[axis], table[role='none'] td[span], table[role='none'] td[axis]
-{
+[role='table'] > [role='rowgroup'], [role='table'] [role='row'],
+[role='row'] > [role='cell'], [role='row'] > [role='rowheader'], [role='row'] > [role='columnheader'] {
 	border-style: solid !important;
-	border-width: 4px !important;
-	border-color: orangered !important;
 }
-*/
