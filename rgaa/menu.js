@@ -64,7 +64,7 @@ function chooseAction (event){
 		}
 		else if (action === 'elm-titre'){
 			listStyle =[ 'volet.css', 'elm-titre.css' ];
-			listScript =[ 'volet.js', 'elm-titre.js' ];
+			listScript =[ 'ana-common.js', 'volet.js', 'elm-titre.js' ];
 		}
 		else if (action === 'ana-liste'){
 			listStyle =[ 'ana-liste.css' ];

@@ -1,13 +1,23 @@
 const blankChars = '\n \t';
-const myClasses =[ 'rgaa-highlight', 'rgaa-error', 'rgaa-nobg', 'rgaa-notx', 'rgaa-bgimg', 'rgaa-nobgcolor', 'rgaa-dbe' ];
+const myClasses =[ 'rgaa-highlight', 'rgaa-error', 'rgaa-nobg', 'rgaa-notx', 'rgaa-bgimg', 'rgaa-nobgcolor', 'rgaa-double', 'rgaa-complex' ];
 
 Element.prototype.label ="";
 Element.prototype.infos ="";
-String.prototype.isEmpty = function(){
+String.prototype.exists = function(){
 	var newString = this.replaceAll (blankChars[0], "");
 	for (var c=1; c< blankChars.length; c++) newString = newString.replaceAll (blankChars[c], "");
-	if (newString ==="") return true;
-	else if ([ 'absent', 'vide' ].includes (newString)) return true;
+	if (newString ==="") return false;
+	else return true;
+}
+function exists (item){
+	if (item === null || item === undefined) return false;
+	else if (item.constructor === String) return item.exists();
+	else if ((item.constructor === Array || item.constructor === HTMLCollection) && item.length ===0) return false;
+	else return true;
+}
+String.prototype.isEmpty = function(){
+	if (! this.exists()) return true;
+	else if ([ 'absent', 'vide' ].includes (this)) return true;
 	else return false;
 }
 String.prototype.strip = function(){
@@ -57,15 +67,18 @@ Element.prototype.replaceMyClasses = function(){
 		return newClass;
 }}
 Element.prototype.addLabelModal = function(){
-	var labelModal = this.tagName;
-	if (this.id !== undefined && this.id !=="") labelModal = labelModal +' #'+ this.id;
-	if (this.className !== undefined && this.className !==""){
-		var newClass = this.replaceMyClasses();
-		if (newClass){
-			newClass = newClass.replaceAll (" ",".");
-			labelModal = labelModal +' .'+ newClass;
-	}}
-	return labelModal;
+	var name = this.tagName;
+	if (exists (this.id)) name = name +" #"+ this.id;
+	if (exists (this.className)){
+		var className = this.className;
+		for (var c=0; c< myClasses.length; c++) className = className.replaceAll (myClasses[c], "");
+		while (className.includes ("  ")) className = className.replaceAll ("  "," ");
+		className = className.strip();
+		name = name +" ."+ className.replaceAll (" ",'.');
+	}
+	const role = this.getAttribute ('role');
+	if (exists (role)) name = name +" role: "+ role;
+	return name;
 }
 Element.prototype.addLabel = function(){
 	if (this.infos.includes ('OBLIGATOIRE') || this.infos.includes ('ERREUR')) this.label = 'erreur';
@@ -154,12 +167,4 @@ String.prototype.count = function (phrase){
 		nb +=1;
 	}
 	return nb;
-}
-String.prototype.exists = function(){
-	console.log ('exists');
-	var text = this.replaceAll (" ","");
-	text = text.replaceAll ("\n","");
-	text = text.replaceAll ("\t","");
-	if (text ==="") return false;
-	else return true;
 }

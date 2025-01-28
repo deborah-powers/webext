@@ -1,5 +1,7 @@
 const tagDataTab =[ 'caption', 'th', 'thead', 'tfoot' ];
 const attDataTab =[ 'title', 'aria-label', 'aria-labelledby', 'scope', 'rowspan', 'colspan' ];
+var cellComplexHeaders =[];
+
 HTMLTableElement.prototype.containTagDataTab = function(){
 	var tagList ="";
 	for (var t=0; t< tagDataTab.length; t++){
@@ -43,16 +45,63 @@ HTMLTableElement.prototype.verifyTitle = function(){
 	Element.prototype.verifyTitle.call (this);
 }
 HTMLTableRowElement.prototype.countHeaders = function(){ return this.getElementsByTagName ('th').length; }
-HTMLTableElement.prototype.isDoubleEntree = function(){
+HTMLTableCellElement.prototype.countColumn = function(){
+	var nbCol =1;
+	const span = this.getAttribute ('colspan');
+	var spanNb =0;
+	if (span !== null || span !== undefined){
+		spanNb = parseInt (span);
+		nbCol += spanNb;
+	}
+	return nbCol;
+}
+HTMLTableElement.prototype.countColumn = function(){
+	const row = this.getElementsByTagName ('tr')[0];
+	var nbCol =0;
+	for (var c=0; c< row.children.length; c++) nbCol += rows.children[c].countColumn();
+	return nbCol;
+}
+HTMLTableElement.prototype.isComplex = function(){
 	const rows = this.getElementsByTagName ('tr');
-	if (rows.length >0){
-		const colHeaders = rows[0].countHeaders();
-		var rowHeaders =0;
-		if (rows.length >1) rowHeaders = rows[1].countHeaders();
-		if ((colHeaders >0 && rowHeaders >0) || rowHeaders >1){
-			this.classList.add ('rgaa-dbe');
-			if (! this.innerHTML.includes (" scope=")) this.classList.add ('rgaa-error');
-}}}
+	var headerNb = this.getElementsByTagName ('th').length;
+	var headerRowNb =[];
+	for (var r=0; r< rows.length; r++) headerRowNb.push (rows[r].countHeaders());
+	// cas simple, une ligne de header par colonne ou ligne
+	if (headerNb === headerRowNb[0]) return;
+	else if (headerNb === rows.length){
+		var oneHeaderByRow = true;
+		for (var r=0; r< rows.length; r++){ if (headerRowNb[r] >1) oneHeaderByRow = false; }
+		if (oneHeaderByRow === true) return;
+	}
+	// cas simple, tableau à double entrée
+	else if (headerRowNb[0] >0){
+		headerNb -= headerRowNb[0];
+		var oneHeaderByRow = true;
+		for (var r=1; r< rows.length; r++){ if (headerRowNb[r] >1) oneHeaderByRow = false; }
+		if (oneHeaderByRow === true){
+			this.classList.add ('rgaa-double');
+		//	if (! this.innerHTML.includes (" scope=")) this.classList.add ('rgaa-error');
+			return;
+	}}
+	// cas complèxe
+	this.classList.add ('rgaa-complex');
+}
+function colorHeaders (event){
+	for (var h=0; h< cellComplexHeaders.length; h++) cellComplexHeaders[h].classList.remove ('rgaa-highlight');
+	const headers = event.target.getAttribute ('headers').split (" ");
+	for (var h=0; h< headers.length; h++){
+		var header = document.getElementById (headers[h]);
+		header.classList.add ('rgaa-highlight');
+}}
+HTMLTableCellElement.prototype.findCellHeaders = function(){
+	// repérer les headers
+	const idlist = this.getAttribute ('headers').split (" ");
+	for (var i=0; i< idlist.length; i++){
+		var header = document.getElementById (idlist[i]);
+		if (! cellComplexHeaders.includes (header)) cellComplexHeaders.push (header);
+	}
+	this.addEventListener ('mouseover', colorHeaders);
+}
 HTMLTableElement.prototype.addInfos = function(){
 	this.verifyRole();
 	this.verifyTitle();
@@ -67,7 +116,7 @@ HTMLTableElement.prototype.addInfos = function(){
 			this.infos = this.infos + "<br/>ERREUR, balises réservés aux tableaux de données (" + tagData +")";
 			if (! this.className.includes ('rgaa-error')) this.classList.add ('rgaa-error');
 	}}
-	else this.isDoubleEntree();
+	else this.isComplex();
 }
 HTMLTableElement.prototype.addLabelModal = function(){
 	var labelModal = 'tab';
@@ -103,3 +152,5 @@ var tables = document.getElementsByTagName ('table');
 for (var t=0; t< tables.length; t++) tables[t].addAll();
 tables = document.body.getByAttributeValue ('role', 'table');
 for (var t=0; t< tables.length; t++) tables[t].addAll();
+var cellComplex = document.body.getByAttribute ('headers');
+for (var t=0; t< cellComplex.length; t++) cellComplex[t].findCellHeaders();

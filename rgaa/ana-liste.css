@@ -1,17 +1,30 @@
-ol, ul, dl {
-	border-style: solid;
-	border-width: 4px;
-	border-color: deeppink;
-	background-color: ivory;
-	color: #420;
+ol, ul, dl, [role='list'] {
+	border-style: solid !important;
+	border-width: 4px !important;
 }
-ol >*, ul >*, dl >* {
-	background-color: deeppink;
-	color: ivory;
+ol { border-color: magenta !important; }
+ul { border-color: deeppink !important; }
+dl { border-color: purple !important; }
+[role='list'] { border-color: blue !important; }
+
+ol >*, ul >*, dl >*, [role='list'] >* {
+	border-style: dashed;
+	border-width: 2px !important;
+	border-color: inherit !important;
 }
-ol > li, ul > li, dl > dt, dl > dd {
-	background-color: inherit;
-	color: inherit;
+ol > li, ul > li, dl > dt, dl > dd, [role='list'] > [role='listitem'] { border-style: none; }
+
+/* liste et éléments en erreur */
+ol.rgaa-error, ul.rgaa-error, dl.rgaa-error, [role='list'].rgaa-error { height: 2em !important; }
+li.rgaa-error, [role='listitem'].rgaa-error { border-style: dashed !important; }
+/* a en-dehors des listes */
+a {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: limegreen;
 }
-ol.rgaa-empty, ul.rgaa-empty, dl.rgaa-empty { height: 2em; }
-li.rgaa-empty { background-color: lime; }
+ol a, ul a {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: inherit !important;
+}
