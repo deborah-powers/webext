@@ -6,30 +6,31 @@ function chooseAction (event){
 		chrome.scripting.removeCSS ({
 			target: {tabId: activeTab.id, allFrames: true},
 			files: [
-				'ana-color.css', 'ana-common.css', 'ana-contrast.css', 'ana-focus.css', 'ana-iframe.css', 'ana-image.css', 'ana-langue.css',
-				'ana-liste.css', 'elm-conteneur.css', 'elm-hidden.css', 'elm-interdit.css', 'elm-link.css', 'elm-table.css', 'elm-titre.css', 'encart.css', 'volet.css'
+				'encart.css', 'volet.css', 'ana-color.css', 'ana-common.css', 'ana-contrast.css', 'ana-focus.css', 'ana-langue.css',
+				'elm-conteneur.css', 'elm-hidden.css', 'elm-iframe.css', 'elm-image.css', 'elm-interdit.css', 'elm-link.css', 'elm-liste.css',
+				'elm-table.css', 'elm-titre.css'
 		]});
 		var listStyle =[];
 		var listScript =[];
 		// choisir les actions
 		if (action === 'del-style') listScript = [ 'del-style.js' ];
-		else if (action === 'ana-image'){
-			listStyle =[ 'encart.css', 'ana-image.css' ];
-			listScript =[ 'ana-common.js', 'encart.js', 'ana-image.js' ];
+		else if (action === 'elm-image'){
+			listStyle =[ 'encart.css', 'elm-image.css' ];
+			listScript =[ 'ana-common.js', 'encart.js', 'elm-image.js' ];
 		}
 		else if (action === 'ana-langue'){
-			listStyle =[ 'encart.css', 'ana-image.css' ];
+			listStyle =[ 'encart.css', 'elm-image.css' ];
 			listScript =[ 'ana-common.js', 'encart.js', 'ana-langue.js' ];
 		}
-		else if (action === 'ana-iframe'){
-			listStyle =[ 'encart.css', 'ana-iframe.css' ];
-			listScript =[ 'ana-common.js', 'encart.js', 'ana-iframe.js' ];
+		else if (action === 'elm-iframe'){
+			listStyle =[ 'encart.css', 'elm-iframe.css' ];
+			listScript =[ 'ana-common.js', 'encart.js', 'elm-iframe.js' ];
 		}
 		else if (action === 'ana-contrast'){
 			listStyle =[ 'ana-common.css', 'volet.css', 'ana-contrast.css' ];
 			listScript =[ 'volet.js', 'ana-contrast.js' ];
 		}
-		else if (action === 'elm-font') listScript =[ 'elm-font.js' ];
+		else if (action === 'ana-font') listScript =[ 'ana-font.js' ];
 		else if (action === 'ana-color'){
 			listStyle =[ 'ana-color.css' ];
 			listScript =[ 'ana-color.js' ];
@@ -66,9 +67,9 @@ function chooseAction (event){
 			listStyle =[ 'volet.css', 'elm-titre.css' ];
 			listScript =[ 'ana-common.js', 'volet.js', 'elm-titre.js' ];
 		}
-		else if (action === 'ana-liste'){
-			listStyle =[ 'ana-liste.css' ];
-			listScript =[ 'ana-liste.js' ];
+		else if (action === 'elm-liste'){
+			listStyle =[ 'elm-liste.css' ];
+			listScript =[ 'elm-liste.js' ];
 		}
 		// lancer les actions
 		if (listStyle.length >0) chrome.scripting.insertCSS ({

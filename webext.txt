@@ -30,6 +30,10 @@ Conservez votre fichier de clé en lieu sûr. Vous en aurez besoin lors de la cr
 
 ======================== installation locale ========================
 
+************************ pour edge ************************
+
+edge://extensions/
+
 ************************ pour chrome ************************
 
 chrome://extensions/

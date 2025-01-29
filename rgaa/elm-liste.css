@@ -1,12 +1,13 @@
 ol, ul, dl, [role='list'] {
-	border-style: solid !important;
+	border-style: solid;
 	border-width: 4px !important;
 }
 ol { border-color: magenta !important; }
 ul { border-color: deeppink !important; }
 dl { border-color: purple !important; }
+ol[role='presentation'], ul[role='presentation'], dl[role='presentation'] { border-style: dashed !important; }
 [role='list'] { border-color: blue !important; }
-
+/* les listes */
 ol >*, ul >*, dl >*, [role='list'] >* {
 	border-style: dashed;
 	border-width: 2px !important;
@@ -19,12 +20,17 @@ ol.rgaa-error, ul.rgaa-error, dl.rgaa-error, [role='list'].rgaa-error { height: 
 li.rgaa-error, [role='listitem'].rgaa-error { border-style: dashed !important; }
 /* a en-dehors des listes */
 a {
-	border-style: solid !important;
+	border-style: solid;
 	border-width: 4px !important;
-	border-color: limegreen;
+	border-color: limegreen !important;
 }
 ol a, ul a {
-	border-style: solid !important;
-	border-width: 4px !important;
-	border-color: inherit !important;
+	border-style: none !important;
 }
+/* les citations */
+q, blockquote {
+	border-style: solid !important;
+	border-color: green !important;
+}
+q { border-width: 2px !important; }
+blockquote { border-width: 4px !important; }

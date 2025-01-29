@@ -1,7 +1,7 @@
-var voletHtml =`<p>titre: $titre</p><p>doctype: $doctype</p><p>lang: $lang</p><p class='legend' id='header'>header</p><p class='legend' id='footer'>footer</p><p class='legend' id='main'>main</p><p class='legend' id='aside'>aside</p><p class='legend' id='nav'>nav</p><p class='legend' id='article'>article</p><p class='legend' id='section'>section</p><p class='legend' id='div'>div</p>
+var voletHtml =`<p>titre: $titre</p><p>doctype: $doctype</p><p>lang: $lang</p><p>s lect: $sens</p><p class='legend' id='header'>header</p><p class='legend' id='footer'>footer</p><p class='legend' id='main'>main</p><p class='legend' id='aside'>aside</p><p class='legend' id='nav'>nav</p><p class='legend' id='article'>article</p><p class='legend' id='section'>section</p><p class='legend' id='div'>div</p>
 `;
 // structure générale de la page
-// trouver le titre
+// le titre
 const titleList = document.getElementsByTagName ('title');
 var monTitre = "";
 if (titleList.length ===0) monTitre = 'erreur, pas de balise title dans la page';
@@ -9,6 +9,7 @@ else if (titleList.length >1) monTitre = 'erreur, plusieurs balises title dans l
 else if (titleList[0].innerText ==="" || ' \n\t'.includes (titleList[0].innerText)) monTitre = 'erreur, balise vide';
 else monTitre = titleList[0].innerText;
 voletHtml = voletHtml.replace ('$titre', monTitre);
+
 // le doctype
 monTitre = 'présent';
 if (document.doctype === null || document.doctype === undefined) monTitre = 'erreur, pas de doctype';
@@ -18,12 +19,22 @@ else if (document.doctype.publicId !== null && document.doctype.publicId !== und
 	else monTitre = 'inconnu (' + document.doctype +')';
 }
 voletHtml = voletHtml.replace ('$doctype', monTitre);
+
 // la langue
 monTitre = 'erreur, la langue doit être précisée dans la balise html';
 if (document.documentElement.lang !=="") monTitre = document.documentElement.lang +' (lang)';
 else if (document.documentElement.attributes['xml:lang'] !== undefined) monTitre = document.documentElement.attributes['xml:lang'].value +' (xml:lang)';
 else monTitre = navigator.language;
 voletHtml = voletHtml.replace ('$lang', monTitre);
+
+// le sens de lecture
+monTitre = 'erreur, le sens de lecture doit valoir ltr ou rtl';
+if (document.documentElement.dir ==="") monTitre = 'défaut (ltr)';
+else if (document.documentElement.dir === 'ltr') monTitre = 'ltr';
+else if (document.documentElement.dir === 'rtl') monTitre = 'rtl';
+else monTitre = document.documentElement.dir +' erreur, le sens de lecture doit valoir ltr ou rtl';
+voletHtml = voletHtml.replace ('$sens', monTitre);
+
 voletRgaa.innerHTML = voletRgaa.innerHTML + voletHtml;
 
 // structure des blocs
