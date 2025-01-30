@@ -1,0 +1,11 @@
+video, audio {
+	border-style: solid !important;
+	border-color: deeppink !important;
+	border-width: 4px !important;
+}
+svg, canvas {
+	border-style: solid;
+	border-color: limegreen !important;
+	border-width: 4px !important;
+}
+svg[role='img'], svg[role='presentation'], canvas[role='img'], canvas[role='presentation'] { border-style: dashed !important; }

@@ -6,9 +6,9 @@ function chooseAction (event){
 		chrome.scripting.removeCSS ({
 			target: {tabId: activeTab.id, allFrames: true},
 			files: [
-				'encart.css', 'volet.css', 'ana-color.css', 'ana-common.css', 'ana-contrast.css', 'ana-focus.css', 'ana-langue.css',
+				'encart.css', 'volet.css', 'ana-color.css', 'ana-common.css', 'ana-contrast.css', 'ana-download.css', 'ana-focus.css', 'ana-langue.css',
 				'elm-conteneur.css', 'elm-hidden.css', 'elm-iframe.css', 'elm-image.css', 'elm-interdit.css', 'elm-link.css', 'elm-liste.css',
-				'elm-table.css', 'elm-titre.css'
+				'elm-media.css', 'elm-table.css', 'elm-titre.css'
 		]});
 		var listStyle =[];
 		var listScript =[];
@@ -18,6 +18,7 @@ function chooseAction (event){
 			listStyle =[ 'encart.css', 'elm-image.css' ];
 			listScript =[ 'ana-common.js', 'encart.js', 'elm-image.js' ];
 		}
+		else if (action === 'elm-media') listStyle =[ 'elm-media.css' ];
 		else if (action === 'ana-langue'){
 			listStyle =[ 'encart.css', 'elm-image.css' ];
 			listScript =[ 'ana-common.js', 'encart.js', 'ana-langue.js' ];
@@ -25,6 +26,10 @@ function chooseAction (event){
 		else if (action === 'elm-iframe'){
 			listStyle =[ 'encart.css', 'elm-iframe.css' ];
 			listScript =[ 'ana-common.js', 'encart.js', 'elm-iframe.js' ];
+		}
+		else if (action === 'ana-download'){
+			listStyle =[ 'ana-download.css' ];
+			listScript =[ 'ana-download.js' ];
 		}
 		else if (action === 'ana-contrast'){
 			listStyle =[ 'ana-common.css', 'volet.css', 'ana-contrast.css' ];
