@@ -6,9 +6,10 @@ function chooseAction (event){
 		chrome.scripting.removeCSS ({
 			target: {tabId: activeTab.id, allFrames: true},
 			files: [
-				'encart.css', 'volet.css', 'ana-color.css', 'ana-common.css', 'ana-contrast.css', 'ana-download.css', 'ana-focus.css', 'ana-langue.css',
-				'elm-conteneur.css', 'elm-hidden.css', 'elm-iframe.css', 'elm-image.css', 'elm-interdit.css', 'elm-link.css', 'elm-liste.css',
-				'elm-media.css', 'elm-table.css', 'elm-titre.css'
+				'encart.css', 'volet.css',
+				'ana-color.css', 'ana-common.css', 'ana-contrast.css', 'ana-download.css', 'ana-focus.css', 'ana-langue.css',
+				'elm-click.css', 'elm-conteneur.css', 'elm-hidden.css', 'elm-iframe.css', 'elm-image.css', 'elm-interdit.css', 'elm-link.css',
+				'elm-liste.css', 'elm-media.css', 'elm-table.css', 'elm-titre.css'
 		]});
 		var listStyle =[];
 		var listScript =[];
@@ -19,6 +20,10 @@ function chooseAction (event){
 			listScript =[ 'ana-common.js', 'encart.js', 'elm-image.js' ];
 		}
 		else if (action === 'elm-media') listStyle =[ 'elm-media.css' ];
+		else if (action === 'elm-click'){
+			listStyle =[ 'elm-click.css' ];
+			listScript =[ 'elm-click.js' ];
+		}
 		else if (action === 'ana-langue'){
 			listStyle =[ 'encart.css', 'elm-image.css' ];
 			listScript =[ 'ana-common.js', 'encart.js', 'ana-langue.js' ];
@@ -89,5 +94,11 @@ function chooseAction (event){
 document.addEventListener ('DOMContentLoaded', function(){
 	// document.body contient le body de la popup
 	var plist = document.body.getElementsByTagName ('p');
+	const orig = EventTarget.prototype.addEventListener;
+	EventTarget.prototype.addEventListener = function (...args){
+		if (this instanceof Element && ('mouse' === args[0].substring (0,5) || 'click' === args[0].substring (args[0].length -5)))
+			this.classList.add ('rgaa-highlight');
+		return orig.apply (this, args);
+	};
 	for (var p=0; p< plist.length; p++) plist[p].addEventListener ('click', chooseAction);
 });

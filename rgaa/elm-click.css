@@ -1,0 +1,38 @@
+a, a[onclick], a[ondblclick], a[oncontextmenu], a[onmouseup],
+a[onmousedown], a[onmouseenter], a[onmouseleave], a[onmousemove], a[onmouseout], a[onmouseover] {
+	border-style: solid;
+	border-width: 4px !important;
+	border-color: deeppink !important;
+}
+button, button[onclick], button[ondblclick], button[oncontextmenu], button[onmouseup],
+button[onmousedown], button[onmouseenter], button[onmouseleave], button[onmousemove], button[onmouseout], button[onmouseover] {
+	border-style: solid;
+	border-width: 4px !important;
+	border-color: limegreen !important;
+}
+imput[type='button'], imput[type='reset'], imput[type='submit'], input[onclick], input[ondblclick], input[oncontextmenu], input[onmouseup],
+input[onmousedown], input[onmouseenter], input[onmouseleave], input[onmousemove], input[onmouseout], input[onmouseover] {
+	border-style: solid;
+	border-width: 4px !important;
+	border-color: cadetblue !important;
+}
+[onclick], [ondblclick], [oncontextmenu], [onmouseup] {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: orangered;
+}
+[onmousedown], [onmouseenter] {
+	border-style: dashed !important;
+	border-width: 4px !important;
+	border-color: orangered;
+}
+[onmouseleave], [onmousemove], [onmouseout], [onmouseover] {
+	border-style: dotted !important;
+	border-width: 4px !important;
+	border-color: orangered;
+}
+.rgaa-highlight, a.rgaa-highlight {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: purple !important;
+}
