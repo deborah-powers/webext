@@ -11,9 +11,9 @@
 		"default_popup": "menu.html"
 	},
 	"browser_specific_settings": { "gecko": { "id": "rgaa@deborah-powers.fr" }},
-	"content_scripts": [{
-		"matches": ["<all_urls>"],
-		"js": ["elm-click.js"],
+	"content_scripts" : [{
+		"matches": [ "<all_urls>" ],
+		"js": [ "elm-click.js" ],
 		"run_at": "document_start"
 	}]
 }

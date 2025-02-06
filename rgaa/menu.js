@@ -20,10 +20,11 @@ function chooseAction (event){
 			listScript =[ 'ana-common.js', 'encart.js', 'elm-image.js' ];
 		}
 		else if (action === 'elm-media') listStyle =[ 'elm-media.css' ];
-		else if (action === 'elm-click'){
+		else if (action === 'elm-click') listStyle =[ 'elm-click.css' ];
+	/*	else if (action === 'elm-click'){
 			listStyle =[ 'elm-click.css' ];
 			listScript =[ 'elm-click.js' ];
-		}
+		}*/
 		else if (action === 'ana-langue'){
 			listStyle =[ 'encart.css', 'elm-image.css' ];
 			listScript =[ 'ana-common.js', 'encart.js', 'ana-langue.js' ];
@@ -91,14 +92,31 @@ function chooseAction (event){
 			files: listScript
 		});
 });}
+chrome.webNavigation.onCommitted.addListener(function(){
+	chrome.tabs.query ({currentWindow: true, active: true}, function (tabs){
+		var activeTab = tabs[0];
+		chrome.scripting.executeScript ({
+		target: {tabId: activeTab.id, allFrames: true},
+		files: [ 'elm-click.js' ]
+});});});
+/*
+document.addEventListener ('readystatechange_va', function(){
+	const button = document.getElementById ('elm-click');
+	button.addEventListener ('click', function (event){
+		chrome.tabs.query ({currentWindow: true, active: true}, function (tabs){
+			var activeTab = tabs[0];
+			chrome.scripting.executeScript ({
+			target: {tabId: activeTab.id, allFrames: true},
+			files: [ 'elm-click.js' ]
+		});
+		chrome.scripting.insertCSS ({
+			target: {tabId: activeTab.id, allFrames: true},
+			files: [ 'elm-click.css' ]
+		});
+});});});
+*/
 document.addEventListener ('DOMContentLoaded', function(){
 	// document.body contient le body de la popup
 	var plist = document.body.getElementsByTagName ('p');
-	const orig = EventTarget.prototype.addEventListener;
-	EventTarget.prototype.addEventListener = function (...args){
-		if (this instanceof Element && ('mouse' === args[0].substring (0,5) || 'click' === args[0].substring (args[0].length -5)))
-			this.classList.add ('rgaa-highlight');
-		return orig.apply (this, args);
-	};
 	for (var p=0; p< plist.length; p++) plist[p].addEventListener ('click', chooseAction);
 });
