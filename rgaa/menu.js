@@ -21,10 +21,6 @@ function chooseAction (event){
 		}
 		else if (action === 'elm-media') listStyle =[ 'elm-media.css' ];
 		else if (action === 'elm-click') listStyle =[ 'elm-click.css' ];
-	/*	else if (action === 'elm-click'){
-			listStyle =[ 'elm-click.css' ];
-			listScript =[ 'elm-click.js' ];
-		}*/
 		else if (action === 'ana-langue'){
 			listStyle =[ 'encart.css', 'elm-image.css' ];
 			listScript =[ 'ana-common.js', 'encart.js', 'ana-langue.js' ];
@@ -46,10 +42,7 @@ function chooseAction (event){
 			listStyle =[ 'ana-color.css' ];
 			listScript =[ 'ana-color.js' ];
 		}
-		else if (action === 'elm-link'){
-			listStyle =[ 'elm-link.css' ];
-			listScript =[ 'elm-link.js' ];
-		}
+		else if (action === 'elm-link') listStyle =[ 'elm-link.css' ];
 		else if (action === 'elm-table'){
 			listStyle =[ 'encart.css', 'elm-table.css' ];
 			listScript =[ 'ana-common.js', 'encart.js', 'elm-table.js' ];
@@ -92,30 +85,8 @@ function chooseAction (event){
 			files: listScript
 		});
 });}
-chrome.webNavigation.onCommitted.addListener(function(){
-	chrome.tabs.query ({currentWindow: true, active: true}, function (tabs){
-		var activeTab = tabs[0];
-		chrome.scripting.executeScript ({
-		target: {tabId: activeTab.id, allFrames: true},
-		files: [ 'elm-click.js' ]
-});});});
-/*
-document.addEventListener ('readystatechange_va', function(){
-	const button = document.getElementById ('elm-click');
-	button.addEventListener ('click', function (event){
-		chrome.tabs.query ({currentWindow: true, active: true}, function (tabs){
-			var activeTab = tabs[0];
-			chrome.scripting.executeScript ({
-			target: {tabId: activeTab.id, allFrames: true},
-			files: [ 'elm-click.js' ]
-		});
-		chrome.scripting.insertCSS ({
-			target: {tabId: activeTab.id, allFrames: true},
-			files: [ 'elm-click.css' ]
-		});
-});});});
-*/
 document.addEventListener ('DOMContentLoaded', function(){
+	console.log ('ok');
 	// document.body contient le body de la popup
 	var plist = document.body.getElementsByTagName ('p');
 	for (var p=0; p< plist.length; p++) plist[p].addEventListener ('click', chooseAction);
