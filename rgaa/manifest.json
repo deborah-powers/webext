@@ -13,7 +13,7 @@
 	"browser_specific_settings": { "gecko": { "id": "rgaa@deborah-powers.fr" }},
 	"content_scripts" : [{
 		"matches": [ "<all_urls>" ],
-		"js": [ "elm-click.js" ],
+		"js": [ "elm-click-lib.js" ],
 		"run_at": "document_start"
 	}]
 }

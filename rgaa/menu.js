@@ -20,7 +20,10 @@ function chooseAction (event){
 			listScript =[ 'ana-common.js', 'encart.js', 'elm-image.js' ];
 		}
 		else if (action === 'elm-media') listStyle =[ 'elm-media.css' ];
-		else if (action === 'elm-click') listStyle =[ 'elm-click.css' ];
+		else if (action === 'elm-click'){
+			listStyle =[ 'encart.css', 'elm-click.css' ];
+			listScript =[ 'ana-common.js', 'encart.js', 'elm-click.js' ];
+		}
 		else if (action === 'ana-langue'){
 			listStyle =[ 'encart.css', 'elm-image.css' ];
 			listScript =[ 'ana-common.js', 'encart.js', 'ana-langue.js' ];

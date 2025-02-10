@@ -1,5 +1,5 @@
 const blankChars = '\n \t';
-const myClasses =[ 'rgaa-highlight', 'rgaa-error', 'rgaa-nobg', 'rgaa-notx', 'rgaa-bgimg', 'rgaa-nobgcolor', 'rgaa-double', 'rgaa-complex' ];
+const myClasses =[ 'rgaa-highlight', 'rgaa-error', 'rgaa-nobg', 'rgaa-notx', 'rgaa-bgimg', 'rgaa-nobgcolor', 'rgaa-double', 'rgaa-complex', 'rgaa-event' ];
 
 Element.prototype.label ="";
 Element.prototype.infos ="";
@@ -74,7 +74,7 @@ Element.prototype.addLabelModal = function(){
 		for (var c=0; c< myClasses.length; c++) className = className.replaceAll (myClasses[c], "");
 		while (className.includes ("  ")) className = className.replaceAll ("  "," ");
 		className = className.strip();
-		name = name +" ."+ className.replaceAll (" ",'.');
+		if (exists (className)) name = name +" ."+ className.replaceAll (" ",'.');
 	}
 	const role = this.getAttribute ('role');
 	if (exists (role)) name = name +" role: "+ role;
