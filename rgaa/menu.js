@@ -45,7 +45,10 @@ function chooseAction (event){
 			listStyle =[ 'ana-color.css' ];
 			listScript =[ 'ana-color.js' ];
 		}
-		else if (action === 'elm-link') listStyle =[ 'elm-link.css' ];
+		else if (action === 'elm-link'){
+			listStyle =[ 'encart.css', 'elm-link.css' ];
+			listScript =[ 'ana-common.js', 'encart.js', 'elm-link.js' ];
+		}
 		else if (action === 'elm-table'){
 			listStyle =[ 'encart.css', 'elm-table.css' ];
 			listScript =[ 'ana-common.js', 'encart.js', 'elm-table.js' ];
