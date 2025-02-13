@@ -1,9 +1,23 @@
-// dépend de encart.js et de ana-common.js
-HTMLAnchorElement.prototype.addAll = function(){ Element.prototype.addAll.call (this); }
+/* dépend de encart.js et de ana-common.js
+j'ai des réserves concernant ma méthode de calcul du nom accessible.
+je garde ma méthode faute de mieux savoir.
+prendre en compte la valeur des pseudo-classes :before et :after
+*/
+HTMLAnchorElement.prototype.addAll = function(){
+	this.addInfos();
+	this.addModal();
+}
 HTMLAnchorElement.prototype.addInfos = function(){
 	// identifier le nom accessible
-	const intituleInfos = this.getIntitule();
-	this.infos = 'nom accessible: '+ intituleInfos[0] +'<br/>origine: '+ intituleInfos[1];
+	[ intitule, origine ] = this.getIntitule();
+	this.infos = 'nom accessible: '+ intitule +'<br/>origine: '+ origine;
+	if ('vide' === intitule) this.label = 'ko';
+	else if (intitule.includes (this.innerText.strip())) this.label = 'ok';
+	else{
+		this.label = 'ko';
+		this.infos = this.infos +'<br/>le nom accessible ne reprends pas le texte visible';
+	}
+	this.label = this.addLabelModal() +" "+ this.label;
 }
 HTMLElement.prototype.getIntitule = function(){
 	[ intitule, origine ] = Element.prototype.getIntitule.call (this);
@@ -11,50 +25,56 @@ HTMLElement.prototype.getIntitule = function(){
 	else{
 		var intituleBis ="";
 		var origineBis ="";
-		var intituleInfos =[];
 		if (! this.innerText.isEmpty()){
-			intituleBis = this.innerText;
+			intituleBis = this.innerText.strip();
 			origineBis = 'texte lisible';
 		}
-		if (this.innerHTML.includes ('<img')){
+		var intituleImage = this.getIntituleImage ('img');
+		if (""!== intituleImage){
 			origineBis = origineBis +', images';
-			const images = this.getElementsByTagName ('img');
-			for (var i=0; i< images.length; i++) intituleBis = intituleBis +', '+ images[i].getIntitule();
+			intituleBis = intituleBis + intituleImage;
 		}
-		if (this.innerHTML.includes ('<area')){
+		intituleImage = this.getIntituleImage ('area');
+		if (""!== intituleImage){
 			origineBis = origineBis +', areas';
-			const images = this.getElementsByTagName ('area');
-			for (var i=0; i< images.length; i++) intituleBis = intituleBis +', '+ images[i].getIntitule();
+			intituleBis = intituleBis + intituleImage;
 		}
-		if (this.innerHTML.includes ('<svg')){
+		intituleImage = this.getIntituleImage ('svg');
+		if (""!== intituleImage){
 			origineBis = origineBis +', svg';
-			const images = this.getElementsByTagName ('svg');
-			for (var i=0; i< images.length; i++) intituleBis = intituleBis +', '+ images[i].getIntitule();
+			intituleBis = intituleBis + intituleImage;
 		}
+		intituleBis = intituleBis.replaceAll ('vide, ',"");
+		origineBis = origineBis.replaceAll ('rien, ',"");
 		if (',' === intituleBis[0]){
 			intituleBis = intituleBis.substring (2);
 			origineBis = origineBis.substring (2);
 		}
-		console.log (origineBis, '!', origine, '!', intituleBis, '!', intitule);
-		if ('vide' === intituleBis) origineBis = 'rien';
-		if ([ 'attr title', 'rien' ].includes (origine))
-			return [ intituleBis, origineBis ];
-		else{
-			intitule = intitule +', '+ intituleBis;
-			origine = origine +', '+ origineBis;
-			return [ intitule, origine ];
-}}}
+		if (""=== intituleBis) return [ intitule, origine ];
+		else return [ intituleBis, origineBis ];
+}}
+HTMLElement.prototype.getIntituleImage = function (imgTag){
+	if (this.innerHTML.includes ('<'+ imgTag)){
+		const images = this.getElementsByTagName (imgTag);
+		var intitule ="";
+		var intituleTest ="";
+		for (var i=0; i< images.length; i++){
+			intituleTest = images[i].getIntitule();
+			if ('vide' !== intituleTest) intitule = intitule +', '+ intituleTest;
+		}
+		return intitule;
+	}
+	else return "";
+}
 HTMLImageElement.prototype.getIntitule = function(){
 	const intituleInfos = Element.prototype.getIntitule.call (this);
-	if ('aria-' === intituleInfos[1].substring (0,5)) return intituleInfos[0];
-	else if (! this.alt.isEmpty()) return this.alt
-	else return intituleInfos[0];
+	if ('aria-' === intituleInfos[1].substring (0,5) || this.alt.isEmpty()) return intituleInfos[0];
+	else return this.alt
 }
 HTMLAreaElement.prototype.getIntitule = function(){
 	const intituleInfos = Element.prototype.getIntitule.call (this);
-	if ('aria-' === intituleInfos[1].substring (0,5)) return intituleInfos[0];
-	else if (! this.alt.isEmpty()) return this.alt
-	else return intituleInfos[0];
+	if ('aria-' === intituleInfos[1].substring (0,5) || this.alt.isEmpty()) return intituleInfos[0];
+	else return this.alt;
 }
 SVGSVGElement.prototype.getIntitule = function(){
 	const intituleInfos = Element.prototype.getIntitule.call (this);
@@ -65,7 +85,7 @@ SVGSVGElement.prototype.getIntitule = function(){
 		var intitule = this.getAttribute ('xlink:title');
 		if (exists (intitule)) return intitule
 	//	le texte est déjà identifié dans parent.innerText.
-		else if (! this.textContent.isEmpty()) return "";
+		else if (! this.textContent.isEmpty()) return 'vide';
 		else return intituleInfos[0];
 }}
 Element.prototype.getIntitule = function(){
