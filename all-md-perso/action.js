@@ -14,12 +14,26 @@ var headPage =`
 	-->
 `;
 // récupérer les metadonnées de mes articles
-var header = "<h1><a href='$lien'>$titre</a></h1><p>par <a href='$laut'>$auteur</a></p><p>à propos de $sujet</p>";
+var header = "<h1><a href='$lien'>$titre</a></h1><p>par <a href='$lienAuteur'>$auteur</a></p><p>à propos de $sujet</p>";
 
-function findMetaLocal (meta){
-	if (meta !=={} && meta['lien'] !== undefined){
-		// afficher les meta dans le header
-		if (meta['lien'] === 'o'){
+function findMetaLocal(){
+	header = header.replace ('$titre', document.getElementsByTagName ('title')[0].innerText);
+	const metadata = document.getElementsByTagName ('meta');
+	console.log (metadata);
+	for (var m=0; m< metadata.length; m++){
+		if ('lien' === metadata[m].name) header = header.replace ('$lien', metadata[m].content);
+		else if ('link' === metadata[m].name) header = header.replace ('$lien', metadata[m].content);
+		else if ('laut' === metadata[m].name) header = header.replace ('$lienAuteur', metadata[m].content);
+		else if ('sujet' === metadata[m].name) header = header.replace ('$sujet', metadata[m].content);
+		else if ('subject' === metadata[m].name) header = header.replace ('$sujet', metadata[m].content);
+		else if ('auteur' === metadata[m].name) header = header.replace ('$auteur', metadata[m].content);
+		else if ('author' === metadata[m].name) header = header.replace ('$auteur', metadata[m].content);
+		else if ('date' === metadata[m].name) header = header + '<p>date: '+ metadata[m].content + '</p>';
+	}
+	document.body.innerHTML = header + document.body.innerHTML;
+}
+/*
+if (meta['lien'] === 'o'){
 			header = header.replace ("<a href='$lien'>", "");
 			header = header.replace ('</a>', "");
 		}
@@ -29,12 +43,7 @@ function findMetaLocal (meta){
 			header = header.replace ('</a></p>', '</p>');
 		}
 		else meta['laut'] = meta['laut'].replaceAll (" ","");
-		if (meta['date'] !== undefined) header = header + '<p>date: $date</p>';
-		header = header.printMetadata (meta);
-		if (! header.includes ('$')) text = header + text;
-		headPage = headPage.replace ('<title></title>', '<title>' + meta['titre'] + '</title>');
-		document.body.innerHTML = header + document.body.innerHTML;
-}}
+*/
 function addScript (scriptName){
 	const myScriptTag = document.createElement ('script');
 	myScriptTag.src = 'file:///C:/wamp64/www/site-dp/library-js/' + scriptName + '.js';
@@ -61,3 +70,5 @@ function addScript_vb (scriptName){
 document.head.innerHTML = headPage;
 addScript ('textFct');
 addScript ('htmlFct');
+setTimeout (function(){ findMetaLocal(); }, 1000);
+
