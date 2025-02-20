@@ -9,8 +9,8 @@ var headPage =`
 	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/perso.css' media='screen'/>
 	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/shapes.css'/>
 	<!--
-	<script type='text/javascript' src='file:///C:/wamp64/www/site-dp/library-js/textFct.js'></script>
-	<script type='text/javascript' src='file:///C:/wamp64/www/site-dp/library-js/htmlFct.js'></script>
+	<script type='text/javascript' src='file:///C:/wamp64/www/site-dp/library-js/$textFct.js'></script>
+	<script type='text/javascript' src='file:///C:/wamp64/www/site-dp/library-js/$htmlFct.js'></script>
 	-->
 `;
 // récupérer les metadonnées de mes articles
@@ -49,20 +49,23 @@ function findMetaLocal (meta){
 		headPage = headPage.replace ('<title></title>', '<title>' + meta['titre'] + '</title>');
 		document.body.innerHTML = header + document.body.innerHTML;
 }}
-function addScript (scriptName){
-	const myScriptTag = document.createElement ('script');
-	myScriptTag.src = 'file:///C:/wamp64/www/site-dp/library-js/' + scriptName + '.js';
-	myScriptTag.type = 'text/javascript';
-	document.head.appendChild (myScriptTag);
-}
 document.head.innerHTML = headPage;
-addScript ('textFct');
-addScript ('htmlFct');
-
+/*
+var myScriptTag = document.createElement ('script');
+myScriptTag.src = 'file:///C:/wamp64/www/site-dp/library-js/textFct.js';
+myScriptTag.type = 'text/javascript';
+document.head.appendChild (myScriptTag);
+myScriptTag = document.createElement ('script');
+myScriptTag.src = 'file:///C:/wamp64/www/site-dp/library-js/htmlFct.js';
+myScriptTag.type = 'text/javascript';
+document.head.appendChild (myScriptTag);
+console.log ('insertMyScript b');
 setTimeout (function(){
-	/*
+	console.log ('insertMyScript c');
+	console.log (document.head.innerHTML);
+	dodo();
 	var meta = prepareText();
 	console.log ('launchAction', meta);
 	findMetaLocal (meta);
-	*/
 }, 1000);
+*/
