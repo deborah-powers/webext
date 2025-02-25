@@ -63,18 +63,19 @@ else if (window.location.href.includes ('https://www.test-recette.fr/recette/'))
 	document.body.innerHTML = document.body.children[0].innerHTML;
 }
 else{
+	console.log ('clean action a', document.body);
 	fanfic.title = document.getElementsByTagName ('title')[0].innerHTML;
 	document.body.clean();
 	document.body.findTagReplace ('main');
 //	if (document.body.innerHTML.count ('</article>') ===1) document.body.findTagReplace ('article');
 }
-
 fanfic.cleanTitle();
 fanfic.findSubject();
+console.log ('clean action z', document.body);
 document.body.removeAnnotations();
 document.body.innerHTML = document.body.innerHTML.usePlaceholders();
 header = header.replace ('<title></title>', '<title>' + fanfic.title + '</title>');
 document.head.innerHTML = header;
-//document.body.delIds();
+document.body.delIds();
 fanfic.text = document.body.innerHTML;
-sendToBackend (fanfic.toData());
+// sendToBackend (fanfic.toData());

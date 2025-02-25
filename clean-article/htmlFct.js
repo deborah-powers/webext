@@ -2,7 +2,6 @@
 dépend de textFct.js
 basé sur python/htmlFct.py
 */
-console.log ('html fct', window.location.href);
 const toReplace =[[ '\ncode\n', '\nCode\n' ], [ '\ncode\t', '\nCode\t' ], [ '\nfig\n', '\nFig\n' ]];
 const tagHtml =[
 	['\n<h1>', '\n=== '], ['</h1>\n', ' ===\n'], ['\n<h2>', '\n*** '], ['</h2>\n', ' ***\n'], ['\n<h3>', '\n--- '], ['</h3>\n', ' ---\n'], ['\n<h4>', '\n___ '], ['</h4>\n', ' ___\n'], ['\n<hr>\n', '\n***\n'], ["\n<img src='", '\nImg\t'], ['\n<figure>', '\nFig\n'], ['</figure>', '\n/fig\n'], ['\n<xmp>', '\nCode\n'], ['\n<li>', '\n\t'], ["\n<hr class='h1'>\n", '\n===\n'], ["\n<hr class='h3'>\n", '\n---\n']
@@ -463,8 +462,7 @@ String.prototype.cleanHtml = function(){
 	text = text.replaceAll ('<br>', '<br/>');
 	text = text.replaceAll ('<hr>', '<hr/>');
 	while (text.includes ('<br/><br/>')) text = text.replaceAll ('<br/><br/>', '<br/>');
-	const tagHtml =
-	[ 'span', 'strong', 'em', 'b', 'p', 'h1', 'h2', 'h3', 'h4', 'div', 'section', 'article', 'tr', 'caption', 'table', 'figcaption', 'figure', 'nav', 'aside', 'xmp' ];
+	const tagHtml =[ 'span', 'strong', 'em', 'b', 'p', 'h1', 'h2', 'h3', 'h4', 'div', 'section', 'article', 'tr', 'caption', 'table', 'figcaption', 'figure', 'nav', 'aside', 'xmp' ];
 	for (var tag of tagHtml) text = text.replaceAll ('<'+ tag +'></'+ tag +'>', "");
 	text = text.replaceAll ('>','> ');
 	text = text.replaceAll ('<',' <');

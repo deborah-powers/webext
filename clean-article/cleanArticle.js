@@ -79,19 +79,3 @@ HTMLElement.prototype.removeAnnotations = function(){
 		if (text.includes ('disclaimer')) this.parentElement.removeChild (this);
 		else if (text.slice (0,3).includes ('a/n')) this.parentElement.removeChild (this);
 }}
-String.prototype.usePlaceholders = function(){
-	const placeholders = ('y/n', 'e/c', 'h/c', 'f/n', 'l/n');
-	var text = this;
-	for (var p=0; p< placeholders.length; p++){
-		text = text.replaceAll (placeholders[p].toUpperCase(), placeholders[p]);
-		text = text.replaceAll ('('+ placeholders[p] +')', placeholders[p]);
-		text = text.replaceAll ('['+ placeholders[p] +']', placeholders[p]);
-		text = text.replaceAll ('{'+ placeholders[p] +'}', placeholders[p]);
-	}
-	text = text.replaceAll ('y/n', 'Deborah');
-	text = text.replaceAll ('f/n', 'Deborah');
-	text = text.replaceAll ('e/c', 'grey');
-	text = text.replaceAll ('h/c', 'dark blond');
-	text = text.replaceAll ('l/n', 'Powers');
-	return text;
-}
