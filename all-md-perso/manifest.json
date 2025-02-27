@@ -5,7 +5,7 @@
 	"description": "appliquer un markdown maison sur mes fichiers textes",
 	"icons": { "48": "icon-128.png" },
 	"permissions": [ "tabs", "activeTab", "scripting" ],
-	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+	"content_security_policy": "script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-eval'; object-src 'self'",
 	"content_scripts": [{
 		"matches": [ "http://*/*.txt", "https://*/*.txt", "file:///*/*.txt", "http://*/*.md", "https://*/*.md", "file:///*/*.md" ],
 		"js": [ "import-js.js", "action.js", "action-recette.js" ]

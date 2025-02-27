@@ -10,10 +10,32 @@ const mylib = callLibrary ([ dependence1, dependence2 ])
 attention. pour le momment, les fonctions utilisent ma localisation pour les scripts js.
 	file:///C:/wamp64/www/site-dp/library-js/
 */
+function openLibFile (filePath){
+	const fullFile = 'file:///C:/wamp64/www/site-dp/library-' + filePath;
+	const xhttp = new XMLHttpRequest();
+	xhttp.open ('GET', fullFile, false);
+	xhttp.send();
+	if (xhttp.status ==0 || xhttp.status ==200) return xhttp.responseText;
+	else return "";
+}
+/* ------------ insérer mes styles ------------ */
+
 function addCss (cssName){
 	const cssLine = "<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/" + cssName + ".css'/>";
 	document.head.innerHTML = document.head.innerHTML + cssLine;
 }
+function openStyle (styleName){
+	const styleFile = 'css/' + styleName + '.css';
+	return openLibFile (styleFile);
+}
+function addStyle (styleList){
+	var textCss = "\n<style type='text/css'>";
+	for (var s=0; s< scriptList.length; s++) textCss = textCss +'\n'+ openStyle (scriptList[s]);
+	textCss = textCss +'\n</style>';
+	document.head.innerHTML = document.head.innerHTML + textCss;
+}
+/* ------------ insérer mes scripts ------------ */
+
 function launchScript (scriptName){
 	/* rajouter un script externe facilement.
 	il agit sur la page, mais ses éléments ne peuvent pas être appelés dans l'extension.
@@ -24,12 +46,8 @@ function launchScript (scriptName){
 	document.head.appendChild (myScriptTag);
 }
 function openScript (scriptName){
-	const scriptFile = 'file:///C:/wamp64/www/site-dp/library-js/' + scriptName + '.js';
-	const xhttp = new XMLHttpRequest();
-	xhttp.open ('GET', scriptFile, false);
-	xhttp.send();
-	if (xhttp.status ==0 || xhttp.status ==200) return xhttp.responseText;
-	else return "";
+	const scriptFile = 'js/' + scriptName + '.js';
+	return openLibFile (scriptFile);
 }
 var crutialData = `
 	exists: exists,

@@ -69,8 +69,7 @@ class Fanfic{
 			link: this.link
 		};
 		return fanfic;
-	}
-}
+}}
 HTMLElement.prototype.removeAnnotations = function(){
 	if (this.children.length >0){ for (var c=0; c< this.children.length; c++) if (this.children[c].tagName !== 'svg') this.children[c].removeAnnotations(); }
 	else if (this.innerText){

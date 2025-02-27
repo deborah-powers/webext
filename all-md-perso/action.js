@@ -24,19 +24,21 @@ addCss ('shapes');
 
 function findMetaLocal (metadata, title){
 	header = header.replace ('$titre', title);
-	if ('o' === metadata.lien ||! htmlLib.exists (metadata.lien)){
+//	console.log (metadata, metadata['autlink'], htmlLib.exists (metadata['autlink']), metadata.autlink, htmlLib.exists);
+
+	if (""=== metadata['lien']){
 		header = header.replace ("<a href='$lien'>", "");
 		header = header.replace ('</a>', "");
 	}
-	else header = header.replace ('$lien', metadata.lien);
-	if ('o' === metadata.laut ||! htmlLib.exists (metadata.laut)){
+	else header = header.replace ('$lien', metadata['lien']);
+	if (! htmlLib.exists (metadata['autlink'])){
 		header = header.replace ("<a href='$lienAuteur'>", "");
-		header = header.replace ('</a>', "");
+		header = header.replace ('$auteur</a>', '$auteur');
 	}
-	else header = header.replace ('$lienAuteur', metadata.laut);
-	if (htmlLib.exists (metadata.auteur)) header = header.replace ('$auteur', metadata.auteur);
-	if (htmlLib.exists (metadata.sujet)) header = header.replace ('$sujet', metadata.sujet);
-	if (htmlLib.exists (metadata.date)) header = header + '<p>date: '+ metadata.date + '</p>';
+	else header = header.replace ('$lienAuteur', metadata['autlink']);
+	header = header.replace ('$auteur', metadata['auteur']);
+	header = header.replace ('$sujet', metadata['sujet']);
+	if (htmlLib.exists (metadata['date'])) header = header + '<p>date: '+ metadata['date'] + '</p>';
 	document.body.innerHTML = header + document.body.innerHTML;
 }
 const metadata = htmlLib.prepareText();
