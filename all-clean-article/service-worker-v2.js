@@ -2,7 +2,7 @@ chrome.browserAction.onClicked.addListener (function (tab){
 	if ('http' === tab.url.substring (0,4) || 'file:///C:/' === tab.url.substring (0,11)){
 		chrome.scripting.executeScript ({
 			target: {tabId: tab.id, allFrames: true },
-			files: [ 'import-local.js', 'cleanAction.js' ]
+			files: [ 'import-local.js', 'cleanArticle.js', 'cleanAction.js' ]
 		});
 }});
 /*

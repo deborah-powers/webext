@@ -1,5 +1,6 @@
 /* importer des scripts js et des styles css externes afin de les utiliser comme des librairies dans mes extensions.
-ce script repose sur la XMLHttpRequest et utilise mon site perso, https://deborah-powers.fr/library-xxx/
+ce script repose sur la XMLHttpRequest (ajax)
+et utilise mon site perso, https://deborah-powers.fr/library-xxx/
 
 launchScript: le script s'execute puis se ferme tout seul. les éléments qu'il contient sont innaccessibles depuis mon extension.
 callLibrary: utiliser mon script comme une librairie.
@@ -8,26 +9,18 @@ addStyle: ajouter des feuilles de style css pour des pages web.
 
 utiliser ce script:
 les cors doivent être désactivés. ce script repose sur ajax.
-mes scripts sont sur mon site https://deborah-powers.fr/
 ajouter ces lignes dans votre manifest
-	"permissions": [ "...", "https://deborah-powers.fr/", "http://localhost:1407" ],
+	"permissions": [ "...", "https://deborah-powers.fr/" ],
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 dans votre content_script:
 	crutialData est modifié afin de s'adapter à ce dont l'utilisateur à besoin.
 	const mylib = callLibrary ([ dependence1, dependence2 ])
-
-attention:
-les fonctions récupèrent les fichiers sur mon site
-	https://deborah-powers.fr/library-js/
-pour une utilisation en local,
-	adapter urlLib
-	lancer C:\wamp64\www\site-dp\library-server.py
+	addStyle ([ style1, style2 ])
 */
-// var urlLib = 'https://deborah-powers.fr';
-var urlLib = 'http://localhost:1407';
+const urlLib = 'https://deborah-powers.fr/library-';
 
 function openLibFile (filePath){
-	const fullFile = urlLib + '/library-' + filePath;
+	const fullFile = urlLib + filePath;
 	const xhttp = new XMLHttpRequest();
 	xhttp.open ('GET', fullFile, false);
 	xhttp.send();
@@ -37,7 +30,7 @@ function openLibFile (filePath){
 /* ------------ insérer mes styles ------------ */
 
 function addCss (cssName){
-	const cssLine = "<link rel='stylesheet' type='text/css' href='" + urlLib + '/library-css/' + cssName + ".css'/>";
+	const cssLine = "<link rel='stylesheet' type='text/css' href='" + urlLib + 'css/' + cssName + ".css'/>";
 	document.head.innerHTML = document.head.innerHTML + cssLine;
 }
 function openStyle (styleName){
@@ -56,7 +49,7 @@ function launchScript (scriptName){
 	/* rajouter un script externe facilement.
 	il agit sur la page, mais ses éléments ne peuvent pas être appelés dans l'extension.
 	*/
-	const jsLine = "<script type='text/javascript' src=urlLib + '/library-js/" + scriptName + ".js'></script>";
+	const jsLine = "<script type='text/javascript' src='" + urlLib + 'js/' + scriptName + ".js'></script>";
 	document.head.innerHTML = document.head.innerHTML + jsLine;
 }
 function openScript (scriptName){
@@ -66,13 +59,14 @@ function openScript (scriptName){
 var crutialData = `
 	exists: exists,
 	prepareText: prepareText,
-	findTitle: function (url){ return url.findTitleFromUrl(); }
+	findTitle: function(){ return url.findTitleFromUrl(); }
 `;
 var sendToExtensions =`
 function sendToExtensions(){
 	return { $crutialData };
 }
 sendToExtensions();`;
+
 function callLibrary (scriptList){
 	/* importer un script externe en temps que librairie. sendToExtensions est modifiable selon ce qui est nécéssaire. */
 	var textJs ="";
@@ -80,6 +74,5 @@ function callLibrary (scriptList){
 	sendToExtensions = sendToExtensions.replace ('$crutialData', crutialData);
 	textJs = textJs + sendToExtensions;
 	const library = eval (textJs);
-	console.log (library);
 	return library;
 }
