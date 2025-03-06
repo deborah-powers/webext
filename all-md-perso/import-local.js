@@ -39,7 +39,7 @@ function openStyle (styleName){
 }
 function addStyle (styleList){
 	var textCss = "\n<style type='text/css'>";
-	for (var s=0; s< scriptList.length; s++) textCss = textCss +'\n'+ openStyle (scriptList[s]);
+	for (var s=0; s< styleList.length; s++) textCss = textCss +'\n'+ openStyle (styleList[s]);
 	textCss = textCss +'\n</style>';
 	document.head.innerHTML = document.head.innerHTML + textCss;
 }

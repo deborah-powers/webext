@@ -16,6 +16,8 @@ dans votre content_script:
 	crutialData est modifié afin de s'adapter à ce dont l'utilisateur à besoin.
 	const mylib = callLibrary ([ dependence1, dependence2 ])
 	addStyle ([ style1, style2 ])
+
+const urlLib = 'file:///C:/wamp64/www/site-dp/library-';
 */
 const urlLib = 'http://deborah-powers.fr/library-';
 
@@ -39,7 +41,7 @@ function openStyle (styleName){
 }
 function addStyle (styleList){
 	var textCss = "\n<style type='text/css'>";
-	for (var s=0; s< scriptList.length; s++) textCss = textCss +'\n'+ openStyle (scriptList[s]);
+	for (var s=0; s< styleList.length; s++) textCss = textCss +'\n'+ openStyle (styleList[s]);
 	textCss = textCss +'\n</style>';
 	document.head.innerHTML = document.head.innerHTML + textCss;
 }

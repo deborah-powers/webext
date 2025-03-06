@@ -3,8 +3,8 @@
 	"name": "to mardown",
 	"version": "1.0",
 	"description": "appliquer un markdown maison sur mes fichiers textes",
-	"icons": { "48": "icon-128.png" },
-	"permissions": [ "tabs", "activeTab", "scripting", "http://deborah-powers.fr" ],
+	"icons": { "48": "icon-128.svg" },
+	"permissions": [ "tabs", "activeTab", "scripting", "http://deborah-powers.fr/" ],
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'self'",
 	"content_scripts": [{
 		"matches": [ "file:///*/*.txt", "file:///*/*.md" ],
