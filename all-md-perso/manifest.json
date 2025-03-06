@@ -4,11 +4,14 @@
 	"version": "1.0",
 	"description": "appliquer un markdown maison sur mes fichiers textes",
 	"icons": { "48": "icon-128.png" },
-	"permissions": [ "tabs", "activeTab", "scripting" ],
-	"content_security_policy": "script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-eval'; object-src 'self'",
+	"permissions": [ "tabs", "activeTab", "scripting", "http://deborah-powers.fr" ],
+	"content_security_policy": "script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'self'",
 	"content_scripts": [{
-		"matches": [ "http://*/*.txt", "https://*/*.txt", "file:///*/*.txt", "http://*/*.md", "https://*/*.md", "file:///*/*.md" ],
-		"js": [ "import-js.js", "action.js", "action-recette.js" ]
+		"matches": [ "file:///*/*.txt", "file:///*/*.md" ],
+		"js": [ "import-local.js", "action.js", "action-recette.js" ]
+	}, {
+		"matches": [ "http://*/*.txt", "https://*/*.txt", "http://*/*.md", "https://*/*.md" ],
+		"js": [ "import-distal.js", "action.js", "action-recette.js" ]
 	}],
 	"browser_specific_settings": { "gecko": { "id": "md-perso@deborah-powers.fr" }}
 }

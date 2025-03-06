@@ -18,9 +18,7 @@ const htmlLib = callLibrary ([ 'textFct', 'htmlFct' ]);
 const title = htmlLib.findTitle (window.location.href);
 headPage = headPage.replace ('<title></title>', '<title>' + title + '</title>');
 document.head.innerHTML = headPage;
-addCss ('structure');
-addCss ('perso');
-addCss ('shapes');
+addStyle ('structure', 'perso', 'shapes');
 
 function findMetaLocal (metadata, title){
 	header = header.replace ('$titre', title);

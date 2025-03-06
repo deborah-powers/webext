@@ -1,17 +1,26 @@
-/* importer des scripts js externes afin de les utiliser comme des librairies dans mes extensions.
+/* importer des scripts js et des styles css externes afin de les utiliser comme des librairies dans mes extensions.
+ce script repose sur la XMLHttpRequest (ajax)
+et utilise mon site perso, https://deborah-powers.fr/library-xxx/
+
 launchScript: le script s'execute puis se ferme tout seul. les éléments qu'il contient sont innaccessibles depuis mon extension.
 callLibrary: utiliser mon script comme une librairie.
-- les cors doivent être désactivés. cette fonction ouvre un fichier js.
-- ajouter cette ligne dans le manifest
-	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-- crutialData est modifié afin de s'adapter à ce dont l'utilisateur à besoin.
-const mylib = callLibrary ([ dependence1, dependence2 ])
+addCss: ajouter une feuille de style css pour les fichiers locaux.
+addStyle: ajouter des feuilles de style css pour des pages web.
 
-attention. pour le momment, les fonctions utilisent ma localisation pour les scripts js.
-	file:///C:/wamp64/www/site-dp/library-js/
+utiliser ce script:
+les cors doivent être désactivés. ce script repose sur ajax.
+ajouter ces lignes dans votre manifest
+	"permissions": [ "...", "https://deborah-powers.fr/" ],
+	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+dans votre content_script:
+	crutialData est modifié afin de s'adapter à ce dont l'utilisateur à besoin.
+	const mylib = callLibrary ([ dependence1, dependence2 ])
+	addStyle ([ style1, style2 ])
 */
+const urlLib = 'http://deborah-powers.fr/library-';
+
 function openLibFile (filePath){
-	const fullFile = 'file:///C:/wamp64/www/site-dp/library-' + filePath;
+	const fullFile = urlLib + filePath;
 	const xhttp = new XMLHttpRequest();
 	xhttp.open ('GET', fullFile, false);
 	xhttp.send();
@@ -21,7 +30,7 @@ function openLibFile (filePath){
 /* ------------ insérer mes styles ------------ */
 
 function addCss (cssName){
-	const cssLine = "<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/" + cssName + ".css'/>";
+	const cssLine = "<link rel='stylesheet' type='text/css' href='" + urlLib + 'css/' + cssName + ".css'/>";
 	document.head.innerHTML = document.head.innerHTML + cssLine;
 }
 function openStyle (styleName){
@@ -40,10 +49,8 @@ function launchScript (scriptName){
 	/* rajouter un script externe facilement.
 	il agit sur la page, mais ses éléments ne peuvent pas être appelés dans l'extension.
 	*/
-	const myScriptTag = document.createElement ('script');
-	myScriptTag.src = 'file:///C:/wamp64/www/site-dp/library-js/' + scriptName + '.js';
-	myScriptTag.type = 'text/javascript';
-	document.head.appendChild (myScriptTag);
+	const jsLine = "<script type='text/javascript' src='" + urlLib + 'js/' + scriptName + ".js'></script>";
+	document.head.innerHTML = document.head.innerHTML + jsLine;
 }
 function openScript (scriptName){
 	const scriptFile = 'js/' + scriptName + '.js';
@@ -59,6 +66,7 @@ function sendToExtensions(){
 	return { $crutialData };
 }
 sendToExtensions();`;
+
 function callLibrary (scriptList){
 	/* importer un script externe en temps que librairie. sendToExtensions est modifiable selon ce qui est nécéssaire. */
 	var textJs ="";
