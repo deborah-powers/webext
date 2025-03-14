@@ -36,7 +36,8 @@ class BackEndCors (SimpleHTTPRequestHandler):
 		bodyLen = int (self.headers.get ('Content-Length'))
 		bodyText =""
 		if bodyLen >0: bodyText = self.rfile.read (bodyLen).decode('utf-8')
-		return bodyText
+		bodyJson = json.loads (bodyText)
+		return bodyJson
 
 	def writeBody (self, text):
 		# wfile.write prend un texte en bytes comme argument, il faut parser les strings
@@ -51,18 +52,17 @@ class BackEndCors (SimpleHTTPRequestHandler):
 	def do_POST (self):
 		self.send_response (200)
 		self.end_headers()
-		postBody = json.loads (self.readBody())
+		postBody = self.readBody()
 		fileHtml.path = 'b/\t.html'
 		fileHtml.title = textFct.cleanHtml (postBody['title'])
 		fileHtml.title = fileHtml.title[:100].strip()
-		log.logMsg (fileHtml)
 		fileHtml.toPath()
 		# fileHtml.title = cleanTitle (fileHtml.title)
 		fileHtml.text = textFct.cleanHtml (postBody['text'])
 		fileHtml.link = postBody['link']
 		fileHtml.author = postBody['author']
 		fileHtml.subject = postBody['subject']
-		fileHtml.autlink = postBody['authlink']
+	#	fileHtml.autlink = postBody['authlink']
 		article = fileHtml.toText()
 		article.write()
 		self.writeBody ('ok')

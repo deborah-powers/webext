@@ -19,8 +19,14 @@ dans votre content_script:
 
 const urlLib = 'file:///C:/wamp64/www/site-dp/library-';
 */
-const urlLib = 'http://deborah-powers.fr/library-';
+const urlDist = 'http://deborah-powers.fr';
+const urlLoc = 'file:///C:/wamp64/www/site-dp';
 
+var urlLib = urlDist + '/library-';
+function setUrlLib(){
+	if ('file' === window.location.href.substring (0,4)) urlLib = urlLoc + '/library-';
+	else urlLib = urlDist + '/library-';
+}
 function openLibFile (filePath){
 	const fullFile = urlLib + filePath;
 	const xhttp = new XMLHttpRequest();
@@ -78,3 +84,4 @@ function callLibrary (scriptList){
 	const library = eval (textJs);
 	return library;
 }
+setUrlLib();

@@ -16,9 +16,17 @@ dans votre content_script:
 	crutialData est modifié afin de s'adapter à ce dont l'utilisateur à besoin.
 	const mylib = callLibrary ([ dependence1, dependence2 ])
 	addStyle ([ style1, style2 ])
-*/
-const urlLib = 'http://deborah-powers.fr/library-';
 
+const urlLib = 'file:///C:/wamp64/www/site-dp/library-';
+*/
+const urlDist = 'http://deborah-powers.fr';
+const urlLoc = 'file:///C:/wamp64/www/site-dp';
+
+var urlLib = urlDist + '/library-';
+function setUrlLib(){
+	if ('file' === window.location.href.substring (0,4)) urlLib = urlLoc + '/library-';
+	else urlLib = urlDist + '/library-';
+}
 function openLibFile (filePath){
 	const fullFile = urlLib + filePath;
 	const xhttp = new XMLHttpRequest();
@@ -59,7 +67,7 @@ function openScript (scriptName){
 var crutialData = `
 	exists: exists,
 	prepareText: prepareText,
-	findTitle: function(){ return url.findTitleFromUrl(); }
+	findTitle: function (url){ return url.findTitleFromUrl(); }
 `;
 var sendToExtensions =`
 function sendToExtensions(){
@@ -76,3 +84,4 @@ function callLibrary (scriptList){
 	const library = eval (textJs);
 	return library;
 }
+setUrlLib();

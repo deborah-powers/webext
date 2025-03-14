@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "nettoyeur d'articles",
-	"version": "1.0",
+	"version": "1.1",
 	"description": "nettoyer mes pages web",
 	"icons": { "48": "icon-128.svg" },
 	"background": { "scripts": [ "service-worker-v2.js" ]},
