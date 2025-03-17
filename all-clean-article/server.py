@@ -4,6 +4,7 @@ from sys import path
 path.append ('C:\\Users\\deborah.powers\\Desktop\\python')
 import json
 from http.server import HTTPServer, SimpleHTTPRequestHandler, test
+import pypandoc
 import textFct
 from fileCls import Article
 import loggerFct as log
@@ -29,6 +30,7 @@ class BackEndCors (SimpleHTTPRequestHandler):
 		self.send_header ('Access-Control-Allow-Origin', '*')
 		self.send_header ('Access-Control-Allow-Methods', '*')
 		self.send_header ('Access-Control-Allow-Headers', '*')
+		self.send_header ('Content-type', 'application/json')
 		SimpleHTTPRequestHandler.end_headers (self)
 
 	def readBody (self):
@@ -36,6 +38,7 @@ class BackEndCors (SimpleHTTPRequestHandler):
 		bodyLen = int (self.headers.get ('Content-Length'))
 		bodyText =""
 		if bodyLen >0: bodyText = self.rfile.read (bodyLen).decode('utf-8')
+		print (bodyText)
 		bodyJson = json.loads (bodyText)
 		return bodyJson
 
@@ -52,6 +55,7 @@ class BackEndCors (SimpleHTTPRequestHandler):
 	def do_POST (self):
 		self.send_response (200)
 		self.end_headers()
+		self.writeBody ('ok')
 		postBody = self.readBody()
 		fileHtml.path = 'b/\t.html'
 		fileHtml.title = textFct.cleanHtml (postBody['title'])
@@ -65,7 +69,6 @@ class BackEndCors (SimpleHTTPRequestHandler):
 	#	fileHtml.autlink = postBody['authlink']
 		article = fileHtml.toText()
 		article.write()
-		self.writeBody ('ok')
 
 if __name__ == '__main__':
 	test (BackEndCors, HTTPServer, port=1407)
