@@ -5,15 +5,16 @@ path.append ('C:\\Users\\deborah.powers\\Desktop\\python')
 import json
 from http.server import HTTPServer, SimpleHTTPRequestHandler, test
 import socketserver
+from urllib.parse import unquote
 from htmlCls import Html
 import textFct
 from fileCls import Article
 import loggerFct as log
 
 htmlTest = """<html>
-<head><title>Title goes here.</title></head>
+<head><title>conseil</title></head>
 <body>
-<p>This is a test.</p>
+<h1>pour retrouver l'ancien affichage, clicquer sur le bouton "précédent".</h1>
 </body></html>
 """
 fileHtml = Html ('b/\t.html')
@@ -43,25 +44,46 @@ class BackEndCors (SimpleHTTPRequestHandler):
 		bodyJson = json.loads (bodyText)
 		return bodyJson
 
-	def writeBody (self, text):
+	def writeBodyJson (self, jsonDict):
 		# wfile.write prend un texte en bytes comme argument, il faut parser les strings
 		jsonDict = { 'nom': 'carroussi', 'prenon': 'diana' }
 		jsonText = json.dumps (jsonDict)
-		print (jsonText)
 		self.wfile.write (bytes (jsonText, 'utf-8'))
 	#	self.wfile.close()
 
+	def writeBody (self, text):
+		# wfile.write prend un texte en bytes comme argument, il faut parser les strings
+		self.wfile.write (bytes (text, 'utf-8'))
+	#	self.wfile.close()
+
 	def do_GET (self):
+		# récupérer les paramètres
+		d=6+ self.path.find ('title=')
+		paramsStr = unquote (self.path[d:])
+		paramsStr = paramsStr.replace ('=','&', 4)
+		paramLst = paramsStr.split ('&')
+		fileHtml.path = 'b/\t.html'
+		fileHtml.title = textFct.cleanHtml (paramLst[0])
+		fileHtml.title = fileHtml.title[:100].strip()
+		fileHtml.toPath()
+		fileHtml.author = paramLst[4]
+		fileHtml.subject = paramLst[2]
+		fileHtml.link = paramLst[6]
+		fileHtml.text = paramLst[8]
+		fileHtml.write()
+		# envoi sur la page
 		self.send_response (200)
 		self.end_headers()
-		self.writeBody (htmlTest)
+		self.wfile.write (bytes (htmlTest, 'utf-8'))
 		"""
-		print (self.__dict__)
-		print (self.__dir__())
+		# redirection automatique. la mise en page de mon extension est perdue.
+		self.send_response (307)
+		self.send_header ('Location', fileHtml.link)
+		self.end_headers()
 		"""
 
 	def do_POST (self):
-		print ('post')
+		print ('post bis')
 		self.send_response (200)
 		self.end_headers()
 		self.writeBody ('ok')

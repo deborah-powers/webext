@@ -5,8 +5,8 @@
 	"description": "nettoyer mes pages web",
 	"icons": { "48": "icon-128.svg" },
 	"background": { "scripts": [ "service-worker-v2.js" ]},
-	"permissions": [ "tabs", "activeTab", "scripting", "http://deborah-powers.fr/", "http://localhost:1407/", "http://109.13.137.75:1407/" ],
-	"content_security_policy": "script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'self'",
+	"permissions": [ "tabs", "activeTab", "scripting", "http://deborah-powers.fr/", "http://localhost:1407/" ],
+	"content_security_policy": "script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'self';",
 	"browser_action": {
 		"default_icon": "icon-128.svg",
 		"default_title": "nettoyeur d'articles"
