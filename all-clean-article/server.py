@@ -32,6 +32,7 @@ class BackEndCors (SimpleHTTPRequestHandler):
 		self.send_header ('Access-Control-Allow-Origin', '*')
 		self.send_header ('Access-Control-Allow-Methods', '*')
 		self.send_header ('Access-Control-Allow-Headers', '*')
+		self.send_header ('Content-type', 'text/html')
 	#	self.send_header ('Content-type', 'application/json')
 		SimpleHTTPRequestHandler.end_headers (self)
 
@@ -62,6 +63,7 @@ class BackEndCors (SimpleHTTPRequestHandler):
 		paramsStr = unquote (self.path[d:])
 		paramsStr = paramsStr.replace ('=','&', 4)
 		paramLst = paramsStr.split ('&')
+		# créer le fichier
 		fileHtml.path = 'b/\t.html'
 		fileHtml.title = textFct.cleanHtml (paramLst[0])
 		fileHtml.title = fileHtml.title[:100].strip()
@@ -71,16 +73,18 @@ class BackEndCors (SimpleHTTPRequestHandler):
 		fileHtml.link = paramLst[6]
 		fileHtml.text = paramLst[8]
 		fileHtml.write()
+		"""
 		# envoi sur la page
 		self.send_response (200)
-		self.end_headers()
-		self.wfile.write (bytes (htmlTest, 'utf-8'))
-		"""
+		self.wfile.write (bytes (paramLst[8], 'utf-8'))
 		# redirection automatique. la mise en page de mon extension est perdue.
 		self.send_response (307)
 		self.send_header ('Location', fileHtml.link)
-		self.end_headers()
 		"""
+		# redirection automatique. ?retour permet de relancer l'extension automatiquement (cf manifest)
+		self.send_response (307)
+		self.send_header ('Location', fileHtml.link +'?retour')
+		self.end_headers()
 
 	def do_POST (self):
 		print ('post bis')

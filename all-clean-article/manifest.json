@@ -11,5 +11,12 @@
 		"default_icon": "icon-128.svg",
 		"default_title": "nettoyeur d'articles"
 	},
+	"content_scripts" : [{
+		"matches": [ "http://localhost/*" ],
+		"js": [ "import-perso.js", "showPage.js" ]
+	},{
+		"matches": [ "http://*/*?retour", "https://*/*?retour" ],
+		"js": [ "import-perso.js", "cleanArticle.js", "cleanAction.js" ]
+	}],
 	"browser_specific_settings": { "gecko": { "id": "nettoyeur@deborah-powers.fr" }}
 }

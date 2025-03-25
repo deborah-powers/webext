@@ -68,6 +68,24 @@ class Fanfic{
 		};
 		return fanfic;
 	}
+	toBackEndUrl(){
+		if (this.link.includes ('#')){
+			f= this.link.indexOf ('#');
+			this.link = this.link.substring (0,f);
+		}
+		if (this.link.includes ('?')){
+			f= this.link.indexOf ('?');
+			this.link = this.link.substring (0,f);
+		}
+		var urlBackend = 'http://localhost:1407?title=$title&subject=$subject&author=$author&link=$link&text=$text';
+		urlBackend = urlBackend.replace ('$title', this.title);
+		urlBackend = urlBackend.replace ('$subject', this.subject);
+		urlBackend = urlBackend.replace ('$author', this.author);
+		urlBackend = urlBackend.replace ('$link', this.link);
+		urlBackend = urlBackend.replace ('$text', this.text);
+		urlBackend = encodeURI (urlBackend);
+		return urlBackend;
+	}
 	toJsonString(){
 		const fanficStr = JSON.stringify (this.toData());
 		return fanficStr;

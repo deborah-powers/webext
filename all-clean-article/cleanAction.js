@@ -87,14 +87,7 @@ document.body.innerHTML = "<button>télécharger</button>" + document.body.inner
 addStyle ([ 'structure', 'perso' ]);
 
 function download(){
-	console.log ('download');
-	var urlBackend = 'http://localhost:1407?title=$title&subject=$subject&author=$author&link=$link&text=$text';
-	urlBackend = urlBackend.replace ('$title', fanfic.title);
-	urlBackend = urlBackend.replace ('$subject', fanfic.subject);
-	urlBackend = urlBackend.replace ('$author', fanfic.author);
-	urlBackend = urlBackend.replace ('$link', fanfic.link);
-	urlBackend = urlBackend.replace ('$text', fanfic.text);
-	urlBackend = encodeURI (urlBackend);
+	var urlBackend = fanfic.toBackEndUrl();
 	window.location.href = urlBackend;
 }
 document.getElementsByTagName ('button')[0].addEventListener ('click', download);
