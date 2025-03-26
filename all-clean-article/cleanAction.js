@@ -100,8 +100,6 @@ xhttp.onreadystatechange = function(){
 };
 xhttp.open ('GET', urlBackend, true);
 const fanficStr = JSON.stringify (fanfic);
-console.log ('b');
 xhttp.send (fanficStr);
-console.log ('z');
 console.log (xhttp.status, xhttp.readyState, xhttp.responseText);
 */

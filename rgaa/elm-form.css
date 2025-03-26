@@ -13,9 +13,7 @@ input {
 }
 textarea { border-color: deeppink !important; }
 label { border-color: limegreen !important; }
-input[name][id], textarea[name][id], label[for] { boder-style: solid; }
+input[name][id], textarea[name][id], label[for] { border-style: solid !important; }
 .rgaa-highlight { border-width: 8px !important }
 .rgaa-error { border-style: dotted !important; }
-.rgaa-title:before {
-	content: attr(title) " ";
-}
+.rgaa-title:before { content: attr(title) " "; }

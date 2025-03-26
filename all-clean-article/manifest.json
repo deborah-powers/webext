@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "nettoyeur d'articles",
-	"version": "1.1",
+	"version": "1.0",
 	"description": "nettoyer mes pages web",
 	"icons": { "48": "icon-128.svg" },
 	"background": { "scripts": [ "service-worker-v2.js" ]},
@@ -15,7 +15,7 @@
 		"matches": [ "http://localhost/*" ],
 		"js": [ "import-perso.js", "showPage.js" ]
 	},{
-		"matches": [ "http://*/*?retour", "https://*/*?retour" ],
+		"matches": [ "http://*/*?retour", "https://*/*?retour", "file:///*/*?retour" ],
 		"js": [ "import-perso.js", "cleanArticle.js", "cleanAction.js" ]
 	}],
 	"browser_specific_settings": { "gecko": { "id": "nettoyeur@deborah-powers.fr" }}
