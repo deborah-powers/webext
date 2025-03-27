@@ -129,7 +129,7 @@ Element.prototype.addLabelModal = function(){
 	return name;
 }
 Element.prototype.addLabel = function(){
-	if (this.infos.includes ('OBLIGATOIRE') || this.infos.includes ('ERREUR')) this.label = 'erreur';
+	if (this.infos.includes ('OBLIGATOIRE') || this.infos.includes ('ERREUR') || this.className.includes ('rgaa-error')) this.label = 'erreur';
 	else this.label = 'ok';
 	this.label = this.addLabelModal() +" "+ this.label;
 }

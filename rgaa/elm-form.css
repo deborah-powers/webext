@@ -1,17 +1,19 @@
-form {
+form, input, textarea, label, button {
+	color: #420 !important;
+	background-color: ivory !important;
 	border-width: 4px !important;
-	boder-style: solid !important;
+}
+form {
+	border-style: solid !important;
 	border-color: cadetblue !important;
 }
-input, textarea, label {
-	border-width: 4px;
-	border-style: dashed;
-}
-input {
-	border-color: magenta !important;
-	color: magenta !important;
-}
+input, textarea, label { border-style: dashed !important; }
+input { border-color: magenta !important; }
 textarea { border-color: deeppink !important; }
+button {
+	border-color: teal !important;
+	border-style: solid !important;
+}
 label { border-color: limegreen !important; }
 input[name][id], textarea[name][id], label[for] { border-style: solid !important; }
 .rgaa-highlight { border-width: 8px !important }
