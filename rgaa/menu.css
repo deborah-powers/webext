@@ -31,6 +31,8 @@ p.bouton:active {
 	background-color: deeppink;
 	border-color: #420;
 }
+/* divers */
+.rgaa-title:before { content: attr(title) " "; }
 /* scroll bar de firefox */
 :root {
 	overflow: auto;

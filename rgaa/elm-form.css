@@ -18,4 +18,3 @@ label { border-color: limegreen !important; }
 input[name][id], textarea[name][id], label[for] { border-style: solid !important; }
 .rgaa-highlight { border-width: 8px !important }
 .rgaa-error { border-style: dotted !important; }
-.rgaa-title:before { content: attr(title) " "; }
