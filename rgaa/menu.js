@@ -34,7 +34,7 @@ function chooseAction (event){
 		}
 		else if (action === 'elm-form'){
 			listStyle =[ 'encart.css', 'elm-form.css' ];
-			listScript =[ 'ana-common.js', 'encart.js', 'elm-form.js' ];
+			listScript =[ 'ana-common.js', 'encart.js', 'ana-name.js', 'elm-form.js' ];
 		}
 		else if (action === 'ana-download'){
 			listStyle =[ 'ana-download.css' ];

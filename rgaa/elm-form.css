@@ -1,20 +1,27 @@
-form, input, textarea, label, button {
+form, [role='group'], fieldset, legend, input, textarea, label, button, select, optgroup, option {
 	color: #420 !important;
 	background-color: ivory !important;
 	border-width: 4px !important;
 }
-form {
-	border-style: solid !important;
-	border-color: cadetblue !important;
+form, fieldset, [role='group'], select, button, option { border-style: solid !important; }
+legend, input, textarea, label, optgroup { border-style: dashed !important; }
+fieldset legend, input[name][id], textarea[name][id], label[for], optgroup[label] { border-style: solid !important; }
+
+form { border-color: teal !important; }
+select { border-color: red !important; }
+
+option { background-color: orange !important; }
+optgroup {
+	color: ivory !important;
+	background-color: red !important;
 }
-input, textarea, label { border-style: dashed !important; }
-input { border-color: magenta !important; }
-textarea { border-color: deeppink !important; }
-button {
-	border-color: teal !important;
-	border-style: solid !important;
-}
-label { border-color: limegreen !important; }
-input[name][id], textarea[name][id], label[for] { border-style: solid !important; }
+fieldset { border-color: royalblue !important; }
+legend { border-color: blueviolet !important; }
+[role='group'] { border-color: deepskyblue !important; }
+label { border-color: magenta !important; }
+input { border-color: deeppink !important; }
+textarea { border-color: hotpink !important; }
+button, input[type='submit'], input[type='reset'], input[type='image'] { border-color: violet !important; }
+
 .rgaa-highlight { border-width: 8px !important }
 .rgaa-error { border-style: dotted !important; }
