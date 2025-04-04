@@ -14,7 +14,10 @@ function chooseAction (event){
 		var listStyle =[];
 		var listScript =[];
 		// choisir les actions
-		if (action === 'del-style') listScript = [ 'del-style.js' ];
+		if (action === 'del-style'){
+			listStyle =[ 'ana-common.css' ];
+			listScript = [ 'del-style.js' ];
+		}
 		else if (action === 'elm-image'){
 			listStyle =[ 'encart.css', 'elm-image.css' ];
 			listScript =[ 'ana-common.js', 'encart.js', 'elm-image.js' ];

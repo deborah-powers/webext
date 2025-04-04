@@ -12,7 +12,7 @@ String.prototype.cleanName = function(){
 Element.prototype.visibleName = function(){ return ""; }
 HTMLElement.prototype.visibleName = function(){
 	if (this.innerText) return this.innerText.cleanName();
-	else return "";
+	else return 'rien: rien';
 }
 HTMLFieldSetElement.prototype.visibleName = function(){
 	if (this.innerHTML.includes ('</legend>')){
@@ -22,9 +22,20 @@ HTMLFieldSetElement.prototype.visibleName = function(){
 	else return this.innerText.cleanName();
 }
 HTMLInputElement.prototype.visibleName = function(){
-	if (this.labels.length ===1) return this.labels[0].visibleName();
+	if (this.type === 'hidden') return 'rien: invisible';
+	else if (this.labels.length ===1) return this.labels[0].visibleName();
 	else if ([ 'button', 'submit', 'reset' ].includes (this.type) && exists (this.value)) return this.value.toLowerCase();
-	else return "";
+	else return 'rien: rien';
+}
+SVGSVGElement.prototype.visibleName = function(){
+	var intitule ="";
+	if (exists (this.textContent)){
+		intitule = this.textContent.toLowerCase();
+		intitule = intitule.replaceAll ('\n'," ");
+		intitule = intitule.replaceAll ('\t'," ");
+		intitule = intitule.strip();
+	}
+	return intitule;
 }
 Element.prototype.accessibleName = function(){
 	if (this.getAttribute ('hidden')) return 'rien: invisible';
@@ -87,6 +98,7 @@ HTMLFieldSetElement.prototype.accessibleName = function(){
 	else return intitule;
 }
 HTMLInputElement.prototype.accessibleName = function(){
+	if (this.type === 'hidden') return 'rien: invisible';
 	var intitule = Element.prototype.accessibleName.call (this);
 	if ('aria-' === intitule.substring (0,5)) return intitule;
 	var complementErreur ="";
@@ -113,12 +125,19 @@ HTMLAreaElement.prototype.accessibleName = function(){
 SVGSVGElement.prototype.accessibleName = function(){
 	var intitule = Element.prototype.accessibleName.call (this);
 	if ('aria-' === intitule.substring (0,5)) return intitule;
-	const title = this.getElementByTagName ('title')[0];
-	if (exists (title)) return 'title tag: '+ title;
-	else return intitule;
+	const title = this.getElementByTagNameNs ('title')[0];
+	if (exists (title)) intitule = 'title tag: '+ title;
+	else if (exists (this.textContent)){
+		intitule = this.textContent.toLowerCase();
+		intitule = intitule.replaceAll ('\n'," ");
+		intitule = intitule.replaceAll ('\t'," ");
+		intitule = intitule.strip();
+	}
+	return intitule;
 }
 Element.prototype.compareNames = function(){
-	const accessibleName = this.accessibleName().toLowerCase();
+	var accessibleName = this.accessibleName();
+	accessibleName = accessibleName.toLowerCase();
 	const visibleName = this.visibleName();
 	if ("" !== visibleName && ! accessibleName.includes (visibleName)) accessibleName = accessibleName + '<br/>le nom accessible ne reprend pas le nom visible';
 	return accessibleName;

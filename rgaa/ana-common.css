@@ -15,3 +15,4 @@
 }
 a > *.rgaa-highlight { border-style: dashed; }
 button *.rgaa-highlight { border-style: dotted; }
+img, svg, canvas, area { max-width: 50%; }
