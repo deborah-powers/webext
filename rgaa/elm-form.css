@@ -4,7 +4,10 @@ form, [role='group'], fieldset, legend, input, textarea, label, form button, sel
 	border-width: 4px !important;
 }
 [required], [aria-required='true'] { background-color: pink !important; }
-
+[id][autocomplete], [name][autocomplete] {  background-color: yellow !important;  }
+[required][id][autocomplete], [aria-required='true'][id][autocomplete], [required][name][autocomplete], [aria-required='true'][name][autocomplete]{
+	background-image: repeating-linear-gradient(90deg, pink, yellow);
+}
 form, fieldset, [role='group'], select, form button, option { border-style: solid !important; }
 legend, input, textarea, label, optgroup { border-style: dashed !important; }
 fieldset legend, input[name][id], textarea[name][id], label[for], optgroup[label] { border-style: solid !important; }
@@ -26,6 +29,7 @@ number, email, password, tel, url, color, date, time, datetime-local, datetime, 
 
 textarea { border-color: hotpink !important; }
 form button, input[type='submit'], input[type='reset'], input[type='image'] { border-color: violet !important; }
+[autocomplete]:before { content: attr(autocomplete) ." "; }
 */
 form { border-color: teal !important; }
 select { border-color: red !important; }
@@ -38,7 +42,7 @@ fieldset, [role='group'] { border-color: blue !important; }
 legend { border-color: purple !important; }
 label { border-color: magenta !important; }
 input, textarea { border-color: hotpink !important; }
-form button, input[type='submit'], input[type='reset'], input[type='image'] { border-color: violet !important; }
+form button, input[type='button'], input[type='submit'], input[type='reset'], input[type='image'] { border-color: violet !important; }
 
 /* champs au format de saisie contrôlé */
 input[type='number'], input[type='email'], input[type='password'], input[type='tel'], input[type='url'], input[type='color'],

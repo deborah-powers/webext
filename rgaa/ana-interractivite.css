@@ -1,0 +1,12 @@
+button, [role='button'], input[type='button'], input[type='submit'], input[type='reset'] {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: deeppink !important;
+}
+a, [role='link'] {
+	border-style: dashed !important;
+	border-width: 4px !important;
+	border-color: limegreen !important;
+}
+a[href], [role='link'] { border-style: solid !important; }
+a[href=""], a[href='#'] { border-style: dashed !important; }
