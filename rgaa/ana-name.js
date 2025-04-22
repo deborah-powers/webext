@@ -37,17 +37,27 @@ SVGSVGElement.prototype.visibleName = function(){
 	}
 	return intitule;
 }
+Element.prototype.description = function(){
+	if (this.getAttribute ('hidden')) return 'rien: invisible';
+	var intitule ="";
+	var method = this.getAttribute ('aria-describedby');
+	if (method){
+		method = 'aria-describedby ('+ method +')';
+		for (var l=0; l< this.ariaDescribedByElements.length; l++){
+			var intituleTag = this.ariaDescribedByElements[l].accessibleName();
+			var d=2+ intituleTag.indexOf (': ');
+			intitule = intitule +', '+ intituleTag.substring (d);
+}}}
 Element.prototype.accessibleName = function(){
 	if (this.getAttribute ('hidden')) return 'rien: invisible';
 	var intitule ="";
 	var method = this.getAttribute ('aria-labelledby');
 	if (method){
 		method = 'aria-labelledby ('+ method +')';
-		var intituleTag = document.getElementById (method);
-		if (intituleTag){
-			intitule = intituleTag.accessibleName();
-			var d=2+ intitule.indexOf (': ');
-			intitule = intitule.substring (d);
+		for (var l=0; l< this.ariaLabelledByElements.length; l++){
+			var intituleTag = this.ariaLabelledByElements[l].accessibleName();
+			var d=2+ intituleTag.indexOf (': ');
+			intitule = intitule +', '+ intituleTag.substring (d);
 	}}
 	if ("" === intitule){
 		intitule = this.getAttribute ('aria-label');
@@ -139,6 +149,10 @@ Element.prototype.compareNames = function(){
 	var accessibleName = this.accessibleName();
 	accessibleName = accessibleName.toLowerCase();
 	const visibleName = this.visibleName();
+	const description = this.description();
 	if ("" !== visibleName && ! accessibleName.includes (visibleName)) accessibleName = accessibleName + '<br/>le nom accessible ne reprend pas le nom visible';
+	accessibleName = accessibleName + '<br/>desc: ';
+	if (description) accessibleName = accessibleName + description;
+	else accessibleName = accessibleName + 'rien';
 	return accessibleName;
 }
