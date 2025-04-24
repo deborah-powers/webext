@@ -18,7 +18,10 @@ const htmlLib = callLibrary ([ 'textFct', 'htmlFct' ]);
 const title = htmlLib.findTitle (window.location.href);
 headPage = headPage.replace ('<title></title>', '<title>' + title + '</title>');
 document.head.innerHTML = headPage;
-addStyle ([ 'structure', 'perso', 'shapes' ]);
+
+const styleList =[ 'structure', 'perso', 'shapes' ];
+if ('http' === window.location.href.substring (0,4)) addStyle (styleList);
+else{ for (var c=0; c< styleList.length; c++) addCss (styleList[c]); }
 
 function findMetaLocal (metadata, title){
 	header = header.replace ('$titre', title);

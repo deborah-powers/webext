@@ -1,28 +1,25 @@
 // dépend de encart.js et de ana-common.js
 HTMLImageElement.prototype.addInfos = function(){
-	this.infos = 'alt = ';
+	this.infos = this.compareNames();
 	if (this.alt ===""){
-		if (this.attributes.getNamedItem ('alt') === null) this.infos = this.infos + 'absent. OBLIGATOIRE, même vide';
-		else this.infos = this.infos + 'vide';
+		if (this.attributes.getNamedItem ('alt') === null) this.infos = this.infos + '<br/>alt est absent. il est OBLIGATOIRE, même vide';
+		else this.infos = this.infos + '<br/>alt est vide';
 	}
-	else this.infos = this.infos + this.alt;
 	Element.prototype.addInfos.call (this);
 }
 HTMLAreaElement.prototype.addInfos = function(){
-	this.infos = 'alt = ';
+	this.infos = this.compareNames();
 	if (this.alt ===""){
-		if (this.attributes.getNamedItem ('alt') === null) this.infos = this.infos + 'absent. OBLIGATOIRE, même vide';
-		else this.infos = this.infos + 'vide';
-	}
-	else this.infos = this.infos + this.alt;
+		if (this.attributes.getNamedItem ('alt') === null) this.infos = this.infos + '<br/>alt est absent. il est OBLIGATOIRE, même vide';
+		else this.infos = this.infos + '<br/>alt est vide';
 	Element.prototype.addInfos.call (this);
 }
 SVGElement.prototype.findParent = function(){
 	if (this.tagName === 'svg') return this;
 	else return this.ownerSVGElement;
 }
-SVGSVGElement.prototype.verifyAttributeRole = function(){
-	const role = this.getAttribute ('role');
+SVGSVGElement.prototype.verifyRole = function(){
+	const role = this.getAttributeValue ('role');
 	this.infos = this.infos + '<br/>role = '+ role;
 	if (! 'presentation img'.includes (role)) this.infos = this.infos +' OBLIGATOIRE: img ou presentation';
 }
@@ -38,13 +35,13 @@ SVGSVGElement.prototype.addAll = function(){
 		encartRgaa.style.display = 'grid';
 	});
 }
-HTMLCanvasElement.prototype.verifyAttributeRole = function(){
-	const role = this.getAttribute ('role');
+HTMLCanvasElement.prototype.verifyRole = function(){
+	const role = this.getAttributeValue ('role');
 	this.infos = this.infos + '<br/>role = '+ role;
 	if (! 'presentation img'.includes (role)) this.infos = this.infos +' OBLIGATOIRE: img ou presentation';
 }
-HTMLObjectElement.prototype.verifyAttributeRole = function(){
-	const role = this.getAttribute ('role');
+HTMLObjectElement.prototype.verifyRole = function(){
+	const role = this.getAttributeValue ('role');
 	this.infos = this.infos + '<br/>role = '+ role;
 	if (! 'presentation img'.includes (role)) this.infos = this.infos +' OBLIGATOIRE: img ou presentation';
 }

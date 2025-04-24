@@ -1,12 +1,17 @@
 const encartHtml = "<h2>infos de l'élément inspecté</h2><span class='cross'></span><span class='arrow'></span><span class='arrow vertical'></span><p></p>";
 
-Element.prototype.addModal = function(){
-	this.addEventListener ('mouseover', function (event){
-	//	const labelModal = event.target.addLabelModal();
-		encartRgaa.children[0].innerHTML = event.target.label;
-		encartRgaa.children[4].innerHTML = event.target.infos;
-		encartRgaa.style.display = 'grid';
-});}
+Element.prototype.findInfos = function(){
+	if (this.infos.isEmpty()) return this.parentElement.findInfos();
+	else return this;
+}
+function overModal (event){
+	const item = event.target.findInfos();
+	encartRgaa.children[0].innerHTML = item.label;
+	encartRgaa.children[4].innerHTML = item.infos;
+	encartRgaa.style.display = 'grid';
+	event.stopPropagation();
+}
+Element.prototype.addModal = function(){ this.addEventListener ('mouseover', overModal); }
 HTMLElement.prototype.findFrame = function(){
 	if (this.tagName === 'SECTION') return this;
 	else return this.parentElement.findFrame();
@@ -33,18 +38,6 @@ Element.prototype.addAll = function(){
 	this.addInfos();
 	this.addLabel();
 	this.addModal();
-}
-HTMLElement.prototype.addAll = function(){
-	Element.prototype.addAll.call (this);
-	for (var c=0; c< this.children.length; c++) this.children[c].transmitInfos();
-}
-Element.prototype.transmitInfos = function(){
-	this.label = this.addLabelModal() +' ; '+ this.parentElement.label;
-	this.infos = this.parentElement.infos;
-}
-HTMLElement.prototype.transmitInfos = function(){
-	Element.prototype.transmitInfos.call (this);
-	for (var c=0; c< this.children.length; c++) this.children[c].transmitInfos();
 }
 const encartRgaa = document.createElement ('section');
 encartRgaa.id = 'encart-rgaa';

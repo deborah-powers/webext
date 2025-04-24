@@ -27,6 +27,7 @@ HTMLInputElement.prototype.visibleName = function(){
 	else if ([ 'button', 'submit', 'reset' ].includes (this.type) && exists (this.value)) return this.value.toLowerCase();
 	else return 'rien: rien';
 }
+HTMLImageElement.prototype.visibleName = function(){ return ""; }
 SVGSVGElement.prototype.visibleName = function(){
 	var intitule ="";
 	if (exists (this.textContent)){
@@ -150,7 +151,7 @@ Element.prototype.compareNames = function(){
 	accessibleName = accessibleName.toLowerCase();
 	const visibleName = this.visibleName();
 	const description = this.description();
-	if ("" !== visibleName && ! accessibleName.includes (visibleName)) accessibleName = accessibleName + '<br/>le nom accessible ne reprend pas le nom visible';
+	if ("" !== visibleName && ! accessibleName.includes (visibleName)) accessibleName = accessibleName + '<br/>erreur: le nom accessible ne reprend pas le nom visible';
 	accessibleName = accessibleName + '<br/>desc: ';
 	if (description) accessibleName = accessibleName + description;
 	else accessibleName = accessibleName + 'rien';

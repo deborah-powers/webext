@@ -1,38 +1,30 @@
-a, a[onclick], a[ondblclick], a[oncontextmenu], a[onmouseup],
-a[onmousedown], a[onmouseenter], a[onmouseleave], a[onmousemove], a[onmouseout], a[onmouseover] {
-	border-style: solid;
+[onclick], [ondblclick], [oncontextmenu], [onmouseup], [onmousedown], [onmouseenter], [onmouseleave], [onmousemove], [onmouseout], [onmouseover] {
+	border-style: solid !important;
 	border-width: 4px !important;
-	border-color: deeppink !important;
+	border-color: orangered !important;
 }
-button, button[onclick], button[ondblclick], button[oncontextmenu], button[onmouseup],
-button[onmousedown], button[onmouseenter], button[onmouseleave], button[onmousemove], button[onmouseout], button[onmouseover] {
+[onclick][disabled], [ondblclick][disabled], [oncontextmenu][disabled], [onmouseup][disabled], [onmousedown][disabled], [onmouseenter][disabled],
+[onmouseleave][disabled], [onmousemove][disabled], [onmouseout][disabled], [onmouseover][disabled] {
+	border-style: dotted !important;
+}
+button {
 	border-style: solid;
 	border-width: 4px !important;
 	border-color: limegreen !important;
 }
-imput[type='button'], imput[type='reset'], imput[type='submit'], input[onclick], input[ondblclick], input[oncontextmenu], input[onmouseup],
-input[onmousedown], input[onmouseenter], input[onmouseleave], input[onmousemove], input[onmouseout], input[onmouseover] {
+imput[type='button'], imput[type='reset'], imput[type='submit'] {
 	border-style: solid;
 	border-width: 4px !important;
 	border-color: cadetblue !important;
 }
-[onclick], [ondblclick], [oncontextmenu], [onmouseup] {
-	border-style: solid !important;
+a {
+	border-style: solid;
 	border-width: 4px !important;
-	border-color: orangered;
-}
-[onmousedown], [onmouseenter] {
-	border-style: dashed !important;
-	border-width: 4px !important;
-	border-color: orangered;
-}
-[onmouseleave], [onmousemove], [onmouseout], [onmouseover] {
-	border-style: dotted !important;
-	border-width: 4px !important;
-	border-color: orangered;
+	border-color: deeppink !important;
 }
 .rgaa-event, a.rgaa-event {
-	border-style: solid !important;
+	border-style: dashed !important;
 	border-width: 4px !important;
 	border-color: magenta !important;
 }
+.rgaa-event[role='button'], a.rgaa-event[role='button'] { border-style: solid !important; }

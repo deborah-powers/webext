@@ -6,3 +6,4 @@ a {
 a[href] { border-color: deeppink; }
 a[href=""] { border-color: orangered !important; }
 a[href='#'] { border-color: limegreen !important; }
+a.rgaa-error { border-color: green !important; }

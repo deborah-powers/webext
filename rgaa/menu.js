@@ -8,7 +8,7 @@ function chooseAction (event){
 			files: [
 				'encart.css', 'volet.css',
 				'ana-color.css', 'ana-common.css', 'ana-contrast.css', 'ana-download.css', 'ana-focus.css', 'ana-langue.css',
-				'elm-click.css', 'elm-conteneur.css', 'elm-form.css', 'elm-hidden.css', 'elm-iframe.css', 'elm-image.css', 'elm-interdit.css',
+				'elm-click.css', 'elm-conteneur.css', 'elm-form.css', 'elm-hidden.css', 'elm-iframe.css', 'elm-image.css', 'elm-interract.css', 'elm-interdit.css',
 				'elm-link.css', 'elm-liste.css', 'elm-media.css', 'elm-table.css', 'elm-titre.css'
 		]});
 		var listStyle =[];
@@ -20,11 +20,15 @@ function chooseAction (event){
 		}
 		else if (action === 'elm-image'){
 			listStyle =[ 'encart.css', 'elm-image.css' ];
-			listScript =[ 'ana-common.js', 'encart.js', 'elm-image.js' ];
+			listScript =[ 'ana-common.js', 'encart.js', 'ana-name.js', 'elm-image.js' ];
 		}
 		else if (action === 'elm-media') listStyle =[ 'elm-media.css' ];
 		else if (action === 'elm-click'){
 			listStyle =[ 'encart.css', 'elm-click.css' ];
+			listScript =[ 'ana-common.js', 'encart.js', 'elm-click.js' ];
+		}
+		else if (action === 'elm-interract'){
+			listStyle =[ 'encart.css', 'elm-interract.css' ];
 			listScript =[ 'ana-common.js', 'encart.js', 'elm-click.js' ];
 		}
 		else if (action === 'ana-langue'){
@@ -54,7 +58,7 @@ function chooseAction (event){
 		}
 		else if (action === 'elm-link'){
 			listStyle =[ 'encart.css', 'elm-link.css' ];
-			listScript =[ 'ana-common.js', 'encart.js', 'elm-link.js' ];
+			listScript =[ 'ana-common.js', 'encart.js', 'ana-name.js', 'elm-link.js' ];
 		}
 		else if (action === 'elm-table'){
 			listStyle =[ 'encart.css', 'elm-table.css' ];
