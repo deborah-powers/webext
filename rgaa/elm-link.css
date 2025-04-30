@@ -1,9 +1,10 @@
-a {
+a, [role='link'] {
 	border-style: solid !important;
 	border-width: 4px !important;
-	border-color: cadetblue;
+	border-color: sienna !important;
 }
-a[href] { border-color: deeppink; }
-a[href=""] { border-color: orangered !important; }
-a[href='#'] { border-color: limegreen !important; }
-a.rgaa-error { border-color: green !important; }
+a[disabled], [role='link'][disabled] { border-style: dashed !important; }
+a[href], [role='link'][href] { border-color: teal !important; }
+a[href=""], [role='link'][href=""] { border-color: orangered !important; }
+a[href='#'], [role='link'][href='#'] { border-color: coral !important; }
+a.rgaa-error, [role='link'].rgaa-error { border-color: red !important; }

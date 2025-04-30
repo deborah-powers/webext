@@ -4,27 +4,34 @@
 	border-color: orangered !important;
 }
 [onclick][disabled], [ondblclick][disabled], [oncontextmenu][disabled], [onmouseup][disabled], [onmousedown][disabled], [onmouseenter][disabled],
-[onmouseleave][disabled], [onmousemove][disabled], [onmouseout][disabled], [onmouseover][disabled] {
+[onmouseleave][disabled], [onmousemove][disabled], [onmouseout][disabled], [onmouseover][disabled],
+a[disabled], [role='link'][disabled], button[disabled], [role='button'][disabled] {
 	border-style: dotted !important;
 }
-button {
-	border-style: solid;
+button, [role='button'], imput[type='button'], imput[type='reset'], imput[type='submit'] {
+	border-style: solid !important;
 	border-width: 4px !important;
-	border-color: limegreen !important;
+	border-color: deepskyblue !important;
 }
-imput[type='button'], imput[type='reset'], imput[type='submit'] {
-	border-style: solid;
+a, [role='link'] {
+	border-style: dashed !important;
 	border-width: 4px !important;
-	border-color: cadetblue !important;
+	border-color: teal !important;
 }
-a {
-	border-style: solid;
-	border-width: 4px !important;
-	border-color: deeppink !important;
-}
+a[href], [role='link'][href] { border-style: solid !important; }
+a[href=""], a[href='#'], [role='link'][href=""], [role='link'][href='#'] { border-style: dashed !important; }
+
 .rgaa-event, a.rgaa-event {
 	border-style: dashed !important;
 	border-width: 4px !important;
-	border-color: magenta !important;
+	border-color: green !important;
 }
 .rgaa-event[role='button'], a.rgaa-event[role='button'] { border-style: solid !important; }
+.rgaa-error, a.rgaa-error { border-style: dashed !important; }
+
+[onclick]:focus, [ondblclick]:focus, [oncontextmenu]:focus, [onmouseup]:focus, [onmousedown]:focus, [onmouseenter]:focus, [onmouseleave]:focus,
+[onmousemove]:focus, [onmouseout]:focus, [onmouseover]:focus, a:focus, [role='link']:focus,
+button:focus, [role='button']:focus, imput[type='button']:focus, imput[type='reset']:focus, imput[type='submit']:focus {
+	border-style: double !important;
+	border-width: 8px !important;
+}

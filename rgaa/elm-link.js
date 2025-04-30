@@ -5,7 +5,7 @@ HTMLAnchorElement.prototype.addInfos = function(){
 	this.infos = this.compareNames();
 	if (this.infos.includes ('erreur:')){
 		this.classList.add ('rgaa-error');
-		this.label = 'ko';
+		this.label = 'erreur';
 	}
 	else this.label = 'ok';
 }

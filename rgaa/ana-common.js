@@ -47,9 +47,9 @@ Element.prototype.getAttributeValue = function (attrName){
 	else if (this.attributes[attrName].value ==="" || " \t".includes (this.attributes[attrName].value)) return 'vide';
 	else return this.attributes[attrName].value;
 }
-Element.prototype.verifyTitle = function(){ this.infos = this.infos + '<br/>' + this.accessibleName(); }
-Element.prototype.verifyRole = function(){ this.infos = this.infos + '<br/>role = '+ this.getAttributeValue ('role') +'<br/>'; }
-Element.prototype.verifyAttribute = function (attrName){ this.infos = '<br/>' + attrName +' = '+ this.getAttributeValue (attrName); }
+Element.prototype.verifyTitle = function(){ this.infos = this.infos + '<br/>' + this.compareNames(); }
+Element.prototype.verifyRole = function(){ this.infos = this.infos + '<br/>role: '+ this.getAttributeValue ('role'); }
+Element.prototype.verifyAttribute = function (attrName){ this.infos = '<br/>' + attrName +': '+ this.getAttributeValue (attrName); }
 Element.prototype.isinLink = function (roleValue){
 	if (this.tagName === 'BODY') return null;
 	else if (this.tagName === 'A' || (this.attributes['role'] !== undefined && this.attributes['role'].value === 'link')) return 'link';
