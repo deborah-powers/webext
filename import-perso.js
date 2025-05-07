@@ -11,13 +11,11 @@ utiliser ce script:
 les cors doivent être désactivés. ce script repose sur ajax.
 ajouter ces lignes dans votre manifest
 	"permissions": [ "...", "https://deborah-powers.fr/" ],
-	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+	"content_security_policy": "script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'self';",
 dans votre content_script:
 	crutialData est modifié afin de s'adapter à ce dont l'utilisateur à besoin.
 	const mylib = callLibrary ([ dependence1, dependence2 ])
 	addStyle ([ style1, style2 ])
-
-const urlLib = 'file:///C:/wamp64/www/site-dp/library-';
 */
 const urlDist = 'http://deborah-powers.fr';
 const urlLoc = 'file:///C:/wamp64/www/site-dp';
@@ -76,7 +74,7 @@ function sendToExtensions(){
 sendToExtensions();`;
 
 function callLibrary (scriptList){
-	/* importer un script externe en temps que librairie. sendToExtensions est modifiable selon ce qui est nécéssaire. */
+	/* importer un script externe en temps que librairie. crutialData est modifiable selon ce qui est nécéssaire. */
 	var textJs ="";
 	for (var s=0; s< scriptList.length; s++) textJs = textJs +'\n'+ openScript (scriptList[s]);
 	sendToExtensions = sendToExtensions.replace ('$crutialData', crutialData);
