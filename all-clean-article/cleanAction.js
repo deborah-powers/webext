@@ -8,7 +8,8 @@ delAttributes: function(){
 	document.body.delAttributes();
 	document.body.delIds();
 },
-findTitle: findTitle
+findTitle: findTitle,
+downloadFile: downloadFile
 `;
 const libHtml = callLibrary ([ 'textFct', 'htmlFct', 'pageFct' ]);
 libHtml.cleanBody();
@@ -83,23 +84,6 @@ libHtml.delAttributes();
 document.body.removeAnnotations();
 fanfic.text = document.body.innerHTML;
 fanfic.toPage();
-document.body.innerHTML = "<button>télécharger</button>" + document.body.innerHTML;
+var downloadText = document.getElementsByTagName ('html')[0].innerHTML.replaceAll ('> ','>');
+libHtml.downloadFile (fanfic.title +'.html', downloadText);
 addStyle ([ 'structure', 'perso' ]);
-
-function download(){
-	var urlBackend = fanfic.toBackEndUrl();
-	window.location.href = urlBackend;
-}
-document.getElementsByTagName ('button')[0].addEventListener ('click', download);
-/*
-const urlBackend = 'http://localhost:1407/';
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function(){
-	if (this.readyState ===4 && this.status === 200) console.log ("les données ont bien été envoyées au back-end.\nsa réponse:", this.responseText);
-	else console.log ("l'échange avec le back-end est en erreur.\nécoute-il sur le port 1407 ?\nétat =", this.readyState, 'status =', this.status);
-};
-xhttp.open ('GET', urlBackend, true);
-const fanficStr = JSON.stringify (fanfic);
-xhttp.send (fanficStr);
-console.log (xhttp.status, xhttp.readyState, xhttp.responseText);
-*/
