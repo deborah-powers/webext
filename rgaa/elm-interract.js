@@ -17,27 +17,10 @@ Element.prototype.addInfos = function(){
 			this.verifyRole();
 			this.verifyTitle();
 }}}
-HTMLElement.prototype.addAll = function(){
-	Element.prototype.addAll.call (this);
-	if (! exists (this.infos)){ for (var c=0; c< this.children.length; c++) this.children[c].addAll(); }
-}
-HTMLFormElement.prototype.addAll = function(){
-	Element.prototype.addAll.call (this);
-	for (var c=0; c< this.children.length; c++) this.children[c].addAll();
-}
-HTMLButtonElement.prototype.addInfos = function(){
-	this.infos = this.compareNames();
-	if (this.infos.includes ('erreur:')){
-		this.classList.add ('rgaa-error');
-		this.label = 'erreur';
-	}
-	else this.label = 'ok';
-}
-var links = document.getElementsByTagName ('a');
-for (var i=0; i< links.length; i++) links[i].addAll();
+
+
 
 for (var r=0; r< rolesAlert.length; r++){
 	links = document.body.getByRole (rolesAlert[r]);
 	for (var i=0; i< links.length; i++) links[i].addAll();
 }
-document.body.addAll();

@@ -13,6 +13,17 @@ Element.prototype.getByRole = function (myRole){
 	}
 	return item;
 }
+Element.getAllByRole = function (myRole){
+	var items =[];
+	const role = this.getAttribute ('role');
+	if (myRole === role) items.push (this);
+	var itemsChild =[];
+	for (var c=0; c< this.children.length; c++){
+		itemsChild = this.children[c].getAllByRole (myRole);
+		for (var d=0; d< itemsChild.length; d++) items.push (itemsChild[d]);
+	}
+	return items;
+}
 Element.prototype.label ="";
 Element.prototype.infos ="";
 String.prototype.exists = function(){
