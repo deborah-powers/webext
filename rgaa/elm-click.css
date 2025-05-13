@@ -5,16 +5,22 @@
 }
 [onclick][disabled], [ondblclick][disabled], [oncontextmenu][disabled], [onmouseup][disabled], [onmousedown][disabled], [onmouseenter][disabled],
 [onmouseleave][disabled], [onmousemove][disabled], [onmouseout][disabled], [onmouseover][disabled],
-a[disabled], [role='link'][disabled], button[disabled], [role='button'][disabled] {
+a[disabled], [role='link'][disabled], button[disabled], [role='button'][disabled],
+input[type='button'][disabled], input[type='reset'][disabled], input[type='submit'][disabled] {
 	border-style: dotted !important;
 }
 button, [role='button'], input[type='button'], input[type='reset'], input[type='submit'],
-button[onclick], button[ondblclick], button[oncontextmenu], button[onmouseup], button[onmousedown], button[onmouseenter], button[onmouseleave], button[onmousemove], button[onmouseout], button[onmouseover]
-{
-	border-style: solid !important;
+button, [role='button'] {
+	border-style: dashed !important;
 	border-width: 4px !important;
 	border-color: deepskyblue !important;
 }
+button[onmouseup], button[onmousedown], button[onmouseenter], button[onmouseleave], button[onmousemove], button[onmouseout], button[onmouseover],
+button[onclick], button[ondblclick], button[oncontextmenu],
+[role='button'][onmouseup], [role='button'][onmousedown], [role='button'][onmouseenter], [role='button'][onmouseleave], [role='button'][onmousemove],
+[role='button'][onmouseout], [role='button'][onmouseover], [role='button'][onclick], [role='button'][ondblclick], [role='button'][oncontextmenu]
+	{ border-style: solid !important; }
+
 a, [role='link'] {
 	border-style: dashed !important;
 	border-width: 4px !important;
@@ -23,13 +29,17 @@ a, [role='link'] {
 a[href], [role='link'][href] { border-style: solid !important; }
 a[href=""], a[href='#'], [role='link'][href=""], [role='link'][href='#'] { border-style: dashed !important; }
 
-.rgaa-event, a.rgaa-event {
-	border-style: dashed !important;
+input[type='button'], input[type='reset'], input[type='submit']{
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: deeppink !important;
+}
+.rgaa-event, button.rgaa-event, a.rgaa-event, [role='link'].rgaa-event, [role='button'].rgaa-event{
+	border-style: solid !important;
 	border-width: 4px !important;
 	border-color: green !important;
 }
-.rgaa-event[role='button'], a.rgaa-event[role='button'] { border-style: solid !important; }
-.rgaa-error, a.rgaa-error { border-style: dashed !important; }
+.rgaa-error, button.rgaa-error, a.rgaa-error, [role='link'].rgaa-error, [role='button'].rgaa-error{ border-style: dashed !important; }
 
 [onclick]:focus, [ondblclick]:focus, [oncontextmenu]:focus, [onmouseup]:focus, [onmousedown]:focus, [onmouseenter]:focus, [onmouseleave]:focus,
 [onmousemove]:focus, [onmouseout]:focus, [onmouseover]:focus, a:focus, [role='link']:focus,

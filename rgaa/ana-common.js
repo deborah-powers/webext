@@ -13,7 +13,7 @@ Element.prototype.getByRole = function (myRole){
 	}
 	return item;
 }
-Element.getAllByRole = function (myRole){
+Element.prototype.getAllByRole = function (myRole){
 	var items =[];
 	const role = this.getAttribute ('role');
 	if (myRole === role) items.push (this);
@@ -113,10 +113,22 @@ Element.prototype.addInfos_vb = function(){
 		else label.innerHTML = label.innerHTML +'<br/>aria-labelledby = '+ alt;
 	}
 }
-Element.prototype.addInfos = function(){
+Element.prototype.addInfos_vc = function(){
+	// utilise la modale js
 	this.verifyRole();
 	this.verifyTitle();
+	if (this.infos.includes ('erreur:')){
+		this.classList.add ('rgaa-error');
+		this.label = 'erreur';
+	}
+	else this.label = 'ok';
 	// Element.prototype.addInfos.call (this); appeler dans une descendante
+}
+Element.prototype.addInfos = function(){
+	// utilise le sélecteur css :before
+	this.verifyTitle();
+	this.setAttribute ('infos', this.infos.replaceAll ('<br/>', '\n'));
+	if (this.infos.includes ('erreur:')) this.classList.add ('rgaa-error');
 }
 Element.prototype.addBorder = function(){
 	// fonctionne avec ana-common.css

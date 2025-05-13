@@ -23,9 +23,17 @@ function chooseAction (event){
 			listScript =[ 'ana-common.js', 'encart.js', 'ana-name.js', 'elm-image.js' ];
 		}
 		else if (action === 'elm-media') listStyle =[ 'elm-media.css' ];
+		else if (action === 'elm-link-modale-js'){
+			listStyle =[ 'encart.css', 'elm-link.css' ];
+			listScript =[ 'ana-common.js', 'encart.js', 'ana-name.js', 'elm-link.js' ];
+		}
+		else if (action === 'elm-link'){
+			listStyle =[ 'elm-link.css' ];
+			listScript =[ 'ana-common.js', 'ana-name.js', 'elm-link.js' ];
+		}
 		else if (action === 'elm-click'){
-			listStyle =[ 'encart.css', 'elm-click.css' ];
-			listScript =[ 'ana-common.js', 'encart.js', 'ana-name.js', 'elm-link.js', 'elm-click.js' ];
+			listStyle =[ 'elm-click.css' ];
+			listScript =[ 'ana-common.js', 'ana-name.js', 'elm-link.js', 'elm-click.js' ];
 		}
 		else if (action === 'elm-interract'){
 			listStyle =[ 'encart.css', 'elm-click.css', 'elm-interract.css' ];
@@ -55,10 +63,6 @@ function chooseAction (event){
 		else if (action === 'ana-color'){
 			listStyle =[ 'ana-color.css' ];
 			listScript =[ 'ana-color.js' ];
-		}
-		else if (action === 'elm-link'){
-			listStyle =[ 'encart.css', 'elm-link.css' ];
-			listScript =[ 'ana-common.js', 'encart.js', 'ana-name.js', 'elm-link.js' ];
 		}
 		else if (action === 'elm-table'){
 			listStyle =[ 'encart.css', 'elm-table.css' ];

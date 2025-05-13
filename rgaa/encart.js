@@ -10,7 +10,6 @@ HTMLBodyElement.prototype.findInfos = function(){
 }
 function overModal (event){
 	const item = event.target.findInfos();
-	console.log (event.target.tagName, item);
 	if (item !== null){
 		encartRgaa.children[0].innerHTML = item.label;
 		encartRgaa.children[4].innerHTML = item.infos;

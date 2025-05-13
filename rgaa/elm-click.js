@@ -1,3 +1,4 @@
+/*
 Element.prototype.addInfos = function(){
 	var event = this.getAttribute ('event');
 	if (exists (event)) this.infos = 'évênement: '+ event;
@@ -13,18 +14,10 @@ Element.prototype.addInfos = function(){
 HTMLElement.prototype.addAll = function(){
 	Element.prototype.addAll.call (this);
 	if (! exists (this.infos)){ for (var c=0; c< this.children.length; c++) this.children[c].addAll(); }
-}
+}*/
 HTMLFormElement.prototype.addAll = function(){
 	Element.prototype.addAll.call (this);
 	for (var c=0; c< this.children.length; c++) this.children[c].addAll();
-}
-HTMLButtonElement.prototype.addInfos = function(){
-	this.verifyTitle();
-	if (this.infos.includes ('erreur:')){
-		this.classList.add ('rgaa-error');
-		this.label = 'erreur';
-	}
-	else this.label = 'ok';
 }
 HTMLInputElement.prototype.addInfos = function(){
 	if ([ 'button', 'reset', 'submit' ].includes (this.type))
@@ -38,17 +31,13 @@ HTMLInputElement.prototype.addInfos = function(){
 	intitule = intitule.replace ('rien: rien', 'pas de nom accessible');
 	this.infos = this.infos +'<br/>'+ intitule;
 }
-var links = document.getElementsByTagName ('a');
-for (var i=0; i< links.length; i++) links[i].addAll();
-links = document.body.getAllByRole ('link');
-for (var i=0; i< links.length; i++) links[i].addAll();
 links = document.getElementsByTagName ('button');
 for (var i=0; i< links.length; i++) links[i].addAll();
 links = document.body.getAllByRole ('button');
 for (var i=0; i< links.length; i++) links[i].addAll();
-var links = document.getElementsByTagName ('input');
+inks = document.getElementsByTagName ('input');
 for (var i=0; i< links.length; i++) links[i].addAll();
-
-input[type='button'], input[type='reset'], input[type='submit']
+inks = document.getElementsByClassName ('rgaa-event');
+for (var i=0; i< links.length; i++) links[i].addAll();
 
 // document.body.addAll();
