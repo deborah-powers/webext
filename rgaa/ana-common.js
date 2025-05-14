@@ -130,6 +130,7 @@ Element.prototype.addInfos = function(){
 	this.setAttribute ('infos', this.infos.replaceAll ('<br/>', '\n'));
 	if (this.infos.includes ('erreur:')) this.classList.add ('rgaa-error');
 }
+HTMLScriptElement.prototype.addInfos = function(){ return; }
 Element.prototype.addBorder = function(){
 	// fonctionne avec ana-common.css
 	this.classList.add ('rgaa-highlight');

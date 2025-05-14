@@ -1,30 +1,18 @@
 a, [role='link'] {
-	border-style: solid !important;
+	border-style: dashed !important;
 	border-width: 4px !important;
-	border-color: sienna !important;
+	border-color: #C36 !important;
 }
+[role='link'] { border-color: #C96 !important; }
 a[disabled], [role='link'][disabled] { border-style: dotted !important; }
-a[href], [role='link'][href] { border-color: teal !important; }
-a[href=""], a[href='#'], [role='link'][href=""], [role='link'][href='#'] { border-color: coral !important; }
+a[href], [role='link'][href] { border-style: solid !important; }
+a[href=""], a[href='#'], [role='link'][href=""], [role='link'][href='#'] { border-style: dashed !important; }
 a.rgaa-error, [role='link'].rgaa-error { border-style: dashed !important; }
 
-a:hover:before, [role='link']:hover:before {
-	display: block;
-	background-color: ivory;
-	color: #420;
-	font-size: 18px;
-	font-weight: normal;
-	font-family: georgia, serif;
-	border: double 8px deeppink;
-	border-radius: 0.5em;
-	padding: 0.5em;
-	white-space: pre-wrap;
-	max-width: 40vw;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	z-index: 1;
-}
 /* a:hover:before { content: 'a #' attr(id) ' :' attr(role) '\A.' attr(class) '\A' attr(infos); } */
-a:hover:before { content: 'a ' attr(role) '\A' attr(infos); }
-[role='link']:hover:before { content: 'l\A' attr(infos); }
+a:hover:before { content: 'ancre ' attr(role) '\A' attr(infos); }
+[role='link']:hover:before { content: 'role lien\A' attr(infos); }
+a:hover[href=""]:before { content: 'ancre ' attr(role) '\Alien vide\A' attr(infos); }
+[role='link'][href=""]:hover:before { content: 'role lien\Alien vide\A' attr(infos); }
+a:hover[href='#']:before { content: 'ancre ' attr(role) '\Alien #\A' attr(infos); }
+[role='link'][href='#']:hover:before { content: 'role lien\Alien #\A' attr(infos); }

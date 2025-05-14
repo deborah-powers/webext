@@ -5,41 +5,28 @@
 }
 [onclick][disabled], [ondblclick][disabled], [oncontextmenu][disabled], [onmouseup][disabled], [onmousedown][disabled], [onmouseenter][disabled],
 [onmouseleave][disabled], [onmousemove][disabled], [onmouseout][disabled], [onmouseover][disabled],
-a[disabled], [role='link'][disabled], button[disabled], [role='button'][disabled],
-input[type='button'][disabled], input[type='reset'][disabled], input[type='submit'][disabled] {
-	border-style: dotted !important;
-}
-button, [role='button'], input[type='button'], input[type='reset'], input[type='submit'],
+button[disabled], [role='button'][disabled], input[type='button'][disabled], input[type='reset'][disabled], input[type='submit'][disabled]
+	{ border-style: dotted !important; }
 button, [role='button'] {
 	border-style: dashed !important;
 	border-width: 4px !important;
-	border-color: deepskyblue !important;
 }
+button { border-color: #696 !important; }
+[role='button'] { border-color: #690 !important; }
+
 button[onmouseup], button[onmousedown], button[onmouseenter], button[onmouseleave], button[onmousemove], button[onmouseout], button[onmouseover],
 button[onclick], button[ondblclick], button[oncontextmenu],
 [role='button'][onmouseup], [role='button'][onmousedown], [role='button'][onmouseenter], [role='button'][onmouseleave], [role='button'][onmousemove],
 [role='button'][onmouseout], [role='button'][onmouseover], [role='button'][onclick], [role='button'][ondblclick], [role='button'][oncontextmenu]
 	{ border-style: solid !important; }
 
-a, [role='link'] {
-	border-style: dashed !important;
-	border-width: 4px !important;
-	border-color: teal !important;
-}
-a[href], [role='link'][href] { border-style: solid !important; }
-a[href=""], a[href='#'], [role='link'][href=""], [role='link'][href='#'] { border-style: dashed !important; }
-
 input[type='button'], input[type='reset'], input[type='submit']{
 	border-style: solid !important;
 	border-width: 4px !important;
-	border-color: deeppink !important;
+	border-color: #399 !important;
 }
-.rgaa-event, button.rgaa-event, a.rgaa-event, [role='link'].rgaa-event, [role='button'].rgaa-event{
-	border-style: solid !important;
-	border-width: 4px !important;
-	border-color: green !important;
-}
-.rgaa-error, button.rgaa-error, a.rgaa-error, [role='link'].rgaa-error, [role='button'].rgaa-error{ border-style: dashed !important; }
+.rgaa-event { border-color: green !important; }
+button.rgaa-error, [role='button'].rgaa-error{ border-style: dashed !important; }
 
 [onclick]:focus, [ondblclick]:focus, [oncontextmenu]:focus, [onmouseup]:focus, [onmousedown]:focus, [onmouseenter]:focus, [onmouseleave]:focus,
 [onmousemove]:focus, [onmouseout]:focus, [onmouseover]:focus, a:focus, [role='link']:focus,
@@ -47,3 +34,16 @@ button:focus, [role='button']:focus, input[type='button']:focus, input[type='res
 	border-style: double !important;
 	border-width: 8px !important;
 }
+button:hover:before { content: 'bouton ' attr(role) '\A' attr(infos); }
+[role='button']:hover:before { content: 'role bouton\A' attr(infos); }
+a.rgaa-event:hover:before { content: 'ancre avec évênement js ' attr(role) '\A' attr(infos); }
+[role='link'].rgaa-event:hover:before { content: 'role lien avec évênement js\A' attr(infos); }
+a.rgaa-event:hover:before { content: 'bouton avec évênement js ' attr(role) '\A' attr(infos); }
+[role='button'].rgaa-event:hover:before { content: 'role bouton avec évênement js\A' attr(infos); }
+
+/*
+.rgaa-event:hover:before { content: 'évênement ' attr(role) '\A' attr(infos); }
+input[type='button']:hover:before, input[type='reset']:hover:before, input[type='submit']:hover:before
+	{ content: 'input boutton '; }
+input { border-color: #39F !important; }
+*/

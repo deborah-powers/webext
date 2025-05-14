@@ -7,7 +7,9 @@ https://stackoverflow.com/questions/48809691/override-javascript-function-from-b
 const myScript =`
 const orig = EventTarget.prototype.addEventListener;
 EventTarget.prototype.addEventListener = function (...args){
-	if (this instanceof Element && ('mouse' === args[0].substring (0,5) || 'click' === args[0].substring (args[0].length -5))){
+	if (args[0] === 'auxclick') return orig.apply (this, args);
+	else if (this instanceof Element && ('mouse' === args[0].substring (0,5) || 'click' === args[0].substring (args[0].length -5))){
+		console.log (this, orig.valueOf(), orig.toLocaleString());
 		this.classList.add ('rgaa-event');
 		this.setAttribute ('event', args[0]);
 	}
@@ -15,6 +17,7 @@ EventTarget.prototype.addEventListener = function (...args){
 };
 EventTarget.prototype.addEventListener.name = 'addEventListener';
 `;
+for (var item in window) console.log (item);
 const myScriptTag = document.createElement ('script');
 myScriptTag.innerHTML = myScript;
 function insertMyScript(){ document.head.appendChild (myScriptTag); }
