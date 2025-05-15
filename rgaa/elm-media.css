@@ -4,8 +4,13 @@ video, audio {
 	border-width: 4px !important;
 }
 svg, canvas {
-	border-style: solid;
+	border-style: dashed !important;
 	border-color: limegreen !important;
 	border-width: 4px !important;
 }
-svg[role='img'], svg[role='presentation'], canvas[role='img'], canvas[role='presentation'] { border-style: dashed !important; }
+[role='img'], [role='presentation'] {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: cadetblue !important;
+}
+svg[role='img'], svg[role='presentation'], canvas[role='img'], canvas[role='presentation'] { border-style: solid !important; }

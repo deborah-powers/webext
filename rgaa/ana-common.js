@@ -58,9 +58,18 @@ Element.prototype.getAttributeValue = function (attrName){
 	else if (this.attributes[attrName].value ==="" || " \t".includes (this.attributes[attrName].value)) return 'vide';
 	else return this.attributes[attrName].value;
 }
-Element.prototype.verifyTitle = function(){ this.infos = this.infos + '<br/>' + this.compareNames(); }
-Element.prototype.verifyRole = function(){ this.infos = this.infos + '<br/>role: '+ this.getAttributeValue ('role'); }
-Element.prototype.verifyAttribute = function (attrName){ this.infos = '<br/>' + attrName +': '+ this.getAttributeValue (attrName); }
+Element.prototype.verifyTitle = function(){
+	if (this.infos.isEmpty) this.infos = this.compareNames();
+	else this.infos = this.infos + '\n' + this.compareNames();
+}
+Element.prototype.verifyRole = function(){
+	if (this.infos.isEmpty) this.infos = 'role: '+ getAttributeValue ('role');
+	else this.infos = this.infos + '\nrole: '+ this.getAttributeValue ('role');
+}
+Element.prototype.verifyAttribute = function (attrName){
+	if (this.infos.isEmpty) this.infos = attrName +': '+ getAttributeValue (attrName);
+	else this.infos = this.infos + '\n'+ attrName +': '+ this.getAttributeValue (attrName);
+}
 Element.prototype.isinLink = function (roleValue){
 	if (this.tagName === 'BODY') return null;
 	else if (this.tagName === 'A' || (this.attributes['role'] !== undefined && this.attributes['role'].value === 'link')) return 'link';
@@ -96,23 +105,6 @@ Element.prototype.addLabel = function(){
 	else this.label = 'ok';
 	this.label = this.addLabelModal() +" "+ this.label;
 }
-Element.prototype.addInfos_vb = function(){
-	var alt = this.getAttributeValue ('alt');
-	label.innerHTML = 'alt = '+ alt;
-	if ([ 'absent', 'vide' ].includes (alt)){
-		alt = this.getAttributeValue ('aria-labelledby');
-		if ([ 'absent', 'vide' ].includes (alt)){
-			alt = this.getAttributeValue ('aria-label');
-			if ([ 'absent', 'vide' ].includes (alt)){
-				alt = this.getAttributeValue ('title');
-				if ([ 'absent', 'vide' ].includes (alt)) label.innerHTML = label.innerHTML +'<br/>pas de titre alternatif'
-				else label.innerHTML = label.innerHTML +'<br/>title = '+ alt;
-			}
-			else label.innerHTML = label.innerHTML +'<br/>aria-label = '+ alt;
-		}
-		else label.innerHTML = label.innerHTML +'<br/>aria-labelledby = '+ alt;
-	}
-}
 Element.prototype.addInfos_vc = function(){
 	// utilise la modale js
 	this.verifyRole();
@@ -127,14 +119,15 @@ Element.prototype.addInfos_vc = function(){
 Element.prototype.addInfos = function(){
 	// utilise le sélecteur css :before
 	this.verifyTitle();
-	this.setAttribute ('infos', this.infos.replaceAll ('<br/>', '\n'));
+	this.setAttribute ('infos', this.infos);
+//	this.setAttribute ('infos', this.infos.replaceAll ('<br/>', '\n'));
 	if (this.infos.includes ('erreur:')) this.classList.add ('rgaa-error');
 }
 HTMLScriptElement.prototype.addInfos = function(){ return; }
 Element.prototype.addBorder = function(){
 	// fonctionne avec ana-common.css
 	this.classList.add ('rgaa-highlight');
-	if (this.innerHTML ==="" && this.tagName !== 'IMG') this.infos = this.infos + '<br/>contenu vide OBLIGATOIRE';
+	if (this.innerHTML ==="" && this.tagName !== 'IMG') this.infos = this.infos + '\ncontenu vide OBLIGATOIRE';
 }
 Element.prototype.verifyRoleByValue = function (roleValue){
 	if (this.attributes['role'] !== undefined && this.attributes['role'].value === roleValue) this.addBorder();

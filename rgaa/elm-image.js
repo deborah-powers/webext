@@ -1,104 +1,59 @@
-// dépend de encart.js et de ana-common.js
-HTMLImageElement.prototype.addInfos = function(){
-	this.infos = this.compareNames();
-	if (this.alt ===""){
-		if (this.attributes.getNamedItem ('alt') === null) this.infos = this.infos + '<br/>alt est absent. il est OBLIGATOIRE, même vide';
-		else this.infos = this.infos + '<br/>alt est vide';
-	}
-	Element.prototype.addInfos.call (this);
-}
-HTMLAreaElement.prototype.addInfos = function(){
-	this.infos = this.compareNames();
-	if (this.alt ===""){
-		if (this.attributes.getNamedItem ('alt') === null) this.infos = this.infos + '<br/>alt est absent. il est OBLIGATOIRE, même vide';
-		else this.infos = this.infos + '<br/>alt est vide';
-	Element.prototype.addInfos.call (this);
-}
-SVGElement.prototype.findParent = function(){
-	if (this.tagName === 'svg') return this;
-	else return this.ownerSVGElement;
-}
-SVGSVGElement.prototype.verifyRole = function(){
-	const role = this.getAttributeValue ('role');
-	this.infos = this.infos + '<br/>role = '+ role;
-	if (! 'presentation img'.includes (role)) this.infos = this.infos +' OBLIGATOIRE: img ou presentation';
-}
-SVGSVGElement.prototype.addAll = function(){
-	this.addInfos();
-	this.addLabel();
-	this.addEventListener ('mouseover', function (event){
-		const target = event.target.findParent();
-		encartRgaa.children[0].innerHTML = 'SVG';
-		if (target.id !== undefined && target.id !=="") encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +' #'+ target.id;
-		encartRgaa.children[0].innerHTML = encartRgaa.children[0].innerHTML +" "+ target.label;
-		encartRgaa.children[4].innerHTML = target.infos;
-		encartRgaa.style.display = 'grid';
-	});
-}
-HTMLCanvasElement.prototype.verifyRole = function(){
-	const role = this.getAttributeValue ('role');
-	this.infos = this.infos + '<br/>role = '+ role;
-	if (! 'presentation img'.includes (role)) this.infos = this.infos +' OBLIGATOIRE: img ou presentation';
-}
-HTMLObjectElement.prototype.verifyRole = function(){
-	const role = this.getAttributeValue ('role');
-	this.infos = this.infos + '<br/>role = '+ role;
-	if (! 'presentation img'.includes (role)) this.infos = this.infos +' OBLIGATOIRE: img ou presentation';
-}
-HTMLInputElement.prototype.addInfos = function(){
-	this.infos = 'alt = ';
-	if (this.alt ===""){
-		if (this.attributes.getNamedItem ('alt') === null) this.infos = this.infos + 'absent. OBLIGATOIRE, même vide';
-		else this.infos = this.infos + 'vide';
-	}
-	else this.infos = this.infos + this.alt;
-	Element.prototype.addInfos.call (this);
-}
-HTMLInputElement.prototype.addAll = function(){
-	if (this.type === 'image'){
-		this.addBorder();
-		this.addInfos();
-		this.addLabel();
-		this.addModal();
+// dépend de ana-common.js
+Element.prototype.verifyRoleImg = function(){
+	Element.prototype.verifyRole.call (this);
+	var role = this.getAttributeValue ('role');
+	if (! 'presentation img'.includes (role)){
+		this.infos = this.infos +' OBLIGATOIRE: img ou presentation';
+		this.classList.add ('rgaa-error');
 }}
-HTMLElement.prototype.addInfos = function(){
-	this.infos = "ERREUR, il manque une couleur de fond pour doubler l'image";
-	this.label = this.addLabelModal() +' erreur';
+SVGSVGElement.prototype.verifyRole = function(){ this.verifyRoleImg(); }
+HTMLCanvasElement.prototype.verifyRole = function(){ this.verifyRoleImg(); }
+HTMLObjectElement.prototype.verifyRole = function(){ this.verifyRoleImg(); }
+
+Element.prototype.addInfos = function(){
+	// utilise le sélecteur css :before
+	this.verifyTitle();
+	this.verifyRole();
+	this.setAttribute ('infos', this.infos);
+	if (this.infos.includes ('erreur:')) this.classList.add ('rgaa-error');
 }
-HTMLElement.prototype.addInfosParent = function(){
-	this.infos = this.parentElement.infos;
-	this.label = this.parentElement.label +' - '+ this.addLabelModal();
-	for (var c=0; c< this.children.length; c++) this.children[c].addInfosParent();
-}
+HTMLElement.prototype.addInfosAlt = function(){
+	Element.prototype.addInfos.call (this);
+	if (this.alt ===""){
+		if (this.attributes.getNamedItem ('alt') === null){
+			this.infos = this.infos + '\nalt est absent. erreur, il est OBLIGATOIRE, même vide';
+			this.classList.add ('rgaa-error');
+		}
+		else this.infos = this.infos + '\nalt est vide';
+}}
+HTMLImageElement.prototype.addInfos = function(){ this.addInfosAlt(); }
+HTMLAreaElement.prototype.addInfos = function(){ this.addInfosAlt(); }
+HTMLInputElement.prototype.addInfos = function(){ if (this.type === 'image'){ this.addInfosAlt(); }}
+
 HTMLElement.prototype.bgImageDoublee = function(){
 	const style = window.getComputedStyle (this);
 	if (style.backgroundImage !== 'none'){
-	//	this.classList.add ('rgaa-bgimg');
-		if (style.backgroundColor.includes ('rgba') && style.backgroundColor.includes (' 0)')){
-			this.addInfos();
-			this.addModal();
-			this.classList.add ('rgaa-nobgcolor');
-			for (var c=0; c< this.children.length; c++) this.children[c].addInfosParent();
-	}}
+		this.classList.add ('rgaa-bgimg');
+		if (style.backgroundColor.includes ('rgba') && style.backgroundColor.includes (' 0)')) this.classList.add ('rgaa-bgnocolor');
+	}
 	else{ for (var c=0; c< this.children.length; c++) this.children[c].bgImageDoublee(); }
 }
+Element.prototype.bgImageDoublee = function(){ return; }
 HTMLScriptElement.prototype.bgImageDoublee = function(){ return; }
 SVGSVGElement.prototype.bgImageDoublee = function(){ return; }
 
 document.body.bgImageDoublee();
-document.body.verifyRole ('img');
-document.body.verifyRole ('presentation');
 var images = document.getElementsByTagName ('img');
-for (var i=0; i< images.length; i++) images[i].addAll();
+for (var i=0; i< images.length; i++) images[i].addInfos();
 images = document.getElementsByTagName ('input');
-for (var i=0; i< images.length; i++) images[i].addAll();
+for (var i=0; i< images.length; i++) images[i].addInfos();
 images = document.getElementsByTagName ('area');
-for (var i=0; i< images.length; i++) images[i].addAll();
+for (var i=0; i< images.length; i++) images[i].addInfos();
 images = document.getElementsByTagName ('svg');
-for (var i=0; i< images.length; i++) images[i].addAll();
+for (var i=0; i< images.length; i++) images[i].addInfos();
 images = document.getElementsByTagName ('text');
 for (var i=0; i< images.length; i++) images[i].style.fill = 'yellow';
 images = document.getElementsByTagName ('canvas');
-for (var i=0; i< images.length; i++) images[i].addAll();
+for (var i=0; i< images.length; i++) images[i].addInfos();
 images = document.getElementsByTagName ('object');
-for (var i=0; i< images.length; i++) images[i].addAll();
+for (var i=0; i< images.length; i++) images[i].addInfos();
