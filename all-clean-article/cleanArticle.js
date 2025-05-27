@@ -92,19 +92,22 @@ class Fanfic{
 	}
 	toPage(){
 		var header =`<title></title>
-	<base target='_blank'/>
-	<meta charset='utf-8'/>
-	<meta name='viewport' content='width=device-width, initial-scale=1'/>
-	<meta name='subject' content='$subject'/>
-	<meta name='author' content='$author'/>
-	<meta name='link' content='$link'/>
+	<base target='_blank' />
+	<meta charset='utf-8' />
+	<meta name='viewport' content='width=device-width, initial-scale=1' />
+	<meta name='subject' content='$subject' />
+	<meta name='author' content='$author' />
+	<meta name='link' content='$link' />
+	<link rel='icon' type='image/svg+xml' href='file:///C:/wamp64/www/site-dp/data/nounours-perso.svg' />
+	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/structure.css' />
+	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/perso.css' media='screen' />
 `;
 		var footer =`<footer>
 	<p>subject: $subject</p>
 	<p>title: $title</p>
 	<p>link: $link</p>
 	<p>author: $author</p>
-</header>`;
+</footer>`;
 		header = header.replace ('<title></title>', '<title>' + this.title + '</title>');
 		header = header.replace ('$subject', this.subject);
 		header = header.replace ('$title', this.title);

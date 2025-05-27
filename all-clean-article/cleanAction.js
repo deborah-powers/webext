@@ -12,13 +12,16 @@ findTitle: findTitle,
 downloadFile: downloadFile
 `;
 const libHtml = callLibrary ([ 'textFct', 'htmlFct', 'pageFct' ]);
-libHtml.cleanBody();
+document.body.innerHTML = document.body.innerHTML.cleanHtml();
+const codeBlocs = document.getElementsByTagName ('xmp');
+for (var b=0; b< codeBlocs.length; b++) codeBlocs[b].simplifyNesting();
 var fanfic = new Fanfic();
 fanfic.title = libHtml.findTitle();
 fanfic.cleanTitle();
 fanfic.findSubject();
 
 if (window.location.href.includes ('https://menace-theoriste.fr/')){
+	libHtml.cleanBody();
 	libHtml.replaceTag ('wrap_all');
 	libHtml.replaceTag ('main');
 }
@@ -68,7 +71,17 @@ else if (window.location.href.includes ('https://www.gutenberg.org/cache/epub/')
 	// le texte
 	libHtml.replaceTagList (document.body, 'chapter');
 }
+else if (window.location.href.includes ('https://disic.github.io/guide-lecteurs_ecran')){
+	fanfic.title = 'guide lecteur ecran z';
+	fanfic.subject = 'programmation, accessibilité';
+	fanfic.author = 'dinsic';
+	libHtml.replaceTag ('wrapper');
+	const next = document.getElementsByTagName ('nav')[0].getElementsByTagName ('a')[0];
+	libHtml.replaceTag ('main');
+	document.body.innerHTML = next.outerHTML + document.body.innerHTML;
+}
 else if (window.location.href.includes ('https://www.test-recette.fr/recette/')){
+	libHtml.cleanBody();
 	fanfic.title = document.getElementsByTagName ('title')[0].innerHTML;
 	fanfic.subject = 'programmation';
 	fanfic.author = 'test-recette';
@@ -80,10 +93,12 @@ else{
 	fanfic.title = document.getElementsByTagName ('title')[0].innerHTML;
 }
 fanfic.cleanTitle();
+libHtml.cleanBody();
 libHtml.delAttributes();
 document.body.removeAnnotations();
 fanfic.text = document.body.innerHTML;
 fanfic.toPage();
 var downloadText = document.getElementsByTagName ('html')[0].innerHTML.replaceAll ('> ','>');
+downloadText = '<!DOCTYPE html><html>' + downloadText + '</html>';
 libHtml.downloadFile (fanfic.title +'.html', downloadText);
 addStyle ([ 'structure', 'perso' ]);
