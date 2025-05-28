@@ -98,7 +98,19 @@ libHtml.delAttributes();
 document.body.removeAnnotations();
 fanfic.text = document.body.innerHTML;
 fanfic.toPage();
+addCss ([ 'structure', 'perso' ]);
 var downloadText = document.getElementsByTagName ('html')[0].innerHTML.replaceAll ('> ','>');
 downloadText = '<!DOCTYPE html><html>' + downloadText + '</html>';
 libHtml.downloadFile (fanfic.title +'.html', downloadText);
-addStyle ([ 'structure', 'perso' ]);
+/*
+const fileCss = 'file:///C:/wamp64/www/site-dp/library-css/perso.css';
+function openLibFile (filePath){
+	const xhttp = new XMLHttpRequest();
+	xhttp.open ('GET', filePath, false);
+	xhttp.send();
+	if (xhttp.status ==0 || xhttp.status ==200) return xhttp.responseText;
+	else return "rien";
+}
+const res = openLibFile (fileCss);
+console.log (res);
+*/

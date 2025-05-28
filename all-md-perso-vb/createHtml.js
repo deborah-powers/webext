@@ -4,10 +4,10 @@ var headPage =`
 	<meta name='viewport' content='width=device-width,initial-scale=1'/>
 	<meta charset='utf-8'/>
 	<base target='_blank'>
-	<link rel='icon' type='image/svg+xml' href='file:///C:/wamp64/www/site-dp/data/nounours-perso.svg'/>
-	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/structure.css'/>
-	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/perso.css'/>
-	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/shapes.css'/>
+	<link rel='icon' type='image/svg+xml' href='file:///C:/wamp64/www/site-dp/data/nounours-perso.svg' />
+	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/structure.css' />
+	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/perso.css' media='screen' />
+	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/shapes.css' />
 `;
 // récupérer les metadonnées de mes articles
 var header = "<h1><a href='$lien'>$titre</a></h1><p>par <a href='$lienAuteur'>$auteur</a></p><p>à propos de $sujet</p>";
@@ -17,7 +17,6 @@ document.head.innerHTML = headPage;
 
 function findMetaLocal (metadata, title){
 	header = header.replace ('$titre', title);
-//	console.log (metadata, metadata['autlink'], exists (metadata['autlink']), metadata.autlink, exists);
 
 	if (""=== metadata['lien']){
 		header = header.replace ("<a href='$lien'>", "");
@@ -36,3 +35,5 @@ function findMetaLocal (metadata, title){
 }
 const metadata = prepareText();
 findMetaLocal (metadata, title);
+const styleList =[ 'structure', 'perso', 'shapes' ];
+addCss (styleList)

@@ -4,20 +4,17 @@ et utilise mon site perso, https://deborah-powers.fr/library-xxx/
 
 launchScript: le script s'execute puis se ferme tout seul. les éléments qu'il contient sont innaccessibles depuis mon extension.
 callLibrary: utiliser mon script comme une librairie.
-addCss: ajouter une feuille de style css pour les fichiers locaux.
-addStyle: ajouter des feuilles de style css pour des pages web.
+addCss: ajouter une feuille de style css. si je modifie un fichier local, les styles locaux sont utilisés. sinon, ce sont ceux de mon site web.
 
 utiliser ce script:
 les cors doivent être désactivés. ce script repose sur ajax.
 ajouter ces lignes dans votre manifest
 	"permissions": [ "...", "https://deborah-powers.fr/" ],
-	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+	"content_security_policy": "script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'self';",
 dans votre content_script:
 	crutialData est modifié afin de s'adapter à ce dont l'utilisateur à besoin.
 	const mylib = callLibrary ([ dependence1, dependence2 ])
-	addStyle ([ style1, style2 ])
-
-const urlLib = 'file:///C:/wamp64/www/site-dp/library-';
+	addCss ([ style1, style2 ])
 */
 const urlDist = 'http://deborah-powers.fr';
 const urlLoc = 'file:///C:/wamp64/www/site-dp';
@@ -37,20 +34,21 @@ function openLibFile (filePath){
 }
 /* ------------ insérer mes styles ------------ */
 
-function addCss (cssName){
-	const cssLine = "<link rel='stylesheet' type='text/css' href='" + urlLib + 'css/' + cssName + ".css'/>";
-	document.head.innerHTML = document.head.innerHTML + cssLine;
+function addCss (styleList){
+	var styleText = "";
+	if (urlLib.substring (0,4) === 'http'){
+		const cssLine = urlLib + 'css/$cssName.css';
+		var styleText = "\n<style type='text/css'>";
+		for (var cssName of styleList) styleText = styleText +'\n'+ openLibFile (cssLine.replace ('$cssName', cssName));
+		styleText = styleText + '\n</style>';
+	}
+	else{
+		const cssLine = "<link rel='stylesheet' type='text/css' href='" + urlLib + "css/$cssName.css'/>";
+		for (var cssName of styleList) styleText = styleText + cssLine.replace ('$cssName', cssName);
+	}
+	document.head.innerHTML = document.head.innerHTML + styleText;
 }
-function openStyle (styleName){
-	const styleFile = 'css/' + styleName + '.css';
-	return openLibFile (styleFile);
-}
-function addStyle (styleList){
-	var textCss = "\n<style type='text/css'>";
-	for (var s=0; s< styleList.length; s++) textCss = textCss +'\n'+ openStyle (styleList[s]);
-	textCss = textCss +'\n</style>';
-	document.head.innerHTML = document.head.innerHTML + textCss;
-}
+
 /* ------------ insérer mes scripts ------------ */
 
 function launchScript (scriptName){
@@ -76,7 +74,7 @@ function sendToExtensions(){
 sendToExtensions();`;
 
 function callLibrary (scriptList){
-	/* importer un script externe en temps que librairie. sendToExtensions est modifiable selon ce qui est nécéssaire. */
+	/* importer un script externe en temps que librairie. crutialData est modifiable selon ce qui est nécéssaire. */
 	var textJs ="";
 	for (var s=0; s< scriptList.length; s++) textJs = textJs +'\n'+ openScript (scriptList[s]);
 	sendToExtensions = sendToExtensions.replace ('$crutialData', crutialData);

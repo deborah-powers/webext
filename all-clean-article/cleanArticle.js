@@ -98,9 +98,6 @@ class Fanfic{
 	<meta name='subject' content='$subject' />
 	<meta name='author' content='$author' />
 	<meta name='link' content='$link' />
-	<link rel='icon' type='image/svg+xml' href='file:///C:/wamp64/www/site-dp/data/nounours-perso.svg' />
-	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/structure.css' />
-	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/perso.css' media='screen' />
 `;
 		var footer =`<footer>
 	<p>subject: $subject</p>

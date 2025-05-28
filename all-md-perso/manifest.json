@@ -8,7 +8,7 @@
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'self'",
 	"content_scripts": [{
 		"matches": [ "file:///*/*.txt", "file:///*/*.md", "http://*/*.txt", "https://*/*.txt", "http://*/*.md", "https://*/*.md" ],
-		"js": [ "textFct.js", "htmlFct.js", "action.js" ]
+		"js": [ "import-perso.js", "action.js", "action-recette.js" ]
 	}],
 	"browser_specific_settings": { "gecko": { "id": "md-perso@deborah-powers.fr" }}
 }
