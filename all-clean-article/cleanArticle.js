@@ -9,7 +9,7 @@ class FanficSubject{
 		new FanficSubject ('monstre', [ 'mythology', 'vampire', 'naga', 'pokemon' ]),
 		new FanficSubject ('sf', [ 'mythology', 'vampire', 'scify', 'lovecraft', 'stoker', 'conan doyle', 'naga' ]),
 		new FanficSubject ('tricot', [ 'point', 'crochet' ]),
-		new FanficSubject ('programmation', [ 'java', 'tests' ])
+		new FanficSubject ('programmation', [ 'java', 'tests', 'python', 'javascript', 'js', 'php' ])
 	];
 	constructor (name, values){
 		this.name = name;
