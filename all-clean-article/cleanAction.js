@@ -19,6 +19,7 @@ var fanfic = new Fanfic();
 fanfic.title = libHtml.findTitle();
 fanfic.cleanTitle();
 fanfic.findSubject();
+var styleLocal ="";
 
 if (window.location.href.includes ('https://menace-theoriste.fr/')){
 	libHtml.cleanBody();
@@ -89,6 +90,29 @@ else if (window.location.href.includes ('https://www.test-recette.fr/recette/'))
 	libHtml.replaceTag ('container');
 	document.body.innerHTML = document.body.children[0].innerHTML;
 }
+else if (window.location.href.includes ('https://stackoverflow.com/questions/')){
+	libHtml.replaceTag ('container');
+	libHtml.replaceTag ('content');
+	libHtml.replaceTag ('inner-content');
+	var title = '<h1>' + libHtml.findTag (document.body, 'h1').innerText + '</h1>';
+	title = title + '<p>' + libHtml.findTag (document.body.children[1].children[1], 'a').innerHTML + '</p>';
+	libHtml.replaceTag ('mainbar');
+	var text ="";
+	var tagList = document.getElementsByClassName ('post-layout');
+	for (var tag of tagList) text = text + tag.outerHTML;
+	document.body.innerHTML = text;
+	tagList = document.getElementsByClassName ('post-layout--right');
+	for (var t=0; t< tagList.length; t++) tagList[t].innerHTML = tagList[t].children[0].innerHTML;
+	text ="";
+	for (var tag of tagList) text = text + tag.outerHTML;
+	document.body.innerHTML = title + text;
+	styleLocal = `body > div {
+	border-top-style: double;
+	border-top-width: 8px;
+	padding-top: 1em;
+	margin-top: 1em;
+}`;
+}
 else{
 	fanfic.title = document.getElementsByTagName ('title')[0].innerHTML;
 }
@@ -99,6 +123,12 @@ document.body.removeAnnotations();
 fanfic.text = document.body.innerHTML;
 fanfic.toPage();
 addCss ([ 'structure', 'perso' ]);
+var style = document.getElementsByTagName ('style')[0];
+if (style === undefined){
+	style = document.createElement ('style');
+	document.head.appendChild (style);
+}
+style.innerHTML = style.innerHTML + styleLocal;
 var downloadText = document.getElementsByTagName ('html')[0].innerHTML.replaceAll ('> ','>');
 downloadText = '<!DOCTYPE html><html>' + downloadText + '</html>';
 libHtml.downloadFile (fanfic.title +'.html', downloadText);

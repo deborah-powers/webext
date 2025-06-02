@@ -37,7 +37,7 @@ function openLibFile (filePath){
 function addCss (styleList){
 	var styleText = "";
 	if (urlLib.substring (0,4) === 'http'){
-		const cssLine = urlLib + 'css/$cssName.css';
+		const cssLine = 'css/$cssName.css';
 		var styleText = "\n<style type='text/css'>";
 		for (var cssName of styleList) styleText = styleText +'\n'+ openLibFile (cssLine.replace ('$cssName', cssName));
 		styleText = styleText + '\n</style>';
