@@ -14,7 +14,9 @@ downloadFile: downloadFile
 const libHtml = callLibrary ([ 'textFct', 'htmlFct', 'pageFct' ]);
 document.body.innerHTML = document.body.innerHTML.cleanHtml();
 const codeBlocs = document.getElementsByTagName ('xmp');
+console.log ('a', codeBlocs.length, window.location.href, window.self, window.top);
 for (var b=0; b< codeBlocs.length; b++) codeBlocs[b].simplifyNesting();
+console.log ('z', window.location.href);
 var fanfic = new Fanfic();
 fanfic.title = libHtml.findTitle();
 fanfic.cleanTitle();
@@ -90,7 +92,7 @@ else if (window.location.href.includes ('https://www.test-recette.fr/recette/'))
 	libHtml.replaceTag ('container');
 	document.body.innerHTML = document.body.children[0].innerHTML;
 }
-else if (window.location.href.includes ('https://stackoverflow.com/questions/')){
+else if (window.location.href.includes ('https://stackoverflow.com/questions/') || window.location.href.includes ('/stackoverflow')){
 	libHtml.replaceTag ('container');
 	libHtml.replaceTag ('content');
 	libHtml.replaceTag ('inner-content');
