@@ -6,7 +6,7 @@
 	"icons": { "48": "icon-128.svg" },
 	"background": { "scripts": [ "service-worker-v2.js" ]},
 	"permissions": [ "tabs", "activeTab", "scripting", "http://deborah-powers.fr/", "http://localhost:1407/", "file:///" ],
-	"content_security_policy": "script-src 'self' 'unsafe-eval' 'file:///'; style-src 'self' 'unsafe-inline' 'file:///'; object-src 'self';",
+	"content_security_policy": "script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'self';",
 	"browser_action": {
 		"default_icon": "icon-128.svg",
 		"default_title": "nettoyeur d'articles"

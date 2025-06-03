@@ -1,8 +1,60 @@
+/* éléments interdits */
 basefont, big, blink, center, font, marquee, s, strike, tt {
-	border: solid 4px deeppink;
-	background-color: ivory;
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: deeppink !important;
 }
-*[align], *[alink], *[background], *[bgcolor], *[border], *[cellpadding], *[cellspacing], *[char], *[charoff], *[clear], *[compact], *[color], *[frameborder], *[hspace], *[link], *[marginheight], *[marginwidth], *[text], *[valign], *[vlink], *[vspace] {
-	border: solid 4px deeppink;
-	background-color: ivory;
+basefont:hover:before { content: 'élément interdit: basefont'; }
+big:hover:before { content: 'élément interdit: big'; }
+blink:hover:before { content: 'élément interdit: blink'; }
+center:hover:before { content: 'élément interdit: center'; }
+font:hover:before { content: 'élément interdit: font'; }
+marquee:hover:before { content: 'élément interdit: marquee'; }
+s:hover:before { content: 'élément interdit: s'; }
+strike:hover:before { content: 'élément interdit: strike'; }
+tt:hover:before { content: 'élément interdit: tt'; }
+/* attributs interdits */
+[align], [alink], [background], [bgcolor], [border], [cellpadding], [cellspacing], [char], [charoff], [clear], [compact], [color], [frameborder], [hspace], [link], [marginheight], [marginwidth], [text], [valign], [vlink], [vspace] {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: limegreen !important;
 }
+[align]:hover:before { content: 'attribut interdit: align'; }
+[alink]:hover:before { content: 'attribut interdit: alink'; }
+[background]:hover:before { content: 'attribut interdit: background'; }
+[bgcolor]:hover:before { content: 'attribut interdit: bgcolor'; }
+[border]:hover:before { content: 'attribut interdit: border'; }
+[cellpadding]:hover:before { content: 'attribut interdit: cellpadding'; }
+[cellspacing]:hover:before { content: 'attribut interdit: cellspacing'; }
+[char]:hover:before { content: 'attribut interdit: char'; }
+[charoff]:hover:before { content: 'attribut interdit: charoff'; }
+[clear]:hover:before { content: 'attribut interdit: clear'; }
+[compact]:hover:before { content: 'attribut interdit: compact'; }
+[color]:hover:before { content: 'attribut interdit: color'; }
+[frameborder]:hover:before { content: 'attribut interdit: frameborder'; }
+[hspace]:hover:before { content: 'attribut interdit: hspace'; }
+[link]:hover:before { content: 'attribut interdit: link'; }
+[marginheight]:hover:before { content: 'attribut interdit: marginheight'; }
+[marginwidth]:hover:before { content: 'attribut interdit: marginwidth'; }
+[text]:hover:before { content: 'attribut interdit: text'; }
+[valign]:hover:before { content: 'attribut interdit: valign'; }
+[vlink]:hover:before { content: 'attribut interdit: vlink'; }
+[vspace]:hover:before { content: 'attribut interdit: vspace'; }
+/* rôles interdits
+https://www.w3.org/TR/html-aria/#docconformance
+*/
+{
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: teal !important;
+}
+/* rôles redondants */
+[role='generic'], a[href][role='link'], area[href][role='link'], address[role='group'], datalist[role='listbox'],
+article[role='article'], aside[role='complementary'], blockquote[role='blockquote'], button[role='button'], caption[role='caption'],
+code[role='code'], 
+{
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: coral !important;
+}
+:hover:before { content: 'role redondant: ' attr(role); }

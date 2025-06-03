@@ -83,4 +83,3 @@ function callLibrary (scriptList){
 	return library;
 }
 setUrlLib();
-console.log (urlLib, window.location.href);

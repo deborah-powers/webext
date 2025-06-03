@@ -70,7 +70,7 @@ function chooseAction (event){
 		}
 		else if (action === 'elm-interdit'){
 			listStyle =[ 'ana-common.css', 'elm-interdit.css' ];
-			listScript =[ 'ana-common.js', 'encart.js', 'elm-interdit.js' ];
+		//	listScript =[ 'ana-common.js', 'encart.js', 'elm-interdit.js' ];
 		}
 		else if (action === 'elm-vide'){
 			listStyle =[ 'ana-common.css' ];

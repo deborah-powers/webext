@@ -1,5 +1,9 @@
 function coco (n1, n2){
 	console.log ('coco', n1, n2);
+	n2.surnom = 'hello';
+}
+function dodo (n2){
+	console.log ('dodo', n2);
 }
 chrome.browserAction.onClicked.addListener (function (tab){
 	if (tab.url.includes ('https://osmose.numerique.gouv.fr/jcms/')){
@@ -12,10 +16,5 @@ chrome.browserAction.onClicked.addListener (function (tab){
 		chrome.scripting.executeScript ({
 			target: {tabId: tab.id, allFrames: false },
 			files: [ 'import-perso.js', 'cleanArticle.js', 'cleanAction.js' ]
-		});
-		chrome.scripting.executeScript ({
-			target: {tabId: tab.id, allFrames: false },
-			func: coco,
-			args: [ 'lolo', 'doudou' ]
 		});
 }});

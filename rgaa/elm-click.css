@@ -5,7 +5,9 @@
 }
 [onclick][disabled], [ondblclick][disabled], [oncontextmenu][disabled], [onmouseup][disabled], [onmousedown][disabled], [onmouseenter][disabled],
 [onmouseleave][disabled], [onmousemove][disabled], [onmouseout][disabled], [onmouseover][disabled],
-button[disabled], [role='button'][disabled], input[type='button'][disabled], input[type='reset'][disabled], input[type='submit'][disabled]
+button[disabled], [role='button'][disabled], input[type='button'][disabled], input[type='reset'][disabled], input[type='submit'][disabled],
+button[aria-hidden='true'], [role='button'][aria-hidden='true'],
+input[type='button'][aria-hidden='true'], input[type='reset'][aria-hidden='true'], input[type='submit'][aria-hidden='true']
 	{ border-style: dotted !important; }
 button, [role='button'] {
 	border-style: dashed !important;
@@ -41,6 +43,12 @@ a.rgaa-event:hover:before { content: 'ancre avec évênement js ' attr(role) '\A
 a.rgaa-event:hover:before { content: 'bouton avec évênement js ' attr(role) '\A' attr(infos); }
 [role='button'].rgaa-event:hover:before { content: 'role bouton avec évênement js\A' attr(infos); }
 
+/* éléments non cliquables */
+[disabled], [aria-hidden='true'], [role='presentation'], [role='img'] {
+	border-width: 4px !important;
+	border-style: solid !important;
+	border-color: limegreen !important;
+}
 /*
 .rgaa-event:hover:before { content: 'évênement ' attr(role) '\A' attr(infos); }
 input[type='button']:hover:before, input[type='reset']:hover:before, input[type='submit']:hover:before
