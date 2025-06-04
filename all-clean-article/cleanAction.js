@@ -13,10 +13,6 @@ downloadFile: downloadFile
 `;
 const libHtml = callLibrary ([ 'textFct', 'htmlFct', 'pageFct' ]);
 document.body.innerHTML = document.body.innerHTML.cleanHtml();
-const codeBlocs = document.getElementsByTagName ('xmp');
-console.log ('a', codeBlocs.length, window.location.href, window.self, window.top);
-for (var b=0; b< codeBlocs.length; b++) codeBlocs[b].simplifyNesting();
-console.log ('z', window.location.href);
 var fanfic = new Fanfic();
 fanfic.title = libHtml.findTitle();
 fanfic.cleanTitle();
@@ -113,7 +109,8 @@ else if (window.location.href.includes ('https://stackoverflow.com/questions/') 
 	border-top-width: 8px;
 	padding-top: 1em;
 	margin-top: 1em;
-}`;
+}
+img { max-width: 100%; }`;
 }
 else{
 	fanfic.title = document.getElementsByTagName ('title')[0].innerHTML;
@@ -131,8 +128,8 @@ if (style === undefined){
 	document.head.appendChild (style);
 }
 style.innerHTML = style.innerHTML + styleLocal;
-var downloadText = document.getElementsByTagName ('html')[0].innerHTML.replaceAll ('> ','>');
-downloadText = '<!DOCTYPE html><html>' + downloadText + '</html>';
+var downloadText = document.getElementsByTagName ('body')[0].innerHTML.replaceAll ('> ','>');
+downloadText = '<!DOCTYPE html><html><head>' + fanfic.fillHeader() + '</head><body>' + downloadText + '</body></html>';
 libHtml.downloadFile (fanfic.title +'.html', downloadText);
 /*
 const fileCss = 'file:///C:/wamp64/www/site-dp/library-css/perso.css';

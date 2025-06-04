@@ -90,7 +90,7 @@ class Fanfic{
 		const fanficStr = JSON.stringify (this.toData());
 		return fanficStr;
 	}
-	toPage(){
+	fillHeader(){
 		var header =`<title></title>
 	<base target='_blank' />
 	<meta charset='utf-8' />
@@ -99,18 +99,21 @@ class Fanfic{
 	<meta name='author' content='$author' />
 	<meta name='link' content='$link' />
 `;
+		header = header.replace ('<title></title>', '<title>' + this.title + '</title>');
+		header = header.replace ('$subject', this.subject);
+		header = header.replace ('$title', this.title);
+		header = header.replace ('$link', this.link);
+		header = header.replace ('$author', this.author);
+		return header;
+	}
+	toPage(){
 		var footer =`<footer>
 	<p>subject: $subject</p>
 	<p>title: $title</p>
 	<p>link: $link</p>
 	<p>author: $author</p>
 </footer>`;
-		header = header.replace ('<title></title>', '<title>' + this.title + '</title>');
-		header = header.replace ('$subject', this.subject);
-		header = header.replace ('$title', this.title);
-		header = header.replace ('$link', this.link);
-		header = header.replace ('$author', this.author);
-		document.head.innerHTML = header;
+		document.head.innerHTML = this.fillHeader();
 		/* si j'enregistre en tant que page web complète, je récupère mes headers
 		footer = footer.replace ('$subject', this.subject);
 		footer = footer.replace ('$title', this.title);

@@ -43,18 +43,31 @@ tt:hover:before { content: 'élément interdit: tt'; }
 /* rôles interdits
 https://www.w3.org/TR/html-aria/#docconformance
 */
+head[role], head *[role], input[type='email'][role], input[type='range'][role]
 {
 	border-style: solid !important;
 	border-width: 4px !important;
 	border-color: teal !important;
 }
 /* rôles redondants */
-[role='generic'], a[href][role='link'], area[href][role='link'], address[role='group'], datalist[role='listbox'],
-article[role='article'], aside[role='complementary'], blockquote[role='blockquote'], button[role='button'], caption[role='caption'],
-code[role='code'], 
+html[role='document'], [role='generic'], aside[role='complementary'], del[role='deletion'], s[role='deletion'], dfn[role='term'], ins[role='insertion'],
+p[role='paragraph'], em[role='emphasis'], hr[role='separator'], a[href][role='link'], area[href][role='link'], datalist[role='listbox'],
+output[role='status'], sub[role='subscript'], sup[role='supscript'], 
+address[role='group'], details[role='group'], fielset[role='group'], hgroup[role='group'], optgroup[role='group'], 
+select option[role='option'], datalist option[role='option'],
+h1[role='heading'], h2[role='heading'], h3[role='heading'], h4[role='heading'], h5[role='heading'], h6[role='heading'],
+article[role='article'], blockquote[role='blockquote'], button[role='button'], figcaption[role='caption'], caption[role='caption'], code[role='code'],
+dialog[role='dialog'], figure[role='figure'], form[role='form'], img[role='img'], img[role='image'], main[role='main'],
+meter[role='meter'], match[role='match'], nav[role='navigation'], progress[role='progressbar'], search[role='search'], table[role='table'],
+ol[role='list'], ul[role='list'], menu[role='list'],
+ol > li[role='listitem'], ul > li[role='listitem'], menu > li[role='listitem'],
+input[type='image'][role='button'], input[type='reset'][role='button'], input[type='submit'][role='button'],
+input[type='button'][role='button'], input[type='checkbox'][role='checkbox'], input[type='radio'][role='radio'],
+input[type='number'][role='spinbutton']
 {
 	border-style: solid !important;
 	border-width: 4px !important;
 	border-color: coral !important;
 }
 :hover:before { content: 'role redondant: ' attr(role); }
+

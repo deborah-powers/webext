@@ -1,6 +1,6 @@
 {
 	"manifest_version": 2,
-	"name": "to mardown",
+	"name": "to markdown",
 	"version": "1.0",
 	"description": "appliquer un markdown maison sur mes fichiers textes",
 	"icons": { "48": "icon-128.svg" },
