@@ -16,10 +16,12 @@
 		width: 30%;
 		height: 2em;
 	}
+	p.message { width: 100%; }
 </style></head><body>
 	<h1>choisissez une couleur</h1>
 	<p style='background-color:lightgreen' id='lightgreen'></p>
 	<p style='background-color:pink' id='pink'></p>
 	<p style='background-color:lightblue' id='lightblue'></p>
-<script type='text/javascript' src='popup.js'></script>
+	<p class='message'>le content-script a-t-il envoyé un message ?</p>
+<script type='text/javascript' src='background-script.js'></script>
 </body></html>

@@ -1,0 +1,29 @@
+*:hover:before {
+	content: none;
+	display: block;
+	background-color: ivory;
+	color: #420;
+	font-size: 18px;
+	font-weight: normal;
+	font-family: georgia, serif;
+	border: double 8px deeppink;
+	border-radius: 0.5em;
+	padding: 0.5em;
+	white-space: pre-wrap;
+	max-width: 40vw;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	z-index: 10;
+}
+.rgaa-highlight {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: deeppink !important;
+}
+.rgaa-error {
+	border-style: dashed !important;
+	border-width: 4px !important;
+	border-color: orangered;
+}
+img, svg, canvas, area { max-width: 50%; }

@@ -88,7 +88,7 @@ else if (window.location.href.includes ('https://www.test-recette.fr/recette/'))
 	libHtml.replaceTag ('container');
 	document.body.innerHTML = document.body.children[0].innerHTML;
 }
-else if (window.location.href.includes ('https://stackoverflow.com/questions/') || window.location.href.includes ('/stackoverflow')){
+else if (window.location.href.includes ('https://stackoverflow.com/questions/')){
 	libHtml.replaceTag ('container');
 	libHtml.replaceTag ('content');
 	libHtml.replaceTag ('inner-content');
@@ -117,7 +117,9 @@ else{
 }
 fanfic.cleanTitle();
 libHtml.cleanBody();
+/*
 libHtml.delAttributes();
+*/
 document.body.removeAnnotations();
 fanfic.text = document.body.innerHTML;
 fanfic.toPage();
@@ -131,15 +133,3 @@ style.innerHTML = style.innerHTML + styleLocal;
 var downloadText = document.getElementsByTagName ('body')[0].innerHTML.replaceAll ('> ','>');
 downloadText = '<!DOCTYPE html><html><head>' + fanfic.fillHeader() + '</head><body>' + downloadText + '</body></html>';
 libHtml.downloadFile (fanfic.title +'.html', downloadText);
-/*
-const fileCss = 'file:///C:/wamp64/www/site-dp/library-css/perso.css';
-function openLibFile (filePath){
-	const xhttp = new XMLHttpRequest();
-	xhttp.open ('GET', filePath, false);
-	xhttp.send();
-	if (xhttp.status ==0 || xhttp.status ==200) return xhttp.responseText;
-	else return "rien";
-}
-const res = openLibFile (fileCss);
-console.log (res);
-*/

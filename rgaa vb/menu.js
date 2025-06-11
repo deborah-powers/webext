@@ -1,0 +1,45 @@
+function chooseAction (event){
+	// event.target contient le bouton (p) de la popup sur lequel j'ai cliqué
+	var action = event.target.id;
+	chrome.tabs.query ({currentWindow: true, active: true}, function (tabs){
+		var activeTab = tabs[0];
+		chrome.scripting.removeCSS ({
+			target: {tabId: activeTab.id, allFrames: true},
+			files: [
+				'ana-common.css', 'volet.css',
+				'ana-color.css', 'ana-common.css', 'ana-contrast.css', 'ana-download.css', 'ana-focus.css', 'ana-langue.css',
+				'elm-click.css', 'elm-conteneur.css', 'elm-form.css', 'elm-hidden.css', 'elm-iframe.css', 'elm-image.css', 'elm-interract.css', 'elm-interdit.css',
+				'elm-link.css', 'elm-liste.css', 'elm-media.css', 'elm-table.css', 'elm-titre.css'
+		]});
+		var listStyle =[];
+		var listScript =[];
+		// choisir les actions
+		if (action === 'elm-image'){
+			listScript =[ 'ana-name.js', 'ana-common.js', 'elm-image.js' ];
+		}
+		// lancer les actions
+		if (listStyle.length >0) chrome.scripting.insertCSS ({
+			target: {tabId: activeTab.id, allFrames: true},
+			files: listStyle
+		});
+		if (listScript.length >0) chrome.scripting.executeScript ({
+			target: {tabId: activeTab.id, allFrames: true},
+			files: listScript
+		});
+});}
+// créer les options
+document.addEventListener ('DOMContentLoaded', function(){
+	// document.body contient le body de la popup
+	var plist = document.body.getElementsByTagName ('p');
+	for (var p=0; p< plist.length; p++) plist[p].addEventListener ('click', chooseAction);
+});
+// recevoir et afficher le fichier d'analyse
+function downloadAnalyse (request, sender, sendResponse){
+	console.log ('le content script à envoyé un message', request.anaName, );
+	const downloadLink = document.getElementsByTagName ('a')[0];
+	downloadLink.href = downloadLink.href.replace ('$infos', request.infos);
+	downloadLink.download = downloadLink.download.replace ('$anaName', request.anaName);
+	downloadLink.innerHTML = "télécharger l'analyse";
+	sendResponse ({ response: 'message reçut' });
+}
+browser.runtime.onMessage.addListener (downloadAnalyse);

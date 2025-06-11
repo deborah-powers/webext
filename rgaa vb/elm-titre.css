@@ -1,5 +1,5 @@
 h1, h2, h3, h4, h5, h6 {
-	border-style: solid;
+	border-style: solid !important;
 	border-color: deeppink !important;
 	border-width: 4px !important;
 }
@@ -9,7 +9,10 @@ h3:before { content: 'h3: '; }
 h4:before { content: 'h4: '; }
 h5:before { content: 'h5: '; }
 h6:before { content: 'h6: '; }
-*[role='presentation'] { border-style: dashed !important; }
+
+h1[role='presentation'], h2[role='presentation'], h3[role='presentation'], h4[role='presentation'],
+h5[role='presentation'], h6[role='presentation'] { border-style: dashed !important; }
+
 p.title-presentation { color: hotpink; }
 section#volet-rgaa div { border-style: solid; }
 section#volet-rgaa span {

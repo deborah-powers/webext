@@ -2,8 +2,7 @@ const blankChars = '\n \t';
 const myClasses =[ 'rgaa-highlight', 'rgaa-error', 'rgaa-nobg', 'rgaa-notx', 'rgaa-bgimg', 'rgaa-nobgcolor', 'rgaa-double', 'rgaa-complex', 'rgaa-event' ];
 
 Element.prototype.getByRole = function (myRole){
-	const role = this.getAttribute ('role');
-	if (myRole === role) return this;
+	if (myRole === this.role) return this;
 	else if (this.children.length ===0) return null;
 	var item = null;
 	var c=0;
@@ -15,8 +14,7 @@ Element.prototype.getByRole = function (myRole){
 }
 Element.prototype.getAllByRole = function (myRole){
 	var items =[];
-	const role = this.getAttribute ('role');
-	if (myRole === role) items.push (this);
+	if (myRole === this.role) items.push (this);
 	var itemsChild =[];
 	for (var c=0; c< this.children.length; c++){
 		itemsChild = this.children[c].getAllByRole (myRole);
@@ -96,7 +94,7 @@ Element.prototype.addLabelModal = function(){
 		className = className.strip();
 		if (exists (className)) name = name +" ."+ className.replaceAll (" ",'.');
 	}
-	const role = this.getAttribute ('role');
+	const role = this.role;
 	if (exists (role)) name = name +" role: "+ role;
 	return name;
 }
