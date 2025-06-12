@@ -89,7 +89,7 @@ else if (window.location.href.includes ('https://www.test-recette.fr/recette/'))
 	libHtml.replaceTag ('container');
 	document.body.innerHTML = document.body.children[0].innerHTML;
 }
-else if (window.location.href.includes ('https://stackoverflow.com/questions/')){
+else if (window.location.href.includes ('https://stackoverflow.com/questions/') || window.location.href.includes ('/stackoverflow')){
 	libHtml.replaceTag ('container');
 	libHtml.replaceTag ('content');
 	libHtml.replaceTag ('inner-content');
