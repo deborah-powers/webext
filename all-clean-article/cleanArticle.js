@@ -130,6 +130,4 @@ HTMLElement.prototype.removeAnnotations = function(){
 		if (text.includes ('disclaimer')) this.parentElement.removeChild (this);
 		else if (text.slice (0,3).includes ('a/n')) this.parentElement.removeChild (this);
 }}
-window.addEventListener ('pagereveal', function (event) {
-	document.body.style.backgroundColor = 'lightgreen';
-});
+// window.addEventListener ('pagereveal', function (event) { document.body.style.backgroundColor = 'lightgreen'; });

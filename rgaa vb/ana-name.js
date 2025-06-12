@@ -72,8 +72,8 @@ Element.prototype.accessibleName = function(){
 				if (! intituleChild.includes ('rien: ') && ! intituleChild.includes ('pas de tag label')){
 					var d=2+ intituleChild.indexOf (': ');
 					intituleChild = intituleChild.substring (d);
-					if (intituleChild.includes ('\n\t')){
-						d= intituleChild.indexOf ('\n\t');
+					if (intituleChild.includes ('\n')){
+						d= intituleChild.indexOf ('\n');
 						intituleChild = intituleChild.substring (0,d);
 					}
 					intituleChildren =", "+ intituleChild;
@@ -113,7 +113,7 @@ HTMLInputElement.prototype.accessibleName = function(){
 	var intitule = Element.prototype.accessibleName.call (this);
 	if ('aria-' === intitule.substring (0,5)) return intitule;
 	var complementErreur ="";
-	if (this.labels.length >1) complementErreur = '\n\tplusieurs labels';
+	if (this.labels.length >1) complementErreur = '\nplusieurs labels';
 	else if (this.labels.length ===1) intitule = 'label: '+ this.labels[0].innerText;
 	else if (this.type === 'image' && this.alt) intitule = 'image: '+ this.alt;
 	else if ([ 'button', 'submit', 'reset' ].includes (this.type) && exists (this.value)) intitule = 'value: '+ this.value;
@@ -149,12 +149,12 @@ SVGSVGElement.prototype.accessibleName = function(){
 Element.prototype.compareNames = function(){
 	var accessibleName = this.accessibleName();
 	accessibleName = accessibleName.toLowerCase();
-	accessibleName = '\n\tnom accessible ('+ accessibleName.replace (':', '):') + '\n\tdesc: ';
+	accessibleName = '\nnom accessible ('+ accessibleName.replace (':', '):') + '\ndesc: ';
 	const description = this.description();
 	if (description) accessibleName = accessibleName + description;
 	else accessibleName = accessibleName + 'rien';
 	const visibleName = this.visibleName();
 	if ("" !== visibleName && ! accessibleName.includes (visibleName))
-		accessibleName = accessibleName + '\n\t! le nom accessible ne reprend pas le nom visible';
+		accessibleName = accessibleName + '\n! le nom accessible ne reprend pas le nom visible';
 	return accessibleName;
 }

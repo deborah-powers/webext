@@ -15,7 +15,7 @@ function chooseAction (event){
 		var listScript =[];
 		// choisir les actions
 		if (action === 'elm-image'){
-			listScript =[ 'ana-name.js', 'ana-common.js', 'elm-image.js' ];
+			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-common.js', 'elm-image.js' ];
 		}
 		// lancer les actions
 		if (listStyle.length >0) chrome.scripting.insertCSS ({

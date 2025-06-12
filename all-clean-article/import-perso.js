@@ -28,6 +28,7 @@ function openLibFile (filePath){
 	const fullFile = urlLib + filePath;
 	const xhttp = new XMLHttpRequest();
 	xhttp.open ('GET', fullFile, false);
+	xhttp.setRequestHeader ('Content-Type', 'text/js');
 	xhttp.send();
 	if (xhttp.status ==0 || xhttp.status ==200) return xhttp.responseText;
 	else return "";

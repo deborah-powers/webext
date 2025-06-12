@@ -8,16 +8,21 @@ Element.prototype.verifyRoleImg = function(){
 	if (this.role === null || this.role === undefined || ! 'presentation img'.includes (this.role))
 		infos = infos +'\n! le rôle doit valoir img ou présentation';
 }
-
-
 HTMLElement.prototype.addInfosImg = function(){
 	Element.prototype.addInfos.call (this);
 	if (! exists (this.src)) infos = infos + '\n! pas de source';
 	if (! exists (this.alt)) infos = infos + '\n? pas de alt';
 }
-HTMLImageElement.prototype.addInfos = function(){
-	this.addInfosImg();
+HTMLImageElement.prototype.addInfosImg = function(){
+	HTMLElement.prototype.addInfosImg.call (this);
 	if (exists (this.role) && ['image', 'img'].includes (this.role)) infos = infos + '\n? rôle redondant: '+ this.role;
+}
+HTMLImageElement.prototype.addInfos = function(){
+	Element.prototype.addInfos.call (this);
+
+
+	this.addInfosImg();
+	this.verifyRoleImg();
 }
 HTMLAreaElement.prototype.addInfos = function(){
 	this.addInfosImg();

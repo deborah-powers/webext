@@ -2,7 +2,7 @@
 var infos ="";
 
 Element.prototype.addInfos = function(){
-	infos = infos +'\n'+ this.tagName +'\t'+ this.role +'\n'+ this.compareNames();
+	infos = infos +'\n'+ this.tagName +'\t'+ this.getXpath() +'\n'+ this.compareNames();
 }
 // fonctions de base pour les string
 const blankChars = '\n \t';
