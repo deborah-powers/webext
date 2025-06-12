@@ -1,3 +1,27 @@
+const downloadFrame = `<!DOCTYPE html><html><head>
+	<title>$title</title>
+	<base target='_blank' />
+	<meta charset='utf-8' />
+	<meta name='viewport' content='width=device-width, initial-scale=1' />
+	<meta name='subject' content='$subject' />
+	<meta name='author' content='$author' />
+	<meta name='link' content='$link' />
+	<link rel='icon' type='image/svg+xml' href='file:///C:/wamp64/www/site-dp/data/nounours-perso.svg'/>
+	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/structure.css'/>
+	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/perso.css' media='screen'/>
+<style type='text/css'>
+$style
+</style></head><body>
+$text
+</body></html>`;
+const headFrame = `<title>$title</title>
+	<base target='_blank' />
+	<meta charset='utf-8' />
+	<meta name='viewport' content='width=device-width, initial-scale=1' />
+<style type='text/css'>
+$style
+</style>`;
+
 class FanficSubject{
 	static subjects =[
 		new FanficSubject ('romance', [ ' sex', 'x reader', 'rasmus', 'ville valo', 'jyrki', 'him (band)', '30 seconds to mars', 'integra', 'axi', 'damned caeli' ]),
@@ -33,6 +57,7 @@ class Fanfic{
 		this.author = 'inconnu';
 		this.subject ="";
 		this.link = window.location.href;
+		this.style ="";
 	}
 	cleanTitle(){
 		const chars = "\t\n\\'.:;,_-/";
@@ -90,37 +115,33 @@ class Fanfic{
 		const fanficStr = JSON.stringify (this.toData());
 		return fanficStr;
 	}
-	fillHeader(){
-		var header =`<title></title>
-	<base target='_blank' />
-	<meta charset='utf-8' />
-	<meta name='viewport' content='width=device-width, initial-scale=1' />
-	<meta name='subject' content='$subject' />
-	<meta name='author' content='$author' />
-	<meta name='link' content='$link' />
-`;
-		header = header.replace ('<title></title>', '<title>' + this.title + '</title>');
-		header = header.replace ('$subject', this.subject);
-		header = header.replace ('$title', this.title);
-		header = header.replace ('$link', this.link);
-		header = header.replace ('$author', this.author);
-		return header;
+	fillDownloadFile(){
+		var myFrame = downloadFrame.replace ('$title', this.title);
+		myFrame = myFrame.replace ('$subject', this.subject);
+		myFrame = myFrame.replace ('$author', this.author);
+		myFrame = myFrame.replace ('$link', this.link);
+		myFrame = myFrame.replace ('$text', this.text);
+		myFrame = myFrame.replace ('$style', this.style);
+		return myFrame;
 	}
-	toPage(){
+	fillHeader(){
+		var myFrame = headFrame.replace ('$title', this.title);
+		myFrame = myFrame.replace ('$style', this.style);
+		document.head.innerHTML = myFrame;
+	}
+	fillFooter(){
+		// si j'enregistre en tant que page web complète, je récupère mes headers
 		var footer =`<footer>
 	<p>subject: $subject</p>
 	<p>title: $title</p>
 	<p>link: $link</p>
 	<p>author: $author</p>
 </footer>`;
-		document.head.innerHTML = this.fillHeader();
-		/* si j'enregistre en tant que page web complète, je récupère mes headers
 		footer = footer.replace ('$subject', this.subject);
 		footer = footer.replace ('$title', this.title);
 		footer = footer.replace ('$link', this.link);
 		footer = footer.replace ('$author', this.author);
 		document.body.innerHTML = this.text + footer;
-		*/
 }}
 HTMLElement.prototype.removeAnnotations = function(){
 	if (this.children.length >0){ for (var c=0; c< this.children.length; c++) if (this.children[c].tagName !== 'svg') this.children[c].removeAnnotations(); }

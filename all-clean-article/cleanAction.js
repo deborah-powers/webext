@@ -18,7 +18,6 @@ var fanfic = new Fanfic();
 fanfic.title = libHtml.findTitle();
 fanfic.cleanTitle();
 fanfic.findSubject();
-var styleLocal ="";
 
 if (window.location.href.includes ('https://menace-theoriste.fr/')){
 	libHtml.cleanBody();
@@ -38,7 +37,7 @@ else if (window.location.href.includes ('https://www.fanfiction.net/s/')){
 	libHtml.replaceTag ('storytextp');
 	if (chapters) document.body.appendChild (chapters);
 }
-else if (window.location.href.includes ('https://archiveofourown.org/works/')){
+else if (window.location.href.includes ('https://archiveofourown.org/works/') && ! window.location.href.includes ('/search?')){
 	libHtml.replaceTag ('main');
 	libHtml.replaceTag ('inner');
 	// trouver le sujet
@@ -105,7 +104,7 @@ else if (window.location.href.includes ('https://stackoverflow.com/questions/') 
 	text ="";
 	for (var tag of tagList) text = text + tag.outerHTML;
 	document.body.innerHTML = title + text;
-	styleLocal = `body > div {
+	fanfic.style = `body > div {
 	border-top-style: double;
 	border-top-width: 8px;
 	padding-top: 1em;
@@ -120,15 +119,8 @@ fanfic.cleanTitle();
 libHtml.cleanBody();
 libHtml.delAttributes();
 document.body.removeAnnotations();
-fanfic.text = document.body.innerHTML;
-fanfic.toPage();
+fanfic.fillHeader();
 addCss ([ 'structure', 'perso' ]);
-var style = document.getElementsByTagName ('style')[0];
-if (style === undefined){
-	style = document.createElement ('style');
-	document.head.appendChild (style);
-}
-style.innerHTML = style.innerHTML + styleLocal;
-var downloadText = document.getElementsByTagName ('body')[0].innerHTML.replaceAll ('> ','>');
-downloadText = '<!DOCTYPE html><html><head>' + fanfic.fillHeader() + '</head><body>' + downloadText + '</body></html>';
+fanfic.text = document.body.innerHTML.replaceAll ('> ','>');
+var downloadText = fanfic.fillDownloadFile();
 libHtml.downloadFile (fanfic.title +'.html', downloadText);
