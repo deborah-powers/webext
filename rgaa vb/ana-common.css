@@ -1,12 +1,13 @@
 *:hover:before {
 	content: none;
 	display: block;
-	background-color: pink;
+	background-color: ivory;
 	opacity: 1;
 	color: #420;
 	font-size: 18px;
 	font-weight: normal;
 	font-family: georgia, serif;
+	text-transform: none;
 	border: double 8px deeppink;
 	border-radius: 0.5em;
 	padding: 0.5em;

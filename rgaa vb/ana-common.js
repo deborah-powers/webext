@@ -1,8 +1,11 @@
 // dépend de ana-name.js
 var infos ="";
+Element.prototype.infos ="";
 
 Element.prototype.addInfos = function(){
-	infos = infos +'\n\n\t'+ this.tagName +'\t'+ this.getXpath() +'\n'+ this.compareNames();
+	this.infos = this.compareNames();
+	infos = infos +'\n\n\t'+ this.tagName +'\t'+ this.getXpath() +'\n'+ this.infos;
+	this.setAttribute ('infos', this.infos);
 }
 // fonctions de base pour les string
 const blankChars = '\n \t';
@@ -32,6 +35,17 @@ String.prototype.strip = function(){
 	while (newString.includes ("  ")) newString = newString.replaceAll ("  ", " ");
 	while (newString.includes ('\n\n')) newString = newString.replaceAll ('\n\n', '\n');
 	return newString;
+}
+// fonctions utilitaires
+Element.prototype.getAllByRole = function (myRole){
+	var items =[];
+	if (myRole === this.role) items.push (this);
+	var itemsChild =[];
+	for (var c=0; c< this.children.length; c++){
+		itemsChild = this.children[c].getAllByRole (myRole);
+		for (var d=0; d< itemsChild.length; d++) items.push (itemsChild[d]);
+	}
+	return items;
 }
 // créer le fichier d'analyse et l'envoyer à la popup
 function handleResponse (response){ console.log ("le background à renvoyé le fichier d'audit", response.response); }

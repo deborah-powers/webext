@@ -63,16 +63,15 @@ Element.prototype.accessibleName = function(){
 	if ("" === intitule){
 		intitule = this.getAttribute ('aria-label');
 		if (intitule) method = 'aria-label';
-		else if (this.children.length >0 && false){
-			// boucle sautée pour le momment
+		else if (this.children.length >0){
 			var intituleChild ="";
 			var intituleChildren ="";
-			for (var c=0; c< this.children; c++){
-				intituleChild = this.children[c].accessibleName();
+			for (var child of this.children){
+				intituleChild = child.accessibleName();
 				if (! intituleChild.includes ('rien: ') && ! intituleChild.includes ('pas de tag label')){
 					var d=2+ intituleChild.indexOf (': ');
 					intituleChild = intituleChild.substring (d);
-					if (intituleChild.includes ('\n')){
+					if (intituleChild.includes ('\n') && false){
 						d= intituleChild.indexOf ('\n');
 						intituleChild = intituleChild.substring (0,d);
 					}
@@ -80,7 +79,7 @@ Element.prototype.accessibleName = function(){
 			}}
 			if (intituleChildren){
 				method = 'enfants';
-				intitule = intituleChildren;
+				intitule = intituleChildren.substring (2);
 		}}
 		else{
 			intitule = this.getAttribute ('title');

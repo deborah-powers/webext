@@ -14,7 +14,11 @@ function chooseAction (event){
 		var listStyle =[];
 		var listScript =[];
 		// choisir les actions
-		if (action === 'elm-image'){
+		if (action === 'elm-link'){
+			listStyle =[ 'ana-common.css', 'elm-link.css' ];
+			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-common.js', 'elm-link.js' ];
+		}
+		else if (action === 'elm-image'){
 			listStyle =[ 'ana-common.css', 'elm-image.css' ];
 			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-common.js', 'elm-image.js' ];
 		}
