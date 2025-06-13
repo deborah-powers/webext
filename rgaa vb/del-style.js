@@ -1,4 +1,5 @@
 const styleAttributes =[ 'style', 'align', 'background', 'bgcolor', 'border', 'cellpadding', 'cellspacing', 'color', 'marginheight', 'marginwidth' ];
+const styleImg = "<style type='text/css'>img, svg, canvas, area, input[type='image'] { max-width: 50vw; }</style>";
 
 // éffacer le style natif
 Element.prototype.delStyle = function(){
@@ -14,3 +15,4 @@ for (var s= styles.length -1; s>=0; s--) styles[s].parentElement.removeChild (st
 styles = document.getElementsByTagName ('link');
 for (var s= styles.length -1; s>=0; s--){ if (styles[s].rel === 'stylesheet') styles[s].parentElement.removeChild (styles[s]); }
 document.body.delStyle();
+document.head.innerHTML = document.head.innerHTML + styleImg;

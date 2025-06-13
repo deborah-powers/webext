@@ -15,8 +15,10 @@ function chooseAction (event){
 		var listScript =[];
 		// choisir les actions
 		if (action === 'elm-image'){
+			listStyle =[ 'ana-common.css', 'elm-image.css' ];
 			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-common.js', 'elm-image.js' ];
 		}
+		else if (action === 'del-style') listScript = [ 'del-style.js' ];
 		// lancer les actions
 		if (listStyle.length >0) chrome.scripting.insertCSS ({
 			target: {tabId: activeTab.id, allFrames: true},

@@ -149,12 +149,12 @@ SVGSVGElement.prototype.accessibleName = function(){
 Element.prototype.compareNames = function(){
 	var accessibleName = this.accessibleName();
 	accessibleName = accessibleName.toLowerCase();
-	accessibleName = '\nnom accessible ('+ accessibleName.replace (':', '):') + '\ndesc: ';
+	accessibleName = 'nom accessible ('+ accessibleName.replace (':', '):');
 	const description = this.description();
-	if (description) accessibleName = accessibleName + description;
-	else accessibleName = accessibleName + 'rien';
+	if (description) accessibleName = accessibleName + '\ndesc: '+ description;
 	const visibleName = this.visibleName();
 	if ("" !== visibleName && ! accessibleName.includes (visibleName))
-		accessibleName = accessibleName + '\n! le nom accessible ne reprend pas le nom visible';
+		accessibleName = accessibleName + '\nle nom accessible ne reprend pas le nom visible';
+	accessibleName = accessibleName.replaceAll ('(rien): rien', ': rien');
 	return accessibleName;
 }

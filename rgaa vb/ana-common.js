@@ -2,7 +2,7 @@
 var infos ="";
 
 Element.prototype.addInfos = function(){
-	infos = infos +'\n'+ this.tagName +'\t'+ this.getXpath() +'\n'+ this.compareNames();
+	infos = infos +'\n\n\t'+ this.tagName +'\t'+ this.getXpath() +'\n'+ this.compareNames();
 }
 // fonctions de base pour les string
 const blankChars = '\n \t';
@@ -34,16 +34,18 @@ String.prototype.strip = function(){
 	return newString;
 }
 // créer le fichier d'analyse et l'envoyer à la popup
-function handleResponse (response){ console.log ('un message à été renvoyé par le background', response.response); }
+function handleResponse (response){ console.log ("le background à renvoyé le fichier d'audit", response.response); }
 function handleError (error){ console.log ('une erreur est survenue lors de la réponse du background', error); }
 function prepAnalyse (anaName){
-	infos = 'url: '+ window.location.href + '\n\n===\n\n' + infos;
+	var header = 'url: '+ window.location.href + '\ntître: '+ document.title + "\ndate d'audit: "+ new Date().toLocaleString() + '\n\n===';
+	infos = header + infos;
 	var infosEncoded = encodeURIComponent (infos);
 	const sending = browser.runtime.sendMessage ({ anaName: anaName, infos: infosEncoded });
 	sending.then (handleResponse, handleError);
 }
 function downloadAnalyse_va (anaName){
-	infos = 'url: '+ window.location.href + '\n\n===\n\n' + infos;
+	var header = 'url: '+ window.location.href + '\ntître: '+ document.title + "\ndate d'audit: "+ new Date().toLocaleString() + '\n\n===';
+	infos = header + infos;
 	var infosEncoded = encodeURIComponent (infos);
 	const downloadLink = document.createElement ('a');
 	downloadLink.style.color = 'maroon';

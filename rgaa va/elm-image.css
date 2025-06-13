@@ -1,7 +1,7 @@
 area, canvas, img, input[type='image'], object, svg, [role='img'], [role='presentation'], .rgaa-bgimg { border-width: 4px !important; }
-img, input[type='image'], svg { border-style: dashed !important; }
-area, canvas, object, [role='img'], [role='presentation'] { border-style: solid !important; }
-svg[role='img'], svg[role='presentation'], canvas[role='img'], canvas[role='presentation'], img[alt][src], input[type='image'][alt]
+img, area, input[type='image'], svg { border-style: dashed !important; }
+canvas, object, [role='img'], [role='presentation'] { border-style: solid !important; }
+svg[role='img'], svg[role='presentation'], canvas[role='img'], canvas[role='presentation'], img[alt][src], area[alt][src], input[type='image'][alt]
 	{ border-style: solid !important; }
 
 img { border-color: #C0F !important; }
@@ -24,6 +24,3 @@ canvas:hover:before { content: 'canvas ' attr(role) '\A' attr(infos); }
 object:hover:before { content: 'object ' attr(role) '\A' attr(infos); }
 input[type='image']:hover:before { content: 'input image\A alt: ' attr(alt, 'manquant') attr(role) '\A' attr(infos); }
 [role='img']:hover:before, [role='presentation']:hover:before { content: 'role ' attr(role) '\A' attr(infos); }
-
-
-

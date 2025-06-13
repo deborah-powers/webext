@@ -1,7 +1,8 @@
 *:hover:before {
 	content: none;
 	display: block;
-	background-color: ivory;
+	background-color: pink;
+	opacity: 1;
 	color: #420;
 	font-size: 18px;
 	font-weight: normal;
@@ -26,4 +27,3 @@
 	border-width: 4px !important;
 	border-color: orangered;
 }
-img, svg, canvas, area { max-width: 50%; }

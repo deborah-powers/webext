@@ -1,14 +1,23 @@
 area, canvas, img, input[type='image'], object, svg, [role='img'], [role='presentation'], .rgaa-bgimg { border-width: 4px !important; }
-img, input[type='image'], svg { border-style: dashed !important; }
-area, canvas, object, [role='img'], [role='presentation'] { border-style: solid !important; }
-svg[role='img'], svg[role='presentation'], canvas[role='img'], canvas[role='presentation'], img[alt][src], input[type='image'][alt]
+img, area, input[type='image'], svg { border-style: dashed !important; }
+canvas, object, [role='img'], [role='presentation'] { border-style: solid !important; }
+svg[role='img'], svg[role='presentation'], canvas[role='img'], canvas[role='presentation'], img[alt][src], area[alt][src], input[type='image'][alt]
 	{ border-style: solid !important; }
 
-img { border-color: #C0F !important; }
-svg { border-color: #90F !important; }
+img, img[role] { border-color: #C0F !important; }
+svg, svg[role] { border-color: #90F !important; }
+text {
+	fill: yellow !important;
+	stroke: maroon !important;
+	stroke-width: 1px !important;
+}
+svg:hover text {
+	stroke-width: 2px !important;
+	font-size: 50px;
+}
 [role='img'], [role='presentation'] { border-color: #60F !important; }
 input[type='image'] { border-color: #30F !important; }
-area, canvas, object { border-color: #00F !important; }
+area, canvas, object, area[role], canvas[role], object[role] { border-color: #00F !important; }
 .rgaa-bgimg {
 	border-style: solid !important;
 	border-color: #F0F !important;
@@ -17,13 +26,13 @@ area, canvas, object { border-color: #00F !important; }
 a area, a canvas, a img, a input[type='image'], a object, a svg, a [role='img'], a [role='presentation'], a .rgaa-bgimg, a.rgaa-bgimg
 	{ border-width: 8px !important; }
 
-img:hover:before { content: 'img ' attr(role) '\A alt: ' attr(alt, 'manquant') '\A' attr(infos); }
-svg:hover:before { content: 'svg ' attr(role) '\A' attr(infos); }
-area:hover:before { content: 'area ' attr(role) '\A alt: ' attr(alt, 'manquant') '\A' attr(infos); }
-canvas:hover:before { content: 'canvas ' attr(role) '\A' attr(infos); }
-object:hover:before { content: 'object ' attr(role) '\A' attr(infos); }
-input[type='image']:hover:before { content: 'input image\A alt: ' attr(alt, 'manquant') attr(role) '\A' attr(infos); }
-[role='img']:hover:before, [role='presentation']:hover:before { content: 'role ' attr(role) '\A' attr(infos); }
+img:hover:before, img[role]:hover:before { content: 'img ' attr(role) '\A alt: ' attr(alt, 'manquant'); }
+svg:hover:before, svg[role]:hover:before { content: 'svg ' attr(role); }
+area:hover:before, area[role]:hover:before { content: 'area ' attr(role) '\A alt: ' attr(alt, 'manquant'); }
+canvas:hover:before, canvas[role]:hover:before { content: 'canvas ' attr(role); }
+object:hover:before, object[role]:hover:before { content: 'object ' attr(role); }
+input[type='image']:hover:before { content: 'input image\A alt: ' attr(alt, 'manquant') attr(role); }
+[role='img']:hover:before, [role='presentation']:hover:before { content: 'role ' attr(role); }
 
 
 

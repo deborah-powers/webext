@@ -1,35 +1,37 @@
 // dépend de ana-common.js et de ana-name.js
 
 Element.prototype.verifyRoleImg = function(){
-	infos = infos +'\n';
-	if (exists (this.role)) infos = infos + this.role;
-	else infos = infos +'.';
-	infos = infos + this.compareNames();
-	if (this.role === null || this.role === undefined || ! 'presentation img'.includes (this.role))
-		infos = infos +'\n! le rôle doit valoir img ou présentation';
-}
-
-
-HTMLElement.prototype.addInfosImg = function(){
-	Element.prototype.addInfos.call (this);
-	if (! exists (this.src)) infos = infos + '\n! pas de source';
-	if (! exists (this.alt)) infos = infos + '\n? pas de alt';
+	if (exists (this.role) && ! [ 'image', 'img', 'presentation' ].includes (this.role))
+		infos = infos + '\nrôle interdit: '+ this.role +'. les rôles autorisés sont: img, presentation';
 }
 HTMLImageElement.prototype.addInfos = function(){
-	this.addInfosImg();
-	if (exists (this.role) && ['image', 'img'].includes (this.role)) infos = infos + '\n? rôle redondant: '+ this.role;
-}
+	Element.prototype.addInfos.call (this);
+	if (! exists (this.src)) infos = infos + '\npas de source';
+	if (this.alt === null || this.alt === undefined) infos = infos + '\npas de alt. il doit toujours être présent, même vide';
+	else if (this.alt.isEmpty()) infos = infos + '\nalt vide';
+	if (exists (this.role)){
+		if ([ 'image', 'img', 'presentation' ].includes ()) infos = infos + '\nrôle redondant: '+ this.role;
+		else if (! [ 'button', 'checkbox', 'link', 'math', 'menuitem', 'menuitemcheckbox', 'menuitemradio', 'meter', 'option', 'progressbar', 'radio', 'scrollbar', 'separator', 'slider', 'switch', 'tab', 'treeitem' ].includes (this.role))
+			infos = infos + '\nrôle interdit: '+ this.role;
+}}
 HTMLAreaElement.prototype.addInfos = function(){
-	this.addInfosImg();
-	this.verifyRoleImg();
-}
+	Element.prototype.addInfos.call (this);
+	if (! exists (this.href)) infos = infos + '\npas de lien';
+	if (this.alt === null || this.alt === undefined) infos = infos + '\npas de alt. il doit toujours être présent, même vide';
+	else if (this.alt.isEmpty()) infos = infos + '\nalt vide';
+	if (exists (this.role)){
+		if (this.role === 'link') infos = infos + '\nrôle redondant: link';
+		else infos = infos + '\ntous les rôles sont interdit, y compris: '+ this.role;
+}}
 HTMLInputElement.prototype.addInfos = function(){
 	if (this.type === 'image'){
-		this.addInfosImg();
+		Element.prototype.addInfos.call (this);
+		if (! exists (this.src)) infos = infos + '\npas de source';
+		if (! exists (this.alt)) infos = infos + '\npas de alt';
 		this.verifyRoleImg();
 }}
-Element.prototype.addInfos = function(){
-	infos = infos +'\n\t'+ this.tagName +'\t'+ this.getXpath();
+SVGSVGElement.prototype.addInfos = function(){
+	Element.prototype.addInfos.call (this);
 	this.verifyRoleImg();
 }
 HTMLElement.prototype.bgImageDoublee = function(){
@@ -52,8 +54,6 @@ images = document.getElementsByTagName ('area');
 for (var img of images) img.addInfos();
 images = document.getElementsByTagName ('svg');
 for (var img of images) img.addInfos();
-images = document.getElementsByTagName ('text');
-for (var img of images) img.style.fill = 'yellow';
 images = document.getElementsByTagName ('canvas');
 for (var img of images) img.addInfos();
 images = document.getElementsByTagName ('object');
