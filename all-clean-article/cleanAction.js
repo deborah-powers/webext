@@ -1,24 +1,3 @@
-crutialData = `
-cleanBody: function(){ document.body.cleanBody(); },
-replaceTag: function (tagName){ document.body.replaceTag (tagName); },
-replaceTagList: function (tagParent, tagName){ tagParent.replaceTagList (tagName); },
-findTag: function (tagParent, tagName){ return tagParent.findTag (tagName); },
-findTagList: function (tagParent, tagName){ return tagParent.findTagList (tagName); },
-cleanHtml: function (text){ return text.cleanHtml(); },
-delAttributes: function(){
-	document.body.delAttributes();
-	document.body.delIds();
-},
-findTitle: findTitle,
-downloadFile: downloadFile
-`;
-const libHtml = callLibrary ([ 'textFct', 'htmlFct', 'pageFct' ]);
-document.body.innerHTML = libHtml.cleanHtml (document.body.innerHTML);
-var fanfic = new Fanfic();
-fanfic.title = libHtml.findTitle();
-fanfic.cleanTitle();
-fanfic.findSubject();
-
 if (window.location.href.includes ('https://menace-theoriste.fr/')){
 	libHtml.cleanBody();
 	libHtml.replaceTag ('wrap_all');
@@ -36,28 +15,6 @@ else if (window.location.href.includes ('https://www.fanfiction.net/s/')){
 	const chapters = libHtml.findTag (document.body, 'chap_select');
 	libHtml.replaceTag ('storytextp');
 	if (chapters) document.body.appendChild (chapters);
-}
-else if (window.location.href.includes ('https://archiveofourown.org/works/') && ! window.location.href.includes ('/search?')){
-	libHtml.replaceTag ('main');
-	libHtml.replaceTag ('inner');
-	// trouver le sujet
-	var tag = libHtml.findTag (document.body, 'wrapper');
-	libHtml.replaceTagList (tag, 'dd');
-	libHtml.replaceTagList (tag, 'a');
-	fanfic.subject ="";
-	for (var a=0; a< tag.children.length; a++) fanfic.subject = fanfic.subject +', '+ tag.children[a].innerText;
-	// trouver les autres infos
-	libHtml.replaceTag ('workskin');
-	fanfic.title = libHtml.findTag (document.body, 'title heading').innerText;
-	// trouver l'auteur
-	tag = libHtml.findTag (document.body, 'a');
-	fanfic.author = tag.innerText;
-	fanfic.authlink = tag.getAttribute ('href');
-	// trouver le texte
-	libHtml.replaceTag ('chapters');
-	libHtml.replaceTagList (document.body, 'userstuff module');
-	document.body.innerHTML = document.body.innerHTML.replaceAll ('<h3 class="landmark heading" id="work">Chapter Text</h3>', "");
-	document.body.innerHTML = document.body.innerHTML.replaceAll ('<h3 class="landmark heading" id="work">Work Text:</h3>', "");
 }
 else if (window.location.href.includes ('https://www.gutenberg.org/cache/epub/')){
 	// les métadonnées
@@ -115,12 +72,3 @@ img { max-width: 100%; }`;
 else{
 	fanfic.title = document.getElementsByTagName ('title')[0].innerHTML;
 }
-fanfic.cleanTitle();
-libHtml.cleanBody();
-libHtml.delAttributes();
-document.body.removeAnnotations();
-fanfic.fillHeader();
-addCss ([ 'structure', 'perso' ]);
-fanfic.text = document.body.innerHTML.replaceAll ('> ','>');
-var downloadText = fanfic.fillDownloadFile();
-libHtml.downloadFile (fanfic.title +'.html', downloadText);
