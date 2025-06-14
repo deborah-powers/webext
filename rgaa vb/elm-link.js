@@ -26,7 +26,9 @@ Element.prototype.addInfos = function(){
 	this.setAttribute ('infos', this.infos);
 }
 var links = document.getElementsByTagName ('a');
+if (links.length >100) console.log ('beaucoup de liens', links.length);
 for (var i=0; i< links.length; i++) links[i].addInfos();
 links = document.body.getAllByRole ('link');
+if (links.length >100) console.log ('beaucoup de liens', links.length);
 for (var i=0; i< links.length; i++) links[i].addInfos();
-prepAnalyse ('lien');
+downloadAnalyse ('lien');

@@ -56,9 +56,12 @@ SVGSVGElement.prototype.addInfos = function(){
 HTMLElement.prototype.bgImageDoublee = function(){
 	const style = window.getComputedStyle (this);
 	if (style.backgroundImage !== 'none'){
+		Element.prototype.addInfos.call (this);
+		this.classList.add ('rgaa-bgimg');
 		if (style.backgroundColor.includes ('rgba') && style.backgroundColor.includes (' 0)')){
-			infos = infos + "\n! pas de couleur de fond doublant l'image";
-			this.infos = this.infos + "\n! pas de couleur de fond doublant l'image";
+			infos = infos + "\npas de couleur de fond doublant l'image";
+			this.infos = this.infos + "\npas de couleur de fond doublant l'image";
+			this.classList.add ('rgaa-bgnocolor');
 		}
 		else this.infos = this.infos + "\nprésence d'une couleur de fond, "+ style.backgroundColor;
 		this.setAttribute ('infos', this.infos);
@@ -70,16 +73,22 @@ HTMLScriptElement.prototype.bgImageDoublee = function(){ return; }
 SVGSVGElement.prototype.bgImageDoublee = function(){ return; }
 
 var images = document.getElementsByTagName ('img');
+if (images.length >100) console.log ("beaucoup d'images", images.length);
 for (var img of images) img.addInfos();
 images = document.getElementsByTagName ('input');
+if (images.length >100) console.log ("beaucoup d'input image", images.length);
 for (var img of images) img.addInfos();
 images = document.getElementsByTagName ('area');
+if (images.length >100) console.log ("beaucoup d'area", images.length);
 for (var img of images) img.addInfos();
 images = document.getElementsByTagName ('svg');
+if (images.length >100) console.log ("beaucoup de svg", images.length);
 for (var img of images) img.addInfos();
 images = document.getElementsByTagName ('canvas');
+if (images.length >100) console.log ("beaucoup de canvas", images.length);
 for (var img of images) img.addInfos();
 images = document.getElementsByTagName ('object');
+if (images.length >100) console.log ("beaucoup d'object", images.length);
 for (var img of images) img.addInfos();
 document.body.bgImageDoublee();
-prepAnalyse ('image');
+downloadAnalyse ('image');

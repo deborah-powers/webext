@@ -1,4 +1,4 @@
-// dépend de ana-name.js
+// dépend de ana-name.js, ana-common.css
 var infos ="";
 Element.prototype.infos ="";
 
@@ -47,33 +47,16 @@ Element.prototype.getAllByRole = function (myRole){
 	}
 	return items;
 }
-// créer le fichier d'analyse et l'envoyer à la popup
-function handleResponse (response){ console.log ("le background à renvoyé le fichier d'audit", response.response); }
-function handleError (error){ console.log ('une erreur est survenue lors de la réponse du background', error); }
-function prepAnalyse (anaName){
+// créer le fichier d'analyse. le css est dans ana-common.css
+function downloadAnalyse (anaName){
 	var header = 'url: '+ window.location.href + '\ntître: '+ document.title + "\ndate d'audit: "+ new Date().toLocaleString() + '\n\n===';
 	infos = header + infos;
-	var infosEncoded = encodeURIComponent (infos);
-	const sending = browser.runtime.sendMessage ({ anaName: anaName, infos: infosEncoded });
-	sending.then (handleResponse, handleError);
-}
-function downloadAnalyse_va (anaName){
-	var header = 'url: '+ window.location.href + '\ntître: '+ document.title + "\ndate d'audit: "+ new Date().toLocaleString() + '\n\n===';
-	infos = header + infos;
-	var infosEncoded = encodeURIComponent (infos);
-	const downloadLink = document.createElement ('a');
-	downloadLink.style.color = 'maroon';
-	downloadLink.style.backgroundColor = 'ivory';
-	downloadLink.style.border = 'solid 4px deeppink';
-	downloadLink.style.borderRadius = '1em';
-	downloadLink.style.height = '4em';
-	downloadLink.style.textAlign = 'center';
-	downloadLink.style.position = 'fixed';
-	downloadLink.style.right = '0';
-	downloadLink.style.bottom = '50%';
-	downloadLink.style['z-index'] = '10';
-	downloadLink.innerHTML = "récupérer l'analyse";
-	downloadLink.download = 'rgaa analyse '+ anaName + '.txt';
-	downloadLink.href = "data:text/plain;charset=utf-8," + infosEncoded;
+	const infosEncoded = encodeURIComponent (infos);
+	var downloadLink = document.createElement ('a');
+	downloadLink.id = 'rgaa-download-rapport';
+	downloadLink.innerHTML = "télécharger l'analyse";
+	downloadLink.href = 'data:text/plain;charset=utf-8,' + infosEncoded;
+	downloadLink.download = 'rgaa analyse $anaName.txt'.replace ('$anaName', anaName);
+	downloadLink.setAttribute ('onmouseleave', "if (this.className.includes ('moved')) this.className =''; else this.className = 'moved'");
 	document.body.prepend (downloadLink);
 }

@@ -39,13 +39,3 @@ document.addEventListener ('DOMContentLoaded', function(){
 	var plist = document.body.getElementsByTagName ('p');
 	for (var p=0; p< plist.length; p++) plist[p].addEventListener ('click', chooseAction);
 });
-// recevoir et afficher le fichier d'analyse
-function downloadAnalyse (request, sender, sendResponse){
-	console.log ('le content script à envoyé un message', request.anaName, );
-	const downloadLink = document.getElementsByTagName ('a')[0];
-	downloadLink.href = downloadLink.href.replace ('$infos', request.infos);
-	downloadLink.download = downloadLink.download.replace ('$anaName', request.anaName);
-	downloadLink.innerHTML = "télécharger l'analyse";
-	sendResponse ({ response: 'message reçut' });
-}
-browser.runtime.onMessage.addListener (downloadAnalyse);
