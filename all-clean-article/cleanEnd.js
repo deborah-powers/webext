@@ -1,6 +1,6 @@
 fanfic.cleanTitle();
-libHtml.cleanBody();
-libHtml.delAttributes();
+// libHtml.cleanBody();
+// libHtml.delAttributes();
 document.body.removeAnnotations();
 fanfic.fillHeader();
 addCss ([ 'structure', 'perso' ]);
