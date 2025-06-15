@@ -11,6 +11,10 @@ article { margin-top: 1em; }`;
 
 // TODO à merger et adapter
 
+
+
+
+
 if (window.location.href.includes ('https://archiveofourown.org/works/') && ! window.location.href.includes ('/search?')){
 	// les fanfics
 	libHtml.replaceTag ('main');
@@ -104,10 +108,14 @@ HTMLLIElement.prototype.cleanFic = function(){
 // ------------ o ------------
 
 function cleanPage(){
+	console.log ('cleanPage a');
 	document.body.findTagReplace ('main');
+	console.log ('cleanPage b');
 	document.body.findTagReplace ('inner');
+	console.log ('cleanPage c');
 	document.body.removeEmptyTag();
 if (window.location.href.includes ('/users/')){
+	console.log ('cleanPage users');
 	// liste de fics d'un auteur. https://archiveofourown.org/users/KaraCee/pseuds/KaraCee
 	// l'auteur
 	var d=7+ window.location.href.indexOf ('/users/');
