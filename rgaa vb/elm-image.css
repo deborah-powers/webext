@@ -1,9 +1,26 @@
 area, canvas, img, input[type='image'], object, svg, [role='img'], [role='presentation'], .rgaa-bgimg { border-width: 4px !important; }
-img, area, input[type='image'], svg { border-style: dashed !important; }
-canvas, object, [role='img'], [role='presentation'] { border-style: solid !important; }
-svg[role='img'], svg[role='presentation'], canvas[role='img'], canvas[role='presentation'], img[alt][src], area[alt][src], input[type='image'][alt]
-	{ border-style: solid !important; }
 
+/* les images décoratives */
+[role='img'], area[role='img'], canvas[role='img'], img[role='img'], object[role='img'], svg[role='img'], .rgaa-bgimg[role='img'],
+[role='presentation'], area[role='presentation'], canvas[role='presentation'], img[role='presentation'], object[role='presentation'],
+svg[role='presentation'], .rgaa-bgimg[role='presentation'], img[alt=""], area[alt=""],
+area[aria-hidden='true'], canvas[aria-hidden='true'], img[aria-hidden='true'], object[aria-hidden='true'], svg[aria-hidden='true'],
+.rgaa-bgimg[aria-hidden='true'], [aria-hidden='true'] .rgaa-bgimg
+[aria-hidden='true'] area, [aria-hidden='true'] canvas, [aria-hidden='true'] img, [aria-hidden='true'] object, [aria-hidden='true'] svg
+	{ border-style: dotted !important; }
+
+/* les images qui ne devrait pas être décoratives */
+a area[aria-hidden='true'], a canvas[aria-hidden='true'], a img[aria-hidden='true'], a object[aria-hidden='true'], a svg[aria-hidden='true'],
+[aria-hidden='true'] a area, [aria-hidden='true'] a canvas, [aria-hidden='true'] a img, [aria-hidden='true'] a object,
+[aria-hidden='true'] a svg { border-style: dashed !important; }
+
+/* les images informatives */
+area[alt], canvas, img[alt], input[type='image'][alt], object, svg, .rgaa-bgimg { border-style: solid !important; }
+
+/* les images de fond sans couleur de doublage */
+.rgaa-bgimg.rgaa-bgnocolor { border-style: dashed !important; }
+
+/* les couleurs distingant les différents objets */
 img, img[role] { border-color: #C0F !important; }
 svg, svg[role] { border-color: #90F !important; }
 text {
@@ -22,17 +39,20 @@ area, canvas, object, area[role], canvas[role], object[role] { border-color: #00
 	border-style: solid !important;
 	border-color: #F0F !important;
 }
-.rgaa-bgimg.rgaa-bgnocolor { border-style: dashed !important; }
+/* les images dans des liens */
 a area, a canvas, a img, a input[type='image'], a object, a svg, a [role='img'], a [role='presentation'], a .rgaa-bgimg, a.rgaa-bgimg
 	{ border-width: 8px !important; }
 
-img:hover:before, img[role]:hover:before { content: 'img ' attr(role) '\A alt: ' attr(alt, 'manquant') '\A' attr(infos); }
-svg:hover:before, svg[role]:hover:before { content: 'svg ' attr(role) '\A' attr(infos); }
-area:hover:before, area[role]:hover:before { content: 'area ' attr(role) '\A alt: ' attr(alt, 'manquant') '\A' attr(infos); }
-canvas:hover:before, canvas[role]:hover:before { content: 'canvas ' attr(role) '\A' attr(infos); }
-object:hover:before, object[role]:hover:before { content: 'object ' attr(role) '\A' attr(infos); }
-input[type='image']:hover:before { content: 'input image\A alt: ' attr(alt, 'manquant') attr(role) '\A' attr(infos); }
-[role='img']:hover:before, [role='presentation']:hover:before { content: 'role ' attr(role) '\A' attr(infos); }
-.rgaa-bgimg.rgaa-bgnocolor:hover:before { content: attr(infos); }
+/* les styles par défaut */
+img, area { border-style: dashed; }
 
+/* affichage des infos au survol */
+img:hover:before, img[role]:hover:before { content: 'img\A alt: ' attr(alt, 'manquant') '\A' attr(infos); }
+svg:hover:before, svg[role]:hover:before { content: 'svg\A' attr(infos); }
+area:hover:before, area[role]:hover:before { content: 'area\A alt: ' attr(alt, 'manquant') '\A' attr(infos); }
+canvas:hover:before, canvas[role]:hover:before { content: 'canvas\A' attr(infos); }
+object:hover:before, object[role]:hover:before { content: 'object\A' attr(infos); }
+input[type='image']:hover:before { content: 'input image\A alt: ' attr(alt, 'manquant') '\A' attr(infos); }
+[role='img']:hover:before, [role='presentation']:hover:before { content: 'role\A' attr(infos); }
+.rgaa-bgimg.rgaa-bgnocolor:hover:before { content: attr(infos); }
 

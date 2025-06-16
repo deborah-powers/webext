@@ -2,17 +2,21 @@
 tous les éléments n'ont pas la propriété before
 */
 Element.prototype.verifyRoleImg = function(){
-	if (exists (this.role) && ! [ 'image', 'img', 'presentation' ].includes (this.role)){
+	if (! exists (this.role)){
+		infos = infos + '\nrôle manquant: img ou presentation';
+		this.infos = this.infos + '\nrôle manquant: img ou presentation';
+	}
+	else if (! [ 'image', 'img', 'presentation' ].includes (this.role)){
 		infos = infos + '\nrôle interdit: '+ this.role +'. les rôles autorisés sont: img, presentation';
 		this.infos = this.infos + '\nrôle interdit: '+ this.role;
 }}
 HTMLImageElement.prototype.addInfos = function(){
-	Element.prototype.addInfos.call (this);
+	HTMLElement.prototype.addInfos.call (this);
 	if (! exists (this.src)){
 		infos = infos + '\npas de source';
 		this.infos = this.infos + '\npas de source';
 	}
-	if (this.alt === null || this.alt === undefined){
+	if (this.getAttribute ('alt') === null){
 		infos = infos + '\npas de alt. il doit toujours être présent, même vide';
 		this.infos = this.infos + '\nalt manquant';
 	}
@@ -33,7 +37,7 @@ HTMLImageElement.prototype.addInfos = function(){
 	this.setAttribute ('infos', this.infos);
 }
 HTMLAreaElement.prototype.addInfos = function(){
-	Element.prototype.addInfos.call (this);
+	HTMLElement.prototype.addInfos.call (this);
 	if (! exists (this.href)) infos = infos + '\npas de lien';
 	if (this.alt === null || this.alt === undefined) infos = infos + '\npas de alt. il doit toujours être présent, même vide';
 	else if (this.alt.isEmpty()) infos = infos + '\nalt vide';
@@ -43,15 +47,16 @@ HTMLAreaElement.prototype.addInfos = function(){
 }}
 HTMLInputElement.prototype.addInfos = function(){
 	if (this.type === 'image'){
-		Element.prototype.addInfos.call (this);
+		HTMLElement.prototype.addInfos.call (this);
 		if (! exists (this.src)) infos = infos + '\npas de source';
 		if (! exists (this.alt)) infos = infos + '\npas de alt';
-		this.verifyRoleImg();
+	//	this.verifyRoleImg();
 		this.setAttribute ('infos', this.infos);
 }}
 SVGSVGElement.prototype.addInfos = function(){
 	Element.prototype.addInfos.call (this);
-	this.verifyRoleImg();
+//	this.verifyRoleImg();
+	this.setAttribute ('infos', this.infos);
 }
 HTMLElement.prototype.bgImageDoublee = function(){
 	const style = window.getComputedStyle (this);
@@ -73,22 +78,22 @@ HTMLScriptElement.prototype.bgImageDoublee = function(){ return; }
 SVGSVGElement.prototype.bgImageDoublee = function(){ return; }
 
 var images = document.getElementsByTagName ('img');
-if (images.length >100) console.log ("beaucoup d'images", images.length);
-for (var img of images) img.addInfos();
+images.setNbItemMax ('img');
+for (var i=0; i< nbItemMax; i++) images[i].addInfos();
 images = document.getElementsByTagName ('input');
-if (images.length >100) console.log ("beaucoup d'input image", images.length);
-for (var img of images) img.addInfos();
+images.setNbItemMax ('input img');
+for (var i=0; i< nbItemMax; i++) images[i].addInfos();
 images = document.getElementsByTagName ('area');
-if (images.length >100) console.log ("beaucoup d'area", images.length);
-for (var img of images) img.addInfos();
+images.setNbItemMax ('area');
+for (var i=0; i< nbItemMax; i++) images[i].addInfos();
 images = document.getElementsByTagName ('svg');
-if (images.length >100) console.log ("beaucoup de svg", images.length);
-for (var img of images) img.addInfos();
+images.setNbItemMax ('svg');
+for (var i=0; i< nbItemMax; i++) images[i].addInfos();
 images = document.getElementsByTagName ('canvas');
-if (images.length >100) console.log ("beaucoup de canvas", images.length);
-for (var img of images) img.addInfos();
+images.setNbItemMax ('canvas');
+for (var i=0; i< nbItemMax; i++) images[i].addInfos();
 images = document.getElementsByTagName ('object');
-if (images.length >100) console.log ("beaucoup d'object", images.length);
-for (var img of images) img.addInfos();
+images.setNbItemMax ('object');
+for (var i=0; i< nbItemMax; i++) images[i].addInfos();
 document.body.bgImageDoublee();
 downloadAnalyse ('image');

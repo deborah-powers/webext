@@ -63,24 +63,6 @@ Element.prototype.accessibleName = function(){
 	if ("" === intitule){
 		intitule = this.getAttribute ('aria-label');
 		if (intitule) method = 'aria-label';
-		else if (this.children.length >0){
-			var intituleChild ="";
-			var intituleChildren ="";
-			for (var child of this.children){
-				intituleChild = child.accessibleName();
-				if (! intituleChild.includes ('rien: ') && ! intituleChild.includes ('pas de tag label')){
-					var d=2+ intituleChild.indexOf (': ');
-					intituleChild = intituleChild.substring (d);
-					if (intituleChild.includes ('\n') && false){
-						d= intituleChild.indexOf ('\n');
-						intituleChild = intituleChild.substring (0,d);
-					}
-					intituleChildren =", "+ intituleChild;
-			}}
-			if (intituleChildren){
-				method = 'enfants';
-				intitule = intituleChildren.substring (2);
-		}}
 		else{
 			intitule = this.getAttribute ('title');
 			if (intitule) method = 'title';
@@ -95,7 +77,24 @@ Element.prototype.accessibleName = function(){
 HTMLElement.prototype.accessibleName = function(){
 	var intitule = Element.prototype.accessibleName.call (this);
 	if ('aria-' === intitule.substring (0,5)) return intitule;
-	else if (! this.innerText.isEmpty()) return 'texte: '+ this.innerText.cleanName();
+	else if (this.children.length >0){
+		var intituleChild ="";
+		var intituleChildren ="";
+		for (var child of this.children){
+			if (this.tagName === 'svg') console.log (child);
+			intituleChild = child.accessibleName();
+			if (! intituleChild.includes ('rien: ') && ! intituleChild.includes ('pas de tag label')){
+				var d=2+ intituleChild.indexOf (': ');
+				intituleChild = intituleChild.substring (d);
+				if (intituleChild.includes ('\n') && false){
+					d= intituleChild.indexOf ('\n');
+					intituleChild = intituleChild.substring (0,d);
+				}
+				intituleChildren =", "+ intituleChild;
+		}}
+		if (intituleChildren) intitule = 'enfants: '+ intituleChildren.substring (2);
+	}
+	else if (! this.innerText.isEmpty()) intitule = 'texte: '+ this.innerText.cleanName();
 	return intitule;
 }
 HTMLFieldSetElement.prototype.accessibleName = function(){
@@ -136,24 +135,25 @@ SVGSVGElement.prototype.accessibleName = function(){
 	var intitule = Element.prototype.accessibleName.call (this);
 	if ('aria-' === intitule.substring (0,5)) return intitule;
 	const title = this.getElementsByTagName ('title')[0];
-	if (exists (title)) intitule = 'title tag: '+ title;
+	if (exists (title)) intitule = 'title tag: '+ title.innerHTML;
 	else if (exists (this.textContent)){
 		intitule = this.textContent.toLowerCase();
 		intitule = intitule.replaceAll ('\n'," ");
 		intitule = intitule.replaceAll ('\t'," ");
-		intitule = intitule.strip();
+		intitule = 'texte: '+ intitule.strip();
 	}
 	return intitule;
 }
 Element.prototype.compareNames = function(){
 	var accessibleName = this.accessibleName();
 	accessibleName = accessibleName.toLowerCase();
-	accessibleName = 'nom accessible ('+ accessibleName.replace (':', '):');
+	accessibleName = 'nom accessible: ('+ accessibleName.replace (':', ')');
 	const description = this.description();
 	if (description) accessibleName = accessibleName + '\ndesc: '+ description;
 	const visibleName = this.visibleName();
 	if ("" !== visibleName && ! accessibleName.includes (visibleName))
 		accessibleName = accessibleName + '\nle nom accessible ne reprend pas le nom visible';
-	accessibleName = accessibleName.replaceAll ('(rien): rien', ': rien');
+	accessibleName = accessibleName.replaceAll ('(rien) rien', 'rien');
+	accessibleName = accessibleName.replace ('nom accessible: rien', 'nom accessible: manquant')
 	return accessibleName;
 }

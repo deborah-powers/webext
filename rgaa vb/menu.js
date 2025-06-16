@@ -16,7 +16,7 @@ function chooseAction (event){
 		// choisir les actions
 		if (action === 'elm-link'){
 			listStyle =[ 'ana-common.css', 'elm-link.css' ];
-			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-common.js', 'elm-link.js' ];
+			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-contrast.js', 'ana-common.js', 'elm-link.js' ];
 		}
 		else if (action === 'elm-image'){
 			listStyle =[ 'ana-common.css', 'elm-image.css' ];

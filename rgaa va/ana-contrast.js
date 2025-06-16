@@ -34,7 +34,7 @@ colorInputs[1].addEventListener ('click', typeColorA);
 colorInputs[2].addEventListener ('change', pickColorO);
 colorInputs[3].addEventListener ('click', typeColorO);
 
-// pour les jeux de mots: ABCDEFGILOS
+// pour les jeux de mots: ABCDEFGILOS, ABCDEF61105
 // ------------------------ calculer le contraste ------------------------
 
 function computefromSrgb (colSrgb){

@@ -47,6 +47,24 @@ Element.prototype.getAllByRole = function (myRole){
 	}
 	return items;
 }
+// limiter le nombre d'items traités par souci de rapidité
+var nbItemMax = 50;
+HTMLCollection.prototype.setNbItemMax = function (typeElm){
+	if (this.length >50){
+		infos = infos + "\ntrop d'élements de type "+ typeElm +", "+ this.length.toString()
+			+". je n'analyserai que les 50 premiers par souci de rapidité.";
+		nbItemMax =50;
+	}
+	else nbItemMax = this.length;
+}
+Array.prototype.setNbItemMax = function (typeElm){
+	if (this.length >50){
+		infos = infos + "\ntrop d'élements de type "+ typeElm +", "+ this.length.toString()
+			+". je n'analyserai que les 50 premiers par souci de rapidité.";
+		nbItemMax =50;
+	}
+	else nbItemMax = this.length;
+}
 // créer le fichier d'analyse. le css est dans ana-common.css
 function downloadAnalyse (anaName){
 	var header = 'url: '+ window.location.href + '\ntître: '+ document.title + "\ndate d'audit: "+ new Date().toLocaleString() + '\n\n===';
@@ -58,5 +76,5 @@ function downloadAnalyse (anaName){
 	downloadLink.href = 'data:text/plain;charset=utf-8,' + infosEncoded;
 	downloadLink.download = 'rgaa analyse $anaName.txt'.replace ('$anaName', anaName);
 	downloadLink.setAttribute ('onmouseleave', "if (this.className.includes ('moved')) this.className =''; else this.className = 'moved'");
-	document.body.prepend (downloadLink);
+	document.body.appendChild (downloadLink);
 }

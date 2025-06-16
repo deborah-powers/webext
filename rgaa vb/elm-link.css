@@ -4,11 +4,12 @@ a, [role='link'] {
 	border-color: #C36 !important;
 }
 [role='link'] { border-color: #C96 !important; }
+li a { border-color: #396 !important; }
 a[disabled], [role='link'][disabled] { border-style: dotted !important; }
 a[href], [role='link'][href] { border-style: solid !important; }
 a[href=""], a[href='#'], [role='link'][href=""], [role='link'][href='#'] { border-style: dashed !important; }
 a.rgaa-error, [role='link'].rgaa-error { border-style: dashed !important; }
 
 /* a:hover:before { content: 'a #' attr(id) ' :' attr(role) '\A.' attr(class); } */
-a:hover:before { content: 'ancre ' attr(role) '\A' attr(infos); }
+a:hover:before { content: 'ancre\A' attr(infos); }
 [role='link']:hover:before { content: 'role lien\A' attr(infos); }
