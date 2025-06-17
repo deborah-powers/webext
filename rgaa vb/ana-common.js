@@ -1,12 +1,14 @@
 // dépend de ana-name.js, ana-common.css
-var infos ="";
-Element.prototype.infos ="";
+var infos ="";	// rapport
+Element.prototype.infos ="";	// détail de chaque élément
 
 Element.prototype.addInfos = function(){
-	this.infos = this.compareNames();
+	if (exists (this.role)) this.infos = 'role: '+ this.role +'\n';
+	this.infos = this.infos + this.compareNames();
 	infos = infos +'\n\n\t'+ this.tagName +'\t'+ this.getXpath() +'\n'+ this.infos;
 	this.setAttribute ('infos', this.infos);
 }
+Element.prototype.addInfosOnHover = function(){ return false; }
 // fonctions de base pour les string
 const blankChars = '\n \t';
 function exists (item){
@@ -47,34 +49,50 @@ Element.prototype.getAllByRole = function (myRole){
 	}
 	return items;
 }
-// limiter le nombre d'items traités par souci de rapidité
-var nbItemMax = 50;
+// s'il y a trop d'éléments pour tous les traiter, analyser certains au survol
+var nbItemMax = 20;
 HTMLCollection.prototype.setNbItemMax = function (typeElm){
-	if (this.length >50){
+	if (this.length >20){
 		infos = infos + "\ntrop d'élements de type "+ typeElm +", "+ this.length.toString()
-			+". je n'analyserai que les 50 premiers par souci de rapidité.";
-		nbItemMax =50;
+			+". je n'analyserai que les 20 premiers par souci de rapidité.";
+		nbItemMax =20;
 	}
 	else nbItemMax = this.length;
 }
 Array.prototype.setNbItemMax = function (typeElm){
-	if (this.length >50){
+	if (this.length >20){
 		infos = infos + "\ntrop d'élements de type "+ typeElm +", "+ this.length.toString()
-			+". je n'analyserai que les 50 premiers par souci de rapidité.";
-		nbItemMax =50;
+			+". je n'analyserai que les 20 premiers par souci de rapidité.";
+		nbItemMax =20;
 	}
 	else nbItemMax = this.length;
 }
+document.body.addEventListener ('mouseover', function (event){
+	if ("" === event.target.infos){
+		const toAnalyse = event.target.addInfosOnHover();
+		if (toAnalyse){
+			event.target.addInfos();
+			addAnalyse();
+}}});
 // créer le fichier d'analyse. le css est dans ana-common.css
+function addAnalyse(){
+	const infosEncoded = encodeURIComponent (infos);
+	const downloadLink = document.getElementById ('rgaa-download-rapport');
+	downloadLink.href = 'data:text/plain;charset=utf-8,' + infosEncoded;
+}
 function downloadAnalyse (anaName){
 	var header = 'url: '+ window.location.href + '\ntître: '+ document.title + "\ndate d'audit: "+ new Date().toLocaleString() + '\n\n===';
 	infos = header + infos;
 	const infosEncoded = encodeURIComponent (infos);
-	var downloadLink = document.createElement ('a');
+	const downloadLink = document.createElement ('a');
 	downloadLink.id = 'rgaa-download-rapport';
 	downloadLink.innerHTML = "télécharger l'analyse";
 	downloadLink.href = 'data:text/plain;charset=utf-8,' + infosEncoded;
 	downloadLink.download = 'rgaa analyse $anaName.txt'.replace ('$anaName', anaName);
-	downloadLink.setAttribute ('onmouseleave', "if (this.className.includes ('moved')) this.className =''; else this.className = 'moved'");
+//	downloadLink.setAttribute ('onmouseleave', "if (this.className.includes ('moved')) this.className =''; else this.className = 'moved'");
+	downloadLink.addEventListener ('mouseleave', function (event){
+		if (this.className.includes ('moved')) this.className ="";
+		else this.className = 'moved';
+	});
 	document.body.appendChild (downloadLink);
 }

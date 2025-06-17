@@ -3,7 +3,8 @@ area, canvas, img, input[type='image'], object, svg, [role='img'], [role='presen
 /* les images décoratives */
 [role='img'], area[role='img'], canvas[role='img'], img[role='img'], object[role='img'], svg[role='img'], .rgaa-bgimg[role='img'],
 [role='presentation'], area[role='presentation'], canvas[role='presentation'], img[role='presentation'], object[role='presentation'],
-svg[role='presentation'], .rgaa-bgimg[role='presentation'], img[alt=""], area[alt=""],
+svg[role='presentation'], .rgaa-bgimg[role='presentation'],
+img[alt=""], area[alt=""], img[alt][aria-hidden='true'], area[alt][aria-hidden='true'],
 area[aria-hidden='true'], canvas[aria-hidden='true'], img[aria-hidden='true'], object[aria-hidden='true'], svg[aria-hidden='true'],
 .rgaa-bgimg[aria-hidden='true'], [aria-hidden='true'] .rgaa-bgimg
 [aria-hidden='true'] area, [aria-hidden='true'] canvas, [aria-hidden='true'] img, [aria-hidden='true'] object, [aria-hidden='true'] svg

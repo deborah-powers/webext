@@ -14,7 +14,7 @@
 	max-width: 40vw;
 	position: fixed;
 	bottom: 2em;
-	z-index: 10;
+	z-index: 20;
 }
 *:hover:before {
 	content: none;
@@ -23,7 +23,7 @@
 a#rgaa-download-rapport { left: 0; }
 a#rgaa-download-rapport.moved {
 	bottom: unset;
-	top: 0;
+	top: 0%;
 }
 .rgaa-highlight {
 	border-style: solid !important;

@@ -1,6 +1,14 @@
 /* dépend de encart.js, de ana-common.js et de ana-name.js
 prendre en compte la valeur des pseudo-classes :before et :after
 */
+Element.prototype.addInfosOnHover = function(){
+	if ('link' === this.role) return true;
+	else return false;
+}
+HTMLAnchorElement.prototype.addInfosOnHover = function(){
+	if (this.id === 'rgaa-download-rapport') return false;
+	else return true;
+}
 HTMLElement.prototype.inList = function(){
 	if (this.tagName === 'LI') return true;
 	else if (this.tagName === 'BODY') return false;

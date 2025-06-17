@@ -58,6 +58,18 @@ SVGSVGElement.prototype.addInfos = function(){
 //	this.verifyRoleImg();
 	this.setAttribute ('infos', this.infos);
 }
+Element.prototype.addInfosOnHover = function(){
+	if ([ 'image', 'img', 'presentation' ].includes (this.role)) return true;
+	else return false;
+}
+HTMLImageElement.prototype.addInfosOnHover = function(){ return true; }
+HTMLAreaElement.prototype.addInfosOnHover = function(){ return true; }
+HTMLInputElement.prototype.addInfosOnHover = function(){
+	if (this.type === 'image') return true;
+	else return false;
+}
+SVGSVGElement.prototype.addInfosOnHover = function(){ return true; }
+
 HTMLElement.prototype.bgImageDoublee = function(){
 	const style = window.getComputedStyle (this);
 	if (style.backgroundImage !== 'none'){
