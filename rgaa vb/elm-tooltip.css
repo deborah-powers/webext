@@ -1,0 +1,11 @@
+[title], [aria-describedby], [role='tooltip'] {
+	border-style: solid !important;
+	border-width: 4px !important;
+}
+[title] { border-color: deeppink !important; }
+[aria-describedby] { border-color: springgreen !important; }
+[role='tooltip'] { border-color: cadetblue !important; }
+
+[title]:hover:before { content: 'titre: ' attr(title); }
+[aria-describedby]:hover:before { content: 'décris par: ' attr(aria-describedby); }
+

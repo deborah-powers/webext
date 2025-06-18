@@ -9,12 +9,13 @@ function chooseAction (event){
 				'ana-common.css', 'volet.css',
 				'ana-color.css', 'ana-common.css', 'ana-contrast.css', 'ana-download.css', 'ana-focus.css', 'ana-langue.css',
 				'elm-click.css', 'elm-conteneur.css', 'elm-form.css', 'elm-hidden.css', 'elm-iframe.css', 'elm-image.css', 'elm-interract.css', 'elm-interdit.css',
-				'elm-link.css', 'elm-liste.css', 'elm-media.css', 'elm-table.css', 'elm-titre.css'
+				'elm-link.css', 'elm-liste.css', 'elm-media.css', 'elm-table.css', 'elm-titre.css', 'elm-tooltip.css'
 		]});
 		var listStyle =[];
 		var listScript =[];
 		// choisir les actions
-		if (action === 'elm-link'){
+		if (action === 'elm-tooltip') listStyle =[ 'ana-common.css', 'elm-tooltip.css' ];
+		else if (action === 'elm-link'){
 			listStyle =[ 'ana-common.css', 'elm-link.css' ];
 			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-contrast.js', 'ana-common.js', 'elm-link.js' ];
 		}
