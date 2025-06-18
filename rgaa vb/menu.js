@@ -6,15 +6,17 @@ function chooseAction (event){
 		chrome.scripting.removeCSS ({
 			target: {tabId: activeTab.id, allFrames: true},
 			files: [
-				'ana-common.css', 'volet.css',
-				'ana-color.css', 'ana-common.css', 'ana-contrast.css', 'ana-download.css', 'ana-focus.css', 'ana-langue.css',
-				'elm-click.css', 'elm-conteneur.css', 'elm-form.css', 'elm-hidden.css', 'elm-iframe.css', 'elm-image.css', 'elm-interract.css', 'elm-interdit.css',
-				'elm-link.css', 'elm-liste.css', 'elm-media.css', 'elm-table.css', 'elm-titre.css', 'elm-tooltip.css'
+				'ana-common.css', 'ana-tabulation.css', 'elm-image.css', 'elm-interract.css', 'elm-link.css', 'elm-tooltip.css'
 		]});
 		var listStyle =[];
 		var listScript =[];
 		// choisir les actions
-		if (action === 'elm-tooltip') listStyle =[ 'ana-common.css', 'elm-tooltip.css' ];
+		if (action === 'ana-tabulation') listStyle =[ 'ana-tabulation.css' ];
+		else if (action === 'elm-tooltip') listStyle =[ 'ana-common.css', 'elm-tooltip.css' ];
+		else if (action === 'elm-interract'){
+			listStyle =[ 'ana-common.css', 'elm-interract.css' ];
+			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-contrast.js', 'ana-common.js', 'elm-interract.js' ];
+		}
 		else if (action === 'elm-link'){
 			listStyle =[ 'ana-common.css', 'elm-link.css' ];
 			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-contrast.js', 'ana-common.js', 'elm-link.js' ];

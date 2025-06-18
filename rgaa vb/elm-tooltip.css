@@ -1,11 +1,11 @@
-[title], [aria-describedby], [role='tooltip'] {
-	border-style: solid !important;
-	border-width: 4px !important;
-}
+[title], [aria-describedby], [role='tooltip'] { border-width: 4px !important; }
+[title], [aria-describedby][tabindex], [role='tooltip'][tabindex='0'] { border-style: solid !important; }
+[aria-describedby], [aria-describedby][tabindex='-1'], [role='tooltip'], [role='tooltip'][tabindex='-1'] { border-style: dashed !important; }
+
 [title] { border-color: deeppink !important; }
 [aria-describedby] { border-color: springgreen !important; }
 [role='tooltip'] { border-color: cadetblue !important; }
 
-[title]:hover:before { content: 'titre: ' attr(title); }
-[aria-describedby]:hover:before { content: 'décris par: ' attr(aria-describedby); }
-
+[aria-describedby][tabindex='-1']:hover:before { content: 'attribut tabindex négatif'; }
+[aria-describedby]:hover:before { content: 'attribut tabindex manquant'; }
+[aria-describedby][tabindex]:hover:before { content: 'attribut tabindex: ' attr(tabindex); }

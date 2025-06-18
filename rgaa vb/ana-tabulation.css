@@ -1,0 +1,20 @@
+[aria-describedby], [role='tooltip'], [tabindex='0'], input, select, textarea { border-width: 4px !important; }
+
+[tabindex='0'] { border-color: deeppink !important; }
+[tabindex='0'], [aria-describedby][tabindex='0'], [role='tooltip'][tabindex='0'] { border-style: solid !important; }
+
+[aria-describedby] { border-color: springgreen !important; }
+[role='tooltip'] { border-color: orangered !important; }
+
+[aria-describedby], [role='tooltip'], [tabindex='0'][aria-hidden='true'], [tabindex='0'][role='presentation']
+	{ border-style: dashed !important; }
+
+input, select, textarea {
+	border-style: solid !important;
+	border-color: cadetblue !important;
+}
+input[tabindex='-1'], select[tabindex='-1'], textarea[tabindex='-1'],
+input[role='presentation'], select[role='presentation'], textarea[role='presentation'],
+input[aria-hidden='true'], select[aria-hidden='true'], textarea[aria-hidden='true'],
+[aria-hidden='true'] input, [aria-hidden='true'] select, [aria-hidden='true'] textarea
+	{ border-style: dashed !important; }

@@ -77,11 +77,11 @@ Element.prototype.accessibleName = function(){
 HTMLElement.prototype.accessibleName = function(){
 	var intitule = Element.prototype.accessibleName.call (this);
 	if ('aria-' === intitule.substring (0,5)) return intitule;
-	else if (this.children.length >0){
+	else if (this.children.length >0 && false){
+		// l'attribut alt de l'image ne sert pas de nom pour sont conteneur
 		var intituleChild ="";
 		var intituleChildren ="";
 		for (var child of this.children){
-			if (this.tagName === 'svg') console.log (child);
 			intituleChild = child.accessibleName();
 			if (! intituleChild.includes ('rien: ') && ! intituleChild.includes ('pas de tag label')){
 				var d=2+ intituleChild.indexOf (': ');
