@@ -6,11 +6,16 @@ function chooseAction (event){
 		chrome.scripting.removeCSS ({
 			target: {tabId: activeTab.id, allFrames: true},
 			files: [
-				'ana-common.css', 'ana-tabulation.css', 'elm-image.css', 'elm-interract.css', 'elm-link.css', 'elm-tooltip.css'
+				'ana-common.css', 'ana-tabulation.css',
+				'elm-image.css', 'elm-interract.css', 'elm-link.css', 'elm-structure.css', 'elm-tooltip.css'
 		]});
 		var listStyle =[];
 		var listScript =[];
 		// choisir les actions
+		if (action === 'elm-structure'){
+			listStyle =[ 'ana-common.css', 'elm-structure.css' ];
+			listScript =[ 'xpathFct.js', 'ana-common.js', 'elm-structure.js' ];
+		}
 		if (action === 'ana-tabulation') listStyle =[ 'ana-tabulation.css' ];
 		else if (action === 'elm-tooltip') listStyle =[ 'ana-common.css', 'elm-tooltip.css' ];
 		else if (action === 'elm-interract'){
