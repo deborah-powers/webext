@@ -1,0 +1,46 @@
+== accueil
+Fil d'Arianne: Documentation du projet / Documentation fonctionnelle - Basculée sur SharePoint
+Url: https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=show&id=6080
+DE	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=13751
+01 - eSynergie	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=6081
+02 - Synergie BackOffice	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=6082
+03 - Synergie CTE	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=6083
+04 - SynergieDOC	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=6084
+05 - SID	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=6085
+06 - Refonte SE	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=16374
+07 - DEMAT - Gestion Documentaire	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=16248
+08 - Editique	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=22849
+09 - Automate DDT	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=29929
+
+== DE
+à venir
+
+== 01 - eSynergie
+Fil d'Arianne: Documentation du projet / Documentation fonctionnelle - Basculée sur SharePoint / 01 - eSynergie
+Url: https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=show&id=6081
+00 - Archives	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=13593
+01 - Modèle de données	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=13594
+02 - Module administration	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=13595
+03 - Module Portail internet	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=13596
+04 - Module traitements batchs	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=13597
+
+== 02 - Synergie BackOffice
+Fil d'Arianne: Documentation du projet / Documentation fonctionnelle - Basculée sur SharePoint / 02 - Synergie BackOffice
+Url: https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=show&id=6082
+01 - SOCLE	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=6186
+02 - CDM	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=6187
+03 - SIFA	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=6188
+04 - Supervision des Flux	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=6199
+05 - Flux	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=7419
+
+== 03 - Synergie CTE
+à venir
+== 04 - SynergieDOC
+== 05 - SID
+== 06 - Refonte SE
+== 07 - DEMAT
+== 08 - Editique
+== 09 - Automate DDT
+
+
+
