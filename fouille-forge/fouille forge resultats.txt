@@ -33,6 +33,8 @@ Url: https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=show
 04 - Supervision des Flux	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=6199
 05 - Flux	https://forgeaxyus.local.axyus.com/plugins/docman/?group_id=171&action=collapseFolder&id=7419
 
+== 02 - Synergie BackOffice - 
+
 == 03 - Synergie CTE
 à venir
 == 04 - SynergieDOC
