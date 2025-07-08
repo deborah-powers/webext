@@ -17,6 +17,7 @@ function launch(){
 			var text = this.children[2].innerText + '\t' + this.children[3].title;
 			console.log (text);
 			this.children[2].getElementsByTagName ('button')[0].click();
+			console.log ('a');
 			// laisser le temps au menu de se charger
 /*			waitForElement ('.ms-ContextualMenu-list').then (menu =>{
 				console.log ("le menu existe", menu.getElementsByTagName ('button'));
@@ -25,7 +26,9 @@ function launch(){
 					console.log ("le content existe", content);
 			});});*/
 			window.setTimeout (function(){
+				console.log ('b');
 				var menu = document.getElementsByClassName ('ms-ContextualMenu-list')[0];
+				console.log ('c');
 				menu.getElementsByTagName ('button')[17].click();
 				console.log ('click');
 				window.setTimeout (function(){
