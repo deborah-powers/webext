@@ -1,15 +1,24 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html><html lang='fr-FR'><head>
 	<meta name='viewport' content='width=device-width,initial-scale=1'/>
 	<meta charset='utf-8'/>
 	<link rel='stylesheet' type='text/css' href='menu.css' />
 </head><body>
-	<h1>choisissez une action</h1>
-	<p class='bouton' id='elm-structure'>la structure de la page</p>
-	<p class='bouton' id='ana-tabulation'>la tabulation</p>
-	<p class='bouton' id='elm-interract'>les éléments interractifs</p>
-	<p class='bouton' id='elm-tooltip'>les info-bulles</p>
-	<p class='bouton' id='elm-link'>les liens</p>
-	<p class='bouton' id='elm-image'>les images</p>
-	<p class='bouton' id='del-style'>éffacer le style</p>
+	<h1>vérifier la conformité du site avec le rgaa</h1>
+	<ul aria-label='les actions'>
+		<li><button id='elm-structure'>la structure de la page</button></li>
+		<li><button id='ana-tabulation'>la tabulation</button></li>
+		<li><button id='elm-interract'>les éléments interractifs</button></li>
+		<li><button id='elm-tooltip'>les info-bulles</button></li>
+		<li><button id='elm-link'>les liens</button></li>
+		<li><button id='elm-image'>les images</button></li>
+		<li><button id='del-style'>éffacer le style</button></li>
+	</ul>
+	<section class='closed' role='alert' aria-live='assertive'>
+		<button id='show-infos'>afficher les infos</button>
+		<p>chaque bouton correspond à un thème du rgaa et modifie la page afin de faciliter son analyse.</p>
+		<p>un rapport au format .txt est téléchargeable via un lien.</p>
+		<p>en général, les éléments à analyser seront encadrés en couleur.</p>
+		<p>la page est ramenée à son état d'origine en la rechargeant.</p>
+	</section>
 <script type='text/javascript' src='menu.js'></script>
 </body></html>

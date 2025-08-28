@@ -1,6 +1,21 @@
 function chooseAction (event){
-	// event.target contient le bouton (p) de la popup sur lequel j'ai cliqué
+	// event.target contient le bouton de la popup sur lequel j'ai cliqué
 	var action = event.target.id;
+	if (action === 'show-infos'){
+		const buttonList = document.getElementsByTagName ('ul')[0];
+		if (event.target.parentElement.className === 'closed'){
+			event.target.parentElement.className ="";
+			event.target.innerHTML = 'cacher les infos';
+			buttonList.style.height = '3em';
+		}
+		else{
+			event.target.parentElement.className = 'closed';
+			event.target.innerHTML = 'afficher les infos';
+			buttonList.style.height = 'unset';
+		//	document.body.style.width = '16em';
+		}
+		return;
+	}
 	chrome.tabs.query ({currentWindow: true, active: true}, function (tabs){
 		var activeTab = tabs[0];
 		chrome.scripting.removeCSS ({
@@ -44,6 +59,6 @@ function chooseAction (event){
 // créer les options
 document.addEventListener ('DOMContentLoaded', function(){
 	// document.body contient le body de la popup
-	var plist = document.body.getElementsByTagName ('p');
+	var plist = document.body.getElementsByTagName ('button');
 	for (var p=0; p< plist.length; p++) plist[p].addEventListener ('click', chooseAction);
 });

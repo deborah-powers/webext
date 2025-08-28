@@ -1,0 +1,14 @@
+{
+	"manifest_version": 2,
+	"name": "rgaa grille",
+	"version": "1.0",
+	"description": "transformer mes fichiers .txt contenant une grille rgaa en page html",
+	"icons": { "48": "icon-128.svg" },
+	"permissions": [ "tabs", "activeTab", "scripting", "http://deborah-powers.fr/", "file:///" ],
+	"content_security_policy": "script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'self'",
+	"content_scripts": [{
+		"matches": [ "file:///*/*.txt", "http://*/*.txt", "https://*/*.txt" ],
+		"js": [ "import-perso.js", "action.js" ]
+	}],
+	"browser_specific_settings": { "gecko": { "id": "rgaa-grille@deborah-powers.fr" }}
+}
