@@ -8,12 +8,7 @@ var headPage =`
 	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/structure.css' />
 	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/perso.css' media='screen' />
 	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/shapes.css' />
-<style>
-	td.non-applicable { background-color: var(--fond-color); }
-	td.non-conforme { background-color: orange; }
-	td.conforme { background-color: springgreen; }
-	td.derroge { background-color: skyblue; }
-</style>`;
+`;
 // récupérer les metadonnées de mes articles
 var pageFinale = `<h1>audit de la page<a href='$lien'>$page</a></h1><p>par $auditeur</p><p>le $date</p>
 <h2>score</h2>
@@ -25,6 +20,8 @@ var pageFinale = `<h1>audit de la page<a href='$lien'>$page</a></h1><p>par $audi
 <p>$nbDe critères dérrogés.</p>
 <p>score: $nbCf / $bareme</p>
 <h2>grille</h2>
+<table>
+<tr><td>thématique</td><td>critère</td><td>conformité</td><td>dérrogation</td><td>critère</td><td>commentaire</td></tr>
 $tableau`;
 // variable de import-js
 crutialData =`
@@ -67,29 +64,21 @@ for (var t=1; t< tables.length; t++) if (3=== htmlLib.count (tables[t], '\t')){ 
 pageOriginale = tables.join ('\n');
 // traiter les critères
 tables = pageOriginale.split ('\n== ');
-var tableau ="";
-for (var t=0; t< tables.length; t++){
-	tables[t] = tables[t].replace ('\n', '</caption><tr><th>critère</th><th>conformité</th><th>dérrogation</th><th>critère</th><th>commentaire</th></tr><tr><td>');
-	tables[t] = tables[t].replaceAll ('\n', '</td></tr><tr><td>');
-	tables[t] = tables[t].replaceAll ('\t', '</td><td>');
-}
-tableau = tables.join ('</td></tr></table><table><caption>');
-tableau = '<table><caption>' + tableau + '</td></tr></table>';
-/*
+var tableStr ="";
 for (var table of tables){
 	d= table.indexOf ('\n');
 	const tableName = table.substring (0,d);
 	table = table.substring (d);
 	table = table.replaceAll ('\n', '\n'+ tableName +'\t');
-	tableau = tableau + table;
-}*/
+	tableStr = tableStr + table;
+}
 // calculer le score
-const nbCf = htmlLib.count (tableau, '\tc\t');
-const nbNc = htmlLib.count (tableau, '\tnc\t');
-const nbNa = htmlLib.count (tableau, '\tna\t');
-const nbNt = htmlLib.count (tableau, '\tnt\t');
-const nbDe = htmlLib.count (tableau, '\td\t');
-const bareme = nbCf + htmlLib.count (tableau, '\tnc\tn\t');
+const nbCf = htmlLib.count (tableStr, '\tc\t');
+const nbNc = htmlLib.count (tableStr, '\tnc\t');
+const nbNa = htmlLib.count (tableStr, '\tna\t');
+const nbNt = htmlLib.count (tableStr, '\tnt\t');
+const nbDe = htmlLib.count (tableStr, '\td\t');
+const bareme = nbCf + htmlLib.count (tableStr, '\tnc\tn\t');
 pageFinale = pageFinale.replaceAll ('$nbCf', nbCf.toString());
 pageFinale = pageFinale.replace ('$nbNc', nbNc.toString());
 pageFinale = pageFinale.replace ('$nbNa', nbNa.toString());
@@ -98,16 +87,10 @@ pageFinale = pageFinale.replace ('$nbDe', nbDe.toString());
 pageFinale = pageFinale.replace ('$bareme', bareme.toString());
 
 // afficher mon travail
-/*
-tableau = tableau.replaceAll ('\n', '</td></tr><tr><td>');
-tableau = tableau.replaceAll ('\t', '</td><td>');
-tableau = '<table><tr><th>thématique</th><th>critère</th><th>conformité</th><th>dérrogation</th><th>critère</th><th>commentaire</th></tr>' + tableau + '</table>';
-*/
-tableau = tableau.replaceAll ('>c<', " class='conforme'>c<");
-tableau = tableau.replaceAll ('>nc<', " class='non-conforme'>nc<");
-tableau = tableau.replaceAll ('>na<', " class='non-applicable'>na<");
-tableau = tableau.replaceAll ('>d<', " class='derroge'>d<");
-pageFinale = pageFinale.replace ('$tableau', tableau);
+tableStr = tableStr.replaceAll ('\n', '</td></tr><tr><td>');
+tableStr = tableStr.replaceAll ('\t', '</td><td>');
+tableStr = '<table>' + tableStr + '</table>';
+pageFinale = pageFinale.replace ('$tableau', tableStr);
 document.body.innerHTML = pageFinale;
 // le style
 const styleList =[ 'structure', 'perso' ];
