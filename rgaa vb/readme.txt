@@ -6,3 +6,5 @@ renommer le manifest adéquat selon le navigateur où je veux installer mon exte
 vérifier les logs de la popup dans
 about:debugging#/runtime/this-firefox
 
+m'inspirer de ce site
+https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/

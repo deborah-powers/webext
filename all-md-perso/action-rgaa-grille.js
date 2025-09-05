@@ -9,7 +9,7 @@ var headPage =`
 	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/perso.css' media='screen' />
 	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/shapes.css' />
 <style>
-	td.non-applicable { background-color: var(--fond-color); }
+	td.non-teste { background-color: var(--fond-color); }
 	td.non-conforme { background-color: orange; }
 	td.conforme { background-color: springgreen; }
 	td.derroge { background-color: skyblue; }
@@ -23,7 +23,7 @@ var pageFinale = `<h1>audit de la page<a href='$lien'>$page</a></h1><p>par $audi
 <p>$nbNa critères non applicables.</p>
 <p>$nbNt critères non testés.</p>
 <p>$nbDe critères dérrogés.</p>
-<p>score: $nbCf / $bareme</p>
+<p>score: $score %. la page est $conformite</p>
 <h2>grille</h2>
 $tableau`;
 // variable de import-js
@@ -84,18 +84,22 @@ for (var table of tables){
 	tableau = tableau + table;
 }*/
 // calculer le score
-const nbCf = htmlLib.count (tableau, '\tc\t');
-const nbNc = htmlLib.count (tableau, '\tnc\t');
-const nbNa = htmlLib.count (tableau, '\tna\t');
-const nbNt = htmlLib.count (tableau, '\tnt\t');
-const nbDe = htmlLib.count (tableau, '\td\t');
-const bareme = nbCf + htmlLib.count (tableau, '\tnc\tn\t');
-pageFinale = pageFinale.replaceAll ('$nbCf', nbCf.toString());
+const nbCf = htmlLib.count (tableau, '>c<');
+const nbNc = htmlLib.count (tableau, '>nc<');
+const nbNa = htmlLib.count (tableau, '>na<');
+const nbNt = htmlLib.count (tableau, '>nt<');
+const nbDe = htmlLib.count (tableau, '>d<');
+const score = 100* nbCf / (nbCf + htmlLib.count (tableau, '>nc</td><td>n<'));
+var conformite = 'non conforme';
+if (score ===100) conformite = 'totalement conforme';
+else if (score >=50) conformite = 'partiellement conforme';
+pageFinale = pageFinale.replace ('$nbCf', nbCf.toString());
 pageFinale = pageFinale.replace ('$nbNc', nbNc.toString());
 pageFinale = pageFinale.replace ('$nbNa', nbNa.toString());
 pageFinale = pageFinale.replace ('$nbNt', nbNt.toString());
 pageFinale = pageFinale.replace ('$nbDe', nbDe.toString());
-pageFinale = pageFinale.replace ('$bareme', bareme.toString());
+pageFinale = pageFinale.replace ('$score', score.toString());
+pageFinale = pageFinale.replace ('$conformite', conformite);
 
 // afficher mon travail
 /*
@@ -103,10 +107,12 @@ tableau = tableau.replaceAll ('\n', '</td></tr><tr><td>');
 tableau = tableau.replaceAll ('\t', '</td><td>');
 tableau = '<table><tr><th>thématique</th><th>critère</th><th>conformité</th><th>dérrogation</th><th>critère</th><th>commentaire</th></tr>' + tableau + '</table>';
 */
-tableau = tableau.replaceAll ('>c<', " class='conforme'>c<");
-tableau = tableau.replaceAll ('>nc<', " class='non-conforme'>nc<");
-tableau = tableau.replaceAll ('>na<', " class='non-applicable'>na<");
-tableau = tableau.replaceAll ('>d<', " class='derroge'>d<");
+tableau = tableau.replaceAll ('>c<', " class='conforme'>conforme<");
+tableau = tableau.replaceAll ('>nc<', " class='non-conforme'>non conforme<");
+tableau = tableau.replaceAll ('>nt<', " class='non-teste'>non testé<");
+tableau = tableau.replaceAll ('>d<', " class='derroge'>dérrogé<");
+tableau = tableau.replaceAll ('>na<', ">non applicable<");
+tableau = tableau.replaceAll ('>n<', ">suivi<");
 pageFinale = pageFinale.replace ('$tableau', tableau);
 document.body.innerHTML = pageFinale;
 // le style
