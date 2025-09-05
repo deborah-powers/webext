@@ -7,8 +7,12 @@
 	"permissions": [ "tabs", "activeTab", "scripting", "http://deborah-powers.fr/", "file:///" ],
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'self'",
 	"content_scripts": [{
+		"matches": [ "file:///*/rgaa*grille.txt", "file:///*/rgaa*grille.md", "http://*/rgaa*grille.txt", "https://*/rgaa*grille.txt", "http://*/rgaa*grille.md", "https://*/rgaa*grille.md" ],
+		"js": [ "import-perso.js", "action-rgaa-grille.js" ]
+	}, {
 		"matches": [ "file:///*/*.txt", "file:///*/*.md", "http://*/*.txt", "https://*/*.txt", "http://*/*.md", "https://*/*.md" ],
-		"js": [ "import-perso.js", "action.js" ]
+		"exclude_matches": [ "file:///*/rgaa*grille.txt", "file:///*/rgaa*grille.md", "http://*/rgaa*grille.txt", "https://*/rgaa*grille.txt", "http://*/rgaa*grille.md", "https://*/rgaa*grille.md" ],
+		"js": [ "import-perso.js", "action-common.js" ]
 	}],
 	"browser_specific_settings": { "gecko": { "id": "md-perso@deborah-powers.fr" }}
 }
