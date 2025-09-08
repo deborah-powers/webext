@@ -88,3 +88,24 @@ function compareTwoRgbString (rgbStrA, rgbStrO){
 	const lux = computeContrast (rgbArrayA, rgbArrayO);
 	return lux;
 }
+// ------------------------ analyser les éléments ------------------------
+
+HTMLElement.prototype.computeContrast = function(){
+	const style = window.getComputedStyle (this);
+	var infosLocales = 'contraste du texte et de son fond: ';
+	// contraste avec le fond
+	var contraste = compareTwoRgbString (style.color, style.backgroundColor);
+	infosLocales = infosLocales + contraste.toString() + ':1. ';
+	if (contraste <3) infosLocales = infosLocales +'insuffisant';
+	else if (contraste < 4.5) infosLocales = infosLocales +'ok (AA) pour les gros textes';
+	else if (contraste < 7) infosLocales = infosLocales +'ok (AA), ok (AAA) pour les gros textes';
+	else infosLocales = infosLocales +'ok (AAA)';
+	// contraste avec le texte autour
+	const styleParent = window.getComputedStyle (this.parentElement);
+	infosLocales = infosLocales + '\ncontraste avec le fond du support: ';
+	contraste = compareTwoRgbString (style.backgroundColor, styleParent.backgroundColor);
+	infosLocales = infosLocales + contraste.toString() + ':1. ';
+	if (contraste <3) infosLocales = infosLocales +'insuffisant';
+	else infosLocales = infosLocales +'ok';
+	return infosLocales;
+}

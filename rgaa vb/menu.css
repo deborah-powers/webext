@@ -1,6 +1,8 @@
 * {
 	color: inherit;
+	background-color: inherit;
 	box-sizing: border-box;
+	font-family: georgia;
 }
 *:first-letter, title:first-letter { text-transform: uppercase; }
 html, body { width: 16em; }
@@ -12,6 +14,7 @@ body {
 	background-color: ivory;
 }
 h1 { font-size: 1.2em; }
+h2 { font-size: 1em; }
 /* la liste d'actions */
 ul {
 	list-style: none;
@@ -22,22 +25,18 @@ button {
 	color: ivory;
 	padding: 0.5em;
 	margin: 0.5em;
-	border: solid 2px #420;
+	border: none;
 	border-radius: 1em;
-	background-color: deeppink;
+	background-color: #909;
 }
-button:hover, button:focus {
-	border-width: 4px;
+button:focus {
+	border-width: 6px;
 	border-style: dashed;
-}
-button:active {
-	color: ivory;
-	background-color: teal;
-	border-color: #420;
+	border-color: ivory;
 }
 /* la section des info */
 section {
-	border-top: 2px solid deeppink;
+	border-top: 2px solid #909;
 	border-radius: 1em;
 }
 section.closed > p { display: none; }
@@ -47,11 +46,11 @@ section > p { display: block; }
 /* scroll bar de firefox */
 :root {
 	overflow: auto;
-	scrollbar-color: deeppink ivory;
+	scrollbar-color: #909 ivory;
 }
 /* scroll bar de chrome */
 ::-webkit-scrollbar-track { background-color: ivory; }
 ::-webkit-scrollbar-thumb {
-	background-color: deeppink;
+	background-color: #909;
 	border-radius: 20%;
 }

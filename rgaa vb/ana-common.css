@@ -28,12 +28,13 @@ a#rgaa-download-rapport.moved {
 	top: 0%;
 }
 .rgaa-highlight {
-	border-style: solid !important;
+	border-style: dotted !important;
 	border-width: 4px !important;
-	border-color: deeppink !important;
+	border-color: teal !important;
 }
 .rgaa-error {
 	border-style: dashed !important;
 	border-width: 4px !important;
-	border-color: orangered;
+	border-color: deeppink !important;
 }
+.rgaa-error:hover:before { content: 'erreur\A' attr(infos); }

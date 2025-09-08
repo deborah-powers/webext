@@ -2,18 +2,21 @@ function chooseAction (event){
 	// event.target contient le bouton de la popup sur lequel j'ai cliqué
 	var action = event.target.id;
 	if (action === 'show-infos'){
-		const buttonList = document.getElementsByTagName ('ul')[0];
-		if (event.target.parentElement.className === 'closed'){
-			event.target.parentElement.className ="";
+		const buttonList = document.getElementsByTagName ('section')[0];
+		if (event.target.parentElement.parentElement.className === 'closed'){
+			event.target.parentElement.parentElement.className ="";
 			event.target.innerHTML = 'cacher les infos';
-			buttonList.style.height = '3em';
+			buttonList.style.height = '4em';
+			buttonList.style.overflow = 'hidden';
 		}
 		else{
-			event.target.parentElement.className = 'closed';
+			event.target.parentElement.parentElement.className = 'closed';
 			event.target.innerHTML = 'afficher les infos';
 			buttonList.style.height = 'unset';
+			buttonList.style.overflow = 'unset';
 		//	document.body.style.width = '16em';
 		}
+		event.target.focus();
 		return;
 	}
 	chrome.tabs.query ({currentWindow: true, active: true}, function (tabs){
@@ -30,6 +33,10 @@ function chooseAction (event){
 		if (action === 'elm-structure'){
 			listStyle =[ 'ana-common.css', 'elm-structure.css' ];
 			listScript =[ 'xpathFct.js', 'ana-common.js', 'elm-structure.js' ];
+		}
+		else if (action === 'elm-color'){
+			listStyle =[ 'ana-common.css' ];
+			listScript =[ 'ana-contrast.js', 'ana-common.js', 'ana-color.js', 'elm-color.js' ];
 		}
 		if (action === 'ana-tabulation') listStyle =[ 'ana-tabulation.css' ];
 		else if (action === 'elm-tooltip') listStyle =[ 'ana-common.css', 'elm-tooltip.css' ];
@@ -55,7 +62,9 @@ function chooseAction (event){
 			target: {tabId: activeTab.id, allFrames: true},
 			files: listScript
 		});
-});}
+	});
+	event.target.focus();
+}
 // créer les options
 document.addEventListener ('DOMContentLoaded', function(){
 	// document.body contient le body de la popup

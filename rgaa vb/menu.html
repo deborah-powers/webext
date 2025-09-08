@@ -1,20 +1,25 @@
 <!DOCTYPE html><html lang='fr-FR'><head>
+	<title>conformité au rgaa</title>
 	<meta name='viewport' content='width=device-width,initial-scale=1'/>
 	<meta charset='utf-8'/>
 	<link rel='stylesheet' type='text/css' href='menu.css' />
 </head><body>
 	<h1>vérifier la conformité du site avec le rgaa</h1>
-	<ul aria-label='les actions'>
-		<li><button id='elm-structure'>la structure de la page</button></li>
-		<li><button id='ana-tabulation'>la tabulation</button></li>
-		<li><button id='elm-interract'>les éléments interractifs</button></li>
-		<li><button id='elm-tooltip'>les info-bulles</button></li>
-		<li><button id='elm-link'>les liens</button></li>
-		<li><button id='elm-image'>les images</button></li>
-		<li><button id='del-style'>éffacer le style</button></li>
-	</ul>
+	<section>
+		<h2>les actions</h2>
+		<ul aria-label='les actions'>
+			<li><button id='elm-color'>les couleurs</button></li>
+			<li><button id='elm-structure'>la structure de la page</button></li>
+			<li><button id='ana-tabulation'>la tabulation</button></li>
+			<li><button id='elm-interract'>les éléments interractifs</button></li>
+			<li><button id='elm-tooltip'>les info-bulles</button></li>
+			<li><button id='elm-link'>les liens</button></li>
+			<li><button id='elm-image'>les images</button></li>
+			<li><button id='del-style'>éffacer le style</button></li>
+		</ul>
+	</section>
 	<section class='closed' role='alert' aria-live='assertive'>
-		<button id='show-infos'>afficher les infos</button>
+		<h2><button id='show-infos' tabindex='1'>afficher les infos</button></h2>
 		<p>chaque bouton correspond à un thème du rgaa et modifie la page afin de faciliter son analyse.</p>
 		<p>un rapport au format .txt est téléchargeable via un lien.</p>
 		<p>en général, les éléments à analyser seront encadrés en couleur.</p>

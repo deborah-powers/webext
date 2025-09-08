@@ -8,7 +8,14 @@ Element.prototype.addInfos = function(){
 	infos = infos +'\n\n\t'+ this.tagName +'\t'+ this.getXpath() +'\n'+ this.infos;
 	this.setAttribute ('infos', this.infos);
 }
-Element.prototype.addInfosOnHover = function(){ return false; }
+Element.prototype.addInfosOnHover = function(){
+	if (this.className.includes ('rgaa-error')) return true;
+	else return false;
+}
+Element.prototype.addClass = function (className){ if (! this.className.includes (className)) this.classList.add (className); }
+Element.prototype.remClass = function (className){ if (this.className.includes (className)) this.classList.remove (className); }
+Element.prototype.addClassError = function(){ this.addClass ('rgaa-error'); }
+
 // fonctions de base pour les string
 const blankChars = '\n \t';
 function exists (item){
