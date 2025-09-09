@@ -9,12 +9,13 @@ Element.prototype.addInfos = function(){
 	this.setAttribute ('infos', this.infos);
 }
 Element.prototype.addInfosOnHover = function(){
-	if (this.className.includes ('rgaa-error')) return true;
+	if (this.className.includes ('rgaa-error') || this.className.includes ('rgaa-highlight')) return true;
 	else return false;
 }
 Element.prototype.addClass = function (className){ if (! this.className.includes (className)) this.classList.add (className); }
 Element.prototype.remClass = function (className){ if (this.className.includes (className)) this.classList.remove (className); }
 Element.prototype.addClassError = function(){ this.addClass ('rgaa-error'); }
+Element.prototype.addClassHighlight = function(){ this.addClass ('rgaa-highlight'); }
 
 // fonctions de base pour les string
 const blankChars = '\n \t';

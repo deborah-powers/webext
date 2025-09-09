@@ -32,9 +32,10 @@ a#rgaa-download-rapport.moved {
 	border-width: 4px !important;
 	border-color: teal !important;
 }
+.rgaa-highlight:hover:before { content: attr(infos); }
 .rgaa-error {
 	border-style: dashed !important;
 	border-width: 4px !important;
 	border-color: deeppink !important;
 }
-.rgaa-error:hover:before { content: 'erreur\A' attr(infos); }
+.rgaa-error:hover:before { content: 'erreur:\A' attr(infos); }

@@ -5,13 +5,14 @@ function chooseAction (event){
 		const buttonList = document.getElementsByTagName ('section')[0];
 		if (event.target.parentElement.parentElement.className === 'closed'){
 			event.target.parentElement.parentElement.className ="";
-			event.target.innerHTML = 'cacher les infos';
+			event.target.previousElementSibling.innerHTML = 'cacher les infos';
 			buttonList.style.height = '4em';
 			buttonList.style.overflow = 'hidden';
 		}
 		else{
+			console.log (event.target.parentElement.parentElement);
 			event.target.parentElement.parentElement.className = 'closed';
-			event.target.innerHTML = 'afficher les infos';
+			event.target.previousElementSibling.innerHTML = 'afficher les infos';
 			buttonList.style.height = 'unset';
 			buttonList.style.overflow = 'unset';
 		//	document.body.style.width = '16em';
@@ -36,7 +37,7 @@ function chooseAction (event){
 		}
 		else if (action === 'elm-color'){
 			listStyle =[ 'ana-common.css' ];
-			listScript =[ 'ana-contrast.js', 'ana-common.js', 'ana-color.js', 'elm-color.js' ];
+			listScript =[ 'xpathFct.js', 'ana-contrast.js', 'ana-common.js', 'ana-color.js', 'elm-color.js' ];
 		}
 		if (action === 'ana-tabulation') listStyle =[ 'ana-tabulation.css' ];
 		else if (action === 'elm-tooltip') listStyle =[ 'ana-common.css', 'elm-tooltip.css' ];
