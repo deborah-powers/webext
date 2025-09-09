@@ -7,11 +7,17 @@
 	"permissions": [ "tabs", "activeTab", "scripting", "http://deborah-powers.fr/", "file:///" ],
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'self'",
 	"content_scripts": [{
-		"matches": [ "file:///*/rgaa*grille.txt", "file:///*/rgaa*grille.md", "http://*/rgaa*grille.txt", "https://*/rgaa*grille.txt", "http://*/rgaa*grille.md", "https://*/rgaa*grille.md" ],
-		"js": [ "import-perso.js", "action-rgaa-grille.js" ]
+		"matches": [ "file:///*/rgaa*grille.txt", "http://*/rgaa*grille.txt", "https://*/rgaa*grille.txt" ],
+		"js": [ "import-perso.js", "action-rgaa-common.js", "action-rgaa-grille.js" ]
+	}, {
+		"matches": [ "file:///*/rgaa*rapport.txt", "http://*/rgaa*rapport.txt", "https://*/rgaa*rapport.txt" ],
+		"js": [ "import-perso.js", "action-rgaa-common.js", "action-rgaa-rapport.js" ]
 	}, {
 		"matches": [ "file:///*/*.txt", "file:///*/*.md", "http://*/*.txt", "https://*/*.txt", "http://*/*.md", "https://*/*.md" ],
-		"exclude_matches": [ "file:///*/rgaa*grille.txt", "file:///*/rgaa*grille.md", "http://*/rgaa*grille.txt", "https://*/rgaa*grille.txt", "http://*/rgaa*grille.md", "https://*/rgaa*grille.md" ],
+		"exclude_matches": [
+			"file:///*/rgaa*grille.txt", "http://*/rgaa*grille.txt", "https://*/rgaa*grille.txt",
+			"file:///*/rgaa*rapport.txt", "http://*/rgaa*rapport.txt", "https://*/rgaa*rapport.txt"
+		],
 		"js": [ "import-perso.js", "action-common.js" ]
 	}],
 	"browser_specific_settings": { "gecko": { "id": "md-perso@deborah-powers.fr" }}
