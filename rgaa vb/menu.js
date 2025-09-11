@@ -1,12 +1,21 @@
+function openInfos(){
+	const buttonList = document.getElementsByTagName ('section')[1];
+	const infoBlock = document.getElementsByTagName ('section')[0];
+	infoBlock.className ="";
+	infoBlock.children[0].children[0].innerHTML = 'cacher les infos';
+	buttonList.style.height = '4em';
+	buttonList.style.overflow = 'hidden';
+}
+window.setTimeout (openInfos, 15000);
 function chooseAction (event){
 	// event.target contient le bouton de la popup sur lequel j'ai cliqué
 	var action = event.target.id;
 	if (action === 'show-infos'){
-		const buttonList = document.getElementsByTagName ('section')[0];
+		const buttonList = document.getElementsByTagName ('section')[1];
 		if (event.target.parentElement.parentElement.className === 'closed'){
 			event.target.parentElement.parentElement.className ="";
 			event.target.previousElementSibling.innerHTML = 'cacher les infos';
-			buttonList.style.height = '4em';
+			buttonList.style.height = '3em';
 			buttonList.style.overflow = 'hidden';
 		}
 		else{

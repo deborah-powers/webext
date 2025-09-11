@@ -5,9 +5,17 @@
 	<link rel='stylesheet' type='text/css' href='menu.css' />
 </head><body>
 	<h1>vérifier la conformité du site avec le rgaa</h1>
+	<section class='closed' role='region' aria-live='assertive'>
+	<!-- ou <section class='closed' role='alert'> -->
+		<h2><span>afficher les infos</span> <button id='show-infos' tabindex='1'>ici</button></h2>
+		<p>chaque bouton correspond à un thème du rgaa et modifie la page afin de faciliter son analyse.</p>
+		<p>un rapport au format .txt est téléchargeable via un lien.</p>
+		<p>en général, les éléments à analyser seront encadrés en couleur.</p>
+		<p>la page est ramenée à son état d'origine en la rechargeant.</p>
+	</section>
 	<section>
-		<h2>les actions</h2>
-		<ul aria-label='les actions'>
+		<h2>les points à analyser</h2>
+		<ul>
 			<li><button id='elm-color'>les couleurs</button></li>
 			<li><button id='elm-structure'>la structure de la page</button></li>
 			<li><button id='ana-tabulation'>la tabulation</button></li>
@@ -17,13 +25,6 @@
 			<li><button id='elm-image'>les images</button></li>
 			<li><button id='del-style'>éffacer le style</button></li>
 		</ul>
-	</section>
-	<section class='closed' role='alert' aria-live='assertive'>
-		<h2><span>afficher les infos</span> <button id='show-infos' tabindex='1'>ici</button></h2>
-		<p>chaque bouton correspond à un thème du rgaa et modifie la page afin de faciliter son analyse.</p>
-		<p>un rapport au format .txt est téléchargeable via un lien.</p>
-		<p>en général, les éléments à analyser seront encadrés en couleur.</p>
-		<p>la page est ramenée à son état d'origine en la rechargeant.</p>
 	</section>
 <script type='text/javascript' src='menu.js'></script>
 </body></html>
