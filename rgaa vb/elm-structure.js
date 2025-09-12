@@ -1,3 +1,47 @@
+infos =`
+== éléments obligatoire
+
+tître: $title
+doctype: $doctype
+langue: $lang
+sens de lecture: $lecture
+
+== structure de la page`;
+
+// le titre
+const titleList = document.getElementsByTagName ('title');
+var monTitre = "";
+if (titleList.length ===0) monTitre = 'erreur, pas de balise title dans la page';
+else if (titleList.length >1) monTitre = 'erreur, plusieurs balises title dans la page';
+else if (titleList[0].innerText ==="" || ' \n\t'.includes (titleList[0].innerText)) monTitre = 'erreur, balise vide';
+else monTitre = titleList[0].innerText;
+infos = infos.replace ('$title', monTitre);
+
+// le doctype
+monTitre = 'présent';
+if (document.doctype === null || document.doctype === undefined) monTitre = 'erreur, pas de doctype';
+else if (document.doctype.publicId !== null && document.doctype.publicId !== undefined){
+	if (document.doctype.publicId ==="") monTitre = 'html 5';
+	else if (document.doctype.publicId.substring (0,19) === '-//W3C//DTD HTML 4.') monTitre = 'html 4 (' + document.doctype +')';
+	else monTitre = 'inconnu (' + document.doctype +')';
+}
+infos = infos.replace ('$doctype', monTitre);
+
+// la langue
+monTitre = 'erreur, la langue doit être précisée dans la balise html';
+if (document.documentElement.lang !=="") monTitre = 'attribut lang ('+ document.documentElement.lang +')';
+else if (document.documentElement.attributes['xml:lang'] !== undefined) monTitre = document.documentElement.attributes['xml:lang'].value +' (xml:lang)';
+else monTitre = 'défaut ('+ navigator.language +')';
+infos = infos.replace ('$lang', monTitre);
+
+// le sens de lecture
+monTitre = 'erreur, le sens de lecture doit valoir ltr ou rtl';
+if (document.documentElement.dir ==="") monTitre = 'défaut (ltr)';
+else if (document.documentElement.dir === 'ltr') monTitre = 'ltr';
+else if (document.documentElement.dir === 'rtl') monTitre = 'rtl';
+else monTitre = document.documentElement.dir +" erreur, le sens de lecture n'est pas précisé. il doit valoir ltr ou rtl";
+infos = infos.replace ('$lecture', monTitre);
+
 HTMLElement.prototype.addInfos = function(){
 	if (this.tagName === 'NAV'){
 		var items = this.getElementsByTagName ('a');
