@@ -65,7 +65,7 @@ HTMLElement.prototype.addInfos = function(){
 		infos = infos +'\t'+ this.getXpath() +'\n'+ this.infos;
 		this.setAttribute ('infos', this.infos);
 }}
-infos = infos +'\n\n== le main\n';
+infos = infos +'\n\n** le main\n';
 var elements = document.getElementsByTagName ('main');
 if (elements.length ===0) infos = infos + "\nil manque l'élément obligatoire main";
 else{
@@ -86,7 +86,7 @@ else{
 	if (roleMainActif) infos = infos + "\nau moins l'un des main actifs porte le role main";
 	else infos = infos +"\naucun des main actifs ne porte le role main";
 }
-infos = infos +'\n\n== le header\n';
+infos = infos +'\n\n** le header\n';
 elements = document.getElementsByTagName ('header');
 if (elements.length ===0) infos = infos + "\nil manque l'élément obligatoire header[role='banner']";
 else{
@@ -108,7 +108,7 @@ elements = document.body.getAllByRole ('banner');
 for (var head of elements) if (head.tagName !== 'HEADER'){
 	infos = infos + "un élément autre qu'un header possède le role banner: "+ head.tagName;
 }
-infos = infos +'\n\n== le pied de page\n';
+infos = infos +'\n\n** le pied de page\n';
 elements = document.getElementsByTagName ('footer');
 if (elements.length ===0) infos = infos + "\npas de pied de page (footer[role='contentinfo'])";
 else{
@@ -130,7 +130,7 @@ elements = document.body.getAllByRole ('contentinfo');
 for (var foot of elements) if (foot.tagName !== 'FOOTER'){
 	infos = infos + "un élément autre qu'un footer possède le role contentinfo: "+ foot.tagName;
 }
-infos = infos +'\n\n== les barres de navigation\n';
+infos = infos +'\n\n** les barres de navigation\n';
 elements = document.getElementsByTagName ('nav');
 if (elements.length ===0) infos = infos + "\npas de barre de page navigation";
 else{

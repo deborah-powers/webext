@@ -1,0 +1,38 @@
+[tabindex], button, a, input, select, textarea {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: deeppink !important;
+}
+[tabindex]:hover:before { content: 'tabindex: ' attr(tabindex); }
+a:hover:before { content: 'lien'; }
+button:hover:before { content: 'bouton'; }
+input:hover:before { content: 'input ', attr(type); }
+select:hover:before { content: 'select'; }
+textarea:hover:before { content: 'textarea'; }
+a[tabindex]:hover:before { content: 'lien, tabindex: ' attr(tabindex); }
+button[tabindex]:hover:before { content: 'bouton, tabindex: ' attr(tabindex); }
+input[tabindex]:hover:before { content: 'input ', attr(type), ', tabindex: ' attr(tabindex); }
+select[tabindex]:hover:before { content: 'select, tabindex: ' attr(tabindex); }
+textarea[tabindex]:hover:before { content: 'textarea, tabindex: ' attr(tabindex); }
+
+[tabindex='-1'], button[tabindex='-1'], a[tabindex='-1'], input[tabindex='-1'], select[tabindex='-1'], textarea[tabindex='-1']
+	{ border-style: dotted !important; }
+
+
+[tabindex], button, a, input, select, textarea
+[role='presentation'] [tabindex], [role='presentation'] button, [role='presentation'] a, [role='presentation'] input, [role='presentation'] select, [role='presentation'] textarea
+
+
+
+[aria-describedby], [role='tooltip'], [tabindex='0'][aria-hidden='true'], [tabindex='0'][role='presentation']
+	{ border-style: dashed !important; }
+
+ {
+	border-style: solid !important;
+	border-color: cadetblue !important;
+}
+input[tabindex='-1'], select[tabindex='-1'], textarea[tabindex='-1'],
+input[role='presentation'], select[role='presentation'], textarea[role='presentation'],
+input[aria-hidden='true'], select[aria-hidden='true'], textarea[aria-hidden='true'],
+[aria-hidden='true'] input, [aria-hidden='true'] select, [aria-hidden='true'] textarea
+	{ border-style: dashed !important; }
