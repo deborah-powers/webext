@@ -1,4 +1,5 @@
-*:hover:before, a#rgaa-download-rapport {
+/* doutes sur l'utilisation du focus */
+*:hover:before, *:focus:before, a#rgaa-download-rapport {
 	display: block;
 	background-color: ivory;
 	opacity: 1;
@@ -18,7 +19,7 @@
 	bottom: 2em;
 	z-index: 20;
 }
-*:hover:before {
+*:hover:before, *:focus:before {
 	content: none;
 	right: 0;
 }
