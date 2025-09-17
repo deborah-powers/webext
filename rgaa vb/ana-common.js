@@ -8,11 +8,16 @@ Element.prototype.addInfos = function(){
 	infos = infos +'\n\n\t'+ this.tagName +'\t'+ this.getXpath() +'\n'+ this.infos;
 	this.setAttribute ('infos', this.infos);
 }
+SVGElement.prototype.addInfosOnHover = function(){
+	if (this.className.animVal.includes ('rgaa-error') || this.className.animVal.includes ('rgaa-highlight')) return true;
+	else return false;
+}
 Element.prototype.addInfosOnHover = function(){
 	if (this.className.includes ('rgaa-error') || this.className.includes ('rgaa-highlight')) return true;
 	else return false;
 }
 Element.prototype.addClass = function (className){ if (! this.className.includes (className)) this.classList.add (className); }
+SVGElement.prototype.addClass = function (className){ if (! this.className.animVal.includes (className)) this.classList.add (className); }
 Element.prototype.remClass = function (className){ if (this.className.includes (className)) this.classList.remove (className); }
 Element.prototype.addClassError = function(){ this.addClass ('rgaa-error'); }
 Element.prototype.addClassHighlight = function(){ this.addClass ('rgaa-highlight'); }
