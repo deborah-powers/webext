@@ -26,7 +26,8 @@ Element.prototype.hasBgImage = function (style){
 }
 HTMLElement.prototype.computeContrastBgText = function (style){
 	this.infos = this.infos + '\ncontraste du texte et de son fond: ';
-	const contraste = compareTwoRgbString (style.color, this.getVisibleBgColor (style));
+	const bgColor = this.getVisibleBgColor (style);
+	const contraste = compareTwoRgbString (style.color, bgColor);
 	this.infos = this.infos + contraste.toString() + ':1. ';
 	if (contraste <3) this.infos = this.infos +'insuffisant';
 	else if (contraste < 4.5) this.infos = this.infos +'ok (AA) pour les gros textes';
@@ -86,7 +87,6 @@ SVGTextElement.prototype.checkColors = function(){
 		bgParent = styleParent.backgroundColor;
 	}
 	this.infos = this.infos + '\ncontraste du texte et de son fond: ';
-	console.dir (style);
 	var contraste =0;
 	if (style.fill && ! style.stroke) contraste = compareTwoRgbString (style.fill, bgParent);
 	if (style.stroke && style.strokeWidth) contraste = compareTwoRgbString (style.fill, bgParent);
@@ -99,17 +99,17 @@ SVGTextElement.prototype.checkColors = function(){
 	else this.infos = this.infos +'ok (AAA)';
 */
 }
-Element.getVisibleBgColor = function (style){
+Element.prototype.getVisibleBgColor = function (style){
 	var bgColor = style.backgroundColor;
 	return this._computeVisibleBgColor (bgColor);
 }
-HTMLBodyElement.getVisibleBgColor = function (style){ return style.backgroundColor; }
-SVGElement.getVisibleBgColor = function (style){
+HTMLBodyElement.prototype.getVisibleBgColor = function (style){ return style.backgroundColor; }
+SVGElement.prototype.getVisibleBgColor = function (style){
 	var bgColor = style.fill;
 	return this._computeVisibleBgColor (bgColor);
 }
-SVGSVGElement.getVisibleBgColor = function (style){ Element.prototype.getVisibleBgColor.call (this, style); }
-Element._computeVisibleBgColor = function (bgColor){
+SVGSVGElement.prototype.getVisibleBgColor = function (style){ return Element.prototype.getVisibleBgColor.call (this, style); }
+Element.prototype._computeVisibleBgColor = function (bgColor){
 	if (bgColor === 'none' || bgColor === 'transparent' || 'rgba' === bgColor.substring (0,4) && ', 0)' === bgColor.substring (12))
 		bgColor = this.parentElement.getVisibleBgColor();
 	else if ('rgba' === bgColor.substring (0,4) && ', 1)' !== bgColor.substring (12)){
@@ -123,6 +123,7 @@ Element._computeVisibleBgColor = function (bgColor){
 			bgColorArray[c] *= bgColorArray[3];
 			bgColorParentArray[c] *= bgColorParentArray[3];
 			bgColorArray[c] += bgColorParentArray[c];
+			bgColorArray[c] = Math.round (bgColorArray[c]);
 		}
 		bgColor = 'rgb(' + bgColorArray.join (", ") +')';
 	}
