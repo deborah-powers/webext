@@ -76,6 +76,14 @@ SVGElement.prototype.checkColors = function(){
 		const texts = this.getElementsByTagName ('text');
 		for (text of texts) text.checkColors();
 }}
+function strExists (str){
+	if (str === undefined || str === null || str === 'none' || str.strip() ==="") return false;
+	else return true;
+}
+function strIsAcolor (str){
+	if (strExists (str) && str !== 'transparent') return true;
+	else return false;
+}
 SVGTextElement.prototype.checkColors = function(){
 	const style = window.getComputedStyle (this);
 	var styleParent = window.getComputedStyle (this.parentElement);
@@ -88,9 +96,9 @@ SVGTextElement.prototype.checkColors = function(){
 	}
 	this.infos = this.infos + '\ncontraste du texte et de son fond: ';
 	var contraste =0;
-	if (style.fill && ! style.stroke) contraste = compareTwoRgbString (style.fill, bgParent);
-	if (style.stroke && style.strokeWidth) contraste = compareTwoRgbString (style.fill, bgParent);
-
+	const isBorder = strIsAcolor (style.stroke);
+	if (strIsAcolor (style.fill) && (! isBorder || style.stroke ==='0')) contraste = compareTwoRgbString (style.fill, bgParent);
+	else if (isBorder) contraste = compareTwoRgbString (style.stroke, bgParent);
 /*
 	this.infos = this.infos + contraste.toString() + ':1. ';
 	if (contraste <3) this.infos = this.infos +'insuffisant';
