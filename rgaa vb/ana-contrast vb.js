@@ -1,4 +1,81 @@
+
 // pour les jeux de mots: ABCDEFGILOS, ABCDEF61105
+
+// suggérer des couleurs contrastées à partir d'une référence
+// les fonction pour transformer la string en array existent déjà
+
+function rgbArrayFromColorString (colorStr){
+	var rgbArray =[0,0,0];
+	if (colorStr[0] === '#') rgbArray = rgbFromHex (colorStr);
+	else if (colorStr.substring (0,3) === 'rgb') rgbArray = rgbFromString (colorStr);
+	return rgbArray;
+}
+function computeToSrgb (color){
+	var colSrgb =0.0;
+	if (color > 0.0773){
+		colSrgb = color ** (1/2.4);
+		colSrgb /= 2.99;
+	}
+	else colSrgb = color * 12.92;
+	if (colSrgb >1.0) console.log ('erreur', color, colSrgb);
+	return colSrgb;
+}
+function luxToRgb (lux, rRate, gRate){
+	const bRate = 1.0 - rRate - gRate;
+	const rgbArray =[ 0.0,0.0,0.0 ];
+	rgbArray[0] = computeToSrgb (lux * rRate / 0.2126);
+	rgbArray[1] = computeToSrgb (lux * gRate / 0.7152);
+	rgbArray[2] = computeToSrgb (lux * bRate / 0.0722);
+	rgbArray[0] *= 255;
+	rgbArray[1] *= 255;
+	rgbArray[2] *= 255;
+	rgbArray[0] = Math.round (rgbArray[0]);
+	rgbArray[1] = Math.round (rgbArray[1]);
+	rgbArray[2] = Math.round (rgbArray[2]);
+	return rgbArray;
+}
+function rgbToString (rgbArray){ return 'rgb(' + rgbArray[0].toString() +','+ rgbArray[1].toString() +','+ rgbArray[2].toString() +')'; }
+function findComplimentary_va (colorRefStr, limConstrast){
+	const colRefRgbArray = rgbFromString (colorRefStr);
+	const colRefLux = 0.05 + luxFromRgb (colRefRgbArray);
+	const colDarkLux = (colRefLux / limConstrast) -0.05;
+	const colLightLux = (colRefLux * limConstrast) -0.05;
+	var colDark = 'none';
+	var colLight = 'none';
+	var colArray =[];
+	if (colDarkLux <=1.0 && colDarkLux >=0.0){
+		colArray = luxToRgb (colDarkLux, 0.3333, 0.3333);
+		colDark = rgbToString (colArray);
+	}
+	if (colLightLux <=1.0 && colLightLux >=0.0){
+		colArray = luxToRgb (colLightLux, 0.3333, 0.3333);
+		colLight = rgbToString (colArray);
+	}
+	console.log (colorRefStr, colDark, colLight);
+}
+function findComplimentary (colorRefStr, limConstrast){
+	const colRefRgbArray = rgbFromString (colorRefStr);
+	const colRefLux = 0.05 + luxFromRgb (colRefRgbArray);
+	const colDarkLux = (colRefLux / limConstrast) -0.05;
+	const colLightLux = (colRefLux * limConstrast) -0.05;
+	var colDark = 'none';
+	var colLight = 'none';
+	var colArray =[];
+	if (colDarkLux <=1.0 && colDarkLux >=0.0){
+		colArray = luxToRgb (colDarkLux, 0.3333, 0.3333);
+		colDark = rgbToString (colArray);
+	}
+	if (colLightLux <=1.0 && colLightLux >=0.0){
+		colArray = luxToRgb (colLightLux, 0.3333, 0.3333);
+		colLight = rgbToString (colArray);
+	}
+	console.log (colorRefStr, colRefLux, limConstrast, colDark, colDarkLux, colLight, colLightLux);
+//	console.log (colorRefStr, colDark, colLight);
+}
+findComplimentary ('rgb(0, 0, 0)',3);
+findComplimentary ('rgb(0, 0, 0)',7);
+findComplimentary ('rgb(255, 255, 255)',3);
+findComplimentary ('rgb(255, 255, 255)',7);
 
 // ------------------------ calculer le contraste ------------------------
 
