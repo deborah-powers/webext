@@ -34,7 +34,7 @@ function chooseAction (event){
 		chrome.scripting.removeCSS ({
 			target: {tabId: activeTab.id, allFrames: true},
 			files: [
-				'ana-common.css', 'elm-focus.css', 'elm-image.css', 'elm-interract.css', 'elm-link.css', 'elm-structure.css', 'elm-tooltip.css', 'text-spacing.css', 'text-spacing.css', 'text-widenning.css'
+				'ana-common.css', 'elm-focus.css', 'elm-iframe.css', 'elm-image.css', 'elm-interract.css', 'elm-link.css', 'elm-structure.css', 'elm-tooltip.css', 'text-spacing.css', 'text-spacing.css', 'text-widenning.css'
 		]});
 		var listStyle =[];
 		var listScript =[];
@@ -59,6 +59,10 @@ function chooseAction (event){
 		else if (action === 'elm-link'){
 			listStyle =[ 'ana-common.css', 'elm-link.css' ];
 			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-contrast.js', 'ana-common.js', 'elm-link.js' ];
+		}
+		else if (action === 'elm-iframe'){
+			listStyle =[ 'ana-common.css', 'elm-iframe.css' ];
+			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-common.js', 'elm-iframe.js' ];
 		}
 		else if (action === 'elm-image'){
 			listStyle =[ 'ana-common.css', 'elm-image.css' ];
