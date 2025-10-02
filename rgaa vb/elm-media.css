@@ -1,0 +1,19 @@
+video, audio, bgsound, canvas, svg, object, img[src$='.gif'] {
+	border-style: solid !important;
+	border-width: 4px !important;
+}
+bgsound { border-color: #088 !important; }
+audio { border-color: #0F8 !important; }
+video { border-color: #80F !important; }
+svg { border-color: #8F0 !important; }
+img[src$='.gif'] { border-color: #F08 !important; }
+canvas { border-color: #F80 !important; }
+object { border-color: #08F !important; }
+
+bgsound:hover:before { content: 'bgsound'; }
+audio:hover:before { content: 'audio'; }
+video:hover:before { content: 'video'; }
+svg:hover:before { content: 'svg'; }
+img[src$='.gif']:hover:before { content: 'gif'; }
+canvas:hover:before { content: 'canvas'; }
+object:hover:before { content: 'object'; }
