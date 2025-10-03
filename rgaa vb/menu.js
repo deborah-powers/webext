@@ -32,7 +32,7 @@ function chooseAction (event){
 	chrome.tabs.query ({currentWindow: true, active: true}, function (tabs){
 		var activeTab = tabs[0];
 		chrome.scripting.removeCSS ({
-			target: {tabId: activeTab.id, allFrames: true},
+			target: {tabId: activeTab.id, allFrames: false},
 			files: [
 				'ana-common.css', 'elm-focus.css', 'elm-iframe.css', 'elm-image.css', 'elm-interract.css', 'elm-link.css', 'elm-structure.css', 'elm-tooltip.css', 'text-spacing.css', 'text-spacing.css', 'text-widenning.css'
 		]});
@@ -72,11 +72,11 @@ function chooseAction (event){
 		else if (action === 'del-style') listScript = [ 'del-style.js' ];
 		// lancer les actions
 		if (listStyle.length >0) chrome.scripting.insertCSS ({
-			target: {tabId: activeTab.id, allFrames: true},
+			target: {tabId: activeTab.id, allFrames: false},
 			files: listStyle
 		});
 		if (listScript.length >0) chrome.scripting.executeScript ({
-			target: {tabId: activeTab.id, allFrames: true},
+			target: {tabId: activeTab.id, allFrames: false},
 			files: listScript
 		});
 	});

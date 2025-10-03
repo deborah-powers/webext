@@ -1,22 +1,22 @@
 /* doutes sur l'utilisation du focus */
 *:hover:before, *:focus:before, a#rgaa-download-rapport {
-	display: block !important;
-	background-color: ivory !important;
-	opacity: 1 !important;
-	color: #420 !important;
-	font-size: 18px !important;
-	font-weight: normal !important;
-	font-style: normal !important;
-	font-family: georgia, serif !important;
-	text-transform: none !important;
-	text-decoration: none !important;
-	border: double 8px deeppink !important;
-	border-radius: 0.5em !important;
-	padding: 0.5em !important;
-	white-space: pre-wrap !important;
-	max-width: 40vw !important;
-	position: fixed !important;
-	bottom: 2em !important;
+	display: block;
+	background-color: ivory;
+	opacity: 1;
+	color: #420;
+	font-size: 18px;
+	font-weight: normal;
+	font-style: normal;
+	font-family: georgia, serif;
+	text-transform: none;
+	text-decoration: none;
+	border: double 8px deeppink;
+	border-radius: 0.5em;
+	padding: 0.5em;
+	white-space: pre-wrap;
+	max-width: 30vw;
+	position: fixed;
+	bottom: 2em;
 	z-index: 20;
 }
 *:hover:before, *:focus:before {

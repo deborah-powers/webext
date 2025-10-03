@@ -19,7 +19,7 @@ Element.prototype.getXpathRole = function(){
 }}
 Element.prototype.getXpathTag = function(){
 	var itemNb = document.getElementsByTagName (this.tagName).length;
-	if (1=== itemNb) return " /"+ this.tagName;
+	if (1=== itemNb) return " !"+ this.tagName;
 	else{
 		itemNb = this.parentElement.getElementsByTagName (this.tagName).length;
 		if (1=== itemNb) return this.tagName;
@@ -48,29 +48,38 @@ Element.prototype.childUnique = function (childNode, childClass, childRole){
 	const itemList0 = this.getElementsByTagName (childNode.tagName);
 	var itemList =[];
 	// vérifier qu'il n'y a qu'un seul élément possédant la combinaison tag - class - role
-	if (childRole && childClass){
+	if (childRole && childClass && childNode.className.constructor.name === 'String'){
 		for (var i=0; i< itemList0.length; i++)
 			if (childRole === itemList0[i].getAttribute ('role') && itemList0[i].className.includes (childClass)){
+				itemList.push (itemList0[i]);
+	}}
+	else if (childRole && childClass){
+		for (var i=0; i< itemList0.length; i++)
+			if (childRole === itemList0[i].getAttribute ('role') && itemList0[i].className.animVal.includes (childClass)){
 				itemList.push (itemList0[i]);
 	}}
 	else if (childRole){
 		for (var i=0; i< itemList0.length; i++) if (childRole === itemList0[i].getAttribute ('role')){
 			itemList.push (itemList0[i]);
 	}}
-	else if (childClass){
+	else if (childClass && childNode.className.constructor.name === 'String'){
 		for (var i=0; i< itemList0.length; i++) if (itemList0[i].className.includes (childClass)){
+			itemList.push (itemList0[i]);
+	}}
+	else if (childClass){
+		for (var i=0; i< itemList0.length; i++) if (itemList0[i].className.animVal.includes (childClass)){
 			itemList.push (itemList0[i]);
 	}}
 	var finalXpath ="";
 	if (1=== itemList.length){
-		if (childNode.tagName) finalXpath = finalXpath +'/'+ childNode.tagName;
+		if (childNode.tagName) finalXpath = finalXpath +'!'+ childNode.tagName;
 		if (childClass) finalXpath = finalXpath +'.'+ childClass;
 		if (exists (childRole)) finalXpath = finalXpath +'*'+ childRole;
 	}
 	else{
 		var posChild =0;
 		while (posChild < itemList0.length && ! childNode.isEqualNode (itemList0 [posChild])) posChild +=1;
-		finalXpath = finalXpath +'/'+ childNode.tagName +':'+ posChild.toString();
+		finalXpath = finalXpath +'!'+ childNode.tagName +':'+ posChild.toString();
 	}
 	return " "+ finalXpath;
 }
@@ -87,7 +96,7 @@ Element.prototype.getXpath = function(){
 		finalXpath = this.parentElement.childUnique (this, pathClass, pathRole);
 		finalXpath = this.parentElement.getXpath() + finalXpath;
 	}
-	return finalXpath.trim();
+	return finalXpath;
 }
 function tagFromXpath (xpath){
 	xpath = xpath.substring (1);
@@ -101,7 +110,7 @@ function tagFromXpath (xpath){
 	for (; t< tagList.length; t++){
 		tagList[t] = tagList[t].substring (1);
 		if ('.'=== tagList[t][0]) item = item.getElementsByClassName (tagList[t][0].substring (1))[0];
-		else if ('/'=== tagList[t][0]){
+		else if ('!'=== tagList[t][0]){
 			tagList[t] = tagList[t].substring (1)[0];
 			var posChild =0;
 			if (tagList[t].includes (':')){
@@ -117,11 +126,11 @@ function tagFromXpath_va (xpath){
 	xpath = xpath.replaceAll ('#', '?#');
 	xpath = xpath.replaceAll ('.', '?.');
 	xpath = xpath.replaceAll ('*', '?*');	// le role
-	xpath = xpath.replaceAll ('/', '?/');	// le tagName
+	xpath = xpath.replaceAll ('!', '?!');	// le tagName
 	xpath = xpath.replaceAll (':', '?:');	// le numéro du tag
-//	xpath = xpath.replaceAll (" ", '?/');	// un nouveau tag
+	xpath = xpath.replaceAll (" ", '?/');	// un nouveau tag
 	if ('?'=== xpath[0]) xpath = xpath.substring (1);
-	const xpathList = xpath.split ('/');
+	const xpathList = xpath.split ('!');
 	var item = document.body;
 	if ('#'=== xpathList[0]) item = document.getElementById (xpathList[0].substring (1));
 	else if (" "=== xpathList[0]) item = document.getElementsByTagName (xpathList[0].substring (1))[0];
