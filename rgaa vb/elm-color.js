@@ -14,3 +14,4 @@ HTMLElement.prototype.checkColorsTree = function(){
 }
 document.body.checkColorsTree();
 downloadAnalyse ('couleurs');
+

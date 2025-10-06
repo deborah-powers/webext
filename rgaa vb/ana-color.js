@@ -35,7 +35,8 @@ HTMLElement.prototype.computeContrastBgText = function (style){
 	else this.infos = this.infos +'ok (AAA)';
 }
 Element.prototype.computeContrastBgSupport = function (bgColor){
-	const bgColorParent = this.parentElement.getVisibleBgColor (window.getComputedStyle (this.parentElement));
+	const styleParent = window.getComputedStyle (this.parentElement);
+	const bgColorParent = this.parentElement.getVisibleBgColor (styleParent);
 	this.infos = this.infos + '\ncontraste avec le fond du support: ';
 	contraste = compareTwoRgbString (bgColor, bgColorParent);
 	this.infos = this.infos + contraste.toString() + ':1. ';
@@ -118,11 +119,14 @@ SVGElement.prototype.getVisibleBgColor = function (style){
 }
 SVGSVGElement.prototype.getVisibleBgColor = function (style){ return Element.prototype.getVisibleBgColor.call (this, style); }
 Element.prototype._computeVisibleBgColor = function (bgColor){
-	if (bgColor === 'none' || bgColor === 'transparent' || 'rgba' === bgColor.substring (0,4) && ', 0)' === bgColor.substring (12))
-		bgColor = this.parentElement.getVisibleBgColor();
+	if (bgColor === 'none' || bgColor === 'transparent' || 'rgba' === bgColor.substring (0,4) && ', 0)' === bgColor.substring (12)){
+		const styleParent = window.getComputedStyle (this.parentElement);
+		bgColor = this.parentElement.getVisibleBgColor (styleParent);
+	}
 	else if ('rgba' === bgColor.substring (0,4) && ', 1)' !== bgColor.substring (12)){
 		const bgColorArray = rgbFromString (bgColor);
-		var bgColorParentArray = rgbFromString (this.parentElement.getVisibleBgColor());
+		const styleParent = window.getComputedStyle (this.parentElement);
+		var bgColorParentArray = rgbFromString (this.parentElement.getVisibleBgColor (styleParent));
 		if (bgColorParentArray.length ===3) bgColorParentArray.push (1);
 		const opacityTotal = bgColorArray[3] + bgColorParentArray[3];
 		bgColorArray[3] /= opacityTotal;
