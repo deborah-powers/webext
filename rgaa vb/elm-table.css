@@ -1,0 +1,28 @@
+table, [role='table'] {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: deeppink !important;
+}
+table[role='presentation'], table[role='none'] { border-color: limegreen !important; }
+[role='table'] { border-color: orangered !important; }
+tr, th, td, [role='row'], [role='rowheader'], [role='columnheader'], [role='cell'] {
+	border-color: inherit !important;
+	border-width: inherit !important;
+}
+th { border-style: dotted !important; }
+th[scope] { border-style: solid !important; }
+td[headers], [role='cell'][headers] { border-style: solid !important; }
+
+table[role='presentation'] th, table[role='presentation'] > thead, table[role='presentation'] > tfoot, table[role='presentation'] > caption,
+table[role='presentation'] [scope], table[role='presentation'] [headers], table[role='presentation'] [colgroup],
+table[role='presentation'] [axis], table[role='presentation'] [role='rowheader'], table[role='presentation'] [role='columnheader'],
+table[role='none'] th, table[role='none'] > thead, table[role='none'] > tfoot, table[role='none'] > caption,
+table[role='none'] [scope], table[role='none'] [headers], table[role='none'] [colgroup],
+table[role='none'] [axis], table[role='none'] [role='rowheader'], table[role='none'] [role='columnheader']
+	{ border-style: dotted !important; }
+
+table.rgaa-error { border-style: dashed !important; }
+
+table:hover:before { content: 'table\A' attr(infos); }
+[role='table']:hover:before { content: 'role table\A' attr(infos); }
+

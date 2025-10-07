@@ -16,10 +16,17 @@ HTMLElement.prototype.visibleName = function(){
 }
 HTMLFieldSetElement.prototype.visibleName = function(){
 	if (this.innerHTML.includes ('</legend>')){
-		const legend = this.getElementByTagName ('legend')[0];
+		const legend = this.getElementsByTagName ('legend')[0];
 		return legend.visibleName();
 	}
 	else return this.innerText.cleanName();
+}
+HTMLTableElement.prototype.visibleName = function(){
+	if (this.innerHTML.includes ('</caption>')){
+		const legend = this.getElementsByTagName ('caption')[0];
+		return legend.visibleName();
+	}
+	else return 'rien: rien';
 }
 HTMLInputElement.prototype.visibleName = function(){
 	if (this.type === 'hidden') return 'rien: invisible';
@@ -101,10 +108,20 @@ HTMLFieldSetElement.prototype.accessibleName = function(){
 	var intitule = Element.prototype.accessibleName.call (this);
 	if ('aria-' === intitule.substring (0,5)) return intitule;
 	else if (this.innerHTML.includes ('</legend>')){
-		const legend = this.getElementByTagName ('legend')[0];
-		return legend.accessibleName();
+		const legend = this.getElementsByTagName ('legend')[0];
+		return 'légende: '+ legend.accessibleName();
 	}
 	else return intitule;
+}
+HTMLTableElement.prototype.accessibleName = function(){
+	var intitule = Element.prototype.accessibleName.call (this);
+	if ('aria-' === intitule.substring (0,5)) return intitule;
+	else if (this.innerHTML.includes ('</caption>')){
+		const legend = this.getElementsByTagName ('caption')[0];
+		return 'caption: '+ legend.accessibleName();
+	}
+	else if ('title' === intitule.substring (0,5)) return intitule;
+	else return "rien: rien";
 }
 HTMLInputElement.prototype.accessibleName = function(){
 	if (this.type === 'hidden') return 'rien: invisible';

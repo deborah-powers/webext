@@ -1,9 +1,11 @@
 table {
-	border-style: solid;
+	border-style: solid !important;
 	border-width: 4px !important;
-	border-color: deeppink;
+	border-color: deeppink !important;
 }
 table[role='presentation'], table[role='none'] { border-color: limegreen !important; }
+
+
 table.rgaa-error { border-style: dashed !important; }
 table.rgaa-double th, table.rgaa-complex th, table.rgaa-complex td {
 	border-style: dashed;
