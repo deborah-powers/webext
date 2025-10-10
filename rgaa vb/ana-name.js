@@ -12,27 +12,29 @@ String.prototype.cleanName = function(){
 Element.prototype.visibleName = function(){ return ""; }
 HTMLElement.prototype.visibleName = function(){
 	if (this.innerText) return this.innerText.cleanName();
-	else return 'rien: rien';
+	else return "";
 }
 HTMLFieldSetElement.prototype.visibleName = function(){
 	if (this.innerHTML.includes ('</legend>')){
 		const legend = this.getElementsByTagName ('legend')[0];
-		return legend.visibleName();
+		if (exists (legend)) return legend.visibleName();
+		else return "";
 	}
 	else return this.innerText.cleanName();
 }
 HTMLTableElement.prototype.visibleName = function(){
 	if (this.innerHTML.includes ('</caption>')){
 		const legend = this.getElementsByTagName ('caption')[0];
-		return legend.visibleName();
+		if (exists (legend)) return legend.visibleName();
+		else return "";
 	}
-	else return 'rien: rien';
+	else return "";
 }
 HTMLInputElement.prototype.visibleName = function(){
 	if (this.type === 'hidden') return 'rien: invisible';
 	else if (this.labels.length ===1) return this.labels[0].visibleName();
 	else if ([ 'button', 'submit', 'reset' ].includes (this.type) && exists (this.value)) return this.value.toLowerCase();
-	else return 'rien: rien';
+	else return "";
 }
 HTMLImageElement.prototype.visibleName = function(){ return ""; }
 SVGSVGElement.prototype.visibleName = function(){
@@ -109,7 +111,7 @@ HTMLFieldSetElement.prototype.accessibleName = function(){
 	if ('aria-' === intitule.substring (0,5)) return intitule;
 	else if (this.innerHTML.includes ('</legend>')){
 		const legend = this.getElementsByTagName ('legend')[0];
-		return 'légende: '+ legend.accessibleName();
+		return 'légende '+ legend.accessibleName();
 	}
 	else return intitule;
 }
@@ -118,7 +120,7 @@ HTMLTableElement.prototype.accessibleName = function(){
 	if ('aria-' === intitule.substring (0,5)) return intitule;
 	else if (this.innerHTML.includes ('</caption>')){
 		const legend = this.getElementsByTagName ('caption')[0];
-		return 'caption: '+ legend.accessibleName();
+		return 'caption '+ legend.accessibleName();
 	}
 	else if ('title' === intitule.substring (0,5)) return intitule;
 	else return "rien: rien";

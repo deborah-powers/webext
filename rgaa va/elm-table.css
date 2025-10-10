@@ -28,3 +28,4 @@ th.rgaa-highlight { background-color: hotpink !important; }
 [role='row'] > [role='cell'], [role='row'] > [role='rowheader'], [role='row'] > [role='columnheader'] {
 	border-style: solid !important;
 }
+table.highlight, th.highlight { border-width: 8px !important; }

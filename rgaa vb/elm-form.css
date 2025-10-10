@@ -1,0 +1,25 @@
+form, [role='group'], fieldset, legend, input, textarea, label, form button, select, optgroup, option {
+	color: deeppink !important;
+	border-width: 4px !important;
+}
+fieldset, legend, input, textarea, label, select, optgroup, option { border-style: dotted !important; }
+form, form fieldset, form legend, form input, form textarea, form label, form button, form select, form optgroup, form option
+	{ border-style: solid !important; }
+
+form { border-color: teal !important; }
+select { border-color: red !important; }
+option { color: red !important; }
+optgroup {
+	color: ivory !important;
+	background-color: red !important;
+}
+fieldset, [role='group'] { border-color: blue !important; }
+legend { border-color: purple !important; }
+label { border-color: magenta !important; }
+input, textarea { border-color: hotpink !important; }
+form button, input[type='button'], input[type='submit'], input[type='reset'], input[type='image'] { border-color: violet !important; }
+
+/* champs au format de saisie contrôlé */
+input[type='number'], input[type='email'], input[type='password'], input[type='tel'], input[type='url'], input[type='color'],
+input[type='date'], input[type='time'], input[type='datetime-local'], input[type='datetime'], input[type='month'], input[type='week']
+	{ border-color: deeppink !important; }
