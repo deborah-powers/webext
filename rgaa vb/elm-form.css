@@ -1,25 +1,47 @@
 form, [role='group'], fieldset, legend, input, textarea, label, form button, select, optgroup, option {
-	color: deeppink !important;
+	background-color: ivory !important;
 	border-width: 4px !important;
+	box-sizing: border-box;
 }
+form:hover, [role='group']:hover, fieldset:hover, legend:hover, input:hover, textarea:hover, label:hover,
+form button:hover, select:hover, optgroup:hover, option:hover,
+form:focus, [role='group']:focus, fieldset:focus, legend:focus, input:focus, textarea:focus, label:focus,
+form button:focus, select:focus, optgroup:focus, option:focus
+	{ border-width: 8px !important; }
 fieldset, legend, input, textarea, label, select, optgroup, option { border-style: dotted !important; }
 form, form fieldset, form legend, form input, form textarea, form label, form button, form select, form optgroup, form option
 	{ border-style: solid !important; }
-
-form { border-color: teal !important; }
-select { border-color: red !important; }
-option { color: red !important; }
-optgroup {
-	color: ivory !important;
-	background-color: red !important;
+form { border-color: #888 !important; }
+fieldset, [role='group'] { border-color: #444 !important; }
+select {
+	border-color: #550 !important;
+	color: #550 !important;
 }
-fieldset, [role='group'] { border-color: blue !important; }
-legend { border-color: purple !important; }
-label { border-color: magenta !important; }
-input, textarea { border-color: hotpink !important; }
-form button, input[type='button'], input[type='submit'], input[type='reset'], input[type='image'] { border-color: violet !important; }
-
+optgroup { border-color: #A0522D; }
+option {
+	color: #900;
+	border-color: #900 !important;
+}
+legend {
+	border-color: #80C !important;
+	color: #80C !important;
+}
+label {
+	border-color: #826 !important;
+	color: #826 !important;
+}
+input, textarea {
+	border-color: #039 !important;
+	color: #039 !important;
+}
+form button, input[type='button'], input[type='submit'], input[type='reset'], input[type='image'] {
+	border-color: #055 !important;
+	color: #055 !important;
+}
 /* champs au format de saisie contrôlé */
 input[type='number'], input[type='email'], input[type='password'], input[type='tel'], input[type='url'], input[type='color'],
 input[type='date'], input[type='time'], input[type='datetime-local'], input[type='datetime'], input[type='month'], input[type='week']
-	{ border-color: deeppink !important; }
+{
+	border-color: #060 !important;
+	color: #060 !important;
+}
