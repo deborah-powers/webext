@@ -102,8 +102,19 @@ HTMLTableElement.prototype.addInfos = function(){
 	Element.prototype.addInfos.call (this);
 	const complex = this.isComplex();
 	if (complex){
-		this.classList.add ('rgaa-highlight');
 		this.infos = this.infos + '\ntableau complêxe';
+		infos = infos +'\ntableau complêxe';
+		const descriptionId = this.getAttribute ('aria-describedby');
+		if (exists (descriptionId)){
+			const description = document.getElementById (descriptionId);
+			if (! exists (description)){
+				this.infos = this.infos + '\nerreur, le bloc de description (aria-describedby=' + descriptionId +') manque';
+				infos = infos + '\nerreur, le bloc de description (aria-describedby=' + descriptionId +') manque';
+		}}
+		else{
+			this.infos = this.infos + '\nerreur, manque la description (aria-describedby)';
+			infos = infos + '\nerreur, manque la description (aria-describedby)';
+		}
 		const cells = this.getElementsByTagName ('td');
 		var cellWheaders = true;
 		var cellWheadersTmp = true;
@@ -111,11 +122,11 @@ HTMLTableElement.prototype.addInfos = function(){
 			cellWheadersTmp = cell.findCellHeaders();
 			if (cellWheaders && ! cellWheadersTmp) cellWheaders = false;
 		}
-		infos = infos +'\ntableau complêxe';
 		if (! cellWheaders){
-			this.infos = this.infos + '\ncellules sans headers';
-			infos = infos +'\ncellules sans headers';
+			this.infos = this.infos + '\nerreur, cellules sans headers';
+			infos = infos +'\nerreur, cellules sans headers';
 		}
+		if (this.infos.includes ('\nerreur')) this.classList.add ('rgaa-error');
 		this.setAttribute ('infos', this.infos);
 }}
 var tables = document.getElementsByTagName ('table');
