@@ -25,9 +25,5 @@ section#volet-rgaa span {
 	border-width: 4px !important;
 }
 [role='heading'][aria-level] { border-style: solid !important; }
+[role='heading']:before { content: 'aria manquant'; }
 [role='heading'][aria-level]:before { content: 'aria ' attr(aria-level) ': '; }
-[role='heading']:before { content: 'aria 0: '; }
-/*
-section#volet-rgaa div > p { display: none; }
-section#volet-rgaa div:hover > p { display: block; }
-*/

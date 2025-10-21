@@ -1,0 +1,93 @@
+/* éléments interdits */
+basefont, big, blink, center, font, marquee, s, strike, tt {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: deeppink !important;
+}
+basefont:hover:before { content: 'élément interdit: basefont'; }
+big:hover:before { content: 'élément interdit: big'; }
+blink:hover:before { content: 'élément interdit: blink'; }
+center:hover:before { content: 'élément interdit: center'; }
+font:hover:before { content: 'élément interdit: font'; }
+marquee:hover:before { content: 'élément interdit: marquee'; }
+s:hover:before { content: 'élément interdit: s'; }
+strike:hover:before { content: 'élément interdit: strike'; }
+tt:hover:before { content: 'élément interdit: tt'; }
+/* attributs interdits */
+[align], [alink], [background], [bgcolor], [border], [cellpadding], [cellspacing], [char], [charoff], [clear], [compact], [color], [frameborder], [hspace], [link], [marginheight], [marginwidth], [text], [valign], [vlink], [vspace] {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: limegreen !important;
+}
+[align]:hover:before { content: 'attribut interdit: align'; }
+[alink]:hover:before { content: 'attribut interdit: alink'; }
+[background]:hover:before { content: 'attribut interdit: background'; }
+[bgcolor]:hover:before { content: 'attribut interdit: bgcolor'; }
+[border]:hover:before { content: 'attribut interdit: border'; }
+[cellpadding]:hover:before { content: 'attribut interdit: cellpadding'; }
+[cellspacing]:hover:before { content: 'attribut interdit: cellspacing'; }
+[char]:hover:before { content: 'attribut interdit: char'; }
+[charoff]:hover:before { content: 'attribut interdit: charoff'; }
+[clear]:hover:before { content: 'attribut interdit: clear'; }
+[compact]:hover:before { content: 'attribut interdit: compact'; }
+[color]:hover:before { content: 'attribut interdit: color'; }
+[frameborder]:hover:before { content: 'attribut interdit: frameborder'; }
+[hspace]:hover:before { content: 'attribut interdit: hspace'; }
+[link]:hover:before { content: 'attribut interdit: link'; }
+[marginheight]:hover:before { content: 'attribut interdit: marginheight'; }
+[marginwidth]:hover:before { content: 'attribut interdit: marginwidth'; }
+[text]:hover:before { content: 'attribut interdit: text'; }
+[valign]:hover:before { content: 'attribut interdit: valign'; }
+[vlink]:hover:before { content: 'attribut interdit: vlink'; }
+[vspace]:hover:before { content: 'attribut interdit: vspace'; }
+/* rôles interdits
+https://www.w3.org/TR/html-aria/#docconformance
+*/
+head[role], head *[role], input[type='email'][role], input[type='range'][role]
+{
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: teal !important;
+}
+/* rôles redondants */
+html[role='document'], [role='generic'], aside[role='complementary'], del[role='deletion'], s[role='deletion'], dfn[role='term'], ins[role='insertion'],
+p[role='paragraph'], em[role='emphasis'], hr[role='separator'], a[href][role='link'], area[href][role='link'], datalist[role='listbox'],
+output[role='status'], sub[role='subscript'], sup[role='supscript'], 
+address[role='group'], details[role='group'], fielset[role='group'], hgroup[role='group'], optgroup[role='group'], 
+select option[role='option'], datalist option[role='option'],
+h1[role='heading'], h2[role='heading'], h3[role='heading'], h4[role='heading'], h5[role='heading'], h6[role='heading'],
+article[role='article'], blockquote[role='blockquote'], button[role='button'], figcaption[role='caption'], caption[role='caption'], code[role='code'],
+dialog[role='dialog'], figure[role='figure'], form[role='form'], img[role='img'], img[role='image'], main[role='main'],
+meter[role='meter'], match[role='match'], nav[role='navigation'], progress[role='progressbar'], search[role='search'], table[role='table'],
+ol[role='list'], ul[role='list'], menu[role='list'],
+ol > li[role='listitem'], ul > li[role='listitem'], menu > li[role='listitem'],
+input[type='image'][role='button'], input[type='reset'][role='button'], input[type='submit'][role='button'],
+input[type='button'][role='button'], input[type='checkbox'][role='checkbox'], input[type='radio'][role='radio'],
+input[type='number'][role='spinbutton']
+{
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: coral !important;
+}
+html[role='document']:hover:before, [role='generic']:hover:before, aside[role='complementary']:hover:before, del[role='deletion']:hover:before, s[role='deletion']:hover:before, dfn[role='term']:hover:before, ins[role='insertion'],
+p[role='paragraph']:hover:before, em[role='emphasis']:hover:before, hr[role='separator']:hover:before, a[href][role='link']:hover:before, area[href][role='link']:hover:before, datalist[role='listbox'],
+output[role='status']:hover:before, sub[role='subscript']:hover:before, sup[role='supscript']:hover:before, 
+address[role='group']:hover:before, details[role='group']:hover:before, fielset[role='group']:hover:before, hgroup[role='group']:hover:before, optgroup[role='group']:hover:before, 
+select option[role='option']:hover:before, datalist option[role='option'],
+h1[role='heading']:hover:before, h2[role='heading']:hover:before, h3[role='heading']:hover:before, h4[role='heading']:hover:before, h5[role='heading']:hover:before, h6[role='heading'],
+article[role='article']:hover:before, blockquote[role='blockquote']:hover:before, button[role='button']:hover:before, figcaption[role='caption']:hover:before, caption[role='caption']:hover:before, code[role='code'],
+dialog[role='dialog']:hover:before, figure[role='figure']:hover:before, form[role='form']:hover:before, img[role='img']:hover:before, img[role='image']:hover:before, main[role='main'],
+meter[role='meter']:hover:before, match[role='match']:hover:before, nav[role='navigation']:hover:before, progress[role='progressbar']:hover:before, search[role='search']:hover:before, table[role='table'],
+ol[role='list']:hover:before, ul[role='list']:hover:before, menu[role='list'],
+ol > li[role='listitem']:hover:before, ul > li[role='listitem']:hover:before, menu > li[role='listitem'],
+input[type='image'][role='button']:hover:before, input[type='reset'][role='button']:hover:before, input[type='submit'][role='button'],
+input[type='button'][role='button']:hover:before, input[type='checkbox'][role='checkbox']:hover:before, input[type='radio'][role='radio'],
+input[type='number'][role='spinbutton']:hover:before
+	{ content: 'role redondant: ' attr(role); }
+u {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: cornflowerblue !important;
+}
+u:hover:before { content: 'élement u interdit à partir de html 5'; }
+

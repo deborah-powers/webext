@@ -34,7 +34,10 @@ function chooseAction (event){
 		chrome.scripting.removeCSS ({
 			target: {tabId: activeTab.id, allFrames: false},
 			files: [
-				'ana-common.css', 'elm-focus.css', 'elm-form.css', 'elm-iframe.css', 'elm-image.css', 'elm-interract.css', 'elm-link.css', 'elm-structure.css', 'elm-table.css', 'elm-tooltip.css', 'text-spacing.css', 'text-spacing.css', 'text-widenning.css'
+				'ana-common.css', 'elm-focus.css', 'elm-form.css', 'elm-iframe.css', 'elm-image.css', 'elm-interdit.css',
+				'elm-interract.css', 'elm-link.css',
+				'elm-liste.css', 'elm-structure.css', 'elm-table.css', 'elm-titre.css', 'elm-tooltip.css',
+				'text-spacing.css', 'text-spacing.css', 'text-widenning.css'
 		]});
 		var listStyle =[];
 		var listScript =[];
@@ -47,12 +50,15 @@ function chooseAction (event){
 			listStyle =[ 'ana-common.css' ];
 			listScript =[ 'xpathFct.js', 'ana-contrast.js', 'ana-common.js', 'ana-color.js', 'elm-color.js' ];
 		}
+		else if (action === 'elm-titre') listStyle =[ 'ana-common.css', 'elm-titre.css' ];
+		else if (action === 'elm-liste') listStyle =[ 'ana-common.css', 'elm-liste.css' ];
 		else if (action === 'elm-form') listStyle =[ 'elm-form.css' ];
 		else if (action === 'elm-focus') listStyle =[ 'ana-common.css', 'elm-focus.css' ];
 		else if (action === 'text-widenning') listStyle =[ 'text-widenning.css' ];
 		else if (action === 'text-spacing') listStyle =[ 'text-spacing.css' ];
 		else if (action === 'window-shrinking') listScript =[ 'ana-shrink.js' ];
 		else if (action === 'elm-tooltip') listStyle =[ 'ana-common.css', 'elm-tooltip.css' ];
+		else if (action === 'elm-interdit') listStyle =[ 'ana-common.css', 'elm-interdit.css' ];
 		else if (action === 'elm-interract'){
 			listStyle =[ 'ana-common.css', 'elm-focus.css', 'elm-interract.css' ];
 			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-contrast.js', 'ana-common.js', 'elm-interract.js' ];

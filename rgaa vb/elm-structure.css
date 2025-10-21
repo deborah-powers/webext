@@ -1,7 +1,7 @@
 main, [role='main'], header, [role='banner'], footer, [role='contentinfo'], nav, [role='navigation'], aside
 	{ border-width: 4px !important; }
-main, header, footer, nav, aside { border-style: solid !important; }
-[role='main'], [role='banner'], [role='contentinfo'], [role='navigation'] { border-style: dashed !important; }
+[role='main'], header, footer, nav, aside { border-style: solid !important; }
+main, [role='main'], [role='banner'], [role='contentinfo'], [role='navigation'] { border-style: dashed !important; }
 main[hidden], header[role='banner'][hidden], footer[role='contentinfo'][hidden] { border-style: dotted !important; }
 main[role='main'], header[role='banner'], footer[role='contentinfo'], nav[role='navigation'] {
 	border-style: double !important;
@@ -12,7 +12,6 @@ header, [role='banner'] { border-color: forestgreen !important; }
 footer, [role='contentinfo'] { border-color: springgreen !important; }
 nav, [role='navigation'] { border-color: skyblue !important; }
 aside { border-color: orangered !important; }
-
 main:hover:before { content: 'main'; }
 header:hover:before { content: 'header'; }
 footer:hover:before { content: 'footer'; }
