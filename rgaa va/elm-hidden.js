@@ -1,6 +1,5 @@
 Element.prototype.isHidden = function(){
 	const style = window.getComputedStyle (this);
-	console.log (this.tagName, style.display, style.visibility, style.fontSize);
 	if (style.display === 'none' || style.visibility === 'hidden' || style.fontSize === '0px') this.classList.add ('rgaa-hidden');
 }
 HTMLScriptElement.isHidden = function(){ return; }

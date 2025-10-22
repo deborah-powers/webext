@@ -52,13 +52,17 @@ function chooseAction (event){
 		}
 		else if (action === 'elm-titre') listStyle =[ 'ana-common.css', 'elm-titre.css' ];
 		else if (action === 'elm-liste') listStyle =[ 'ana-common.css', 'elm-liste.css' ];
-		else if (action === 'elm-form') listStyle =[ 'elm-form.css' ];
+		else if (action === 'elm-form') listStyle =[ 'ana-common.css', 'elm-form.css' ];
 		else if (action === 'elm-focus') listStyle =[ 'ana-common.css', 'elm-focus.css' ];
 		else if (action === 'text-widenning') listStyle =[ 'text-widenning.css' ];
 		else if (action === 'text-spacing') listStyle =[ 'text-spacing.css' ];
 		else if (action === 'window-shrinking') listScript =[ 'ana-shrink.js' ];
 		else if (action === 'elm-tooltip') listStyle =[ 'ana-common.css', 'elm-tooltip.css' ];
 		else if (action === 'elm-interdit') listStyle =[ 'ana-common.css', 'elm-interdit.css' ];
+		else if (action === 'elm-cache'){
+			listStyle =[ 'elm-cache.css' ];
+			listScript =[ 'elm-cache.js' ];
+		}
 		else if (action === 'elm-interract'){
 			listStyle =[ 'ana-common.css', 'elm-focus.css', 'elm-interract.css' ];
 			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-contrast.js', 'ana-common.js', 'elm-interract.js' ];

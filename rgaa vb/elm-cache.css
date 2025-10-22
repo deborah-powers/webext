@@ -1,0 +1,28 @@
+[hidden], [aria-hidden], .rgaa-hidden, .rgaa-sronly {
+	display: block !important;
+	visibility: visible !important;
+	font-size: 1em !important;
+	color: #420 !important;
+	background-color: ivory !important;
+	padding: 1%;
+	border-width: 4px !important;
+	border-style: solid !important;
+}
+.rgaa-sronly {
+	clip: unset !important;
+	clip-path: unset !important;
+	-webkit-clip-path: none !important;
+	border: solid 4px purple !important;
+	overflow: visible !important;
+	width: auto !important;
+	height: auto !important;
+	margin: auto !important;
+	white-space: normal !important;
+	position: static;
+	opacity: 1;
+}
+[aria-hidden] { border-color: deeppink !important; }
+[aria-hidden='false'] { border-style: dashed !important; }
+[hidden] { border-color: magenta !important; }
+.rgaa-hidden { border-color: purple !important; }
+.rgaa-sronly { border-color: cornflowerblue !important; }

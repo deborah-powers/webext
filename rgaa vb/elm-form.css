@@ -1,21 +1,22 @@
 /* https://accessibilite.numerique.gouv.fr/methode/glossaire/#champ-de-saisie-de-formulaire */
 
-form, [role='group'], fieldset, legend, input, textarea, label, form button, select, optgroup, option, datalist {
+form, [role='form'], [role='group'], fieldset, legend, input, textarea, label, form button, select, optgroup, option, datalist, [role='group'] [role] {
 	background-color: ivory !important;
 	color: #603 !important;
 	border-width: 4px !important;
 	box-sizing: border-box !important;
 }
-form:hover, [role='group']:hover, fieldset:hover, legend:hover, input:hover, textarea:hover, label:hover,
+form:hover, [role='form']:hover, [role='group']:hover, fieldset:hover, legend:hover, input:hover, textarea:hover, label:hover,
 form button:hover, select:hover, optgroup:hover, option:hover,
 form:focus, [role='group']:focus, fieldset:focus, legend:focus, input:focus, textarea:focus, label:focus,
 form button:focus, select:focus, optgroup:focus, option:focus
 	{ border-width: 8px !important; }
 fieldset, legend, input, textarea, label, select, optgroup, option { border-style: dotted !important; }
-form, form fieldset, form legend, form input, form textarea, form label, form button, form select, form optgroup, form option
-	{ border-style: solid !important; }
-form { border-color: #666 !important; }
-fieldset, [role='group'] { border-color: #444 !important; }
+form, form fieldset, form legend, form input, form textarea, form label, form button, form select, form optgroup, form option,
+[role='form'] [role] { border-style: solid !important; }
+form, [role='form'] { border-color: #666 !important; }
+[role='form'] [role] { border-color: #F63 !important; }
+fieldset, [role='group'], [role='form'] [role='group'] { border-color: #444 !important; }
 select {
 	border-color: #660 !important;
 	color: #550 !important;
@@ -36,7 +37,10 @@ datalist {
 	display: block !important;
 	border-color: #F3C !important;
 }
+[aria-required='true'], [required] { background-color: lightblue !important; }
+[aria-invalid='true'] { background-color: pink !important; }
 /* champs au format de saisie contrôlé */
 input[type='number'], input[type='email'], input[type='password'], input[type='tel'], input[type='url'], input[type='color'],
 input[type='date'], input[type='time'], input[type='datetime-local'], input[type='datetime'], input[type='month'], input[type='week']
 { border-color: #093 !important; }
+[role='form'] [role]:hover:before { content: 'role ' attr(role); }
