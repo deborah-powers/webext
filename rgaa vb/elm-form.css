@@ -1,6 +1,8 @@
 /* https://accessibilite.numerique.gouv.fr/methode/glossaire/#champ-de-saisie-de-formulaire */
 
-form, [role='form'], [role='group'], fieldset, legend, input, textarea, label, form button, select, optgroup, option, datalist, [role='group'] [role] {
+form, [role='form'], [role='group'], fieldset, legend, input, textarea, label, form button, select, optgroup, option, datalist,
+[role='radiogroup'], [role='button'], [role='progressbar'], [role='slider'], [role='spinbutton'], [role='textbox'], [role='listbox'],
+[role='searchbox'], [role='combobox'], [role='option'], [role='checkbox'], [role='radio'], [role='switch'], [role='group'] [role] {
 	background-color: ivory !important;
 	color: #603 !important;
 	border-width: 4px !important;
@@ -16,21 +18,24 @@ form, form fieldset, form legend, form input, form textarea, form label, form bu
 [role='form'] [role] { border-style: solid !important; }
 form, [role='form'] { border-color: #666 !important; }
 [role='form'] [role] { border-color: #F63 !important; }
-fieldset, [role='group'], [role='form'] [role='group'] { border-color: #444 !important; }
+fieldset, [role='group'], [role='radiogroup'], [role='form'] [role='group'], [role='form'] [role='radiogroup']
+	{ border-color: #444 !important; }
 select {
 	border-color: #660 !important;
 	color: #550 !important;
 }
 optgroup { border-color: #963 !important; }
-option {
+option, [role='option'] {
 	color: #900 !important;
 	border-color: #C00 !important;
 	border-style: none !important;
 }
 legend { border-color: #93F !important; }
 label { border-color: #C09 !important; }
-input, textarea { border-color: #36C !important; }
-form button, input[type='button'], input[type='submit'], input[type='reset'], input[type='image'] {
+input, textarea, [role='progressbar'], [role='slider'], [role='spinbutton'], [role='textbox'], [role='listbox'], [role='searchbox'],
+[role='combobox'], [role='checkbox'], [role='radio'], [role='switch']
+	{ border-color: #36C !important; }
+form button, input[type='button'], input[type='submit'], input[type='reset'], input[type='image'], [role='button'] {
 	border-color: #399 !important;
 }
 datalist {
@@ -43,4 +48,54 @@ datalist {
 input[type='number'], input[type='email'], input[type='password'], input[type='tel'], input[type='url'], input[type='color'],
 input[type='date'], input[type='time'], input[type='datetime-local'], input[type='datetime'], input[type='month'], input[type='week']
 { border-color: #093 !important; }
+
+[autocomplete]:hover:before { content: 'completion invalide ' attr(autocomplete); }
+[autocomplete='name']:hover:before, [autocomplete='given-name']:hover:before, [autocomplete='additional-name']:hover:before,
+[autocomplete='family-name']:hover:before, [autocomplete='honorific-prefix']:hover:before, [autocomplete='honorific-suffix']:hover:before,
+[autocomplete='nickname']:hover:before, [autocomplete='organization-title']:hover:before, [autocomplete='username']:hover:before,
+[autocomplete='new-password']:hover:before, [autocomplete='current-password']:hover:before, [autocomplete='organization']:hover:before,
+[autocomplete='street-address']:hover:before, [autocomplete='address-line1']:hover:before, [autocomplete='address-line2']:hover:before,
+[autocomplete='address-line3']:hover:before, [autocomplete='address-level4']:hover:before, [autocomplete='address-level3']:hover:before,
+[autocomplete='address-level2']:hover:before, [autocomplete='address-level1']:hover:before, [autocomplete='country']:hover:before,
+[autocomplete='country-name']:hover:before, [autocomplete='postal-code']:hover:before, [autocomplete='cc-name']:hover:before,
+[autocomplete='cc-given-name']:hover:before, [autocomplete='cc-additional-name']:hover:before, [autocomplete='cc-family-name']:hover:before,
+[autocomplete='cc-number']:hover:before, [autocomplete='cc-exp']:hover:before, [autocomplete='cc-exp-month']:hover:before,
+[autocomplete='cc-exp-year']:hover:before, [autocomplete='cc-csc']:hover:before, [autocomplete='cc-type']:hover:before,
+[autocomplete='transaction-currency']:hover:before, [autocomplete='transaction-amount']:hover:before,
+[autocomplete='language']:hover:before, [autocomplete='bday']:hover:before, [autocomplete='bday-day']:hover:before,
+[autocomplete='bday-month']:hover:before, [autocomplete='bday-year']:hover:before, [autocomplete='sex']:hover:before,
+[autocomplete='url']:hover:before, [autocomplete='photo']:hover:before, [autocomplete='tel']:hover:before,
+[autocomplete='tel-country-code']:hover:before, [autocomplete='tel-national']:hover:before, [autocomplete='tel-area-code']:hover:before,
+[autocomplete='tel-local']:hover:before, [autocomplete='tel-local-prefix']:hover:before, [autocomplete='tel-local-suffix']:hover:before,
+[autocomplete='tel-extension']:hover:before, [autocomplete='email']:hover:before, [autocomplete='impp']:hover:before
+	{ content: 'completion ' attr(autocomplete); }
 [role='form'] [role]:hover:before { content: 'role ' attr(role); }
+[role='form'] [role][autocomplete]:hover:before { content: 'role ' attr(role) ', completion invalide ' attr(autocomplete); }
+[role='form'] [role][autocomplete='name']:hover:before, [role='form'] [role][autocomplete='given-name']:hover:before,
+[role='form'] [role][autocomplete='additional-name']:hover:before, [role='form'] [role][autocomplete='family-name']:hover:before,
+[role='form'] [role][autocomplete='honorific-prefix']:hover:before, [role='form'] [role][autocomplete='honorific-suffix']:hover:before,
+[role='form'] [role][autocomplete='nickname']:hover:before, [role='form'] [role][autocomplete='organization-title']:hover:before,
+[role='form'] [role][autocomplete='username']:hover:before, [role='form'] [role][autocomplete='new-password']:hover:before,
+[role='form'] [role][autocomplete='current-password']:hover:before, [role='form'] [role][autocomplete='organization']:hover:before,
+[role='form'] [role][autocomplete='street-address']:hover:before, [role='form'] [role][autocomplete='address-line1']:hover:before,
+[role='form'] [role][autocomplete='address-line2']:hover:before, [role='form'] [role][autocomplete='address-line3']:hover:before,
+[role='form'] [role][autocomplete='address-level4']:hover:before, [role='form'] [role][autocomplete='address-level3']:hover:before,
+[role='form'] [role][autocomplete='address-level2']:hover:before, [role='form'] [role][autocomplete='address-level1']:hover:before,
+[role='form'] [role][autocomplete='country']:hover:before, [role='form'] [role][autocomplete='country-name']:hover:before,
+[role='form'] [role][autocomplete='postal-code']:hover:before, [role='form'] [role][autocomplete='cc-name']:hover:before,
+[role='form'] [role][autocomplete='cc-given-name']:hover:before, [role='form'] [role][autocomplete='cc-additional-name']:hover:before,
+[role='form'] [role][autocomplete='cc-family-name']:hover:before, [role='form'] [role][autocomplete='cc-number']:hover:before,
+[role='form'] [role][autocomplete='cc-exp']:hover:before, [role='form'] [role][autocomplete='cc-exp-month']:hover:before,
+[role='form'] [role][autocomplete='cc-exp-year']:hover:before, [role='form'] [role][autocomplete='cc-csc']:hover:before,
+[role='form'] [role][autocomplete='cc-type']:hover:before, [role='form'] [role][autocomplete='transaction-currency']:hover:before,
+[role='form'] [role][autocomplete='transaction-amount']:hover:before, [role='form'] [role][autocomplete='language']:hover:before,
+[role='form'] [role][autocomplete='bday']:hover:before, [role='form'] [role][autocomplete='bday-day']:hover:before,
+[role='form'] [role][autocomplete='bday-month']:hover:before, [role='form'] [role][autocomplete='bday-year']:hover:before,
+[role='form'] [role][autocomplete='sex']:hover:before, [role='form'] [role][autocomplete='url']:hover:before,
+[role='form'] [role][autocomplete='photo']:hover:before, [role='form'] [role][autocomplete='tel']:hover:before,
+[role='form'] [role][autocomplete='tel-country-code']:hover:before, [role='form'] [role][autocomplete='tel-national']:hover:before,
+[role='form'] [role][autocomplete='tel-area-code']:hover:before, [role='form'] [role][autocomplete='tel-local']:hover:before,
+[role='form'] [role][autocomplete='tel-local-prefix']:hover:before, [role='form'] [role][autocomplete='tel-local-suffix']:hover:before,
+[role='form'] [role][autocomplete='tel-extension']:hover:before, [role='form'] [role][autocomplete='email']:hover:before,
+[role='form'] [role][autocomplete='impp']:hover:before
+	{ content: 'role ' attr(role) ', completion invalide ' attr(autocomplete); }
