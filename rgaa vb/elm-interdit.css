@@ -14,7 +14,8 @@ s:hover:before { content: 'élément interdit: s'; }
 strike:hover:before { content: 'élément interdit: strike'; }
 tt:hover:before { content: 'élément interdit: tt'; }
 /* attributs interdits */
-[align], [alink], [background], [bgcolor], [border], [cellpadding], [cellspacing], [char], [charoff], [clear], [compact], [color], [frameborder], [hspace], [link], [marginheight], [marginwidth], [text], [valign], [vlink], [vspace] {
+[align], [alink], [background], [bgcolor], [border], [cellpadding], [cellspacing], [char], [charoff], [clear], [compact], [color],
+[frameborder], [hspace], [link], [marginheight], [marginwidth], [text], [valign], [vlink], [vspace], [size] {
 	border-style: solid !important;
 	border-width: 4px !important;
 	border-color: limegreen !important;

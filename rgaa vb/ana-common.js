@@ -62,6 +62,7 @@ Element.prototype.getAllByRole = function (myRole){
 	}
 	return items;
 }
+document.body.getAllByRole ('main');
 // s'il y a trop d'éléments pour tous les traiter, analyser certains au survol
 var nbItemMax = 20;
 HTMLCollection.prototype.setNbItemMax = function (typeElm){
