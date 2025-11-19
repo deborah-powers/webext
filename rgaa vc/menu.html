@@ -1,0 +1,41 @@
+<!DOCTYPE html><html lang='fr-FR'><head>
+	<title>vérifier la conformité au rgaa</title>
+	<meta name='viewport' content='width=device-width,initial-scale=1'/>
+	<meta charset='utf-8'/>
+	<link rel='stylesheet' type='text/css' href='menu.css' />
+</head><body>
+	<h1>vérifier la conformité du site avec le rgaa</h1>
+	<section class='closed' role='region' aria-live='assertive'>
+	<!-- ou <section class='closed' role='alert'> -->
+		<h2><span>afficher les infos</span> <button id='show-infos' tabindex='1'>ici</button></h2>
+		<p>chaque bouton correspond à un thème du rgaa et modifie la page afin de faciliter son analyse.</p>
+		<p>un rapport au format .txt est téléchargeable via un lien.</p>
+		<p>en général, les éléments à analyser seront encadrés en couleur.</p>
+		<p>la page est ramenée à son état d'origine en la rechargeant.</p>
+	</section>
+	<section>
+		<h2>les points à analyser</h2>
+		<ul>
+			<li><button id='elm-titre'>les titres</button></li>
+			<li><button id='elm-liste'>les listes et citations</button></li>
+			<li><button id='elm-link'>les liens</button></li>
+			<li><button id='elm-image'>les images</button></li>
+			<li><button id='elm-media'>les médias</button></li>
+			<li><button id='elm-table'>les tableaux</button></li>
+			<li><button id='elm-iframe'>les cadres et figures</button></li>
+			<li><button id='elm-tooltip'>les infobulles</button></li>
+			<li><button id='elm-form'>les formulaires</button></li>
+			<li><button id='elm-interract'>les éléments interractifs</button></li>
+			<li><button id='elm-color'>les couleurs</button></li>
+			<li><button id='elm-interdit'>les élements interdits</button></li>
+			<li><button id='elm-cache'>les élements invisibles</button></li>
+			<li><button id='elm-structure'>la structure de la page</button></li>
+			<li><button id='elm-focus'>le focus</button></li>
+			<li><button id='text-widenning'>la taille du texte</button></li>
+			<li><button id='text-spacing'>l'espacement du texte</button></li>
+			<li><button id='window-shrinking'>rétrécir la fenêtre</button></li>
+			<li><button id='del-style'>éffacer le style</button></li>
+		</ul>
+	</section>
+<script type='text/javascript' src='menu.js'></script>
+</body></html>

@@ -56,8 +56,8 @@ function chooseAction (event){
 		else if (action === 'elm-focus') listStyle =[ 'ana-common.css', 'elm-focus.css' ];
 		else if (action === 'text-widenning') listStyle =[ 'text-widenning.css' ];
 		else if (action === 'text-spacing') listStyle =[ 'text-spacing.css' ];
-		else if (action === 'window-shrinking' && false && true) listStyle =[ 'ana-shrink.css' ];
-		else if (action === 'window-shrinking') listScript =[ 'ana-shrink.js' ];
+		else if (action === 'window-shrinking') listStyle =[ 'ana-shrink.css' ];
+		else if (action === 'window-shrinking' && false && true) listScript =[ 'ana-shrink.js' ];
 		else if (action === 'elm-tooltip') listStyle =[ 'ana-common.css', 'elm-tooltip.css' ];
 		else if (action === 'elm-interdit') listStyle =[ 'ana-common.css', 'elm-interdit.css' ];
 		else if (action === 'elm-cache'){
