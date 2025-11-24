@@ -8,6 +8,11 @@ iframe[title], iframe[aria-label], iframe[aria-labelledby],
 figure[role='group'][title], figure[role='group'][aria-label], figure[role='group'][aria-labelledby],
 figure[role='figure'][title], figure[role='figure'][aria-label], figure[role='figure'][aria-labelledby],
 	{ border-style: solid !important; }
+figcaption {
+	border-style: solid !important;
+	border-width: 4px !important;
+	border-color: magenta !important;
+}
 
 iframe:hover:before { content: 'tître manquant' '\A' attr(infos); }
 iframe[title]:hover:before { content: 'title: ' attr(title) '\A' attr(infos); }
