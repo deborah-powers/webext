@@ -1,3 +1,5 @@
+console.log ('clean action');
+
 if (window.location.href.includes ('https://menace-theoriste.fr/')){
 	libHtml.cleanBody();
 	libHtml.replaceTag ('wrap_all');

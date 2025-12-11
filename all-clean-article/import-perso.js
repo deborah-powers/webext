@@ -29,7 +29,9 @@ function openLibFile (filePath){
 	const xhttp = new XMLHttpRequest();
 	xhttp.open ('GET', fullFile, false);
 	xhttp.setRequestHeader ('Content-Type', 'text/js');
+	console.log ('openLibFile', fullFile);
 	xhttp.send();
+	console.log ('openLibFile', xhttp.status, xhttp.responseText);
 	if (xhttp.status ==0 || xhttp.status ==200) return xhttp.responseText;
 	else return "";
 }
@@ -75,9 +77,11 @@ function sendToExtensions(){
 sendToExtensions();`;
 
 function callLibrary (scriptList){
+	console.log ('callLibrary a', scriptList);
 	/* importer un script externe en temps que librairie. crutialData est modifiable selon ce qui est nécéssaire. */
 	var textJs ="";
 	for (var s=0; s< scriptList.length; s++) textJs = textJs +'\n'+ openScript (scriptList[s]);
+	console.log ('callLibrary b');
 	sendToExtensions = sendToExtensions.replace ('$crutialData', crutialData);
 	textJs = textJs + sendToExtensions;
 	const library = eval (textJs);

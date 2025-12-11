@@ -2,21 +2,36 @@
 dépend de textFct.js
 basé sur python/htmlFct.py
 */
-const toReplace =[[ '\ncode\n', '\nCode\n' ], [ '\ncode\t', '\nCode\t' ], [ '\nfig\n', '\nFig\n' ]];
+const toReplace =[[ '\ncode\n', '\nCode\n' ], [ '\ncode: ', '\nCode: ' ], [ '\nfig\n', '\nFig\n' ]];
+const listTagsContainer =[ 'ul', 'ol', 'dl', 'table', 'nav', 'div', 'fieldset', 'form', 'figure', 'math', 'section', 'article', 'body', 'header', 'footer', 'main' ]
+const listTagsIntern =[ 'i', 'b', 'em', 'span', 'strong', 'thead', 'tbody' ]
 const tagHtml =[
-	['\n<h1>', '\n=== '], ['</h1>\n', ' ===\n'], ['\n<h2>', '\n*** '], ['</h2>\n', ' ***\n'], ['\n<h3>', '\n--- '], ['</h3>\n', ' ---\n'], ['\n<h4>', '\n___ '], ['</h4>\n', ' ___\n'], ['\n<hr>', '\n\n***\n\n'], ["\n<img src='", '\nImg\t'], ['\n<figure>', '\nFig\n'], ['</figure>', '\n/fig\n'], ['\n<xmp>', '\nCode\n'], ['\n<li>', '\n\t'], ["\n<hr class='h1'>\n", '\n\n===\n\n'], ["\n<hr class='h3'>\n", '\n\n---\n\n']
-];
+	['\n<h1>', '\n== '], ['\n<h2>', '\n** '], ['\n<h3>', '\n-- '], ['\n<h4>', '\n__ '], ['\n<h5>', '\n## '], ['\n<h6>', '\n++ '],
+	["\n<hr class='h1'/>\n", '\n==\n'], ["\n<hr class='h2'/>\n", '\n**\n'], ["\n<hr class='h3'/>\n", '\n--\n'],
+	["\n<hr>\n", '\n**\n'], ["\n<hr/>\n", '\n**\n'],
+	['\n<figure>', '\nFig\n'], ['\n<xmp>!', '\nCode\n'], ['\n<xmp>: ', '\nCode: '], ['\n<li>', '\n\t']
+]
+const protocols =[ 'https://', 'http://', 'file:///' ];
+
 String.prototype.toHtml = function(){
 	var text = this.cleanTxt();
 	// transformer la mise en page en balises
 	text = '\n' + text + '\n';
 	for (tag of toReplace) text = text.replaceAll (tag[0], tag[1]);
 	text = text.toSql();
-	for (tag of tagHtml) if (text.includes (tag[1])){ text = text.replaceAll (tag[1], tag[0]); }
+	for (tag of tagHtml) text = text.replaceAll (tag[1], tag[0]);
+	// compléter les tîtres
+	const textList = text.split ('\n');
+	for (var l=0; l< textList.length; l++){
+		if (textList[l].substring (0,2) !== '<h' || textList[l][3] !== '>' || ! '123456'.includes (textList[l][2])) continue;
+		textList[l] = textList[l] +'</h'+ textList[l][2] +'>';
+	}
+	text = textList.join ('\n');
 	// autres modifications
-	text = text.toXmp();
+	text = text.toCode();
 	text = text.toList();
 	text = text.toTable();
+	text = text.toDefList();
 	text = text.cleanBasic();
 	text = text.toEmphasis();
 	// rajouter les <p/>
@@ -25,51 +40,55 @@ String.prototype.toHtml = function(){
 	text = text.replaceAll ('></p><p>', '><p>');
 	text = text.replaceAll ('</p><p><', '</p><');
 	// rajouter d'eventuel <p/> s'il n'y a pas de balise en debut ou fin de text
-	if (! text.substring (0,3).includes ('<')) text = '<p>'+ text;
-	if (! text.substring (text.length -3).includes ('>')) text = text +'</p>';
+	if (text[0] !=='<') text = '<p>'+ text;
+	if (text.substring (text.length -1) !=='>') text = text +'</p>';
 	// autres modifications
 	text = text.toImage();
 	text = text.toLink();
+	text = text.toFigure();
 	// restaurer le texte, remplacer mes placeholders
 	text = text.replaceAll ('ht/tp', 'http');
+	text = text.replaceAll ('fi/le', 'file');
 	text = text.cleanHtml();
 	text = text.replaceAll ('/$', '\n');
 	text = text.replaceAll ('\\f', '\t');
 	return text;
 }
-String.prototype.toXmp = function(){
-	if (! this.includes ('<xmp>') && ! this.includes ('\nCode\t')) return this;
+String.prototype.toCode = function(){
+	if (! this.includes ('<xmp>')) return this;
 	var text ="";
-	if (this.includes ('<xmp>')){
-		var pos =0;
-		var textTmp ="";
-		const textList = this.split ('<xmp>');
-		for (var x=1; x< textList.length; x++){
-		//	pos = textList[x].indexOf ('</xmp>');
-			pos = textList[x].indexOf ('\n/\n');
-			textTmp = textList[x].substring (0, pos).strip();
+	if (this.includes ('<xmp>:')){
+		const textList = this.split ('\n<xmp>:');
+		for (var t=1; t< textList.length; t++) textList[t] = textList[t].replace ('\n', '</xmp>');
+		text = textList.join ('<xmp>');
+	}
+	else text = this;
+	if (text.includes ('<xmp>!')){
+		const textList = text.split ('<xmp>!');
+		for (var t=1; t< textList.length; t++){
+			var posEnd = textList[t].indexOf ('\n/\n');
+			var textTmp = textList[t].substring (0, posEnd).strip();
 			textTmp = textTmp.replaceAll ('\n', '/$');
 			textTmp = textTmp.replaceAll ('\t', '\\f');
 			textTmp = textTmp +'</xmp>';
-			textList[x] = textTmp + textList[x].substring (pos +1).strip();
+			textList[t] = textTmp + textList[t].substring (posEnd +3).strip();
 		}
 		text = textList.join ('<xmp>');
 	}
-	if (this.includes ('\nCode\t')){
-		var pos =0;
-		var textTmp ="";
-		var textList =[];
-		if (text ==="") textList = this.split ('\nCode\t');
-		else textList = text.split ('\nCode\t');
-		for (var x=1; x< textList.length; x++){
-			pos = textList[x].indexOf ('\n');
-			textTmp = textList[x].substring (0, pos).strip();
-			textTmp = textTmp.replaceAll ('\t', '\\f');
-			textTmp = textTmp +'</xmp>';
-			textList[x] = textTmp + textList[x].substring (pos).strip();
-		}
-		text = textList.join ('<xmp>');
+	return text;
+}
+String.prototype.toFigure = function(){
+	if (! this.includes ('<figure>')) return this;
+	const textList = this.split ('<figure>');
+	for (var t=1; t< textList.length; t++){
+		var posEnd = textList[t].indexOf ('<p>/</p>');
+		var textTmp = textList[t].substring (0, posEnd).strip();
+		textTmp = textTmp.replaceAll ('/></p>', '/>');
+		textTmp = textTmp.replace ('<p>', '<figcaption>');
+		textTmp = textTmp.replace ('</p>', '</figcaption>');
+		textList[t] = textTmp + '</figure>' + textList[t].substring (posEnd +8).strip();
 	}
+	const text = textList.join ('<figure>');
 	return text;
 }
 String.prototype.toList = function(){
@@ -105,6 +124,26 @@ String.prototype.toList = function(){
 	}
 	else return this;
 }
+String.prototype.toDefList = function(){
+	if (! this.includes (": ")) return this;
+	const textList = this.split ('\n');
+	const textListLen = textList.length;
+	var d=-1; var t=0;
+	while (t< textListLen){
+		if (textList[t].includes (": ") && textList[t].count (": ") ===1 && d===-1) d=t;
+		else if (! textList[t].includes (": ") && d>=0){
+			if (t-d >1){
+				for (var l=d; l<t; l++) textList[l] = '<dt>' + textList[l].replace (": ", '</dt><dd>') + '</dd>';
+				textList[d] = textList[d].replace ('<dt>', '<dl><dt>');
+				textList[t-1] = textList[t-1].replace ('</dd>', '</dd></dl>');
+			} d=-1;
+		} t+=1;
+	}
+	text = textList.join ('\n');
+	text = text.replaceAll ('\n<dt>', '<dt>')
+	text = text.replaceAll ('</dd>\n', '<dd>')
+	return text;
+}
 String.prototype.toTable = function(){
 	if (this.includes ('\t')){
 		var text = this.replaceAll ('\t\t', '\t');
@@ -114,11 +153,11 @@ String.prototype.toTable = function(){
 		while (i< textList.length){
 			// rechercher une table
 			d=-1; c=-1;
-			if (d==-1 && c==-1 && textList[i].includes ('\t')){
+			if (textList[i].includes ('\t')){
 				c= textList[i].count ('\t');
 				d=i; i+=1;
 			}
-			while (i< textList.length && textList[i].count ('\t') ==c) i+=1;
+			while (i< textList.length && textList[i].count ('\t') ===c) i+=1;
 			c=i-d;
 			// une table a ete trouve
 			if (c>1 && d>0){
@@ -129,8 +168,8 @@ String.prototype.toTable = function(){
 					textList[j] = '<tr><td>' + textList[j] +'</td></tr>';
 				}
 				// les limites de la table
-				textList[d] = '<table>\n' + textList[d];
-				textList [i-1] = textList [i-1] +'\n</table>';
+				textList[d] = '<table>' + textList[d];
+				textList [i-1] = textList [i-1] +'</table>';
 			}
 			i+=1;
 		}
@@ -158,116 +197,117 @@ String.prototype.toTable = function(){
 	}
 	else return this;
 }
-String.prototype.toImage = function(){
-	var text = this;
-	for (var h=0; h< imgExtension.length; h++){
-		if (text.includes ('.'+ imgExtension[h])){
-			var textList = text.split ('.'+ imgExtension[h]);
-			for (var i=0; i<textList.length -1; i++){
-				var d= textList[i].lastIndexOf (':');
-				var f= textList[i].substring (0,d).lastIndexOf (' ');
-				for (var p=2; p< punctuation.length; p++){
-					var e= textList[i].substring (0,d).lastIndexOf (punctuation[p]);
-					if (e>f) f=e;
-				}
-				for (var char of brackets){
-					var e= textList[i].substring (0,d).lastIndexOf (char);
-					if (e>f) f=e;
-				}
-				if (textList[i].substring (0,d).includes ('>')){
-					var e= textList[i].substring (0,d).lastIndexOf ('>');
-					if (e>f) f=e;
-				}
-				f=f+1;
-				var title = textList[i].substring (f+1).replaceAll ('-'," ");
-				if (textList[i+1].substring (0,2) === ' ('){
-					var e= textList[i+1].indexOf (')');
-					title = textList[i+1].substring (2,e);
-					textList[i+1] = textList[i+1].substring (e+1);
-					title = title.replaceAll ('-'," ");
-				}else{
-					if (title.includes ('/')){
-						d=1+ title.lastIndexOf ('/');
-						title = title.substring (d);
-					}
-					if (title.includes ('\\')){
-						d=1+ title.lastIndexOf ('\\');
-						title = title.substring (d);
-					}
-					if (title.includes ('.')){
-						d=1+ title.indexOf ('.');
-						title = title.substring (d);
-					}
-					title = title.cleanTxt();
-				}
-				title = title.replaceAll ('_'," ");
-				textList[i] = textList[i].substring (0,f) + "<img src='" + textList[i].substring (f).replaceAll ('http', 'ht/tp') +"."+ imgExtension[h] +"' alt='" + title +"'/>";
-			}
-			text = textList.join ("");
-	}}
-	return text;
-}
 String.prototype.toLink = function(){
-	var text = this.toLinkProtocol ('http');
-	text = text.replaceAll ('C:/', 'file:///C:/')
-	text = text.replaceAll ('C:\\', 'file:///C:\\')
-	text = text.toLinkProtocol ('file:///')
+	var text = this;
+	for (var protocol of protocols) text = text.toLinkProtocol (protocol);
 	return text;
 }
 String.prototype.toLinkProtocol = function (protocol){
-	if (this.includes (protocol)){
-		const endingChars = '<;, !\t\n';
-		var textList = this.split (protocol);
-		for (var p=1; p< textList.length; p++){
-			// récupérer l'url
-			var textUrl = textList[p];
-			var posEnd =-1;
-			for (var c=0; c< endingChars.length; c++) if (textUrl.includes (endingChars[c])){
-				posEnd = textUrl.indexOf (endingChars[c]);
-				textUrl = textUrl.substring (0, posEnd);
-			}
-			textUrl = textUrl.strip ('/');
-			textList[p] = textList[p].substring (posEnd);
-			// calculer le tître
-			var title ="";
-			if (' (' === textList[p].substring (0,2)){
-				posEnd = textList[p].indexOf (')');
-				title = textList[p].substring (2, posEnd);
-				textList[p] = textList[p].substring (posEnd +1);
-			}
-			else if (': '=== textList[p-1].substring (textList[p-1].length -2)){
-				posEnd = textList[p-1].length -2;
-				posStart =3+ textList[p-1].lastIndexOf ('<p>');
-				title = textList[p-1].substring (posStart, posEnd);
-				if (title.includes ('>') || title.includes ('<')) title = textUrl.findTitleFromUrl();
-				else textList[p-1] = textList[p-1].substring (0, posStart);
-			}else{
-				title = textUrl.findTitleFromUrl();
-			}
-			textList[p] = textUrl +"'>"+ title +'</a> '+ textList[p];
+	if (! this.includes (protocol)) return this;
+	const endingChars = '<;, !\t\n';
+	var textList = this.split (protocol);
+	for (var p=1; p< textList.length; p++){
+		// récupérer l'url
+		var paragraphTmp = textList[p];
+		var posEnd =-1;
+		for (var c=0; c< endingChars.length; c++) if (paragraphTmp.includes (endingChars[c])){
+			posEnd = paragraphTmp.indexOf (endingChars[c]);
+			paragraphTmp = paragraphTmp.substring (0, posEnd);
 		}
-		var text = textList.join (" <a href='" + protocol);
-		text = text.replaceAll ('> <a ', '><a ');
-		text = text.replaceAll ('</a> <', '</a><');
-		return text;
+		paragraphTmp = paragraphTmp.strip ('/');
+		textList[p] = textList[p].substring (posEnd);
+		// calculer le tître
+		var title ="";
+		if (' (' === textList[p].substring (0,2)){
+			posEnd = textList[p].indexOf (')');
+			title = textList[p].substring (2, posEnd);
+			textList[p] = textList[p].substring (posEnd +1);
+		}
+		else if (': '=== textList[p-1].substring (textList[p-1].length -2)){
+			posEnd = textList[p-1].length -2;
+			posStart =3+ textList[p-1].lastIndexOf ('<p>');
+			title = textList[p-1].substring (posStart, posEnd);
+			if (title.includes ('>') || title.includes ('<')) title = paragraphTmp.findTitleFromUrl();
+			else textList[p-1] = textList[p-1].substring (0, posStart);
+		}
+		else title = paragraphTmp.findTitleFromUrl();
+		textList[p] = paragraphTmp +"'>"+ title +'</a> '+ textList[p];
 	}
-	else return this;
+	var text = textList.join (" <a href='" + protocol);
+	text = text.replaceAll ('> <a ', '><a ');
+	text = text.replaceAll ('</a> <', '</a><');
+	return text;
+}
+String.prototype.toImage = function(){
+	// traiter les images
+	var text = this;
+	for (var protocol of protocols) for (var extension of imgExtension){
+		text = text.toImageProtocolExtension (protocol, extension);
+	}
+	return text;
+}
+String.prototype.toImageProtocolExtension = function (protocol, extension){
+	extension = '.'+ extension;
+	if (! this.includes (protocol) || ! this.includes (extension)) return this;
+	const endingChars = '<>;, "!\t\n\t\'';
+	var textList = this.split (extension);
+	for (var i=0; i< textList.length -1; i++){
+		// éliminer les cas ne concernant pas le protocole
+		if (! textList[i].includes (protocol)) continue;
+		var posEnd = textList[i].lastIndexOf (protocol);
+		var url = textList[i].substring (posEnd);
+		for (var char of endingChars) if (url.includes (char)){ posEnd =-1; }
+		if (posEnd ===-1) continue;
+		textList[i] = textList[i].substring (0, posEnd);
+		url = url + extension;
+		// trouver la description
+		var title ="";
+		if (textList[i+1].substring (0,2) === " ("){
+			posEnd = textList[i+1].indexOf (')');
+			title = textList[i+1].substring (2, posEnd);
+			textList[i+1] = textList[i+1].substring (posEnd +1);
+		}
+		else if (': '=== textList[i].substringEnd (2)){
+			posEnd = textList[i].length -2;
+			var posStart =3+ textList[i].lastIndexOf ('<p>');
+			title = textList[i].substring (posStart, posEnd);
+			if (title.includes ('>') || title.includes ('<')) title = url.findTitleFromUrl();
+			else textList[i] = textList[i].substring (0, posStart);
+		}
+		else title = url.findTitleFromUrl();
+		url = url.replace ('http', 'ht/tp');
+		url = url.replace ('file', 'fi/le');
+		url = "<img src='" + url + "' alt='" + title +"' />";
+		textList[i] = textList[i] + url;
+	}
+	text = textList.join (extension);
+	text = text.replaceAll ('/>' + extension, '/>');
+	return text;
 }
 String.prototype.findTitleFromUrl = function(){
-	var pos = this.lastIndexOf ('/') +1;
+	var pos = this.lastIndexOf ('/');
+	if (this.includes ('\\')) pos = this.lastIndexOf ('\\');
+	pos +=1;
 	var title = this.substring (pos);
-	if (title.includes ('.')){
+	if (title.includes ('.gouv.fr')){
+		pos = title.lastIndexOf ('.gouv.fr');
+		title = title.substring (0, pos);
+	}
+	else if (title.includes ('.')){
 		pos = title.lastIndexOf ('.');
 		title = title.substring (0, pos);
 	}
 	title = title.replaceAll ('www.',"");
-	title = title.replaceAll ('-',' ');
-	title = title.replaceAll ('_',' ');
-	title = title.replaceAll ('.',' ');
-	title = title.replaceAll ('?',' ');
-	title = title.replaceAll ('#',' ');
-	while (title.includes ('  ')) title = title.replaceAll ('  ',' ');
-	title = title.strip();
+	const urlWords =[ '-', '_', '.', '?', '#', '%20' ];
+	for (var w=0; w< urlWords.length; w++) title = title.replaceAll (urlWords[w]," ");
+	title = title.cleanTitle();
+	return title;
+}
+function findTitle(){
+	const titleTag = document.head.getElementsByTagName ('title')[0];
+	var title ="";
+	if (titleTag === undefined || titleTag.innerText.isEmpty()) title = window.location.href.findTitleFromUrl();
+	else title = titleTag.innerText.cleanTitle();
 	return title;
 }
 String.prototype.toEmphasis = function(){
@@ -354,6 +394,46 @@ String.prototype.toSql = function(){
 	text = text.toSqlOne ('select');
 	return text;
 }
+HTMLPreElement.prototype.computeWidth = function(){
+	var text = this.innerHTML.replaceAll ('\n', " ");
+	while (text.includes ("  ")) text = text.replaceAll ("  ", " ");
+	var widthPx = window.getComputedStyle (this).width;
+	widthPx = widthPx.substring (0, widthPx.length -2);
+	var widthLineMax = parseFloat (widthPx);
+	widthLineMax /=10.0;
+	if (text.length > widthLineMax){
+		// couper les lignes au niveau de marqueurs
+	//	const artefacts =[ ['> ','>\n'], [' <', '\n<'], ['; ',';\n'], ['} ','}\n' ], [' }','\n}'], ['{ ','{\n'], ['] ',']\n'] ];
+		const artefacts =[ ['> ','>\n'], [' <', '\n<'], ['; ',';\n'], ['): ','):\n'], ['){ ','){\n'] ];
+		for (var char of artefacts) text = text.replaceAll (char[0], char[1]);
+		// ajuster les lignes restantes selon les espaces
+		var textList = text.split ('\n');
+		for (var l=0; l< textList.length; l++) if (textList[l].length > widthLineMax){
+			var pos =0;
+			var smallList =[];
+			while (textList[l].length > widthLineMax){
+				const smallText = textList[l].substring (0, widthLineMax);
+				pos =1+ smallText.lastIndexOf ("} ");
+				if (pos < widthLineMax *0.9) pos =1+ smallText.lastIndexOf ("{ ");
+				if (pos < widthLineMax *0.9) pos =1+ smallText.lastIndexOf ("] ");
+				if (pos < widthLineMax *0.9) pos =1+ smallText.lastIndexOf (": ");
+				if (pos < widthLineMax *0.9) pos = smallText.lastIndexOf (" ");
+				smallList.push (textList[l].substring (0, pos));
+				textList[l] = textList[l].substring (pos +1);
+			}
+			smallList.push (textList[l]);
+			textList[l] = smallList.join ('\n');
+		}
+		text = textList.join ('\n');
+	}
+	this.innerHTML = text;
+}
+function resizeCodeBlocks(){
+	const pres = document.getElementsByTagName ('xmp');
+	for (var pre of pres) pre.computeWidth();
+}
+window.onresize = resizeCodeBlocks;
+
 /* ------------------------ trouver les métadonnées ------------------------ */
 
 function prepareText(){
@@ -362,14 +442,14 @@ function prepareText(){
 	text = text.cleanTxt();
 	// trouver les métadonnées
 	// trouver la fin du texte, qui contient les métadonnées
-	if (text.includes ('\n===\n')
-		&& (text.includes ('\nScript:\t') || text.includes ('\nScript bas:\t') || metaText.includes ('\nScript:\n')
-			|| text.includes ('\nStyle:\t') || text.includes (' {') || text.includes (':\t'))){
-		const d= text.lastIndexOf ('\n===\n');
-		metaText = text.substring (d+5).strip();
-		if (metaText.includes ('\nScript:\t') || metaText.includes ('\nScript bas:\t') || metaText.includes ('\nScript:\n')
-			|| metaText.includes ('\nStyle:\t') || metaText.includes (' {') || metaText.includes (':\t'))
-			text = text.substring (0,d).strip();
+	if (text.includes ('\n==\n')
+		&& (text.includes ('\nJs: ') || text.includes ('\nJs bas: ') || metaText.includes ('\nScript:\n')
+			|| text.includes ('\nCss: ') || text.includes (' {') || text.includes (': '))){
+		const d= text.lastIndexOf ('\n==\n');
+		var metaText = text.substring (d+4).strip();
+		if (metaText.includes ('\nJs: ') || metaText.includes ('\nJs bas: ') || metaText.includes ('\nScript:\n')
+			|| metaText.includes ('\nCss: ') || metaText.includes (' {') || metaText.includes (': '))
+			text = text.substring (0,d);
 	}
 	// transformer le texte en html
 	text = text.toHtml();
@@ -379,7 +459,7 @@ function prepareText(){
 	if (metaText !==""){
 		var textList = metaText.findScriptInterne();
 		if (textList[1] !=="") text = text + textList[1];
-		var metaText = textList[0].toLowerCase();
+		metaText = textList[0].toLowerCase();
 		metaText = metaText.findCssInterne();
 		metaText = metaText.findCssExterne();
 		textList = metaText.findScriptBas();
@@ -398,12 +478,19 @@ String.prototype.printMetadata = function (meta){
 }
 String.prototype.findMetadata = function(){
 	const textList = this.split ('\n');
-	var meta ={};
+	var meta ={ lien: "", sujet: 'divers', auteur: 'anonyme' };
 	var d=0;
+	var label ="";
 	for (line of textList){
-		d= line.indexOf (':\t');
-		meta [line.substring (0,d)] = line.substring (d+2);
-	}
+		d= line.indexOf (': ');
+		if (line.length >d+3){
+			label = line.substring (0,d);
+			if ([ 'lien', 'link' ].includes (label)) meta['lien'] = line.substring (d+2);
+			else if ([ 'subject', 'sujet' ].includes (label)) meta['sujet'] = line.substring (d+2);
+			else if ([ 'author', 'auteur' ].includes (label)) meta['auteur'] = line.substring (d+2);
+			else if ([ 'autlink', 'laut', 'lien-auteur' ].includes (label)) meta['autlink'] = line.substring (d+2);
+			else meta [line.substring (0,d)] = line.substring (d+2);
+	}}
 	return meta;
 }
 String.prototype.findCssInterne = function(){
@@ -413,14 +500,15 @@ String.prototype.findCssInterne = function(){
 		var css = this.substring (d).strip();
 		css = "<style type='text/css'>" + css + '</style>';
 		document.head.innerHTML = document.head.innerHTML + css;
+		d= this.indexOf ('\nstyle\n');
 		return this.substring (0,d).strip();
 	}
 	else return this;
 }
 String.prototype.findCssExterne = function(){
-	if (this.includes ('\nstyle:\t')){
+	if (this.includes ('\ncss: ')){
 		var css ="";
-		const textList = this.split ('\nstyle:\t');
+		const textList = this.split ('\ncss: ');
 		for (var s=1; s< textList.length; s++) css = css + "<link rel='stylesheet' type='text/css' href='" + textList[s] + "'/>";
 		document.head.innerHTML = document.head.innerHTML + css;
 		return textList[0].strip();
@@ -428,9 +516,9 @@ String.prototype.findCssExterne = function(){
 	else return this;
 }
 String.prototype.findScriptBas = function(){
-	if (this.includes ('\nscript bas:\t')){
+	if (this.includes ('\njs bas: ')){
 		var codes ="";
-		const textList = this.split ('\nscript bas:\t');
+		const textList = this.split ('\njs bas: ');
 		for (var s=1; s< textList.length; s++) codes = codes + "<script type='text/javascript' src='" + textList[s] + "'></script>";
 		document.body.innerHTML = document.body.innerHTML +'\n'+ codes;
 		return [ textList[0].strip(), codes ];
@@ -438,9 +526,9 @@ String.prototype.findScriptBas = function(){
 	else return [ this, "" ];
 }
 String.prototype.findScript = function(){
-	if (this.includes ('\nscript:\t')){
+	if (this.includes ('\njs: ')){
 		var codes ="";
-		const textList = this.split ('\nscript:\t');
+		const textList = this.split ('\njs: ');
 		for (var s=1; s< textList.length; s++) codes = codes + "<script type='text/javascript' src='" + textList[s] + "'></script>";
 		document.head.innerHTML = document.head.innerHTML + codes;
 		return textList[0].strip();
@@ -448,15 +536,16 @@ String.prototype.findScript = function(){
 	else return this;
 }
 String.prototype.findScriptInterne = function(){
-	if (this.includes ('\nScript:\n')){
-		const d= this.indexOf ('\nScript:\n');
+	if (this.includes ('\nScript\n')){
+		const d= this.indexOf ('\nScript\n');
 		const code = "<script type='text/javascript'>" + this.substring (d+9).strip() + '</script>';
 		return [ this.substring (0,d), code ];
 	}
 	else return [ this, "" ];
 }
 String.prototype.cleanHtml = function(){
-	var text = this.replaceAll ('\n', "");
+	var text = this.cleanBasic();
+	text = text.replaceAll ('\n', "");
 	text = text.replaceAll ('\t', "");
 	while (text.includes ("  ")) text = text.replaceAll ("  "," ");
 	// nettoyer les balises
@@ -465,14 +554,19 @@ String.prototype.cleanHtml = function(){
 	text = text.replaceAll ('<br>', '<br/>');
 	text = text.replaceAll ('<hr>', '<hr/>');
 	while (text.includes ('<br/><br/>')) text = text.replaceAll ('<br/><br/>', '<br/>');
-	const tagHtml =
-	[ 'span', 'strong', 'em', 'b', 'p', 'h1', 'h2', 'h3', 'h4', 'div', 'section', 'article', 'tr', 'caption', 'table', 'figcaption', 'figure', 'nav', 'aside', 'xmp' ];
-	for (var tag of tagHtml) text = text.replaceAll ('<'+ tag +'></'+ tag +'>', "");
+	const tagHtmlBis =[ 'span', 'strong', 'em', 'b', 'p', 'h1', 'h2', 'h3', 'h4', 'div', 'section', 'article', 'tr', 'caption', 'table', 'figcaption', 'figure', 'nav', 'aside', 'xmp' ];
+	for (var tag of tagHtmlBis) text = text.replaceAll ('<'+ tag +'></'+ tag +'>', "");
+	text = text.replaceAll ('</pre>','</xmp>');
+	text = text.replaceAll ('<pre>','<xmp>');
+	text = text.replaceAll ('<pre ','<xmp ');
+	text = text.replaceAll ('</code>','</xmp>');
+	text = text.replaceAll ('<code>','<xmp>');
+	text = text.replaceAll ('<code ','<xmp ');
 	text = text.replaceAll ('>','> ');
 	text = text.replaceAll ('<',' <');
 	text = text.replaceAll ('>  <','><');
 	text = text.replaceAll (' </', '</');
-	for (var tag of tagHtml) text = text.replaceAll ('<'+ tag +'> ', '<'+ tag +'>');
+	for (var tag of tagHtmlBis) text = text.replaceAll ('<'+ tag +'> ', '<'+ tag +'>');
 	return text;
 }
 HTMLElement.prototype.fromText = function (text){
@@ -488,3 +582,4 @@ HTMLHeadElement.prototype.linkOpeningMethod = function(){
 	baseElement.target = '_blank';
 }
 document.head.linkOpeningMethod();
+
