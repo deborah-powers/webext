@@ -1,5 +1,5 @@
 /* dépend de ana-common.js et de ana-name.js
-tous les éléments n'ont pas la propriété before
+tous les éléments n'ont pas la propriété after
 */
 Element.prototype.verifyRoleImg = function(){
 	if (! exists (this.role)){

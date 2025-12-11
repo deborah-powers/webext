@@ -1,16 +1,22 @@
 Element.prototype.isHidden = function(){
+	if (this.className.includes ('sr-only') || this.className.includes ('sronly') || this.className.includes ('hidden')) return true;
+	else if (exists (this.getAttribute ('hidden')) || exists (this.getAttribute ('aria-hidden'))) return true;
 	const style = window.getComputedStyle (this);
-	if (style.display === 'none' || style.visibility === 'hidden' || style.fontSize === '0px') this.classList.add ('rgaa-hidden');
-	else if (this.className.includes ('sr-only') || this.className.includes ('sronly')) this.classList.add ('rgaa-sronly');
+	if (style.display === 'none' || style.visibility === 'hidden' || style.fontSize === '0px'){
+		this.classList.add ('rgaa-hidden');
+		return true;
+	}
+	else return false;
 }
-HTMLScriptElement.isHidden = function(){ return; }
 HTMLElement.prototype.isHidden = function(){
-	Element.prototype.isHidden.call (this);
-	for (var c=0; c< this.children.length; c++) this.children[c].isHidden();
+	const hidden = Element.prototype.isHidden.call (this);
+	if (! hidden) for (var child of this.children){ child.isHidden(); }
 }
+HTMLScriptElement.prototype.isHidden = function(){ return; }
+HTMLDialogElement.prototype.isHidden = function(){ return; }
+HTMLDialogElement.prototype.isHidden_va = function(){ for (var child of this.children) child.isHidden(); }
 SVGElement.prototype.isHidden = function(){
 	const style = window.getComputedStyle (this);
 	if (style.display === 'none' || style.visibility === 'hidden' || style.fontSize === '0px') this.classList.add ('rgaa-hidden');
-	else if (this.className.animVal.includes ('sr-only') || this.className.animVal.includes ('sronly')) this.classList.add ('rgaa-sronly');
 }
 document.body.isHidden();

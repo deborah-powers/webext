@@ -1,3 +1,6 @@
+importScripts ('dependence.js');
+depAffichage();	// se joue dans le service worker, pas dans la page. le texte s'affiche dans la console du premier.
+
 function coloriseBg(){
 	document.body.style.backgroundColor = 'deeppink';
 	const divs = document.getElementsByTagName ('div');

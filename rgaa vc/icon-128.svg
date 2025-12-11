@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<svg version='1.1' width='128' height='128' xmlns='http://www.w3.org/2000/svg'>
-<defs>
-	<ellipse cx='64' cy='64' rx='64' ry='40' fill='#909' stroke='none' />
-</defs>
-	<path d='m0,64 c 0,64 0,64 64,64 c 64,0 64,0 64,-64 c 0,-64 0,-64 -64,-64 c -64,0 -64,0 -64,64' stroke='none' fill='#909' />
-	<text x='64' y='44' fill='ivory' stroke='none' font-size='72' text-anchor='middle' dominant-baseline='middle'>RG</text>
-	<text x='64' y='100' fill='ivory' stroke='none' font-size='72' text-anchor='middle' dominant-baseline='middle'>AA</text>
-</svg>

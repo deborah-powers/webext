@@ -19,18 +19,19 @@ a area[aria-hidden='true'], a canvas[aria-hidden='true'], a img[aria-hidden='tru
 area[alt], canvas, img[alt], input[type='image'][alt], object, svg, .rgaa-bgimg { border-style: solid !important; }
 
 /* les images de fond sans couleur de doublage */
+.rgaa-bgimg { border-style: solid !important; }
 .rgaa-bgimg.rgaa-bgnocolor { border-style: dashed !important; }
 
 /* les couleurs distingant les différents objets */
 img, img[role] { border-color: #C0F !important; }
 svg, svg[role] { border-color: #90F !important; }
-text {
+text, path {
 	fill: yellow !important;
 	stroke: maroon !important;
 	stroke-width: 1px !important;
 }
-svg:hover text {
-	stroke-width: 2px !important;
+svg:hover text, svg:hover path {
+	stroke-width: 4px !important;
 	font-size: 50px;
 }
 [role='img'], [role='presentation'] { border-color: #60F !important; }
@@ -45,11 +46,36 @@ a area, a canvas, a img, a input[type='image'], a object, a svg, a [role='img'],
 img, area { border-style: dashed; }
 
 /* affichage des infos au survol */
-[role='img']:hover:before, [role='presentation']:hover:before { content: 'role\A' attr(infos); }
-.rgaa-bgimg.rgaa-bgnocolor:hover:before { content: attr(infos); }
-img:hover:before, img[role]:hover:before { content: 'img alt: ' attr(alt, 'manquant') '\A' attr(infos); }
-svg:hover:before, svg[role]:hover:before { content: 'svg\A' attr(infos); }
-area:hover:before, area[role]:hover:before { content: 'area\A alt: ' attr(alt, 'manquant') '\A' attr(infos); }
-canvas:hover:before, canvas[role]:hover:before { content: 'canvas\A' attr(infos); }
-object:hover:before, object[role]:hover:before { content: 'object\A' attr(infos); }
-input[type='image']:hover:before { content: 'input image\A alt: ' attr(alt, 'manquant') '\A' attr(infos); }
+[role='img']:hover:after, [role='presentation']:hover:after { content: 'role\A' attr(infos); }
+.rgaa-bgimg.rgaa-bgnocolor:hover:after { content: attr(infos); }
+img:hover:after, img[role]:hover:after { content: 'img alt: ' attr(alt, 'manquant') '\A' attr(infos); }
+svg:hover:after, svg[role]:hover:after { content: 'svg\A' attr(infos); }
+area:hover:after, area[role]:hover:after { content: 'area\A alt: ' attr(alt, 'manquant') '\A' attr(infos); }
+canvas:hover:after, canvas[role]:hover:after { content: 'canvas\A' attr(infos); }
+object:hover:after, object[role]:hover:after { content: 'object\A' attr(infos); }
+input[type='image']:hover:after { content: 'input image\A alt: ' attr(alt, 'manquant') '\A' attr(infos); }
+
+body.rgaa-legend:after {
+	box-sizing: border-box !important;
+	display: block !important;
+	background-color: ivory !important;
+	opacity: 1 !important;
+	color: #420 !important;
+	font-size: 18px !important;
+	font-weight: normal !important;
+	font-style: normal !important;
+	font-family: georgia, serif !important;
+	text-transform: none !important;
+	text-decoration: none !important;
+	border: double 8px deeppink !important;
+	border-radius: 0.5em;
+	padding: 0.5em !important;
+	white-space: pre-wrap !important;
+	max-width: 30vw !important;
+	position: fixed !important;
+	bottom: 2em !important;
+	right: 2em !important;
+	z-index: 20 !important;
+	display: block;
+	content: 'violet vif: image de fond css\Aviolet clair: img\Aviolet foncé: svg\Aindigo: role img ou presentation\A bleu foncé: input\A bleu: area, canvas, object';
+}

@@ -24,13 +24,22 @@ function setUrlLib(){
 	if ('file' === window.location.href.substring (0,4)) urlLib = urlLoc + '/library-';
 	else urlLib = urlDist + '/library-';
 }
-function openLibFile (filePath){
-	const fullFile = urlLib + filePath;
+function openRessource (filePath){
+	// la ressource commence par http://, https:// ou file:///C:/
 	const xhttp = new XMLHttpRequest();
-	xhttp.open ('GET', fullFile, false);
+	xhttp.open ('GET', filePath, false);
 	xhttp.send();
 	if (xhttp.status ==0 || xhttp.status ==200) return xhttp.responseText;
 	else return "";
+}
+function openRessourceLocal (fileName){
+	// fileName est dans le dossier de l'extension
+	const filePath = chrome.extension.getURL (fileName);
+	return openRessource (fullFile);
+}
+function openLibFile (filePath){
+	const fullFile = urlLib + filePath;
+	return openRessource (fullFile);
 }
 /* ------------ insérer mes styles ------------ */
 

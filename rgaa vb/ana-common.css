@@ -1,45 +1,75 @@
 /* doutes sur l'utilisation du focus */
-*:hover:before, *:focus:before, a#rgaa-download-rapport {
-	display: block;
-	background-color: ivory;
-	opacity: 1;
-	color: #420;
-	font-size: 18px;
-	font-weight: normal;
-	font-style: normal;
-	font-family: georgia, serif;
-	text-transform: none;
-	text-decoration: none;
-	border: double 8px deeppink;
+*:hover:after, *:focus:after, a#rgaa-download-rapport, dialog#rgaa-legend {
+	box-sizing: border-box !important;
+	display: block !important;
+	background-color: ivory !important;
+	opacity: 1 !important;
+	color: #420 !important;
+	font-size: 18px !important;
+	font-weight: normal !important;
+	font-style: normal !important;
+	font-family: georgia, serif !important;
+	text-transform: none !important;
+	text-decoration: none !important;
+	border: double 8px deeppink !important;
 	border-radius: 0.5em;
-	padding: 0.5em;
-	white-space: pre-wrap;
-	max-width: 30vw;
-	position: fixed;
-	bottom: 2em;
-	z-index: 20;
+	padding: 0.5em !important;
+	white-space: pre-wrap !important;
+	max-width: 30vw !important;
+	position: fixed !important;
+	bottom: 2em !important;
+	z-index: 20 !important;
 }
-*:hover:before, *:focus:before {
-	content: none;
-	right: 0;
+*:hover:after, *:focus:after {
+	content: none !important;
+	right: 0% !important;
+	/* si after est utilisé pour ajouter une icône, l'éffacer */
+	min-width: 8em !important;
+	min-height: 2em !important;
+	mask: none !important;
+	mask-image: none !important;
+	mask-clip: none !important;
+	mask-border: none !important;
+	clip: none !important;
+	clip-path: none !important;
+	-webkit-clip-path: none !important;
+	background-clip: none !important;
+	offset-path: none !important;
+}
+a:hover:after, a:focus:after, button:hover:after, button:focus:after {
+	width: auto !important;
+	height: auto !important;
 }
 a#rgaa-download-rapport { left: 0; }
 a#rgaa-download-rapport.moved {
 	bottom: unset;
 	top: 0%;
 }
+dialog#rgaa-legend {
+	display: none;
+	grid-template-columns: 1fr 8em;
+	padding: 0em;
+}
+dialog#rgaa-legend[open] { display: grid; }
+dialog#rgaa-legend > div { grid-column: 1/3; }
+dialog#rgaa-legend >*{
+	width: unset;
+	height: unset;
+	margin: 0;
+}
+/*
 .rgaa-highlight {
 	border-style: dotted !important;
 	border-width: 4px !important;
 	border-color: teal !important;
-}
-.rgaa-highlight:hover:before { content: attr(infos); }
+}*/
+.rgaa-highlight:hover:after { content: attr(infos); }
 .rgaa-error {
 	border-style: dashed !important;
 	border-width: 4px !important;
 	border-color: deeppink !important;
 }
-.rgaa-error:hover:before { content: 'erreur:\A' attr(infos); }
+.rgaa-error:hover:after { content: 'erreur:\A' attr(infos); }
 /* couleurs
 rouge
 bleu

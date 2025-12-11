@@ -23,7 +23,7 @@ Element.prototype.addClassError = function(){ this.addClass ('rgaa-error'); }
 Element.prototype.addClassHighlight = function(){ this.addClass ('rgaa-highlight'); }
 
 // fonctions de base pour les string
-const blankChars = '\n \t';
+var blankChars = '\n \t';
 function exists (item){
 	if (item === null || item === undefined) return false;
 	else if (item.constructor === String) return item.exists();
@@ -50,6 +50,14 @@ String.prototype.strip = function(){
 	while (newString.includes ("  ")) newString = newString.replaceAll ("  ", " ");
 	while (newString.includes ('\n\n')) newString = newString.replaceAll ('\n\n', '\n');
 	return newString;
+}
+function addLegende (legendText){
+	legendText = legendText.replaceAll ('\n', '<br/>');
+	var legendStructure = "<h3>légende</h3><button command='close' commandfor='rgaa-legend' title='fermer la légende'>OK</button><div>$text</div>";
+	const legendBloc = document.createElement ('dialog');
+	legendBloc.id = 'rgaa-legend';
+	legendBloc.innerHTML = legendStructure.replace ('$text', legendText);
+	legendBloc.addAttribute ('open', "");
 }
 // fonctions utilitaires
 Element.prototype.getAllByRole = function (myRole){

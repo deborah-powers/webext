@@ -1,35 +1,26 @@
-[tabindex], button, a, input, select, textarea, [role='button'], [role='link'] {
+/* body [tabindex] {
+body [tabindex='-1'], */
+body [tabindex]:not(body [tabindex='-1']) {
 	border-style: solid !important;
 	border-width: 4px !important;
+	border-color: orange !important;
 }
-[tabindex] { border-color: teal !important; }
-a, [role='link'] { border-color: deeppink !important; }
-button, [role='button'] { border-color: cornflowerblue !important; }
-input, select, textarea { border-color: springgreen !important; }
-
-a:hover:before { content: 'lien'; }
-button:hover:before { content: 'bouton'; }
-input:hover:before { content: 'input ', attr(type); }
-select:hover:before { content: 'select'; }
-textarea:hover:before { content: 'textarea'; }
-[role='button']:hover:before { content: 'rôle bouton'; }
-[role='link']:hover:before { content: 'rôle lien'; }
-[tabindex]:hover:before { content: 'tabindex: ' attr(tabindex); }
-a[tabindex]:hover:before { content: 'lien, tabindex: ' attr(tabindex); }
-button[tabindex]:hover:before { content: 'bouton, tabindex: ' attr(tabindex); }
-input[tabindex]:hover:before { content: 'input ', attr(type), ', tabindex: ' attr(tabindex); }
-select[tabindex]:hover:before { content: 'select, tabindex: ' attr(tabindex); }
-textarea[tabindex]:hover:before { content: 'textarea, tabindex: ' attr(tabindex); }
-[role='button'][tabindex]:hover:before { content: 'rôle bouton, tabindex: ' attr(tabindex); }
-[role='link'][tabindex]:hover:before { content: 'rôle lien, tabindex: ' attr(tabindex); }
-
-[role='presentation'] [tabindex], [role='presentation'] button, [role='presentation'] a, [role='presentation'] input, [role='presentation'] select, [role='presentation'] textarea, [role='presentation'] [role='button'], [role='presentation'] [role='link'],
-[aria-hidden='true'] [tabindex], [aria-hidden='true'] button, [aria-hidden='true'] a, [aria-hidden='true'] input, [aria-hidden='true'] select, [aria-hidden='true'] textarea, [aria-hidden='true'] [role='button'], [aria-hidden='true'] [role='link'],
-[tabindex][role='presentation'], button[role='presentation'], a[role='presentation'], input[role='presentation'], select[role='presentation'], textarea[role='presentation'],
-[tabindex][aria-hidden='true'], button[aria-hidden='true'], a[aria-hidden='true'], input[aria-hidden='true'], select[aria-hidden='true'], textarea[aria-hidden='true'], [role='button'][aria-hidden='true'], [role='link'][aria-hidden='true'],
-[tabindex='-1'], button[tabindex='-1'], a[tabindex='-1'], input[tabindex='-1'], select[tabindex='-1'], textarea[tabindex='-1'], [role='button'][tabindex='-1'], [role='link'][tabindex='-1'],
-[disabled], button[disabled], a[disabled], input[disabled], select[disabled], textarea[disabled], [role='button'][disabled], [role='link'][disabled]
+[disabled], button[disabled], a[disabled], input[disabled], select[disabled], textarea[disabled], [role='button'][disabled], [role='link'][disabled],
+[role='presentation'][tabindex], [aria-hidden='true'][tabindex], [tabindex][role='presentation'], [tabindex][aria-hidden='true']
 	{ border-style: dashed !important; }
-/*
-main[tabindex]:hover:before { content: none; }
-*/
+
+a:hover:after { content: 'lien'; }
+a[tabindex]:hover:after { content: 'lien, tabindex: ' attr(tabindex); }
+[role='link']:hover:after { content: 'rôle lien'; }
+[role='link'][tabindex]:hover:after { content: 'rôle lien, tabindex: ' attr(tabindex); }
+button:hover:after { content: 'bouton'; }
+button[tabindex]:hover:after { content: 'bouton, tabindex: ' attr(tabindex); }
+[role='button']:hover:after { content: 'rôle bouton'; }
+[role='button'][tabindex]:hover:after { content: 'rôle bouton, tabindex: ' attr(tabindex); }
+
+input + label:hover:after { content: 'input, probablement radio ou checkbox'; }
+input[tabindex] + label:hover:after { content: 'input, probablement radio ou checkbox tabindex: ' attr(tabindex); }
+select:hover:after { content: 'select'; }
+select[tabindex]:hover:after { content: 'select, tabindex: ' attr(tabindex); }
+textarea:hover:after { content: 'textarea'; }
+textarea[tabindex]:hover:after { content: 'textarea, tabindex: ' attr(tabindex); }

@@ -1,15 +1,5 @@
 var cellComplexHeaders =[];
 
-HTMLElement.prototype.accessibleName = function(){
-	var intitule = Element.prototype.accessibleName.call (this);
-	if ('aria-' === intitule.substring (0,5)) return intitule;
-	else if (this.innerHTML.includes ('caption')){
-		const caption = this.getAllByRole ('caption')[0];
-		if (! exists (caption)) return intitule;
-		else return 'caption: '+ caption.accessibleName();
-	}
-	else return intitule;
-}
 HTMLElement.prototype.visibleName = function(){
 	if (this.innerHTML.includes ('caption')){
 		const caption = this.getAllByRole ('caption')[0];
@@ -21,7 +11,8 @@ HTMLElement.prototype.visibleName = function(){
 HTMLTableCaptionElement.prototype.accessibleName = function(){
 	const intitule = Element.prototype.accessibleName.call (this);
 	if ('aria-' === intitule.substring (0,5)) return intitule;
-	else if (exists (this.innerText)) return 'texte: '+ this.innerText;
+	else if (exists (this.innerText)) return this.innerText;
+	else if (exists (this.innerHTML)) return this.innerHTML;
 	else return intitule;
 }
 HTMLTableCaptionElement.prototype.visibleName = function(){

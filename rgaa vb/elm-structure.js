@@ -9,7 +9,7 @@ sens de lecture: $lecture
 == structure de la page`;
 
 // le titre
-const titleList = document.getElementsByTagName ('title');
+var titleList = document.getElementsByTagName ('title');
 var monTitre = "";
 if (titleList.length ===0) monTitre = 'erreur, pas de balise title dans la page';
 else if (titleList.length >1) monTitre = 'erreur, plusieurs balises title dans la page';
@@ -99,6 +99,7 @@ else{
 	}}
 	if (bannerRole ===0) infos = infos + "\nil manque l'élément obligatoire header[role='banner']";
 	else if (bannerRole === bannerRoleEteind) infos = infos + "\nl'élément header[role='banner'] est masqué"
+	else if (bannerRole ===1 && bannerRoleEteind ===0) infos = infos + "\nun élément header[role='banner'] actif";
 	else{
 		infos = infos + "\nplusieurs éléments header[role='banner'] dont ";
 		if (bannerRole - bannerRoleEteind ===1) infos = infos + 'un seul actif';

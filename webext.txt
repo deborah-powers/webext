@@ -85,6 +85,25 @@ ce module complémentaire n'a pas pu être installé car il semble corrompu
 ce module complémentaire n'a pas pu être installé car il n'a pas été vérifié
 --> j'utilise firefox de base, qui ne permet pas l'installation d'extentions non signées.
 
+== utiliser eval dans le manifest v3
+
+source: https://medium.com/geekculture/how-to-use-eval-in-a-v3-chrome-extension-f21ca8c2160c
+alternative: https://dev.to/ergofriend/eval-with-wasm-instead-of-sandbox-with-web-extensions-3icm
+
+dans manifest.json
+code	"sandbox": { "pages": [ "sandbox.html" ],
+dans popup.html
+code	<iframe src='../sandbox.html' style='display:none'></iframe>
+dans sandbox.html
+<html><script>
+code
+window.addEventListener ('message', async function (event) {
+	event.source.window.postMessage (eval (event.data), event.origin);
+});
+</script></html>
+/
+
+
 ======================== divers ========================
 
 dans manifest.json

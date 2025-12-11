@@ -13,24 +13,24 @@ une property se rapporte aux images
 	"description": "tester le développement de thèmes pour chrome",
 	"theme": {
 		"colors": {
-			"frame": [112, 144, 144],				// barre tout en haut
-			"frame_inactive": [250, 200, 250],		// barre tout en haut quand j'upload quelque chose
-			"toolbar": [250, 200, 250],				// barre contenant l'url
-			"ntp_text": [125, 0, 75],				// texte affiché dans un nouvel onglet
-			"ntp_background": [255, 250, 255],		// fond du nouvel onglet
-			"tab_text": [125, 0, 75],				// couleur du titre de l'onglet actif
-			"tab_background_text": [28, 36, 36],	// couleur des titres des onglets innactifs
-			"bookmark_text": [75, 94, 94],			// couleur des favoris dans la barre de favoris
-			"button_background": [150, 188, 188]	// bouton fermer - réduire la fenêtre
-		}
-/*		"images": {
-			"theme_frame": "frame.png",	// barre tout en haut, où les onglets s'affichent
+			"frame": [250, 150, 250],			// barre tout en haut, où les onglets s'affichent
+			"frame_inactive": [250, 200, 250],	// barre tout en haut quand j'upload quelque chose
+			"toolbar": [250, 200, 250],			// barre contenant l'url
+			"ntp_text": [0, 80, 80],			// texte affiché dans un nouvel onglet
+			"ntp_background": [255, 250, 255],	// fond du nouvel onglet
+			"tab_text": [0, 80, 80],			// couleur du titre de l'onglet actif
+			"tab_background_text": [0, 80, 80],	// couleur des titres des onglets innactifs
+			"bookmark_text": [0, 80, 80],		// couleur des favoris dans la barre de favoris
+			"button_background": [0, 100, 100]	// bouton fermer - réduire la fenêtre
+		},
+		"images": {
+			"theme_frame": "frame.png",						// barre tout en haut, où les onglets s'affichent
 			"theme_frame_overlay": "frame_overplay.png",	// barre tout en haut, coin gauche
-			"theme_toolbar": "toolbar.png",	// barre contenant l'url
+			"theme_toolbar": "toolbar.png",					// barre contenant l'url
 			"theme_ntp_background": "background.png",
 			"theme_ntp_attribution": "attribution.png"
 		}
-		"tints": { "buttons": [0.33, 0.5, 0.47] },
+/*		"tints": { "buttons": [0.33, 0.5, 0.47] },
 		"properties": { "ntp_background_alignment": "bottom" }
 */
 }}

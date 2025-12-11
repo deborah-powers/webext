@@ -7,6 +7,8 @@ function openInfos(){
 	buttonList.style.overflow = 'hidden';
 }
 window.setTimeout (openInfos, 15000);
+const dodo = 'hello';
+
 function chooseAction (event){
 	// event.target contient le bouton de la popup sur lequel j'ai cliqué
 	var action = event.target.id;
@@ -34,15 +36,29 @@ function chooseAction (event){
 		chrome.scripting.removeCSS ({
 			target: {tabId: activeTab.id, allFrames: false},
 			files: [
-				'ana-common.css', 'elm-focus.css', 'elm-form.css', 'elm-iframe.css', 'elm-image.css', 'elm-interdit.css',
+				'ana-common.css', 'elm-focus.css', 'elm-focus-interract.css', 'elm-form.css', 'elm-iframe.css', 'elm-image.css', 'elm-interdit.css',
 				'elm-interract.css', 'elm-link.css',
 				'elm-liste.css', 'elm-structure.css', 'elm-table.css', 'elm-titre.css', 'elm-tooltip.css',
-				'text-spacing.css', 'text-spacing.css', 'text-widenning.css'
+				'text-spacing.css', 'text-widenning.css'
 		]});
 		var listStyle =[];
 		var listScript =[];
 		// choisir les actions
-		if (action === 'elm-structure'){
+		if (action === 'sian-alert'){
+			listStyle =[ 'sian-alert.css' ];
+			listScript =[ 'sian-alert.js' ];
+		}
+		else if (action === 'ret-style'){
+			chrome.scripting.removeCSS ({
+				target: {tabId: activeTab.id, allFrames: false},
+				files: [
+					'ana-common.css', 'elm-focus.css', 'elm-focus-interract.css', 'elm-form.css', 'elm-iframe.css', 'elm-image.css', 'elm-interdit.css',
+					'elm-interract.css', 'elm-link.css',
+					'elm-liste.css', 'elm-structure.css', 'elm-table.css', 'elm-titre.css', 'elm-tooltip.css',
+					'text-spacing.css', 'text-widenning.css'
+			]});
+		}
+		else if (action === 'elm-structure'){
 			listStyle =[ 'ana-common.css', 'elm-structure.css' ];
 			listScript =[ 'xpathFct.js', 'ana-common.js', 'elm-structure.js' ];
 		}
@@ -52,21 +68,25 @@ function chooseAction (event){
 		}
 		else if (action === 'elm-titre') listStyle =[ 'ana-common.css', 'elm-titre.css' ];
 		else if (action === 'elm-liste') listStyle =[ 'ana-common.css', 'elm-liste.css' ];
-		else if (action === 'elm-form') listStyle =[ 'ana-common.css', 'elm-form.css' ];
-		else if (action === 'elm-focus') listStyle =[ 'ana-common.css', 'elm-focus.css' ];
 		else if (action === 'text-widenning') listStyle =[ 'text-widenning.css' ];
 		else if (action === 'text-spacing') listStyle =[ 'text-spacing.css' ];
 		else if (action === 'window-shrinking' && false && true) listStyle =[ 'ana-shrink.css' ];
 		else if (action === 'window-shrinking') listScript =[ 'ana-shrink.js' ];
 		else if (action === 'elm-tooltip') listStyle =[ 'ana-common.css', 'elm-tooltip.css' ];
 		else if (action === 'elm-interdit') listStyle =[ 'ana-common.css', 'elm-interdit.css' ];
+		else if (action === 'elm-presentation') listStyle =[ 'ana-common.css', 'elm-presentation.css' ];
 		else if (action === 'elm-cache'){
-			listStyle =[ 'elm-cache.css' ];
-			listScript =[ 'elm-cache.js' ];
+			listStyle =[ 'ana-common.css', 'elm-cache.css' ];
+			listScript =[ 'ana-common.js', 'elm-cache.js' ];
 		}
+		else if (action === 'elm-form'){
+			listStyle =[ 'ana-common.css', 'elm-form.css' ];
+			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-common.js', 'elm-form.js' ];
+		}
+		else if (action === 'elm-focus') listStyle =[ 'ana-common.css', 'elm-focus-interract.css', 'elm-focus.css' ];
 		else if (action === 'elm-interract'){
-			listStyle =[ 'ana-common.css', 'elm-focus.css', 'elm-interract.css' ];
-			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-contrast.js', 'ana-common.js', 'elm-interract.js' ];
+			listStyle =[ 'ana-common.css', 'elm-focus-interract.css', 'elm-interract.css' ];
+			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-contrast.js', 'ana-common.js', 'elm-form.js', 'elm-interract.js' ];
 		}
 		else if (action === 'elm-link'){
 			listStyle =[ 'ana-common.css', 'elm-link.css' ];
