@@ -1,10 +1,9 @@
 fanfic.cleanTitle();
-document.body.cleanBody();
-document.body.delAttributes();
-document.body.delIds();
+// libHtml.cleanBody();
+// libHtml.delAttributes();
 document.body.removeAnnotations();
 fanfic.fillHeader();
+addCss ([ 'structure', 'perso' ]);
 fanfic.text = document.body.innerHTML.replaceAll ('> ','>');
 var downloadText = fanfic.fillDownloadFile();
-downloadFile (fanfic.title +'.html', downloadText);
-
+libHtml.downloadFile (fanfic.title +'.html', downloadText);

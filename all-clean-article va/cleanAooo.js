@@ -78,8 +78,8 @@ HTMLLIElement.prototype.getFicSnippet_va = function(){
 	else locBlock = locBlock.replace ('\n\t$summary', "");
 	return locBlock;
 }
-document.body.replaceTag ('main');
-document.body.replaceTag ('inner');
+libHtml.replaceTag ('main');
+libHtml.replaceTag ('inner');
 
 if (window.location.href.includes ('/users/')){
 	// page de l'auteur
@@ -101,24 +101,24 @@ else if (window.location.href.includes ('/works/'))	// histoires
 
 if (window.location.href.includes ('https://archiveofourown.org/works/') && ! window.location.href.includes ('/search?')){
 	// les fanfics
-	document.body.replaceTag ('main');
-	document.body.replaceTag ('inner');
+	libHtml.replaceTag ('main');
+	libHtml.replaceTag ('inner');
 	// trouver le sujet
-	var tag = document.body.findTag ('wrapper');
-	tag.replaceTagList ('dd');
-	tag.replaceTagList ('a');
+	var tag = libHtml.findTag (document.body, 'wrapper');
+	libHtml.replaceTagList (tag, 'dd');
+	libHtml.replaceTagList (tag, 'a');
 	fanfic.subject ="";
 	for (var a=0; a< tag.children.length; a++) fanfic.subject = fanfic.subject +', '+ tag.children[a].innerText;
 	// trouver les autres infos
-	document.body.replaceTag ('workskin');
-	fanfic.title = document.body.findTag ('title heading').innerText;
+	libHtml.replaceTag ('workskin');
+	fanfic.title = libHtml.findTag (document.body, 'title heading').innerText;
 	// trouver l'auteur
-	tag = document.body.findTag ('a');
+	tag = libHtml.findTag (document.body, 'a');
 	fanfic.author = tag.innerText;
 	fanfic.authlink = tag.getAttribute ('href');
 	// trouver le texte
-	document.body.replaceTag ('chapters');
-	document.body.replaceTagList ('userstuff module');
+	libHtml.replaceTag ('chapters');
+	libHtml.replaceTagList (document.body, 'userstuff module');
 	document.body.innerHTML = document.body.innerHTML.replaceAll ('<h3 class="landmark heading" id="work">Chapter Text</h3>', "");
 	document.body.innerHTML = document.body.innerHTML.replaceAll ('<h3 class="landmark heading" id="work">Work Text:</h3>', "");
 }

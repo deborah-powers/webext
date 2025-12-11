@@ -26,14 +26,31 @@ HTMLAnchorElement.prototype.showUrl = function(){
 }
 pictureList = document.getElementsByTagName ('a');
 for (var p= pictureList.length -1; p>=0; p--) pictureList[p].showUrl();
-const title = findTitle();
+
+// récupérer les fonctions de mes librairies
+crutialData = `
+cleanStart: function(){
+	document.body.innerHTML = document.body.innerHTML.cleanHtml();
+	document.body.replaceTag ('main');
+	const h1 = document.body.findTag ('h1');
+	document.body.replaceTag ('wysiwyg');
+	return h1.outerHTML;
+},
+cleanEnd: function(){
+	document.body.cleanBody();
+	document.body.delAttributes();
+	document.body.delIds();
+	document.getElementsByTagName ('html')[0].delAttributes();
+	document.getElementsByTagName ('html')[0].delIds();
+},
+cleanText: function (text){ return text.cleanTxt(); },
+findTitle: findTitle
+`;
+const libHtml = callLibrary ([ 'textFct', 'htmlFct', 'pageFct' ]);
+const title = libHtml.findTitle();
 
 // nettoyer le texte
-document.body.innerHTML = document.body.innerHTML.cleanHtml();
-document.body.replaceTag ('main');
-const h1Html = document.body.findTag ('h1').outerHTML;
-document.body.replaceTag ('wysiwyg');
-
+const h1Html = libHtml.cleanStart();
 if (document.body.innerHTML.includes ('<strong>A compléter plus tard</strong> [BEGIN]')){
 	var textList = document.body.innerHTML.split ('<strong>A compléter plus tard</strong> [BEGIN]');
 	for (var t=0; t< textList.length -1; t++){
@@ -46,11 +63,7 @@ if (document.body.innerHTML.includes ('<strong>A compléter plus tard</strong> [
 	document.body.innerHTML = textList.join ("<p>TODO: A compléter</p>");
 }
 document.body.innerHTML = h1Html + document.body.innerHTML;
-document.body.cleanBody();
-document.body.delAttributes();
-document.body.delIds();
-document.getElementsByTagName ('html')[0].delAttributes();
-document.getElementsByTagName ('html')[0].delIds();
+libHtml.cleanEnd();
 
 HTMLElement.prototype.replace = function (oldWord, newWord){
 	if (newWord === undefined) newWord ="";
@@ -73,15 +86,15 @@ if (document.body.innerHTML.includes ('<h3>') && ! document.body.innerHTML.inclu
 document.body.replace ('</a>', '</a></p>');
 document.body.replace ('<a ', '<p><a ');
 document.body.replace ('&nbsp;-&nbsp;', "");
-document.body.innerHTML = document.body.innerHTML.cleanTxt();
+document.body.innerHTML = libHtml.cleanText (document.body.innerHTML);
 document.body.replace ('<p></p>', "");
 
 document.head.innerHTML = '<title>' + title + `</title>
 	<meta name='viewport' content='width=device-width,initial-scale=1'/>
 	<meta charset='utf-8'/>
 `;
-document.body.innerHTML = '<xmp>' + document.head.innerHTML + document.body.outerHTML.cleanTxt() + '</xmp>';
-// document.body.innerHTML = '<xmp>' + document.body.innerText.cleanTxt() + '</xmp>';
+document.body.innerHTML = '<xmp>' + document.head.innerHTML + libHtml.cleanText (document.body.outerHTML) + '</xmp>';
+// document.body.innerHTML = '<xmp>' + libHtml.cleanText (document.body.innerText) + '</xmp>';
 
 /* échanger avec le serveur
 const toServerData ={
