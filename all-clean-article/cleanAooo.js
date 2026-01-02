@@ -28,6 +28,7 @@ const ficBlock =`<article>
 
 function getNavigation(){
 	const navList = document.getElementsByClassName ('pagination')[0];
+	console.log ('getNavigation', navList);
 	var page = '#';
 	if (navList !== undefined && navList.children[0].children[0].tagName === 'A') page = navList.children[0].children[0].href;
 	searchHead = searchHead.replace ('$prevPage', page);
@@ -79,11 +80,44 @@ HTMLLIElement.prototype.getFicSnippet_va = function(){
 	return locBlock;
 }
 document.body.replaceTag ('main');
-document.body.replaceTag ('inner');
+// document.body.replaceTag ('inner');
 
-if (window.location.href.includes ('/users/')){
+if (window.location.href.includes ('/works/')){
+	document.body.innerHTML = document.body.getElementsByClassName ('work')[0].innerHTML;
+	// récupérer les métadonnées
+	var meta = document.getElementsByTagName ('ul')[0];
+	var metaText ="";
+	if (window.location.href.includes ('/chapters/'))
+		metaText = meta.children[0].outerHTML + meta.children[1].outerHTML + meta.children[2].outerHTML + meta.children[3].outerHTML;
+	else if (window.location.href.includes ('view_full_work=true')) metaText = meta.children[0].outerHTML;
+	meta = document.body.getElementsByClassName ('wrapper')[0].children[0];
+	fanfic.subject = meta.children[7].innerText;
+	if ('F/M' === meta.children[5].innerText || 'F/F' === meta.children[5].innerText) fanfic.subject = fanfic.subject + ', romance';
+	metaText = '<ul>' + metaText + '<li>' + meta.children[17].children[0].children[3].innerText + '</li></ul>';
+	document.body.innerHTML = document.getElementById ('workskin').innerHTML;
+	meta = document.body.getElementsByTagName ('h3')[0];
+	fanfic.author = meta.innerText;
+	fanfic.autlink = meta.getElementsByTagName ('a')[0].href;
+	fanfic.title = document.body.getElementsByTagName ('h2')[0].innerText;
+	// récupérer le texte
+	document.body.innerHTML = document.getElementById ('chapters').innerHTML;
+	if (window.location.href.includes ('/chapters/')){
+		const lines = document.getElementsByTagName ('p');
+		for (var line of lines) metaText = metaText + line.outerHTML;
+	}
+	else if (window.location.href.includes ('view_full_work=true')){
+		const chapters = document.body.getElementsByClassName ('userstuff');
+		for (var chapter of chapters){
+			var lines = document.getElementsByTagName ('p');
+			for (var line of lines) metaText = metaText + line.outerHTML;
+			metaText = metaText + '<hr/>';
+	}}
+	document.body.innerHTML = metaText;
+}
+else if (window.location.href.includes ('/users/')){
 	// page de l'auteur
 	getNavigation();
+	console.log ('users', document.getElementsByClassName ('heading')[0]);
 	searchHead = searchHead.replace ('$title', document.getElementsByClassName ('heading')[0].innerText);
 	const ficItems = document.getElementsByClassName ('index group')[0].children;
 	var ficList ="";
@@ -115,7 +149,7 @@ if (window.location.href.includes ('https://archiveofourown.org/works/') && ! wi
 	// trouver l'auteur
 	tag = document.body.findTag ('a');
 	fanfic.author = tag.innerText;
-	fanfic.authlink = tag.getAttribute ('href');
+	fanfic.autlink = tag.getAttribute ('href');
 	// trouver le texte
 	document.body.replaceTag ('chapters');
 	document.body.replaceTagList ('userstuff module');

@@ -6,6 +6,7 @@ const downloadFrame = `<!DOCTYPE html><html><head>
 	<meta name='subject' content='$subject' />
 	<meta name='author' content='$author' />
 	<meta name='link' content='$link' />
+	<meta name='autlink' content='$autlink' />
 	<link rel='icon' type='image/svg+xml' href='file:///C:/wamp64/www/site-dp/data/nounours-perso.svg'/>
 	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/structure.css'/>
 	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/perso.css' media='screen'/>
@@ -57,6 +58,7 @@ class Fanfic{
 		this.author = 'inconnu';
 		this.subject ="";
 		this.link = window.location.href;
+		this.autlink ="";
 		this.style ="";
 	}
 	cleanTitle(){
@@ -89,7 +91,8 @@ class Fanfic{
 			text: this.text,
 			author: this.author,
 			subject: this.subject,
-			link: this.link
+			link: this.link,
+			autlink: this.autlink
 		};
 		return fanfic;
 	}
@@ -120,6 +123,7 @@ class Fanfic{
 		myFrame = myFrame.replace ('$subject', this.subject);
 		myFrame = myFrame.replace ('$author', this.author);
 		myFrame = myFrame.replace ('$link', this.link);
+		myFrame = myFrame.replace ('$autlink', this.autlink);
 		myFrame = myFrame.replace ('$text', this.text);
 		myFrame = myFrame.replace ('$style', this.style);
 		return myFrame;

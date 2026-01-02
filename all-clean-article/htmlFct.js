@@ -52,10 +52,6 @@ String.prototype.toHtml = function(){
 	text = text.cleanHtml();
 	text = text.replaceAll ('/$', '\n');
 	text = text.replaceAll ('\\f', '\t');
-<<<<<<< HEAD
-=======
-	console.log (text);
->>>>>>> adcbae3 (maison 10/03 18:07)
 	return text;
 }
 String.prototype.toCode = function(){
@@ -293,15 +289,11 @@ String.prototype.findTitleFromUrl = function(){
 	if (this.includes ('\\')) pos = this.lastIndexOf ('\\');
 	pos +=1;
 	var title = this.substring (pos);
-<<<<<<< HEAD
 	if (title.includes ('.gouv.fr')){
 		pos = title.lastIndexOf ('.gouv.fr');
 		title = title.substring (0, pos);
 	}
 	else if (title.includes ('.')){
-=======
-	if (title.includes ('.')){
->>>>>>> adcbae3 (maison 10/03 18:07)
 		pos = title.lastIndexOf ('.');
 		title = title.substring (0, pos);
 	}

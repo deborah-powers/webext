@@ -9,7 +9,7 @@ else if (window.location.href.includes ('https://www.fanfiction.net/s/')){
 	const head = document.body.findTag ('profile_top');
 	fanfic.title = head.findTag ('b').innerText;
 	fanfic.author = head.findTag ('a').innerText;
-	fanfic.authlink = head.findTag ('a').href;
+	fanfic.autlink = head.findTag ('a').href;
 	fanfic.subject = 'fanfic';
 	// le texte, y compris les autres chapitres
 	const chapters = document.body.findTag ('chap_select');
@@ -41,7 +41,7 @@ else if (window.location.href.includes ('https://www.test-recette.fr/recette/'))
 	fanfic.title = document.getElementsByTagName ('title')[0].innerHTML;
 	fanfic.subject = 'programmation';
 	fanfic.author = 'test-recette';
-	fanfic.authlink = 'https://www.test-recette.fr/recette/';
+	fanfic.autlink = 'https://www.test-recette.fr/recette/';
 	document.body.replaceTag ('container');
 	document.body.innerHTML = document.body.children[0].innerHTML;
 }
