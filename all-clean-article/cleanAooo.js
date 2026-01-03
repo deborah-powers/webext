@@ -28,7 +28,6 @@ const ficBlock =`<article>
 
 function getNavigation(){
 	const navList = document.getElementsByClassName ('pagination')[0];
-	console.log ('getNavigation', navList);
 	var page = '#';
 	if (navList !== undefined && navList.children[0].children[0].tagName === 'A') page = navList.children[0].children[0].href;
 	searchHead = searchHead.replace ('$prevPage', page);
@@ -38,11 +37,10 @@ function getNavigation(){
 }
 HTMLLIElement.prototype.getFicSnippet = function(){
 	// rejeter les fanfics que je n'aime pas
+	if (this.innerText.includes ('his has been deleted, sorry')) return "";
 	var tagParent = document.getElementsByClassName ('required-tags')[0];
-	/*
 	if (tagParent.innerText.includes ('incest') || tagParent.innerText.includes ('Underage Sex')) return "";
 	else if (tagParent.innerText.includes ('M/M') && ! tagParent.innerText.includes ('F/')) return "";
-	*/
 	// les infos basiques
 	const title = this.getElementsByTagName ('h4')[0];
 	var locBlock = ficBlock.replace ('$ficTitle', title.children[0].innerText);
@@ -54,27 +52,18 @@ HTMLLIElement.prototype.getFicSnippet = function(){
 		locBlock = locBlock.replace ('$author', title.children[1].innerText);
 		locBlock = locBlock.replace ('$autLink', title.children[1].href);
 	}
-	return locBlock;
-}
-HTMLLIElement.prototype.getFicSnippet_va = function(){
-	// les fics que je n'aime pas
-	if (this.innerText.includes ('M/M') || this.innerText.includes ('incest')){
-		console.log (this.innerText);
-		return "";
-	}
-	console.log ('getFicSnippet suite');
-	// mes fics choisies
-	var dataTag = this.getElementsByTagName ('ul')[0].getElementsByTagName ('a')[2];
-	locBlock = locBlock.replace ('$updated', this.getElementsByTagName ('p')[0].innerText);
+	locBlock = locBlock.replace ('$updated', this.getElementsByClassName ('datetime')[1].innerText);
 	var tagList = this.getElementsByTagName ('h5')[0].getElementsByTagName ('a');
-	var tagText ="";
-	for (var t=0; t< tagList.length; t++) tagText = tagText + tagList[t].outerHTML;
+	var tagText = '<ul>';
+	for (var t=0; t< tagList.length; t++) tagText = tagText + '<li>' + tagList[t].outerHTML + '</li>';
+	tagText = tagText + '</ul>';
 	locBlock = locBlock.replace ('$fandomList', tagText);
 	tagList = this.getElementsByTagName ('ul')[1].getElementsByTagName ('a');
-	tagText ="";
-	for (var t=0; t< tagList.length; t++) tagText = tagText + tagList[t].outerHTML;
+	tagText = '<ul>';
+	for (var t=0; t< tagList.length; t++) tagText = tagText + '<li>' + tagList[t].outerHTML + '</li>';
+	tagText = tagText + '</ul>';
 	locBlock = locBlock.replace ('$tagList', tagText);
-	dataTag = this.getElementsByTagName ('blockquote')[0];
+	const dataTag = this.getElementsByTagName ('blockquote')[0];
 	if (undefined !== dataTag) locBlock = locBlock.replace ('$summary', dataTag.outerHTML);
 	else locBlock = locBlock.replace ('\n\t$summary', "");
 	return locBlock;
@@ -83,135 +72,61 @@ document.body.replaceTag ('main');
 // document.body.replaceTag ('inner');
 
 if (window.location.href.includes ('/works/')){
-	document.body.innerHTML = document.body.getElementsByClassName ('work')[0].innerHTML;
-	// récupérer les métadonnées
-	var meta = document.getElementsByTagName ('ul')[0];
-	var metaText ="";
-	if (window.location.href.includes ('/chapters/'))
-		metaText = meta.children[0].outerHTML + meta.children[1].outerHTML + meta.children[2].outerHTML + meta.children[3].outerHTML;
-	else if (window.location.href.includes ('view_full_work=true')) metaText = meta.children[0].outerHTML;
-	meta = document.body.getElementsByClassName ('wrapper')[0].children[0];
-	fanfic.subject = meta.children[7].innerText;
-	if ('F/M' === meta.children[5].innerText || 'F/F' === meta.children[5].innerText) fanfic.subject = fanfic.subject + ', romance';
-	metaText = '<ul>' + metaText + '<li>' + meta.children[17].children[0].children[3].innerText + '</li></ul>';
-	document.body.innerHTML = document.getElementById ('workskin').innerHTML;
-	meta = document.body.getElementsByTagName ('h3')[0];
-	fanfic.author = meta.innerText;
-	fanfic.autlink = meta.getElementsByTagName ('a')[0].href;
-	fanfic.title = document.body.getElementsByTagName ('h2')[0].innerText;
-	// récupérer le texte
-	document.body.innerHTML = document.getElementById ('chapters').innerHTML;
-	if (window.location.href.includes ('/chapters/')){
-		const lines = document.getElementsByTagName ('p');
-		for (var line of lines) metaText = metaText + line.outerHTML;
+	if (document.body.innerText.includes ('Adult Content Warning')){
+		const choice = document.getElementsByClassName ('actions')[0].children[0].children[0];
+		choice.target = '_self';
+		choice.click();
+	//	window.open (choice.href, '_self');
 	}
-	else if (window.location.href.includes ('view_full_work=true')){
-		const chapters = document.body.getElementsByClassName ('userstuff');
-		for (var chapter of chapters){
-			var lines = document.getElementsByTagName ('p');
+	else{
+		document.body.innerHTML = document.body.getElementsByClassName ('work')[0].innerHTML;
+		// vérifier si la page est un avertissement
+		// récupérer les métadonnées
+		var meta = document.getElementsByTagName ('ul')[0];
+		var metaText ="";
+		if (window.location.href.includes ('/chapters/'))
+			metaText = meta.children[0].outerHTML + meta.children[1].outerHTML + meta.children[2].outerHTML + meta.children[3].outerHTML;
+		else if (window.location.href.includes ('view_full_work=true')) metaText = meta.children[0].outerHTML;
+		meta = document.body.getElementsByClassName ('wrapper')[0].children[0];
+		fanfic.subject = meta.children[7].innerText;
+		if ('F/M' === meta.children[5].innerText || 'F/F' === meta.children[5].innerText) fanfic.subject = fanfic.subject + ', romance';
+		metaText = '<ul>' + metaText + '<li>' + meta.children[17].children[0].children[3].innerText + '</li></ul>';
+		document.body.innerHTML = document.getElementById ('workskin').innerHTML;
+		meta = document.body.getElementsByTagName ('h3')[0];
+		fanfic.author = meta.innerText;
+		fanfic.autlink = meta.getElementsByTagName ('a')[0].href;
+		fanfic.title = document.body.getElementsByTagName ('h2')[0].innerText;
+		// récupérer le texte
+		document.body.innerHTML = document.getElementById ('chapters').innerHTML;
+		if (window.location.href.includes ('/chapters/')){
+			const lines = document.getElementsByTagName ('p');
 			for (var line of lines) metaText = metaText + line.outerHTML;
-			metaText = metaText + '<hr/>';
-	}}
-	document.body.innerHTML = metaText;
-}
+		}
+		else if (window.location.href.includes ('view_full_work=true')){
+			const chapters = document.body.getElementsByClassName ('userstuff');
+			for (var chapter of chapters){
+				var lines = document.getElementsByTagName ('p');
+				for (var line of lines) metaText = metaText + line.outerHTML;
+				metaText = metaText + '<hr/>';
+		}}
+		document.body.innerHTML = metaText;
+}}
 else if (window.location.href.includes ('/users/')){
 	// page de l'auteur
 	getNavigation();
-	console.log ('users', document.getElementsByClassName ('heading')[0]);
 	searchHead = searchHead.replace ('$title', document.getElementsByClassName ('heading')[0].innerText);
 	const ficItems = document.getElementsByClassName ('index group')[0].children;
 	var ficList ="";
-	for (fic of ficItems) ficList = ficList + fic.getFicSnippet();
+	for (var fic of ficItems) ficList = ficList + fic.getFicSnippet();
 	document.body.innerHTML = searchHead + ficList;
 }
-
-
 /*
 // TODO à merger et adapter
-if (window.location.href.includes ('/tags/'))	// recherche par tag
 else if (window.location.href.includes ('/works/search?'))	// recherche par mot-clefs
-else if (window.location.href.includes ('/users/'))	// auteur
-else if (window.location.href.includes ('/works/'))	// histoires
 
-if (window.location.href.includes ('https://archiveofourown.org/works/') && ! window.location.href.includes ('/search?')){
-	// les fanfics
-	document.body.replaceTag ('main');
-	document.body.replaceTag ('inner');
-	// trouver le sujet
-	var tag = document.body.findTag ('wrapper');
-	tag.replaceTagList ('dd');
-	tag.replaceTagList ('a');
-	fanfic.subject ="";
-	for (var a=0; a< tag.children.length; a++) fanfic.subject = fanfic.subject +', '+ tag.children[a].innerText;
-	// trouver les autres infos
-	document.body.replaceTag ('workskin');
-	fanfic.title = document.body.findTag ('title heading').innerText;
-	// trouver l'auteur
-	tag = document.body.findTag ('a');
-	fanfic.author = tag.innerText;
-	fanfic.autlink = tag.getAttribute ('href');
-	// trouver le texte
-	document.body.replaceTag ('chapters');
-	document.body.replaceTagList ('userstuff module');
-	document.body.innerHTML = document.body.innerHTML.replaceAll ('<h3 class="landmark heading" id="work">Chapter Text</h3>', "");
-	document.body.innerHTML = document.body.innerHTML.replaceAll ('<h3 class="landmark heading" id="work">Work Text:</h3>', "");
-}
-
-// ------------ recherche de fanfics ------------
-
-
-function getFicSnippetList(){
-	const ficList = document.getElementsByClassName ('work index group')[0];
-	var fanfics ="";
-	for (var f=0; f< ficList.children.length; f++) fanfics = fanfics + ficList.children[f].getFicSnippet();
-	document.body.innerHTML = searchHead;
-	document.body.innerHTML = document.body.innerHTML + fanfics;
-}
 // ------------ o ------------
 
-function cleanPage(){
-	console.log ('cleanPage a');
-	document.body.findTagReplace ('main');
-	console.log ('cleanPage b');
-	document.body.findTagReplace ('inner');
-	console.log ('cleanPage c');
-	document.body.removeEmptyTag();
-if (window.location.href.includes ('/users/')){
-	console.log ('cleanPage users');
-	// liste de fics d'un auteur. https://archiveofourown.org/users/KaraCee/pseuds/KaraCee
-	// l'auteur
-	var d=7+ window.location.href.indexOf ('/users/');
-	var authorName = window.location.href.substring (d);
-	if (authorName.includes ('/pseuds/')) d= authorName.substring (0,d);
-	console.log ('users');
-	document.body.findTagReplace ('user home');
-	const userName = document.body.getElementsByTagName ('h2')[0].innerText;
-	main = document.getElementsByTagName ('ol')[0];
-	console.log (main);
-	// liste de fanfics chez un auteur
-	if (window.location.href.includes ('/works') || window.location.href.includes ('/bookmarks')){
-		var lists = document.getElementsByTagName ('ol');
-		var newBody = lists[0].outerHTML;
-		var formSearch = document.getElementsByTagName ('form')[0];
-		newBody = newBody + lists[1].cleanStories();
-		document.body.innerHTML = newBody;
-		document.body.children[O].cleanNavBar (formSearch);
-	} else {
-		var works = document.getElementById ('user-works');
-		var worksStories = works.getElementsByTagName ('ul')[0].cleanStories();
-		var worksLink = works.getElementsByClassName ('actions')[0].children[0];
-		worksLink.innerHTML = 'quelques histoires';
-		var bookmarks = document.getElementById ('user-bookmarks');
-		var bookmarksStories = bookmarks.getElementsByTagName ('ol')[0].cleanStories();
-		var tmpData = bookmarks.querySelectorAll ('ul.actions');
-		var bookmarksLink = tmpData[tmpData.length -1].children[0];
-		bookmarksLink.innerHTML = 'quelques favoris';
-		document.body.innerHTML = worksLink.outerHTML + worksStories + bookmarksLink.outerHTML + bookmarksStories;
-	}
-	document.body.delAttribute();
-	document.body.className = 'search';
-}
-else if (window.location.href.includes ('works?work_search')){
+if (window.location.href.includes ('works?work_search')){
 	// liste de fanfics
 	// le tître
 	var tmpTag = document.getElementsByTagName ('h2')[0];
@@ -236,61 +151,4 @@ else if (window.location.href.includes ('/works/search?')){
 	searchHead = searchHead.replace ('$editSearch', tmpTag.href);
 	getNavigation();
 	getFicSnippetList();
-}
-else if (window.location.href.includes ('/works/')){
-	console.log ('works');
-	var storyTemplate = `<h1>$title</h1>
-	<nav><a href='$autLink'>auteur: $author</a>$navLinks</nav>
-$text
-<div id='infos-page' style='display: none;'>
-	<p class='etat'>propre</p>
-	<p class='subject'>subject: romance</p>
-	<p class='author'>author: $author</p>
-	<p class='autLink'>autLink: $autLink</p>
-</div>
-`;
-	var headTemplate = `
-	<title>$title</title>
-	<meta name='viewport' content='width=device-width, initial-scale=1'/>
-	<meta charset='utf-8'/>
-	<meta name='author' content='$author'/>
-	<meta name='subject' content='romance'/>
-	<meta name='link' content='$link'/>
-	<meta name='autlink' content='$autLink'/>
-`;
-	var actions = document.getElementsByClassName ('work navigation actions')[0];
-	var navLinks ="";
-	var c=0;
-	if (actions !== undefined){
-		while (c< actions.children.length){
-			if (actions.children[c].tagName === 'A'){
-				if (actions.children[c].innerHTML.includes ('Comments')) c= actions.children.length;
-				else navLinks = navLinks + actions.children[c].outerHTML;
-			} c++;
-	}}
-	// récupérer l'auteur
-	var infos = document.getElementsByClassName ('preface group')[0];
-	var author = infos.getElementsByTagName ('a')[0].innerText.toLowerCase().cleanTxt();
-	var autLink = infos.getElementsByTagName ('a')[0].getAttribute ('href');
-	document.body.findTag ('workskin');
-	var title = document.getElementsByTagName ('h2')[0].innerHTML.toLowerCase().cleanTxt();
-	var chapList = document.getElementsByClassName ('userstuff');
-	var text ="";
-	var c=0;
-	if (chapList.length ===1) text = chapList[0].innerHTML;
-	else for (var c=0; c< chapList.length; c++) text = text + chapList[c].outerHTML;
-	document.body.findTag ('userstuff module');
-	storyTemplate = storyTemplate.replace ('$text', text);
-	storyTemplate = storyTemplate.replace ('$title', title);
-	storyTemplate = storyTemplate.replaceAll ('$author', author);
-	storyTemplate = storyTemplate.replaceAll ('$autLink', autLink);
-	storyTemplate = storyTemplate.replace ('$navLinks', navLinks);
-	headTemplate = headTemplate.replaceAll ('$link', window.location.href);
-	headTemplate = headTemplate.replace ('$title', title);
-	headTemplate = headTemplate.replaceAll ('$author', author);
-	headTemplate = headTemplate.replaceAll ('$autLink', autLink);
-	document.body.innerHTML = storyTemplate;
-	document.head.innerHTML = headTemplate;
-	if (c>0) document.body.className = 'multi-chapter';
-//	document.body.innerHTML = document.body.innerHTML.replace ('<h3>Work Text:</h3>');
-}}*/
+}*/

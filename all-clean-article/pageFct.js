@@ -108,11 +108,28 @@ HTMLPreElement.prototype.simplifyNesting = function(){
 	this.computeWidth();
 }
 HTMLSelectElement.prototype.simplifyNesting = function(){
-	if (this.textContent.isEmpty() && ! this.innerHTML.includes ('<img') && ! this.innerHTML.includes ('<svg')) this.parentElement.removeChild (this);
+	if (this.textContent.isEmpty() && ! this.innerHTML.includes ('<img') && ! this.innerHTML.includes ('<svg'))
+		this.parentElement.removeChild (this);
+	else{ for (var c= this.children.length -1; c>=0; c--) this.children[c].simplifyNesting(); }
+}
+HTMLUListElement.prototype.simplifyNesting = function(){
+	if (this.innerText.isEmpty() && ! this.innerHTML.includes ('<img') && ! this.innerHTML.includes ('<svg'))
+		this.parentElement.removeChild (this);
+	else{ for (var c= this.children.length -1; c>=0; c--) this.children[c].simplifyNesting(); }
+}
+HTMLOListElement.prototype.simplifyNesting = function(){
+	if (this.innerText.isEmpty() && ! this.innerHTML.includes ('<img') && ! this.innerHTML.includes ('<svg'))
+		this.parentElement.removeChild (this);
+	else{ for (var c= this.children.length -1; c>=0; c--) this.children[c].simplifyNesting(); }
+}
+HTMLLIElement.prototype.simplifyNesting = function(){
+	if (this.innerText.isEmpty() && ! this.innerHTML.includes ('<img') && ! this.innerHTML.includes ('<svg'))
+		this.parentElement.removeChild (this);
 	else{ for (var c= this.children.length -1; c>=0; c--) this.children[c].simplifyNesting(); }
 }
 HTMLTableElement.prototype.simplifyNesting = function(){
-	if (this.innerText.isEmpty() && ! this.innerHTML.includes ('<img') && ! this.innerHTML.includes ('<svg')) this.parentElement.removeChild (this);
+	if (this.innerText.isEmpty() && ! this.innerHTML.includes ('<img') && ! this.innerHTML.includes ('<svg'))
+		this.parentElement.removeChild (this);
 	else{
 		for (var c= this.children.length -1; c>=0; c--) this.children[c].simplifyNesting();
 		var newText ="";
