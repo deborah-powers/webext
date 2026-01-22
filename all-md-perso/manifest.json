@@ -1,0 +1,17 @@
+{
+	"manifest_version": 2,
+	"name": "to markdown",
+	"version": "1.0",
+	"description": "appliquer un markdown maison sur mes fichiers textes",
+	"icons": { "48": "icon-128.svg" },
+	"permissions": [ "tabs", "activeTab", "scripting" ],
+	"content_scripts": [{
+		"matches": [ "file:///*/rueil-bruyeres*.txt" ],
+		"js": [ "textFct.js", "htmlFct.js", "action-bruyeres.js" ]
+	}, {
+		"matches": [ "file:///*/*.txt", "file:///*/*.md", "http://*/*.txt", "https://*/*.txt", "http://*/*.md", "https://*/*.md" ],
+		"exclude_matches": [ "file:///*/rueil-bruyeres*.txt" ],
+		"js": [ "textFct.js", "htmlFct.js", "action-common.js" ]
+	}],
+	"browser_specific_settings": { "gecko": { "id": "md-perso@deborah-powers.fr" }}
+}
