@@ -1,0 +1,16 @@
+{
+	"manifest_version": 2,
+	"name": "test automatique",
+	"version": "1.0",
+	"description": "faire le basique de mes tests",
+	"icons": { "48": "icon-128.svg" },
+	"permissions": [ "tabs", "activeTab", "scripting" ],
+	"page_action": {
+		"default_icon": "icon-128.svg",
+		"default_title": "test automatique",
+		"default_popup": "menu.html",
+		"show_matches": [ "http://*/tdir/*" ],
+		"pinned": true
+	},
+	"browser_specific_settings": { "gecko": { "id": "test@deborah-powers.fr" }}
+}
