@@ -7,7 +7,7 @@ function chooseAction (event){
 	chrome.tabs.query ({currentWindow: true, active: true}, function (tabs){
 		var activeTab = tabs[0];
 		// choisir les actions
-		if (action === 'vas-resume') listScript =[ 'aller-resume.js' ];
+		if (action === 'naviguer') listScript =[ 'aller-resume.js' ];
 		// lancer les actions
 		chrome.scripting.executeScript ({
 			target: {tabId: activeTab.id, allFrames: false},
