@@ -1,18 +1,10 @@
-function monTest(){
-	console.log ('mon test', actionCourrante);
-}
 function chooseAction (event){
 	// event.target contient le bouton de la popup sur lequel j'ai cliqué
 	var action = event.target.id;
 	chrome.tabs.query ({currentWindow: true, active: true}, function (tabs){
 		var activeTab = tabs[0];
-		// choisir les actions
-		if (action === 'naviguer') listScript =[ 'aller-resume.js' ];
-		// lancer les actions
-		chrome.scripting.executeScript ({
-			target: {tabId: activeTab.id, allFrames: false},
-			func: monTest
-		});
+		// envoyer un message au background d'une autre extension. le code est l'uuid de cette extension
+		chrome.runtime.sendMessage ('e8d4f0e4-d547-4337-8fcd-f21196050eef', { action: 'avancer' }, function (response){ console.log ('réponse:', response); });
 	});
 	event.target.focus();
 }
