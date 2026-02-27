@@ -1,3 +1,7 @@
+// variable de import-js
+crutialData = `prepareText: prepareText`;
+const htmlLib = callLibrary ([ 'textFct', 'htmlFct' ]);
+
 // importer mes scipts et styles persos
 var metaPage =`
 	<title>$title</title>
@@ -18,5 +22,5 @@ document.head.innerHTML = metaPage;
 document.body.innerHTML = document.body.innerHTML.replaceAll ('-- ', '__ ');
 document.body.innerHTML = document.body.innerHTML.replaceAll ('** ', '-- ');
 document.body.innerHTML = document.body.innerHTML.replaceAll ('== ', '** ');
-const metadata = prepareText();
+const metadata = htmlLib.prepareText();
 document.body.innerHTML = headPage + document.body.innerHTML;

@@ -1,3 +1,11 @@
+// variable de import-js
+crutialData =`
+	exists: exists,
+	prepareText: prepareText,
+	findTitle: function (url){ return url.findTitleFromUrl(); }
+`;
+const htmlLib = callLibrary ([ 'textFct', 'htmlFct' ]);
+
 // importer mes scipts et styles persos
 var metaPage =`
 	<title></title>
@@ -11,7 +19,7 @@ var metaPage =`
 `;
 // récupérer les metadonnées de mes articles
 var header = "<h1><a href='$lien'>$titre</a></h1><p>par <a href='$lienAuteur'>$auteur</a></p><p>à propos de $sujet</p>";
-const title = window.location.href.findTitleFromUrl();
+const title = htmlLib.findTitle (window.location.href);
 metaPage = metaPage.replace ('<title></title>', '<title>' + title + '</title>');
 document.head.innerHTML = metaPage;
 
@@ -22,15 +30,15 @@ function findMetaLocal (metadata, title){
 		header = header.replace ('</a>', "");
 	}
 	else header = header.replace ('$lien', metadata['lien']);
-	if (! exists (metadata['autlink'])){
+	if (! htmlLib.exists (metadata['autlink'])){
 		header = header.replace ("<a href='$lienAuteur'>", "");
 		header = header.replace ('$auteur</a>', '$auteur');
 	}
 	else header = header.replace ('$lienAuteur', metadata['autlink']);
 	header = header.replace ('$auteur', metadata['auteur']);
 	header = header.replace ('$sujet', metadata['sujet']);
-	if (exists (metadata['date'])) header = header + '<p>date: '+ metadata['date'] + '</p>';
+	if (htmlLib.exists (metadata['date'])) header = header + '<p>date: '+ metadata['date'] + '</p>';
 	document.body.innerHTML = header + document.body.innerHTML;
 }
-const metadata = prepareText();
+const metadata = htmlLib.prepareText();
 findMetaLocal (metadata, title);
