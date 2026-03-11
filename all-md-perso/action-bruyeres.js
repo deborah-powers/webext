@@ -12,7 +12,7 @@ var metaPage =`
 	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/shapes.css' />
 	<link rel='stylesheet' type='text/css' href='file:///C:/Users/LENOVO/Desktop/rueil-bruyeres/style.css' />
 `;
-var headPage = '<h1><span>Association résidence les bruyères</span><span>$title</span></h1>';
+var headPage = '<h1><span>Groupement de la résidence les bruyères</span><span>$title</span></h1>';
 var titleEnd = document.body.children[0].innerHTML.indexOf ('\n');
 const title = document.body.children[0].innerHTML.substring (0, titleEnd);
 document.body.innerHTML = document.body.children[0].innerHTML.substring (titleEnd +1);
