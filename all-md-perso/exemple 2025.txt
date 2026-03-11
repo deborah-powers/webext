@@ -62,7 +62,7 @@ Abricot: Fruit de l'abricotier
 == Les tableaux
 
 Les cases sont séparées par des tabulations.
-Un point. Représente une case vide.
+Un point (.) représente une case vide.
 Fruit	nombre de p	nombre de o:
 Pêche:	1	.
 Pomme:	1	1
@@ -72,12 +72,12 @@ Abricot:	.	1
 == Les images
 
 Cinq formats reconnus: Bmp, png, jpg, jpeg, gif.
-L'url doit contenir un double point, comme file:///C://mon-image.xyz ou http://mon-image.xyz
-file:///C://fichier/image-perdue.bmp
+L'url doit contenir un double point, comme C://mon-image.xyz ou http://mon-image.xyz
+C://fichier/image-perdue.bmp
 https://www.google.com/logos/doodles/2024/celebrating-scoubidous-6753651837110288-2x.png (scoubidous formant le mot "google")
-Cette image file:///C://fichier/mon-image.bmp est incluse dans un paragraphe.
+Cette image C://fichier/mon-image.bmp est incluse dans un paragraphe.
 Un titre entre parenthèse après l'image lui sert de nom.
-file:///C://fichier/image-perdue.bmp (cette image est indisponible, vous lisez le texte alternatif)
+C://fichier/image-perdue.bmp (cette image est indisponible, vous lisez le texte alternatif)
 Si l'image prend une ligne à elle toute seule, son nom peut être affiché en début de ligne.
 Google en scoubidou: https://www.google.com/logos/doodles/2024/celebrating-scoubidous-6753651837110288-2x.png
 
@@ -99,7 +99,7 @@ https://doodles.google/doodle/bastille-day-2022/ (https://www.google.com/logos/d
 Fig
 https://www.google.com/logos/doodles/2022/bastille-day-2022-6753651837109463.2-2x.png
 Doodle de la bastille
-Seconde image: file:///C://image-manquante.png
+Seconde image: C://image-perdue.bmp
 Seconde description
 /
 
@@ -131,8 +131,12 @@ H2 {
 	Background-color: Lime;
 	Color: Black;
 }
-img { max-width: 50%; }
+img {
+	display: inline-block;
+	max-width: 50%;
+	min-height: 3em;
+}
 Script
-Const h1 = document.getelementsbytagname ('h1')[0];
+const h1 = document.getElementsByTagName ('h1')[0];
 console.log (h1);
-H1.innerhtml = h1.innerhtml +' coucou !';
+h1.innerHTML = h1.innerHTML +' coucou !';
