@@ -13,10 +13,9 @@ figcaption {
 	border-width: 4px !important;
 	border-color: magenta !important;
 }
-
 iframe:hover:before { content: 'tître manquant' '\A' attr(infos); }
 iframe[title]:hover:before { content: 'title: ' attr(title) '\A' attr(infos); }
-
-figure[title]:hover:before { content: 'rôle: ' attr(role, 'manquant') '\Atitle: ' attr(title) '\A' attr(infos);; }
+figure:hover:before { content: 'rôle: ' attr(role, 'manquant') '\Atitle: manquant'; }
+figure[title]:hover:before { content: 'rôle: ' attr(role, 'manquant') '\Atitle: ' attr(title) '\A' attr(infos); }
 figure[aria-label]:hover:before { content: 'rôle: ' attr(role, 'manquant') '\Alabel: ' attr(aria-label) '\A' attr(infos); }
 figure[aria-labelledby]:hover:before { content: 'rôle: ' attr(role, 'manquant') '\Alabelled by: ' attr(aria-labelledby) '\A' attr(infos); }
