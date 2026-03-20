@@ -6,13 +6,17 @@
 	"icons": { "48": "icon-128.svg" },
 	"permissions": [ "tabs", "activeTab", "scripting", "http://deborah-powers.fr/", "file:///" ],
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'self'",
+	"web_accessible_resources": [ "page-cv.html", "template-cv.txt" ],
 	"content_scripts": [{
 		"matches": [ "file:///*/rueil-bruyeres/*.txt" ],
 	//	"js": [ "textFct.js", "htmlFct.js", "action-bruyeres.js" ],
 		"js": [ "import-perso.js", "action-bruyeres.js" ]
 	}, {
+		"matches": [ "file:///*/cv*.txt" ],
+		"js": [ "import-perso.js", "action-cv.js" ]
+	}, {
 		"matches": [ "file:///*/*.txt", "file:///*/*.md", "http://*/*.txt", "https://*/*.txt", "http://*/*.md", "https://*/*.md" ],
-		"exclude_matches": [ "file:///*/rueil-bruyeres/*.txt" ],
+		"exclude_matches": [ "file:///*/rueil-bruyeres/*.txt",  "file:///*/cv*.txt" ],
 		"js": [ "import-perso.js", "action-common.js" ]
 	}],
 	"browser_specific_settings": { "gecko": { "id": "md-perso@deborah-powers.fr" }}

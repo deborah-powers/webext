@@ -1,0 +1,14 @@
+Métier: $metier$
+Fémminin: $metierFemminin$
+Expérience: $dureeExperience$
+Presentation: $presentation$
+== Compétences
+$competences$
+== Formations
+$formations$
+== Outils
+$outils$
+== Experiences
+$experiences$
+== ProjetsPerso
+$projetsPerso$
