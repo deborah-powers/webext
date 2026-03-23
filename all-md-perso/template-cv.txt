@@ -10,5 +10,5 @@ $formations$
 $outils$
 == Experiences
 $experiences$
-== ProjetsPerso
+== Projets perso
 $projetsPerso$
