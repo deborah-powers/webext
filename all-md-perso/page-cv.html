@@ -6,13 +6,31 @@
 	<meta name='subject' content='travail, cv, cgi'/>
 	<meta name='author' content='deborah powers'/>
 	<meta name='link' content='o'/>
-	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/structure.css'/>
-<style type='text/css'>
+=<style type='text/css'>
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	font-size: 1em;
+	text-indent: 0;
+	vertical-align: top;
+	font-family: inherit;
+	font-style: normal;
+	font-weight: normal;
+	text-decoration: none;
+	color: inherit;
+	background: none;
+	outline: none;
+	border-width: 2px;
+	border-color: grey;
+	border-style: none;
+}
 body {
 	max-width: 21cm;
 	margin: auto;
 	padding: 1em;
 }
+*:first-letter { text-transform: uppercase; }
 h1 {
 	font-size: 2em;
 	color: #C00;
@@ -30,20 +48,21 @@ h3 {
 	font-weight: bold;
 	text-align: left;
 }
+ul { list-style-type: none; }
 a { display: inline-block; }
 a:hover { font-weight: bold; }
 section { margin: 1em 0; }
 section.small {
-	display: inline-block;
+	display:inline-block;
 	margin: 0.5em 0;
 }
 section#tete {
 	display: grid;
-	grid-template-columns: 13em 1fr 8em;
+	grid-template-columns: 10em 1fr 8em;
 	grid-template-areas: 'photo nom metier' 'photo titre vide' 'photo message message';
-	margin: 0;
 }
 img { height: 100%; }
+h2 { width: 100%; }
 p#message {
 	grid-area: message;
 	background-color: #EEE;
@@ -65,10 +84,7 @@ section#experiences > div {
 section#experiences > div > p:nth-child(1){ grid-row: 1/5; }
 section#projets-perso { columns: 2; }
 section#projets-perso >h2 { column-span: all; }
-section#projets-perso > div {
-	page-break-inside: avoid;
-	margin-bottom: 0.5em;
-}
+section#projets-perso > div { page-break-inside: avoid; }
 </style></head><body>
 <section id='tete'>
 <p style='grid-area:nom'>Deborah POWERS</p>
@@ -83,7 +99,7 @@ $competences
 </section>
 <section class='small' style='width:59%'>
 <h2>formation</h2>
-$formations
+<ul>$formations</ul>
 </section>
 <section id='outils'>
 <h2>outils</h2>

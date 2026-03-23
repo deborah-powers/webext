@@ -1,12 +1,14 @@
 const cvTemplateHtml = 'page-cv.html';	// les cvTemplate doivent être déclarés dans manifest.json / web_accessible_resources
 const cvTemplateTxt = 'template-cv.txt';
-const formationTemplate = "<p>$date: <a href='$lien'>$titre</a></p>";
-const experienceTemplate = "<div><p>$date<br/>$client</p><h3>$titre</h3><p>$description</p></div>";
+const formationTemplate = "<li>$date: <a href='$lien'>$titre</a></li>";
+const experienceTemplate = "<div><p>$date<br/>$client</p><h3>$titre</h3>$description</div>";
+const projetTemplate = "<div><h3>$titre</h3><a href='$lienComplet'>$lienReduit</a>$description</div>";
 
 crutialData =`
 	strip: function (text, char){ return text.strip (char); },
 	fromModel: function (text, model){ return text.fromModel (model); },
-	toModel: function (text, dataDict){ return text.toModel (dataDict); }
+	toModel: function (text, dataDict){ return text.toModel (dataDict); },
+	sliceWords: function (text, wordD, wordF){ return text.sliceWords (wordD, wordF); }
 `;
 const htmlLib = callLibrary ([ 'textFct' ]);
 
@@ -55,8 +57,38 @@ const cvData ={
 		this.outils = this.outils.replaceAll ('\n', '</p><h3>');
 		this.outils = '<h3>' + this.outils + '</p>';
 		dataDict ['outils'] = this.outils;
+		// les expériences
+		var sectionList = this.experiences.split ("** ");
+		var tmpData ="";
+		this.experiences ="";
+		for (var s=1; s< sectionList.length; s++){
+			sectionList[s] = sectionList[s].split ('\n');
+			itemText = experienceTemplate.replace ('$date', sectionList[s][1]);
+			itemText = itemText.replace ('$titre', sectionList[s][0]);
+			itemText = itemText.replace ('$client', sectionList[s][2]);
+			tmpData = '<p>'+ sectionList[s][3] +'</p>';
+			for (var d=4; d< sectionList[s].length; d++) tmpData = tmpData +'<p>'+ sectionList[s][d] +'</p>';
+			itemText = itemText.replace ('$description', tmpData);
+			this.experiences = this.experiences + itemText;
+		}
 		dataDict ['experiences'] = this.experiences;
+		// les projets personnels
+		var sectionList = this.projetsPerso.split ("** ");
+		this.projetsPerso ="";
+		for (var s=1; s< sectionList.length; s++){
+			sectionList[s] = sectionList[s].split ('\n');
+			itemText = projetTemplate.replace ('$titre', sectionList[s][0]);
+			itemText = itemText.replace ('$lienComplet', sectionList[s][1]);
+			tmpData = sectionList[s][1].replace ('http://', "");
+			tmpData = tmpData.replace ('https://', "");
+			itemText = itemText.replace ('$lienReduit', tmpData);
+			tmpData = '<p>'+ sectionList[s][2] +'</p>';
+			for (var d=3; d< sectionList[s].length; d++) tmpData = tmpData +'<p>'+ sectionList[s][d] +'</p>';
+			itemText = itemText.replace ('$description', tmpData);
+			this.projetsPerso = this.projetsPerso + itemText;
+		}
 		dataDict ['projetsPerso'] = this.projetsPerso;
+		// remplir le template
 		template = htmlLib.toModel (template, dataDict);
 		return template;
 	},
@@ -79,4 +111,5 @@ while (textSrc.includes ('\n\n')) textSrc = textSrc.replaceAll ('\n\n', '\n');
 cvData.extractData (textSrc, templateSrc);
 
 htmlTemplate = cvData.fillTemplate (htmlTemplate);
-document.body.innerHTML = htmlTemplate;
+document.body.innerHTML = htmlTemplate.sliceWords ('<body>', '</body>');
+document.head.innerHTML = htmlTemplate.sliceWords ('<head>', '</head>');
