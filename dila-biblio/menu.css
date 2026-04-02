@@ -5,10 +5,8 @@
 	font-family: georgia;
 }
 *:first-letter, title:first-letter { text-transform: uppercase; }
-html, body { width: 6cm; }
+html, body { width: 16em; }
 body {
-/*	width: 16em;	firefox */
-/*	width: 100%;	chrome */
 	padding: 2%;
 	margin: 0;
 	text-align: left;
@@ -43,8 +41,16 @@ section {
 }
 section.closed > p { display: none; }
 section > p { display: block; }
-/* scroll bar de firefox et de chrome */
+/* divers */
+.rgaa-title:before { content: attr(title) " "; }
+/* scroll bar de firefox */
 :root {
 	overflow: auto;
 	scrollbar-color: #909 ivory;
+}
+/* scroll bar de chrome */
+::-webkit-scrollbar-track { background-color: ivory; }
+::-webkit-scrollbar-thumb {
+	background-color: #909;
+	border-radius: 20%;
 }

@@ -1,0 +1,4 @@
+[role='presentation'] { border: solid 4px deeppink; }
+a { border: solid 4px deeppink; }
+a[href] { border: unset; }
+a[href='#'], a[href=""] { border: solid 4px orangered; }

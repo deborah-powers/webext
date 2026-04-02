@@ -1,5 +1,5 @@
-const cvTemplateHtml = 'page-cv.html';	// les cvTemplate doivent être déclarés dans manifest.json / web_accessible_resources
-const cvTemplateTxt = 'template-cv.txt';
+const cvTemplateHtml = 'cv-page.html';	// les cvTemplate doivent être déclarés dans manifest.json / web_accessible_resources
+const cvTemplateTxt = 'cv-template.txt';
 const formationTemplate = "<li>$date: <a href='$lien'>$titre</a></li>";
 const experienceTemplate = "<div><p>$date<br/>$client</p><h3>$titre</h3>$description</div>";
 const projetTemplate = "<div><h3>$titre</h3><a href='$lienComplet'>$lienReduit</a>$description</div>";

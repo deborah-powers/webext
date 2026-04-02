@@ -60,6 +60,7 @@ function chooseAction (event){
 		else if (action === 'window-shrinking') listScript =[ 'ana-shrink.js' ];
 		else if (action === 'elm-tooltip') listStyle =[ 'ana-common.css', 'elm-tooltip.css' ];
 		else if (action === 'elm-interdit') listStyle =[ 'ana-common.css', 'elm-interdit.css' ];
+		else if (action === 'elm-presentation') listStyle =[ 'ana-common.css', 'elm-presentation.css' ];
 		else if (action === 'elm-cache'){
 			listStyle =[ 'elm-cache.css' ];
 			listScript =[ 'elm-cache.js' ];

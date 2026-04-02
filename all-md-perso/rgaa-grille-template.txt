@@ -1,0 +1,247 @@
+== Présentation
+
+Date d'audit: $date$
+Audité par: Deborah Powers
+Version du rgaa de référence: Rgaa v4.1.2 (2023/04/18)
+Page audité: $page$
+Lien de la page: $lien$
+
+== abréviations
+
+hcp: hors cas particuliers
+pc: pour chaque
+dc: dans chaque
+pw: page web
+nt: non testé
+na: non applicable
+nc: non conforme
+c: conforme
+
+num critère	conformité	dérogation	critère
+modif à apporter ou commentaire de dérogation
+
+== 01 images
+01.01	$s011$	$d011$	chaque image porteuse d'information a-t-elle une alternative textuelle ?
+$c011$
+01.02	$s012$	$d012$	chaque image de décoration est-elle correctement ignorée par les technologies d'assistance ?
+$c012$
+01.03	$s013$	$d013$	pc image porteuse d'information ayant une alternative textuelle, cette alternative est-elle pertinente hcp ?
+$c013$
+01.04	$s014$	$d014$	pc image utilisée comme captcha ou comme image-test, ayant une alternative textuelle, cette alternative permet-elle d’identifier la nature et la fonction de l’image ?
+$c014$
+01.05	$s014$	$d014$	pc image utilisée comme captcha, une solution d'accès alternatif au contenu ou à la fonction du captcha est-elle présente ?
+$c015$
+01.06	$s015$	$d015$	chaque image porteuse d'information a-t-elle, si nécessaire, une description détaillée ?
+$c016$
+01.07	$s016$	$d016$	pc image porteuse d'information ayant une description détaillée, cette description est-elle pertinente ?
+$c017$
+01.08	$s017$	$d017$	chaque image texte porteuse d'information, en l'absence d'un mécanisme de remplacement, doit si possible être remplacée par du texte stylé. cette règle est-elle respectée hcp ?
+$c018$
+01.09	$s018$	$d018$	chaque légende d'image est-elle, si nécessaire, correctement reliée à l'image correspondante ?
+$c019$
+== 02 cadres
+02.01	$s021$	$d021$	chaque cadre a-t-il un titre de cadre ?
+$c021$
+02.02	$s022$	$d022$	pc cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?
+$c022$
+== 03 couleurs
+03.01	$s031$	$d031$	l'information ne doit pas être donnée uniquement par la couleur. cette règle est-elle respectée ?
+$c031$
+03.02	$s032$	$d032$	le contraste entre la couleur du texte et la couleur de son arrière-plan est-il suffisamment élevé hcp ?
+$c032$
+03.03	$s033$	$d033$	les couleurs utilisées dans les composants d'interface ou les éléments graphiques porteurs d'informations sont-elles suffisamment contrastées hcp ?
+$c033$
+== 04 multimédia
+04.01	$s0401$	$d0401$	chaque média temporel pré-enregistré a-t-il, si nécessaire, une transcription textuelle ou une audiodescription hcp ?
+$c0401$
+04.02	$s0402$	$d0402$	pc média temporel pré-enregistré ayant une transcription textuelle ou une audiodescription synchronisée, celles-ci sont-elles pertinentes hcp ?
+$c0402$
+04.03	$s0403$	$d0403$	chaque média temporel synchronisé pré-enregistré a-t-il, si nécessaire, des sous-titres synchronisés hcp ?
+$c0403$
+04.04	$s0404$	$d0404$	pc média temporel synchronisé pré-enregistré ayant des sous-titres synchronisés, ces sous-titres sont-ils pertinents ?
+$c0404$
+04.05	$s0405$	$d0405$	chaque média temporel pré-enregistré a-t-il, si nécessaire, une audiodescription synchronisée hcp ?
+$c0405$
+04.06	$s0406$	$d0406$	pc média temporel pré-enregistré ayant une audiodescription synchronisée, celle-ci est-elle pertinente ?
+$c0406$
+04.07	$s0407$	$d0407$	chaque média temporel est-il clairement identifiable hcp ?
+$c0407$
+04.08	$s0408$	$d0408$	chaque média non temporel a-t-il, si nécessaire, une alternative hcp ?
+$c0408$
+04.09	$s0409$	$d0409$	pc média non temporel ayant une alternative, cette alternative est-elle pertinente ?
+$c0409$
+04.10	$s0410$	$d0410$	chaque son déclenché automatiquement est-il contrôlable par l'utilisateur ?
+$c0410$
+04.11	$s0411$	$d0411$	la consultation de chaque média temporel est-elle, si nécessaire, contrôlable par le clavier et tout dispositif de pointage ?
+$c0411$
+04.12	$s0412$	$d0412$	la consultation de chaque média non temporel est-elle contrôlable par le clavier et tout dispositif de pointage ?
+$c0412$
+04.13	$s0413$	$d0413$	chaque média temporel et non temporel est-il compatible avec les technologies d'assistance hcp ?
+$c0413$
+== 05 tableaux
+05.01	$s051$	$d051$	chaque tableau de données complexe a-t-il un résumé ?
+$c051$
+05.02	$s052$	$d052$	pc tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?
+$c052$
+05.03	$s053$	$d053$	pc tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?
+$c053$
+05.04	$s054$	$d054$	pc tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?
+$c054$
+05.05	$s055$	$d055$	pc tableau de données ayant un titre, celui-ci est-il pertinent ?
+$c055$
+05.06	$s056$	$d056$	pc tableau de données, chaque en-tête de colonnes et chaque en-tête de lignes sont-ils correctement déclarés ?
+$c056$
+05.07	$s057$	$d057$	pc tableau de données, la technique appropriée permettant d'associer chaque cellule avec ses en-têtes est-elle utilisée hcp ?
+$c057$
+05.08	$s058$	$d058$	chaque tableau de mise en forme ne doit pas utiliser d'éléments propres aux tableaux de données. cette règle est-elle respectée ?
+$c058$
+== 06 liens
+06.01	$s061$	$d061$	chaque lien est-il explicite hcp ?
+$c061$
+06.02	$s062$	$d062$	chaque lien a-t-il un intitulé ?
+$c062$
+== 07 scripts
+07.01	$s071$	$d071$	chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?
+$c071$
+07.02	$s072$	$d072$	pc script ayant une alternative, cette alternative est-elle pertinente ?
+$c072$
+07.03	$s073$	$d073$	chaque script est-il contrôlable par le clavier et par tout dispositif de pointage hcp ?
+$c073$
+07.04	$s074$	$d074$	pc script qui initie un changement de contexte, l'utilisateur est-il averti ou en a-t-il le contrôle ?
+$c074$
+07.05	$s075$	$d075$	les messages de statut sont-ils correctement restitués par les technologies d'assistance ?
+$c075$
+== 08 éléments obligatoires
+08.01	$s0801$	$d0801$	chaque pw est-elle définie par un type de document ?
+$c0801$
+08.02	$s0802$	$d0802$	le code source généré est-il valide selon le type de document spécifié hcp ?
+$c0802$
+08.03	$s0803$	$d0803$	la langue par défaut est-elle présente ?
+$c0803$
+08.04	$s0804$	$d0804$	pc pw ayant une langue par défaut, le code de langue est-il pertinent ?
+$c0804$
+08.05	$s0805$	$d0805$	chaque pw a-t-elle un titre de page ?
+$c0805$
+08.06	$s0806$	$d0806$	pc pw ayant un titre de page, ce titre est-il pertinent ?
+$c0806$
+08.07	$s0807$	$d0807$	chaque changement de langue est-il indiqué dans le code source hcp ?
+$c0807$
+08.08	$s0808$	$d0808$	le code de langue de chaque changement de langue est-il valide et pertinent ?
+$c0808$
+08.09	$s0809$	$d0809$	les balises ne doivent pas être utilisées uniquement à des fins de présentation. cette règle est-elle respectée ?
+$c0809$
+08.10	$s0801$	$d0810$	les changements du sens de lecture sont-ils signalés ?
+$c0810$
+== 09 structuration
+09.01	$s091$	$d091$	l'information est-elle structurée par l'utilisation appropriée de titres ?
+$c091$
+09.02	$s092$	$d092$	la structure du document est-elle cohérente hcp ?
+$c092$
+09.03	$s093$	$d093$	chaque liste est-elle correctement structurée ?
+$c093$
+09.04	$s094$	$d094$	chaque citation est-elle correctement indiquée ?
+$c094$
+== 10 présentation
+10.01	$s1001$	$d1001$	dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?
+$c1001$
+10.02	$s1002$	$d1002$	le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?
+$c1002$
+10.03	$s1003$	$d1003$	l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?
+$c1003$
+10.04	$s1004$	$d1004$	le texte reste-t-il lisible lorsque la taille des caractères est augmentée jusqu'à 20%, au moins hcp ?
+$c1004$
+10.05	$s1005$	$d1005$	les déclarations css de couleurs de fond d'élément et de police sont-elles correctement utilisées ?
+$c1005$
+10.06	$s1006$	$d1006$	chaque lien dont la nature n'est pas évidente est-il visible par rapport au texte environnant ?
+$c1006$
+10.07	$s1007$	$d1007$	pc élément recevant le focus, la prise de focus est-elle visible ?
+$c1007$
+10.08	$s1008$	$d1008$	les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?
+$c1008$
+10.09	$s1009$	$d1009$	l'information ne doit pas être donnée uniquement par la forme, taille ou position. cette règle est-elle respectée ?
+$c1009$
+10.10	$s1010$	$d1010$	l'information ne doit pas être donnée par la forme, taille ou position uniquement. cette règle est-elle implémentée de façon pertinente ?
+$c1010$
+10.11	$s1011$	$d1011$	les contenus peuvent-ils être présentés sans avoir recours à la fois à un défilement vertical pour une fenêtre ayant une hauteur de 256px ou à un défilement horizontal pour une fenêtre ayant une largeur de 320px hcp ?
+$c1011$
+10.12	$s1012$	$d1012$	les propriétés d'espacement du texte peuvent-elles être redéfinies par l'utilisateur sans perte de contenu ou de fonctionnalité hcp ?
+$c1012$
+10.13	$s1013$	$d1013$	les contenus additionnels apparaissant à la prise de focus ou au survol d'un composant d'interface sont-ils contrôlables par l'utilisateur hcp ?
+$c1013$
+10.14	$s1014$	$d1014$	les contenus additionnels apparaissant via les styles css uniquement peuvent-ils être rendus visibles au clavier et par tout dispositif de pointage ?
+$c1014$
+== 11 formulaires
+11.01	$s1101$	$d1101$	chaque champ de formulaire a-t-il une étiquette ?
+$c1101$
+11.02	$s1102$	$d1102$	chaque étiquette associée à un champ de formulaire est-elle pertinente hcp ?
+$c1102$
+11.03	$s1103$	$d1103$	dc formulaire, chaque étiquette associée à un champ de formulaire ayant la même fonction et répété plusieurs fois dans une même page ou dans un ensemble de pages est-elle cohérente ?
+$c1103$
+11.04	$s1104$	$d1104$	dc formulaire, chaque étiquette de champ et son champ associé sont-ils accolés hcp ?
+$c1104$
+11.05	$s1105$	$d1105$	dc formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?
+$c1105$
+11.06	$s1106$	$d1106$	dc formulaire, chaque regroupement de champs de même nature a-t-il une légende ?
+$c1106$
+11.07	$s1107$	$d1107$	dc formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?
+$c1107$
+11.08	$s1108$	$d1108$	dc formulaire, les items de même nature d'une liste de choix sont-ils regroupées de manière pertinente ?
+$c1108$
+11.09	$s1109$	$d1109$	dc formulaire, l'intitulé de chaque bouton est-il pertinent hcp ?
+$c1109$
+11.10	$s1110$	$d1110$	dc formulaire, le contrôle de saisie est-il utilisé de manière pertinente hcp ?
+$c1110$
+11.11	$s1111$	$d1111$	dc formulaire, le contrôle de saisie est-il accompagné, si nécessaire, de suggestions facilitant la correction des erreurs de saisie ?
+$c1111$
+11.12	$s1112$	$d1112$	pc formulaire qui modifie ou supprime des données, ou qui transmet des réponses à un test ou à un examen, ou dont la validation a des conséquences financières ou juridiques, les données saisies peuvent-elles être modifiées, mises à jour ou récupérées par l'utilisateur ?
+$c1112$
+11.13	$s1113$	$d1113$	la finalité d'un champ de saisie peut-elle être déduite pour faciliter le remplissage automatique des champs avec les données de l'utilisateur ?
+$c1113$
+== 12 navigation
+12.01	$s1201$	$d1201$	chaque ensemble de pages dispose-t-il de deux systèmes de navigation différents, au moins hcp ?
+$c1201$
+12.02	$s1202$	$d1202$	dc ensemble de pages, le menu et les barres de navigation sont-ils toujours à la même place hcp ?
+$c1202$
+12.03	$s1203$	$d1203$	la page "plan du site" est-elle pertinente ?
+$c1203$
+12.04	$s1204$	$d1204$	dc ensemble de pages, la page "plan du site" est-elle atteignable de manière identique ?
+$c1204$
+12.05	$s1205$	$d1205$	dc ensemble de pages, le moteur de recherche est-il atteignable de manière identique ?
+$c1205$
+12.06	$s1206$	$d1206$	les zones de regroupement de contenus présentes dans plusieurs pages web (zones d'en-tête, de navigation principale, de contenu principal, de pied de page et de moteur de recherche) peuvent-elles être atteintes ou évitées ?
+$c1206$
+12.07	$s1207$	$d1207$	un lien d'évitement ou d'accès rapide à la zone de contenu principal est-il présent hcp ?
+$c1207$
+12.08	$s1208$	$d1208$	l'ordre de tabulation est-il cohérent ?
+$c1208$
+12.09	$s1209$	$d1209$	la navigation ne doit pas contenir de piège au clavier. cette règle est-elle respectée ?
+$c1209$
+12.10	$s1210$	$d1210$	les raccourcis clavier n'utilisant qu'une seule touche (lettre minuscule ou majuscule, ponctuation, chiffre ou symbole) sont-ils contrôlables par l'utilisateur ?
+$c1210$
+12.11	$s1211$	$d1211$	les contenus additionnels apparaissant au survol, à la prise de focus ou à l'activation d'un composant d'interface sont-ils si nécessaire atteignables au clavier ?
+$c1211$
+== 13 consultation
+13.01	$s1301$	$d1301$	l'utilisateur a-t-il le contrôle de chaque limite de temps modifiant le contenu hcp ?
+$c1301$
+13.02	$s1302$	$d1302$	l'ouverture d'une nouvelle fenêtre ne doit pas être déclenchée sans action de l'utilisateur. cette règle est-elle respectée ?
+$c1302$
+13.03	$s1303$	$d1303$	chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible hcp ?
+$c1303$
+13.04	$s1304$	$d1304$	pc document bureautique ayant une version accessible, cette version offre-t-elle la même information ?
+$c1304$
+13.05	$s1305$	$d1305$	chaque contenu cryptique (art ascii, émoticon, syntaxe cryptique) a-t-il une alternative ?
+$c1305$
+13.06	$s1306$	$d1306$	pc contenu cryptique (art ascii, émoticon, syntaxe cryptique) ayant une alternative, cette alternative est-elle pertinente ?
+$c1306$
+13.07	$s1307$	$d1307$	les changements brusques de luminosité ou les effets de flash sont-ils correctement utilisés ?
+$c1307$
+13.08	$s1308$	$d1308$	chaque contenu en mouvement ou clignotant est-il contrôlable par l'utilisateur ?
+$c1308$
+13.09	$s1309$	$d1309$	le contenu proposé est-il consultable quelle que soit l'orientation de l'écran (portait ou paysage) hcp ?
+$c1309$
+13.10	$s1310$	$d1310$	les fonctionnalités utilisables ou disponibles au moyen d'un geste complexe peuvent-elles être également disponibles au moyen d'un geste simple hcp ?
+$c1310$
+13.11	$s1311$	$d1311$	les actions déclenchées au moyen d'un dispositif de pointage sur un point unique de l'écran peuvent-elles faire l'objet d'une annulation hcp ?
+$c1311$
+13.12	$s1312$	$d1312$	les fonctionnalités qui impliquent un mouvement de l'appareil ou vers l'appareil peuvent-elles être satisfaites de manière alternative hcp ?
+$c1312$

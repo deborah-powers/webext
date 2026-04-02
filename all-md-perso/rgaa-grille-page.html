@@ -1,0 +1,63 @@
+<!DOCTYPE html><html><head>
+	<title>$page | audit rgaa</title>
+	<meta name='viewport' content='width=device-width,initial-scale=1'/>
+	<meta charset='utf-8'/>
+	<base target='_blank'>
+	<link rel='icon' type='image/svg+xml' href='file:///C:/wamp64/www/site-dp/data/nounours-perso.svg' />
+	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/structure.css' />
+	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/shapes.css' />`;
+<style type='text/css'>
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	font-size: 1em;
+	text-indent: 0;
+	vertical-align: top;
+	font-family: inherit;
+	font-style: normal;
+	font-weight: normal;
+	text-decoration: none;
+	color: inherit;
+	background: none;
+	outline: none;
+	border-width: 2px;
+	border-color: grey;
+	border-style: none;
+}
+body {
+	max-width: 21cm;
+	margin: auto;
+	padding: 1em;
+}
+*:first-letter { text-transform: uppercase; }
+h1 {
+	font-size: 2em;
+	color: #C00;
+	grid-area: titre;
+	text-align: center;
+}
+h2 {
+	font-size: 1.5em;
+	font-weight: bold;
+	text-align: center;
+	color: #C00;
+	text-transform: uppercase;
+}
+td.non-teste { background-color: skyblue; }
+td.non-conforme { background-color: orange; }
+td.conforme { background-color: springgreen; }
+td.derroge { background-color: skyblue; }
+</style></head><body>
+	<h1>rapport d'audit de la page<a href='$lien'>$page</a></h1><p>par deborah powers</p><p>le $date</p>
+	<h2>score</h2>
+	<p>106 critères en tout</p>
+	<p>$nbCf critères conformes.</p>
+	<p>$nbNc critères non conformes.</p>
+	<p>$nbNa critères non applicables.</p>
+	<p>$nbNt critères non testés.</p>
+	<p>$nbDe critères dérrogés.</p>
+	<p>score: $score %. la page est $conformite</p>
+	<h2>grille</h2>
+	$tables
+</body></html>

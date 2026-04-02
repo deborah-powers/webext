@@ -1,0 +1,33 @@
+{
+	"manifest_version": 3,
+	"name": "to markdown",
+	"version": "1.0",
+	"description": "appliquer un markdown maison sur mes fichiers textes",
+	"icons": { "48": "icon-128.png" },
+	"permissions": [ "tabs", "activeTab", "scripting" ],
+	"host_permissions": [ "<all_urls>" ],
+	"content_security_policy": {
+		"extension_pages": "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'self';",
+		"sandbox": "sandbox allow-scripts allow-forms allow-popups allow-modals; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; child-src 'self';"
+	},
+	"web_accessible_resources": [{
+		"resources": [ "cv-page.html", "cv-template.txt", "rgaa-grille-page.html", "rgaa-grille-template.txt" ],
+		"matches": [ "<all_urls>" ]
+	}],
+	"content_scripts": [{
+		"matches": [ "file:///*/rueil-bruyeres/*.txt" ],
+	//	"js": [ "textFct.js", "htmlFct.js", "bruyeres-action.js" ],
+		"js": [ "import-perso.js", "bruyeres-action.js" ]
+	}, {
+		"matches": [ "file:///*/cv*.txt" ],
+		"js": [ "import-perso.js", "cv-action.js" ]
+	}, {
+		"matches": [ "file:///*/rgaa*grille.txt" ],
+		"js": [ "import-perso.js", "rgaa-common-action.js", "rgaa-grille-action.js" ]
+	}, {
+		"matches": [ "file:///*/*.txt", "file:///*/*.md", "http://*/*.txt", "https://*/*.txt", "http://*/*.md", "https://*/*.md" ],
+		"exclude_matches": [ "file:///*/rueil-bruyeres/*.txt","file:///*/cv*.txt", "file:///*/rgaa*grille.txt", "file:///*/rgaa*rapport.txt" ],
+		"js": [ "import-perso.js", "common-action.js" ]
+	}],
+	"browser_specific_settings": { "gecko": { "id": "md-perso@deborah-powers.fr" }}
+}
