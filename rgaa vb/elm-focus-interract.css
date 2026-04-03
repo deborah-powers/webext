@@ -1,0 +1,18 @@
+button, a, input, select, textarea, [role='button'], [role='link'] {
+	border-style: solid !important;
+	border-width: 4px !important;
+}
+a, [role='link'] { border-color: deeppink !important; }
+button, [role='button'] { border-color: cornflowerblue !important; }
+input, select, textarea { border-color: springgreen !important; }
+
+[role='presentation'] button, [role='presentation'] a, [role='presentation'] input, [role='presentation'] select, [role='presentation'] textarea, [role='presentation'] [role='button'], [role='presentation'] [role='link'],
+[aria-hidden='true'] button, [aria-hidden='true'] a, [aria-hidden='true'] input, [aria-hidden='true'] select, [aria-hidden='true'] textarea, [aria-hidden='true'] [role='button'], [aria-hidden='true'] [role='link'],
+button[role='presentation'], a[role='presentation'], input[role='presentation'], select[role='presentation'], textarea[role='presentation'],
+[tabindex][aria-hidden='true'], button[aria-hidden='true'], a[aria-hidden='true'], input[aria-hidden='true'], select[aria-hidden='true'], textarea[aria-hidden='true'], [role='button'][aria-hidden='true'], [role='link'][aria-hidden='true'],
+button[tabindex='-1'], a[tabindex='-1'], input[tabindex='-1'], select[tabindex='-1'], textarea[tabindex='-1'], [role='button'][tabindex='-1'], [role='link'][tabindex='-1'],
+[disabled], button[disabled], a[disabled], input[disabled], select[disabled], textarea[disabled], [role='button'][disabled], [role='link'][disabled]
+	{ border-style: dashed !important; }
+/*
+main[tabindex]:hover:before { content: none; }
+*/

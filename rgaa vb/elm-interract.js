@@ -13,26 +13,36 @@ HTMLInputElement.prototype.addInfosOnHover = function(){ return true; }
 HTMLSelectElement.prototype.addInfosOnHover = function(){ return true; }
 HTMLTextAreaElement.prototype.addInfosOnHover = function(){ return true; }
 
+infos = infos +'\n\n== Les ancres\n';
 var interractives = document.getElementsByTagName ('a');
 interractives.setNbItemMax ('ancre');
 for (var i=0; i< nbItemMax; i++) interractives[i].addInfos();
+infos = infos +'\n\n== Les liens rôle\n';
 interractives = document.body.getAllByRole ('link');
 interractives.setNbItemMax ('role lien');
 for (var i=0; i< nbItemMax; i++) interractives[i].addInfos();
+infos = infos +'\n\n== Les boutons\n';
 var interractives = document.getElementsByTagName ('button');
 interractives.setNbItemMax ('bouton');
 for (var i=0; i< nbItemMax; i++) interractives[i].addInfos();
+infos = infos +'\n\n== Les boutons rôle\n';
 interractives = document.body.getAllByRole ('button');
 interractives.setNbItemMax ('role bouton');
 for (var i=0; i< nbItemMax; i++) interractives[i].addInfos();
+infos = infos +'\n\n== Les inputs\n';
 var interractives = document.getElementsByTagName ('input');
 interractives.setNbItemMax ('input');
 for (var i=0; i< nbItemMax; i++) interractives[i].addInfos();
+infos = infos +'\n\n== Les selects\n';
 var interractives = document.getElementsByTagName ('select');
 interractives.setNbItemMax ('select');
 for (var i=0; i< nbItemMax; i++) interractives[i].addInfos();
+infos = infos +'\n\n== Les textareas\n';
 var interractives = document.getElementsByTagName ('textarea');
 interractives.setNbItemMax ('textarea');
 for (var i=0; i< nbItemMax; i++) interractives[i].addInfos();
+interractives = document.getElementsByTagName ('script');
+infos = infos +'\n\n== Les scripts\n';
+for (var script of interractives) infos = infos +'\n'+ script.src;
 downloadAnalyse ('éléments interractifs');
 

@@ -1,14 +1,14 @@
-[hidden], [aria-hidden], .rgaa-hidden, .rgaa-sronly {
+[hidden], [aria-hidden], .rgaa-hidden, [class*='sr-only'], [class*='sronly'] {
 	display: block !important;
 	visibility: visible !important;
 	font-size: 1em !important;
-	color: #420 !important;
+	color: deeppink !important;
 	background-color: ivory !important;
 	padding: 1%;
 	border-width: 4px !important;
 	border-style: solid !important;
 }
-.rgaa-sronly {
+[class*='sr-only'], [class*='sronly'] {
 	clip: unset !important;
 	clip-path: unset !important;
 	-webkit-clip-path: none !important;
@@ -20,9 +20,10 @@
 	white-space: normal !important;
 	position: static;
 	opacity: 1;
+	border-color: purple !important;
 }
-[aria-hidden] { border-color: deeppink !important; }
 [aria-hidden='false'] { border-style: dashed !important; }
-[hidden] { border-color: magenta !important; }
-.rgaa-hidden { border-color: purple !important; }
-.rgaa-sronly { border-color: cornflowerblue !important; }
+[hidden]:before { content: 'attr hidden'; }
+[aria-hidden]:before { content: 'attr aria-hidden'; }
+[class*='sr-only']:before, [class*='sronly']:before { content: 'sronly'; }
+.rgaa-hidden:before { content: 'css hidden'; }
