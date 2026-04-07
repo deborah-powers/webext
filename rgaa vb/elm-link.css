@@ -12,4 +12,6 @@ a.rgaa-error, [role='link'].rgaa-error { border-style: dotted !important; }
 
 /* a:hover:before { content: 'a #' attr(id) ' :' attr(role) '\A.' attr(class); } */
 a:hover:before { content: 'ancre\A' attr(infos); }
+a[href]:hover:before { content: 'ancre lien\A' attr(infos); }
+a[href='#']:hover:before, a[href=""]:hover:before { content: 'ancre lien vide\A' attr(infos); }
 [role='link']:hover:before { content: 'role lien\A' attr(infos); }
