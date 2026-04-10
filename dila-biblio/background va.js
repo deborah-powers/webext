@@ -1,7 +1,12 @@
 // simuler la frappe d'un message dans un input
 var inputMessage ="";
 var imId =0;
-HTMLInputElement.prototype.mimicTypingRec = function (message){
+HTMLInputElement.prototype.mimicTyping = function (message){
+	this.focus();
+	this.value = message;
+	this.click();
+}
+HTMLInputElement.prototype.mimicTypingRec_vc = function (message){
 	if (imId < inputMessage.lenght){
 		this.value = this.value + inputMessage[imId];
 		imId +=1;
@@ -13,7 +18,7 @@ HTMLInputElement.prototype.mimicTyping_vb = function (message){
 	for (var letter of message) this.value = this.value + letter;
 }
 HTMLInputElement.prototype.mimicTyping_va = function (message){ for (var letter of message) this.value = this.value + letter; }
-HTMLInputElement.prototype.mimicTyping = function (message){
+HTMLInputElement.prototype.mimicTyping_vc = function (message){
 	this.value = message;
 	this.dispatchEvent (new KeyboardEvent ('keydown', { key: 'e', keyCode: 69, code: 'KeyE', which: 69 }));
 }

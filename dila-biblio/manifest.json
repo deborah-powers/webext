@@ -1,16 +1,13 @@
 {
-	"manifest_version": 2,
+	"manifest_version": 3,
 	"name": "remplir biblio",
 	"version": "1.0",
-	"description": "remplir le site de démo de la dila",
+	"description": "remplir le site de la dila",
 	"icons": { "48": "icon-128.svg" },
 	"permissions": [ "tabs", "activeTab", "scripting" ],
-	"page_action": {
-		"default_icon": "icon-128.svg",
-		"default_title": "remplir biblio",
-		"default_popup": "menu.html",
-		"show_matches": [ "<all_urls>" ],
-		"pinned": true
-	},
+	"content_scripts": [{
+		"matches": [ "https://psl-int-cgi-pslexec.pic-snau.service-public.fr/mademarche/demarcheGenerique/*" ],
+		"js": [ "background.js" ]
+	}],
 	"browser_specific_settings": { "gecko": { "id": "dila-biblio@deborah-powers.fr" }}
 }
