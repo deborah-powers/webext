@@ -3,7 +3,7 @@
 	"name": "remplir biblio",
 	"version": "1.0",
 	"description": "remplir le site de la dila",
-	"icons": { "48": "icon-128.svg" },
+	"icons": { "48": "icon-128.png" },
 	"permissions": [ "tabs", "activeTab", "scripting" ],
 	"content_scripts": [{
 		"matches": [ "https://psl-int-cgi-pslexec.pic-snau.service-public.fr/mademarche/demarcheGenerique/*" ],

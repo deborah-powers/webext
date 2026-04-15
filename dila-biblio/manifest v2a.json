@@ -5,9 +5,12 @@
 	"description": "remplir le site de démo de la dila",
 	"icons": { "48": "icon-128.svg" },
 	"permissions": [ "tabs", "activeTab", "scripting" ],
-	"content_scripts": [{
-		"matches": [ "https://psl-int-cgi-pslexec.pic-snau.service-public.fr/mademarche/demarcheGenerique/*" ],
-		"js": [ "background.js" ]
-	}],
+	"page_action": {
+		"default_icon": "icon-128.svg",
+		"default_title": "remplir biblio",
+		"default_popup": "menu.html",
+		"show_matches": [ "<all_urls>" ],
+		"pinned": true
+	},
 	"browser_specific_settings": { "gecko": { "id": "dila-biblio@deborah-powers.fr" }}
 }
