@@ -1,0 +1,1 @@
+function depAffichage(){ console.log ('je suis une dépendence du service worker'); }
