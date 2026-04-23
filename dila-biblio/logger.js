@@ -54,7 +54,11 @@ function getStack(){
 	return stack;
 }
 function toMessage (object){
-	if (object === null || object === undefined) return 'objet nul';
+	if (object === null) return 'nul';
+	else if (object === undefined) return 'indéfini';
+	else if (object === true) return 'oui';
+	else if (object === false) return 'non';
+	else if (typeof (object) === 'function') return "";
 	else{
 		var message = object.toMessage();
 		if (message === undefined) return object.toString();
@@ -75,7 +79,11 @@ function logLetter(){
 }
 Object.prototype.toMessage = function(){
 	var message = 'dictionnaire';
-	for (var d in this) message = message +'\n'+d+': '+ this[d];
+	var messageTmp ="";
+	for (var d in this){
+		messageTmp = toMessage (this[d]);
+		if (messageTmp !=="") message = message +'\n'+d+': '+ toMessage (this[d]);
+	}
 	return message;
 }
 String.prototype.toMessage = function(){ return this; }
@@ -104,12 +112,12 @@ HTMLAnchorElement.prototype.toMessage = function(){
 }
 HTMLFormElement.prototype.toMessage = function(){
 	var message = this.toMessageTag();
-	message = message +'\nmethod: '+ this.method +'\taction: '+ this.action;
+	message = message +'\nmethod: '+ this.method +',\taction: '+ this.action;
 	return message;
 }
 HTMLInputElement.prototype.toMessage = function(){
 	var message = this.toMessageTag();
-	message = message +'\ntype: '+ this.type +'\tname: '+ this.name +'\nvalue: '+ this.value;
+	message = message +'\ntype: '+ this.type +',\tname: '+ this.name +'\nvalue: '+ this.value;
 	return message;
 }
 HTMLSelectElement.prototype.toMessage = function(){
@@ -134,10 +142,10 @@ HTMLButtonElement.prototype.toMessage = function(){
 	return message;
 }
 Array.prototype.toMessage = function(){
-	var message = 'liste de '+ this.length.toString() +' éléments';
+	var message = 'liste de '+ this.length.toString() +' éléments\n';
 	var end = this.length;
 	if (end >5) end =5;
-	for (var i=0; i< end; i++) message = '\n'+ message + toMessage (this[i]);
+	for (var i=0; i< end; i++) message = '\n'+ message + toMessage (this[i]) +'\n';
 	return message;
 }
 HTMLCollection.prototype.toMessage = function(){

@@ -1,3 +1,15 @@
+function getRadioButtons(){
+	const inputs = document.getElementsByTagName ('input');
+	var radioButtons ={};
+	for (var input of inputs) if (input.type === 'radio'){
+		var knownName = false;
+	//	for (var [key, value] of Object.entries (radioButtons)) if (key === input.name) knownName = true;
+
+		if (radioButtons.hasOwnProperty (input.name)) radioButtons [input.name].push (input);
+		else radioButtons [input.name] =[ input ];
+	}
+	return radioButtons;
+}
 HTMLElement.prototype.findByInnerText = function (message){
 	if (this.innerText.includes (message)){
 		var tagRes = null;
