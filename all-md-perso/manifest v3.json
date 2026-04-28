@@ -7,15 +7,15 @@
 	"permissions": [ "tabs", "activeTab", "scripting" ],
 	"host_permissions": [ "<all_urls>" ],
 	"content_security_policy": {
-		"extension_pages": "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'self';",
+		"extension_pages": "script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'self';",
 		"sandbox": "sandbox allow-scripts allow-forms allow-popups allow-modals; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; child-src 'self';"
 	},
 	"web_accessible_resources": [{
 		"resources": [ "cv-page.html", "cv-template.txt" ],
-		"matches": [ "file:///*/cv*.txt" ]
+		"matches": [ "<all_urls>" ]
 	}, {
 		"resources": [ "rgaa-grille-page.html" ],
-		"matches": [ "file:///*/rgaa*grille.txt" ]
+		"matches": [ "<all_urls>" ]
 	}],
 	"content_scripts": [{
 		"matches": [ "file:///*/rueil-bruyeres/*.txt" ],

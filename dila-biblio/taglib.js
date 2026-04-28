@@ -4,7 +4,6 @@ function getRadioButtons(){
 	for (var input of inputs) if (input.type === 'radio'){
 		var knownName = false;
 	//	for (var [key, value] of Object.entries (radioButtons)) if (key === input.name) knownName = true;
-
 		if (radioButtons.hasOwnProperty (input.name)) radioButtons [input.name].push (input);
 		else radioButtons [input.name] =[ input ];
 	}

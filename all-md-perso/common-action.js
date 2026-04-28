@@ -1,90 +1,82 @@
+const modelHtml = 'common-page.html';	// les modèles doivent être déclarés dans manifest.json / web_accessible_resources
 // variable de import-js
 crutialData =`
 	exists: exists,
 	prepareText: prepareText,
-	findTitle: function (url){ return url.findTitleFromUrl(); }
+	findTitle: function (url){ return url.findTitleFromUrl(); },
+	openWEfile: openWEfile
 `;
-const htmlLib = callLibrary ([ 'textFct', 'htmlFct' ]);
+const htmlLib = callLibrary ([ 'textFct', 'file', 'htmlFct' ]);
 
-// importer mes scipts et styles persos
-var metaPage =`
-	<title></title>
-	<meta name='viewport' content='width=device-width,initial-scale=1'/>
-	<meta charset='utf-8'/>
-	<base target='_blank'>
-	<link rel='icon' type='image/svg+xml' href='file:///C:/wamp64/www/site-dp/data/nounours-perso.svg' />
-	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/structure.css' />
-	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/perso.css' media='screen' />
-	<link rel='stylesheet' type='text/css' href='file:///C:/wamp64/www/site-dp/library-css/shapes.css' />
-	<style type='text/css'>
-		a#download-link {
-			display: block;
-			background-color: var(--page-color, ivory);
-			opacity: 1;
-			color: var(--text-color, black);
-			font-size: 18px;
-			font-weight: normal;
-			font-style: normal;
-			font-family: georgia, serif;
-			text-transform: none;
-			text-decoration: none;
-			border: double 8px var(--bord-color, grey);
-			border-radius: 0.5em;
-			padding: 0.5em;
-			white-space: pre-wrap;
-			max-width: 30vw;
-			position: fixed;
-			bottom: 2em;
-			z-index: 20;
-			right: 0;
-			animation-duration: 5s;
-			animation-iteration-count: 2;
-			animation-direction: alternate;
-		}
-		a#download-link:focus { border-color: var(--text-color, black); }
-		a#download-link:hover { animation-name: move-dowload-link; }
-		@keyframes move-dowload-link {
-			to {
-				color: transparent;
-				border-color: transparent;
-				background-color: transparent;
-			}
-		}
-	</style>
-`;
+// les métadonnées
+var htmlTemplate = htmlLib.openWEfile (modelHtml);
+var pageOriginale = document.body.innerText;
 
-// récupérer les metadonnées de mes articles
-var header = "<h1><a href='$lien'>$titre</a></h1><p>par <a href='$lienAuteur'>$auteur</a></p><p>à propos de $sujet</p><a id='download-link' href='data:text/plain;charset=utf-8,$data' download='$titre.html'>télécharger</a>";
 const title = htmlLib.findTitle (window.location.href);
-metaPage = metaPage.replace ('<title></title>', '<title>' + title + '</title>');
-document.head.innerHTML = metaPage;
+htmlTemplate = htmlTemplate.replace ('<title></title>', '<title>' + title + '</title>');
 
+function findMetaLocal_va (metadata, title){
+	// créer la page
+	htmlTemplate = htmlTemplate.replaceAll ('$titre', title);
+	if (""=== metadata['lien']){
+		htmlTemplate = htmlTemplate.replace ("<a href='$lien'>", "");
+		htmlTemplate = htmlTemplate.replace ('</a>', "");
+	}
+	else htmlTemplate = htmlTemplate.replace ('$lien', metadata['lien']);
+	if (! htmlLib.exists (metadata['autlink'])){
+		htmlTemplate = htmlTemplate.replace ("<a href='$lienAuteur'>", "");
+		htmlTemplate = htmlTemplate.replace ('$auteur</a>', '$auteur');
+	}
+	else htmlTemplate = htmlTemplate.replace ('$lienAuteur', metadata['autlink']);
+	htmlTemplate = htmlTemplate.replace ('$auteur', metadata['auteur']);
+	htmlTemplate = htmlTemplate.replace ('$sujet', metadata['sujet']);
+	// les autres métadonnées
+	const metaTemplate = '<p>$key: $value</p>\n\t$text';
+	var metaText ="";
+	for (var m in metadata) if (! [ 'auteur', 'sujet', 'lien' ].includes (m)){
+		metaText = metaTemplate.replace ('$key', m);
+		metaText = metaText.replace ('$value', metadata[m]);
+		htmlTemplate = htmlTemplate.replace ('$text', metaText);
+	}
+	// le lien de téléchargement
+	htmlTemplate = htmlTemplate.replace ('$text', document.body.innerHTML);
+	var textEncoded = encodeURIComponent (htmlTemplate);
+	textEncoded = textEncoded.replaceAll ("'", '%27');
+	htmlTemplate = htmlTemplate.replace ('$data', textEncoded);
+	document.body.innerHTML = htmlTemplate.sliceWords ('<body>', '</body>');
+	document.head.innerHTML = htmlTemplate.sliceWords ('<head>', '</head>');
+}
 function findMetaLocal (metadata, title){
 	// créer la page
-	header = header.replaceAll ('$titre', title);
+	htmlTemplate = htmlTemplate.replaceAll ('$titre', title);
 	if (""=== metadata['lien']){
-		header = header.replace ("<a href='$lien'>", "");
-		header = header.replace ('</a>', "");
+		htmlTemplate = htmlTemplate.replace ("<a href='$lien'>", "");
+		htmlTemplate = htmlTemplate.replace ('</a>', "");
 	}
-	else header = header.replace ('$lien', metadata['lien']);
+	else htmlTemplate = htmlTemplate.replace ('$lien', metadata['lien']);
 	if (! htmlLib.exists (metadata['autlink'])){
-		header = header.replace ("<a href='$lienAuteur'>", "");
-		header = header.replace ('$auteur</a>', '$auteur');
+		htmlTemplate = htmlTemplate.replace ("<a href='$lienAuteur'>", "");
+		htmlTemplate = htmlTemplate.replace ('$auteur</a>', '$auteur');
 	}
-	else header = header.replace ('$lienAuteur', metadata['autlink']);
-	header = header.replace ('$auteur', metadata['auteur']);
-	header = header.replace ('$sujet', metadata['sujet']);
-	if (htmlLib.exists (metadata['date'])) header = header + '<p>date: '+ metadata['date'] + '</p>';
+	else htmlTemplate = htmlTemplate.replace ('$lienAuteur', metadata['autlink']);
+	htmlTemplate = htmlTemplate.replace ('$auteur', metadata['auteur']);
+	htmlTemplate = htmlTemplate.replace ('$sujet', metadata['sujet']);
+	// les autres métadonnées
+	const metaTemplate = '<dt>$key</dt><dd>$value</dd>$meta';
+	var metaText ="";
+	for (var m in metadata) if (! [ 'auteur', 'sujet', 'lien' ].includes (m)){
+		metaText = metaTemplate.replace ('$key', m);
+		metaText = metaText.replace ('$value', metadata[m]);
+		htmlTemplate = htmlTemplate.replace ('$meta', metaText);
+	}
+	htmlTemplate = htmlTemplate.replace ('$meta', "");
 	// le lien de téléchargement
-	const textEncoded = encodeURIComponent (document.body.innerHTML);
-	header = header.replace ('$data', textEncoded);
-	document.body.innerHTML = header + document.body.innerHTML;
+	htmlTemplate = htmlTemplate.replace ('$text', document.body.innerHTML);
+	var textEncoded = encodeURIComponent (htmlTemplate);
+	textEncoded = textEncoded.replaceAll ("'", '%27');
+	htmlTemplate = htmlTemplate.replace ('$data', textEncoded);
+	document.body.innerHTML = htmlTemplate.sliceWords ('<body>', '</body>');
+	document.head.innerHTML = htmlTemplate.sliceWords ('<head>', '</head>');
 }
 const metadata = htmlLib.prepareText();
 findMetaLocal (metadata, title);
-/*
-const downloadLink = document.getElementById ('download-link');
-downloadLink.addEventListener ('mouseleave', function (event){
-	if (this.className.includes ('moved')) this.className ="";
-	else this.className = 'moved';
-});*/

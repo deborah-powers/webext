@@ -12,9 +12,9 @@
 			"https://fcp-low.integ01.dev-franceconnect.fr/api/v2/interaction/*",
 			"https://fip1-low.integ01.fcp.fournisseur-d-identite.fr/interaction/*"
 		],
-		"js": [ "logger.js", "background.js" ]
+		"js": [ "logger.js", "taglib.js", "helper.js" ]
 	}],
-	"background": { "service_worker": "service-worker-v3.js" },
-	"action": {},
+//	"background": { "service_worker": "service-worker-v3.js" },
+//	"action": {},
 	"browser_specific_settings": { "gecko": { "id": "dila-biblio@deborah-powers.fr" }}
 }
