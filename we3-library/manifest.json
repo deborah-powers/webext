@@ -8,8 +8,8 @@
 	"host_permissions": [ "<all_urls>" ],
 	"background": { "service_worker": "service-worker.js" },
 	"content_scripts": [{
-		"matches": ["<all_urls>"],
-		"js": ["cleanLib.js"]
+		"matches": [ "<all_urls>" ],
+		"js": [ "textFct.js", "file.js", "htmlFct.js", "pageFct.js", "logger.js", "sommaire.js" ]
 	}],
 	// "externally_connectable": { "matches": [ "<all_urls>" ], "ids": ["*"] },
 	"action": {}

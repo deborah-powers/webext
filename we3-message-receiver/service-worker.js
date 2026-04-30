@@ -6,12 +6,19 @@ function coloriseBg(){
 	const divs = document.getElementsByTagName ('div');
 	for (var d=0; d< divs.length; d++) divs[d].style.backgroundColor = 'lightgreen';
 }
+function coloriseBgReturn (returnData){
+	// si coloriseBg renvoyait quelque chose, cette fonction récupérerait et traiterait le résultat
+	const result = returnData[0].result;
+	console.log (result);	// dans la console de l'extension
+}
+/*
 chrome.action.onClicked.addListener (function (tab){
 	if (tab.url.substring (0,7) === 'http://' || tab.url.substring (0,8) === 'https://'){
 		chrome.scripting.executeScript ({
 			target: {tabId: tab.id, allFrames: false },
 			function: coloriseBg
 });}});
+*/
 chrome.runtime.onMessageExternal.addListener(
 	/* connection brêve, pour renvoyer un message à la webext appelante
 	elle ne peut envoyer qu'une string en argument
@@ -26,6 +33,6 @@ chrome.runtime.onConnectExternal.addListener(
 		chrome.scripting.executeScript ({
 			target: { tabId: data.tabId, allFrames: false },
 			function: coloriseBg
-		});
+		}, coloriseBgReturn);
 		port.postMessage({ msg: 'je suis le receveur', nb: 22 });
 });});
