@@ -16,6 +16,7 @@ dans votre content_script:
 	const mylib = callLibrary ([ dependence1, dependence2 ])
 	addCss ([ style1, style2 ])
 */
+const manifestVersion =3;	// 2 ou 3
 const urlDist = 'http://deborah-powers.fr';
 const urlLoc = 'file:///C:/wamp64/www/site-dp';
 
@@ -79,7 +80,15 @@ function callLibrary (scriptList){
 	for (var s=0; s< scriptList.length; s++) textJs = textJs +'\n'+ openScript (scriptList[s]);
 	sendToExtensions = sendToExtensions.replace ('$crutialData', crutialData);
 	textJs = textJs + sendToExtensions;
-	const library = eval (textJs);
-	return library;
+	if (manifestVersion ===2){
+		const library = eval (textJs);
+		return library;
+	}
+	else if (manifestVersion ===3){
+		console.log ('manifest v3');
+		chrome.tabs.query ({active: true, currentWindow: true}, function(tabs){
+			chrome.tabs.executeScript (tabs[0].id, {code: textJs});
+		});
+	}
 }
 setUrlLib();
