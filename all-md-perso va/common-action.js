@@ -1,8 +1,21 @@
 const modelHtml = 'common-page.html';	// les modèles doivent être déclarés dans manifest.json / web_accessible_resources
-var htmlTemplate = openfileWebExt (modelHtml);
+// variable de import-js
+crutialData =`
+	exists: exists,
+	prepareText: prepareText,
+	findTitle: function (url){ return url.findTitleFromUrl(); },
+	hello: hello,
+	tocall: tocall
+`;
+const htmlLib = callLibrary ([ 'textFct', 'htmlFct', 'test-we-bg' ]);
+htmlLib.tocall();
+console.log (htmlLib.hello);
+
+// les métadonnées
+var htmlTemplate = openRessourceLocal (modelHtml);
 var pageOriginale = document.body.innerText;
 
-const title = window.location.href.findTitleFromUrl();
+const title = htmlLib.findTitle (window.location.href);
 htmlTemplate = htmlTemplate.replace ('<title></title>', '<title>' + title + '</title>');
 
 function findMetaLocal (metadata, title){
@@ -13,7 +26,7 @@ function findMetaLocal (metadata, title){
 		htmlTemplate = htmlTemplate.replace ('</a>', "");
 	}
 	else htmlTemplate = htmlTemplate.replace ('$lien', metadata['lien']);
-	if (! exists (metadata['autlink'])){
+	if (! htmlLib.exists (metadata['autlink'])){
 		htmlTemplate = htmlTemplate.replace ("<a href='$lienAuteur'>", "");
 		htmlTemplate = htmlTemplate.replace ('$auteur</a>', '$auteur');
 	}
@@ -38,5 +51,5 @@ function findMetaLocal (metadata, title){
 	document.body.innerHTML = htmlTemplate.sliceWords ('<body>', '</body>');
 	document.head.innerHTML = htmlTemplate.sliceWords ('<head>', '</head>') + document.head.innerHTML;
 }
-const metadata = prepareText();
+const metadata = htmlLib.prepareText();
 findMetaLocal (metadata, title);

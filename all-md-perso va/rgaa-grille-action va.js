@@ -1,16 +1,17 @@
 const themeTable = '<table><caption>$titre</caption><tr><th>critère</th><th>conformité</th><th>dérrogation</th><th>critère</th><th>commentaire</th></tr><tr><td>$lignes</td></tr></table>';
-const modelHtml = 'file:///C:/Users/deborah.powers/Desktop/cgi/rgaa-grille-page.html';	// les modèles doivent être déclarés dans manifest.json / web_accessible_resources
+const modelHtml = 'rgaa-grille-page.html';	// les modèles doivent être déclarés dans manifest.json / web_accessible_resources
 
 crutialData =`
 	strip: function (text, char){ return text.strip (char); },
 	fromModel: function (text, model){ return text.fromModel (model); },
 	toModel: function (text, dataDict){ return text.toModel (dataDict); },
 	sliceWords: function (text, wordD, wordF){ return text.sliceWords (wordD, wordF); },
-	count: function (text, word){ return text.count (word); }
+	count: function (text, word){ return text.count (word); },
+	openWEfile: openWEfile
 `;
-const htmlLib = callLibrary ([ 'textFct' ]);
+const htmlLib = callLibrary ([ 'textFct', 'file' ]);
 // les métadonnées
-var htmlTemplate = openRessource (modelHtml);
+var htmlTemplate = htmlLib.openWEfile (modelHtml);
 var pageOriginale = document.body.innerText;
 
 function trouverMetadonneeHeader (nomMeta, codeMeta){
@@ -43,7 +44,7 @@ tables = pageOriginale.split ('\n== ');
 var tableau ="";
 for (var t=0; t< tables.length; t++){
 	d= tables[t].indexOf ('\n')
-	tableau = themeTable.replace ('$titre$', tables[t].substring (0,d));
+	tableau = themeTable.replace ('$titre', tables[t].substring (0,d));
 	tables[t] = tables[t].substring (d+1);
 	tables[t] = htmlLib.strip (tables[t]);
 	tables[t] = tables[t].replaceAll ('\n', '</td></tr><tr><td>');
@@ -62,13 +63,13 @@ var conformite = 'non conforme';
 if (score ===100) conformite = 'totalement conforme';
 else if (score >=50) conformite = 'partiellement conforme';
 
-htmlTemplate = htmlTemplate.replace ('$nbCf$', nbCf.toString());
-htmlTemplate = htmlTemplate.replace ('$nbNc$', nbNc.toString());
-htmlTemplate = htmlTemplate.replace ('$nbNa$', nbNa.toString());
-htmlTemplate = htmlTemplate.replace ('$nbNt$', nbNt.toString());
-htmlTemplate = htmlTemplate.replace ('$nbDe$', nbDe.toString());
-htmlTemplate = htmlTemplate.replace ('$score$', score.toString());
-htmlTemplate = htmlTemplate.replace ('$conformite$', conformite);
+htmlTemplate = htmlTemplate.replace ('$nbCf', nbCf.toString());
+htmlTemplate = htmlTemplate.replace ('$nbNc', nbNc.toString());
+htmlTemplate = htmlTemplate.replace ('$nbNa', nbNa.toString());
+htmlTemplate = htmlTemplate.replace ('$nbNt', nbNt.toString());
+htmlTemplate = htmlTemplate.replace ('$nbDe', nbDe.toString());
+htmlTemplate = htmlTemplate.replace ('$score', score.toString());
+htmlTemplate = htmlTemplate.replace ('$conformite', conformite);
 
 // afficher mon travail
 tableau = tableau.replaceAll ('>c<', " class='conforme'>conforme<");
@@ -77,7 +78,7 @@ tableau = tableau.replaceAll ('>nt<', " class='non-teste'>non testé<");
 tableau = tableau.replaceAll ('>d<', " class='derroge'>dérrogé<");
 tableau = tableau.replaceAll ('>na<', ">non applicable<");
 tableau = tableau.replaceAll ('>n<', ">suivi<");
-htmlTemplate = htmlTemplate.replace ('$tables$', tableau);
+htmlTemplate = htmlTemplate.replace ('$tables', tableau);
 
 document.body.innerHTML = htmlTemplate.sliceWords ('<body>', '</body>');
 document.head.innerHTML = htmlTemplate.sliceWords ('<head>', '</head>');

@@ -8,17 +8,18 @@
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; script-src-elem 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; object-src 'self'",
 	"content_scripts": [{
 		"matches": [ "file:///*/rueil-bruyeres/*.txt" ],
-		"js": [ "textFct.js", "file.js", "htmlFct.js", "bruyeres-action.js" ]
+	//	"js": [ "textFct.js", "htmlFct.js", "bruyeres-action.js" ],
+		"js": [ "import-perso.js", "bruyeres-action.js" ]
 	}, {
 		"matches": [ "file:///*/cv*.txt" ],
-		"js": [ "textFct.js", "file.js", "htmlFct.js", "cv-action.js" ]
+		"js": [ "import-perso.js", "cv-action.js" ]
 	}, {
 		"matches": [ "file:///*/rgaa*grille.txt" ],
-		"js": [ "textFct.js", "file.js", "htmlFct.js", "rgaa-grille-action.js" ]
+		"js": [ "import-perso.js", "rgaa-grille-action.js" ]
 	}, {
 		"matches": [ "file:///*/*.txt", "file:///*/*.md", "http://*/*.txt", "https://*/*.txt", "http://*/*.md", "https://*/*.md" ],
 		"exclude_matches": [ "file:///*/rueil-bruyeres/*.txt",  "file:///*/cv*.txt", "file:///*/rgaa*grille.txt", "file:///*/rgaa*rapport.txt" ],
-		"js": [ "textFct.js", "file.js", "htmlFct.js", "common-action.js" ]
+		"js": [ "import-perso.js", "common-action.js" ]
 	}],
 	"browser_specific_settings": { "gecko": { "id": "md-perso@deborah-powers.fr" }}
 }

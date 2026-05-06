@@ -11,22 +11,27 @@
 		"sandbox": "sandbox allow-scripts allow-forms allow-popups allow-modals; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' 'unsafe-eval'; child-src 'self';"
 	},
 	"web_accessible_resources": [{
-		"resources": [ "common-page.html" ],
+		"resources": [ "cv-page.html", "cv-template.txt" ],
+		"matches": [ "<all_urls>" ]
+	}, {
+		"resources": [ "rgaa-grille-page.html" ],
 		"matches": [ "<all_urls>" ]
 	}],
 	"content_scripts": [{
 		"matches": [ "file:///*/rueil-bruyeres/*.txt" ],
-		"js": [ "textFct.js", "file.js", "htmlFct.js", "bruyeres-action.js" ]
+	//	"js": [ "textFct.js", "htmlFct.js", "bruyeres-action.js" ],
+		"js": [ "import-perso.js", "bruyeres-action.js" ]
 	}, {
 		"matches": [ "file:///*/cv*.txt" ],
-		"js": [ "textFct.js", "file.js", "htmlFct.js", "cv-action.js" ]
+		"js": [ "import-perso.js", "cv-action.js" ]
 	}, {
 		"matches": [ "file:///*/rgaa*grille.txt" ],
-		"js": [ "textFct.js", "file.js", "htmlFct.js", "rgaa-common-action.js", "rgaa-grille-action.js" ]
+		"js": [ "import-perso.js", "rgaa-common-action.js", "rgaa-grille-action.js" ]
 	}, {
 		"matches": [ "file:///*/*.txt", "file:///*/*.md", "http://*/*.txt", "https://*/*.txt", "http://*/*.md", "https://*/*.md" ],
 		"exclude_matches": [ "file:///*/rueil-bruyeres/*.txt","file:///*/cv*.txt", "file:///*/rgaa*grille.txt", "file:///*/rgaa*rapport.txt" ],
-		"js": [ "textFct.js", "file.js", "htmlFct.js", "common-action.js" ]
+		"js": [ "import-perso.js", "common-action.js" ]
 	}],
+	"background": { "service_worker": "background-v3.js" },
 	"action": {}
 }

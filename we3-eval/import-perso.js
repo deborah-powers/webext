@@ -16,6 +16,7 @@ dans votre content_script:
 	const mylib = callLibrary ([ dependence1, dependence2 ])
 	addCss ([ style1, style2 ])
 */
+const manifestVersion =3;
 const urlDist = 'http://deborah-powers.fr';
 const urlLoc = 'file:///C:/wamp64/www/site-dp';
 
@@ -25,7 +26,7 @@ function setUrlLib(){
 	else urlLib = urlDist + '/library-';
 }
 function openRessource (filePath){
-	// la ressource commence par http://, https:// ou file:///C:/
+	// la ressource commence par https:// ou file:///C:/
 	const xhttp = new XMLHttpRequest();
 	xhttp.open ('GET', filePath, false);
 	xhttp.send();
@@ -34,7 +35,7 @@ function openRessource (filePath){
 }
 function openRessourceLocal (fileName){
 	// fileName est dans le dossier de l'extension
-	const filePath = chrome.extension.getURL (fileName);
+	const fullFile = chrome.extension.getURL (fileName);
 	return openRessource (fullFile);
 }
 function openLibFile (filePath){
@@ -88,7 +89,18 @@ function callLibrary (scriptList){
 	for (var s=0; s< scriptList.length; s++) textJs = textJs +'\n'+ openScript (scriptList[s]);
 	sendToExtensions = sendToExtensions.replace ('$crutialData', crutialData);
 	textJs = textJs + sendToExtensions;
-	const library = eval (textJs);
-	return library;
+	if (manifestVersion ===2){
+		const library = eval (textJs);
+		return library;
+	}
+	else if (manifestVersion ===3){
+/*		insert un page_script auquel mes content_scripts n'ont pas accès
+		textJs = "<script type='text/javascript'>" + textJs + "</script>";
+		document.body.innerHTML = document.body.innerHTML + textJs;
+		*/
+//		insert un content_script qui interagit avec les autres
+		chrome.runtime.sendMessage ({ code: textJs, scripts: [ 'file:///C:/wamp64/www/site-dp/library-js/textFct.js', 'file:///C:/wamp64/www/site-dp/library-js/htmlFct.js' ] });
+		return null;
+	}
 }
 setUrlLib();

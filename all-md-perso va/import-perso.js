@@ -16,7 +16,7 @@ dans votre content_script:
 	const mylib = callLibrary ([ dependence1, dependence2 ])
 	addCss ([ style1, style2 ])
 */
-const manifestVersion =3;	// 2 ou 3
+const manifestVersion =3;
 const urlDist = 'http://deborah-powers.fr';
 const urlLoc = 'file:///C:/wamp64/www/site-dp';
 
@@ -25,13 +25,22 @@ function setUrlLib(){
 	if ('file' === window.location.href.substring (0,4)) urlLib = urlLoc + '/library-';
 	else urlLib = urlDist + '/library-';
 }
-function openLibFile (filePath){
-	const fullFile = urlLib + filePath;
+function openRessource (filePath){
+	// la ressource commence par https:// ou file:///C:/
 	const xhttp = new XMLHttpRequest();
-	xhttp.open ('GET', fullFile, false);
+	xhttp.open ('GET', filePath, false);
 	xhttp.send();
 	if (xhttp.status ==0 || xhttp.status ==200) return xhttp.responseText;
 	else return "";
+}
+function openRessourceLocal (fileName){
+	// fileName est dans le dossier de l'extension
+	const fullFile = chrome.extension.getURL (fileName);
+	return openRessource (fullFile);
+}
+function openLibFile (filePath){
+	const fullFile = urlLib + filePath;
+	return openRessource (fullFile);
 }
 /* ------------ insérer mes styles ------------ */
 
@@ -85,10 +94,13 @@ function callLibrary (scriptList){
 		return library;
 	}
 	else if (manifestVersion ===3){
-		console.log ('manifest v3');
-		chrome.tabs.query ({active: true, currentWindow: true}, function(tabs){
-			chrome.tabs.executeScript (tabs[0].id, {code: textJs});
-		});
+/*		insert un page_script auquel mes content_scripts n'ont pas accès
+		textJs = "<script type='text/javascript'>" + textJs + "</script>";
+		document.body.innerHTML = document.body.innerHTML + textJs;
+		*/
+//		insert un content_script qui interagit avec les autres
+		chrome.runtime.sendMessage ({ code: textJs, scripts: [ 'file:///C:/wamp64/www/site-dp/library-js/textFct.js', 'file:///C:/wamp64/www/site-dp/library-js/htmlFct.js' ] });
+		return null;
 	}
 }
 setUrlLib();
