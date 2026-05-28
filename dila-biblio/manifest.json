@@ -1,8 +1,8 @@
 {
 	"manifest_version": 3,
-	"name": "remplir ai",
+	"name": "remplir npsl",
 	"version": "1.0",
-	"description": "remplir le site arnaque internet de la dila",
+	"description": "remplir les sites npsl de la dila",
 	"icons": { "48": "icon-128.png" },
 	"permissions": [ "tabs", "activeTab", "scripting" ],
 	"content_scripts": [{
@@ -12,9 +12,7 @@
 			"https://fcp-low.integ01.dev-franceconnect.fr/api/v2/interaction/*",
 			"https://fip1-low.integ01.fcp.fournisseur-d-identite.fr/interaction/*"
 		],
-		"js": [ "logger.js", "taglib.js", "helper.js" ]
+		"js": [ "logger.js", "taglib.js", "background.js" ]
 	}],
-//	"background": { "service_worker": "service-worker-v3.js" },
-//	"action": {},
-	"browser_specific_settings": { "gecko": { "id": "dila-biblio@deborah-powers.fr" }}
+	"browser_specific_settings": { "gecko": { "id": "dila-npsl@deborah-powers.fr" }}
 }

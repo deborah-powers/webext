@@ -42,8 +42,8 @@ HTMLElement.prototype.findLabelByInnerText = function (message){
 		if (label === null) return this;
 		else return label;
 }}
-HTMLElement.prototype.findNextInput = function (message){
-	const label = this.findLabelByInnerText (message);
+HTMLElement.prototype.findNextInput = function (labelText){
+	const label = this.findLabelByInnerText (labelText);
 	if (label === null) return null;
 	else{
 		const inputId = label.getAttribute ('for');
