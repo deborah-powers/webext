@@ -40,3 +40,4 @@ function findMetaLocal (metadata, title){
 }
 const metadata = prepareText();
 findMetaLocal (metadata, title);
+resizeCodeBlocks();

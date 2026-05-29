@@ -15,6 +15,12 @@ const protocols =[ 'https://', 'http://', 'file:///' ];
 
 String.prototype.toHtml = function(){
 	var text = this.cleanTxt();
+	// décaler les titres
+	text = text.replaceAll ('## ', '++ ');
+	text = text.replaceAll ('__ ', '## ');
+	text = text.replaceAll ('-- ', '__ ');
+	text = text.replaceAll ('** ', '-- ');
+	text = text.replaceAll ('== ', '** ');
 	// transformer la mise en page en balises
 	text = '\n' + text + '\n';
 	for (tag of toReplace) text = text.replaceAll (tag[0], tag[1]);
@@ -332,31 +338,14 @@ String.prototype.toHtmlShapes = function(){
 	if (text.includes ('<--')) text = text.replaceAll ('<--', "<hr class='arrow left'/>");
 	return text;
 }
-String.prototype.setXmpWidth = function(){
-	var text = this.replaceAll ('/$', '\n');
-	while (text.includes ('\n\n')) text = text.replaceAll ('\n\n', '\n');
-	while (text.includes ("  ")) text = text.replaceAll ("  ", "  ");
-	while (text.includes ('\t\t')) text = text.replaceAll ('\t\t', '\t');
-	text = text.strip();
-	const xmpBlock = text.split ('\n');
-	var xmpLine =[];
-	var textTmp ="";
-	for (var b=0; b< xmpBlock.length; b++){
-		if (xmpBlock[b].length >100 && xmpBlock[b].includes (" ")){
-			xmpLine = xmpBlock[b].split (" ");
-			xmpBlock[b] ="";
-			for (var l=0; l< xmpLine.length; l++){
-				if (textTmp.length <100){
-					textTmp = textTmp +" "+ xmpLine[l];
-					if (l=== xmpLine.length -1) xmpBlock[b] = xmpBlock[b] +'\n '+ textTmp;
-				}else{
-					xmpBlock[b] = xmpBlock[b] +'\n '+ textTmp;
-					textTmp = xmpLine[l];
-	}}}}
-	text = xmpBlock.join ('\n');
-	while (text.includes ('\n\n')) text = text.replaceAll ('\n\n', '\n');
-	text = text.strip();
-	text = text.replaceAll ('\n', '/$');
+String.prototype.toSql = function(){
+	// repérer les blocs de code sql.
+	// avant de rajouter les balises html de base.
+	var text = this.replaceAll (' ;',';');
+	text = text.replaceAll ('\n;',';');
+	text = text.toSqlOne ('with tmp_');
+	text = text.toSqlOne ('create or replace');
+	text = text.toSqlOne ('select');
 	return text;
 }
 String.prototype.toSqlOne = function (word){
@@ -385,15 +374,84 @@ String.prototype.toSqlOne = function (word){
 	}
 	return text;
 }
-String.prototype.toSql = function(){
-	// repérer les blocs de code sql.
-	// avant de rajouter les balises html de base.
-	var text = this.replaceAll (' ;',';');
-	text = text.replaceAll ('\n;',';');
-	text = text.toSqlOne ('with tmp_');
-	text = text.toSqlOne ('create or replace');
-	text = text.toSqlOne ('select');
+String.prototype.setXmpWidth = function(){
+	var text = this.replaceAll ('/$', '\n');
+	while (text.includes ('\n\n')) text = text.replaceAll ('\n\n', '\n');
+	while (text.includes ("  ")) text = text.replaceAll ("  ", "  ");
+	while (text.includes ('\t\t')) text = text.replaceAll ('\t\t', '\t');
+	text = text.strip();
+	const xmpBlock = text.split ('\n');
+	var xmpLine =[];
+	var textTmp ="";
+	for (var b=0; b< xmpBlock.length; b++){
+		if (xmpBlock[b].length >100 && xmpBlock[b].includes (" ")){
+			xmpLine = xmpBlock[b].split (" ");
+			xmpBlock[b] ="";
+			for (var l=0; l< xmpLine.length; l++){
+				if (textTmp.length <100){
+					textTmp = textTmp +" "+ xmpLine[l];
+					if (l=== xmpLine.length -1) xmpBlock[b] = xmpBlock[b] +'\n '+ textTmp;
+				}else{
+					xmpBlock[b] = xmpBlock[b] +'\n '+ textTmp;
+					textTmp = xmpLine[l];
+	}}}}
+	text = xmpBlock.join ('\n');
+	while (text.includes ('\n\n')) text = text.replaceAll ('\n\n', '\n');
+	text = text.strip();
+	text = text.replaceAll ('\n', '/$');
 	return text;
+}
+HTMLPreElement.prototype.resizeText = function(){
+	var newText = this.innerHTML.replaceAll ('\n', " ");
+	newText = newText.trim();
+	while (newText.includes ("  ")) newText = newText.replaceAll ("  ", " ");
+	// couper les lignes au niveau de marqueurs
+//	const artefacts =[ ['> ','>\n'], [' <', '\n<'], ['; ',';\n'], ['} ','}\n' ], [' }','\n}'], ['{ ','{\n'], ['] ',']\n'] ];
+	const artefacts =[ ['> ','>\n'], [' <', '\n<'], ['; ',';\n'], ['): ','):\n'], ['){ ','){\n'] ];
+	for (var char of artefacts) newText = newText.replaceAll (char[0], char[1]);
+	while (newText.includes ('\n\n')) newText = newText.replaceAll ('\n\n', '\n');
+	// ajuster les lignes restantes selon les espaces
+	const charNb = this.clientWidth /9;
+	var lineList = newText.split ('\n');
+	for (var l=0; l< lineList.length; l++) if (lineList[l].length >charNb){
+		lineList[l] = lineList[l].replaceAll (": ", ": $");
+		lineList[l] = lineList[l].replaceAll (". ", ". $");
+		lineList[l] = lineList[l].replaceAll ("! ", "! $");
+		lineList[l] = lineList[l].replaceAll ("? ", "? $");
+		lineList[l] = lineList[l].replaceAll (", ", ", $");
+		const wordList = lineList[l].split (" $");
+		lineList[l] = wordList.resizeText (charNb);
+	}
+	newText = lineList.join ('\n');
+	lineList = newText.split ('\n');
+	for (var l=0; l< lineList.length; l++) if (lineList[l].length >charNb){
+		const wordList = lineList[l].split (" ");
+		lineList[l] = wordList.resizeText (charNb);
+	}
+	this.innerHTML = lineList.join ('\n');
+}
+Array.prototype.resizeText = function (charNb){
+	var newLine ="";
+	var newText ="";
+	for (var word of this){
+		if (word.length >= charNb){
+			newText = newText +'\n'+ newLine +'\n'+ word;
+			newLine ="";
+		}
+		else if (newLine.length >= charNb){
+			newText = newText +'\n'+ newLine;
+			newLine = word;
+		}
+		else if ((newLine.length + word.length) <= charNb) newLine = newLine +" "+ word;
+		else{
+			newText = newText +'\n'+ newLine;
+			newLine = word;
+	}}
+	newText = newText +'\n'+ newLine;
+	newText = newText.trim();
+	newText = newText.replaceAll ("\n ", '\n');
+	while (newText.includes ('\n\n')) newText = newText.replaceAll ('\n\n', '\n');
+	return newText;
 }
 HTMLPreElement.prototype.computeWidth = function(){
 	var text = this.innerHTML.replaceAll ('\n', " ");
@@ -401,7 +459,7 @@ HTMLPreElement.prototype.computeWidth = function(){
 	var widthPx = window.getComputedStyle (this).width;
 	widthPx = widthPx.substring (0, widthPx.length -2);
 	var widthLineMax = parseFloat (widthPx);
-	widthLineMax /=10.0;
+	widthLineMax /=8.0;
 	if (text.length > widthLineMax){
 		// couper les lignes au niveau de marqueurs
 	//	const artefacts =[ ['> ','>\n'], [' <', '\n<'], ['; ',';\n'], ['} ','}\n' ], [' }','\n}'], ['{ ','{\n'], ['] ',']\n'] ];
@@ -431,7 +489,7 @@ HTMLPreElement.prototype.computeWidth = function(){
 }
 function resizeCodeBlocks(){
 	const pres = document.getElementsByTagName ('xmp');
-	for (var pre of pres) pre.computeWidth();
+	for (var pre of pres) pre.resizeText();
 }
 window.onresize = resizeCodeBlocks;
 

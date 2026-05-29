@@ -1,3 +1,17 @@
+const labelDict ={
+	'Nationalité': 'Francaise', 'Situation matrimoniale': 'Célibataire', 'Pays': 'FRANCE',
+	"Numéro d'AIOT": '0040987214', 'Numéro de SIRET': '41816609600069',
+	'Nom de la personne en charge du dossier': 'Corado',
+	'Prénom de la personne en charge du dossier': 'Céline',
+	'Code postal / Localité': '35000',
+	'Numéro et libellé de voie': '5 rue Jules Rieffel',
+	'Téléphone': '0623456789',
+	'Adresse e-mail': 'moi@gmail.com', 'Adresse électronique': 'toi@gmail.com',
+	'ate de naissance': '2002-06-17',
+	'om de votre projet': 'test rgaa sian',
+	'Date de dépôt': '2025-06-15',
+	"Organisme en charge de l'instruction": 'tma sian'
+};
 function getRadioButtons(){
 	const inputs = document.getElementsByTagName ('input');
 	var radioButtons ={};
@@ -78,6 +92,21 @@ HTMLSelectElement.prototype.fillInput = function (message){
 		}
 		o+=1;
 }}
+HTMLSelectElement.prototype.fillFromDict = function (label){
+	if (labelDict.hasOwnProperty (label)) this.fillInput (labelDict[label].substring (0, labelDict[label].length -1));
+	else for (var [key, value] of Object.entries (labelDict)){
+		if (label.includes (key)) this.fillInput (labelDict[label].substring (0, labelDict[label].length -1));
+}}
+HTMLInputElement.prototype.fillFromDict = function(){
+	const label = this.labels[0].children[0].innerText;
+	if (labelDict.hasOwnProperty (label)){
+		if (this.type === 'date') this.value = labelDict[label];
+		else if (this.type === 'text') this.value = labelDict[label].substring (0, labelDict[label].length -1);
+	}
+	else{ for (var [key, value] of Object.entries (labelDict)) if (label.includes (key)){
+		if (this.type === 'date') this.value = labelDict[key];
+		else if (this.type === 'text') this.value = labelDict[key].substring (0, labelDict[key].length -1);
+}}}
 function fillInputByLabel (labelText, message){
 	var input = document.body.findNextInput (labelText);
 	if (input === null || input === undefined) log ("pas d'input pour", labelText);
