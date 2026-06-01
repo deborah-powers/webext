@@ -23,12 +23,14 @@ function chooseActionOverPage(){
 // setTimeout (chooseActionOverPage, 1500);
 
 // les pages de npsl
-document.body.addEventListener ('click', function (event){
+function prefillFields (event){
 	if (event.target.tagName === 'INPUT') event.target.fillFromDict();
 	else if (event.target.tagName === 'SELECT'){
 		const label = this.labels[0].children[0];
 		event.target.fillFromDict (label);
-}});
+}}
+document.body.addEventListener ('click', prefillFields);
+document.body.addEventListener ('keyup', function (event){ if (event.key === 'Tab') prefillFields (event); });
 /*
 const boxToCheck =[ "Je m'engage à", "Je prends note" ];
 const inputs = document.getElementsByTagName ('input')
