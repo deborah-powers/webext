@@ -143,6 +143,9 @@ String.prototype.cleanTitle = function(){
 	var title = this.toLowerCase();
 	title = title.replaceAll ('\n', " ");
 	title = title.replaceAll ('\t', " ");
+	title = title.replaceAll ('-', " ");
+	title = title.replaceAll ('_', " ");
+	title = title.replaceAll ('+', " ");
 	while (title.includes ("  ")) title = title.replaceAll ("  "," ");
 	title = title.strip();
 	return title;

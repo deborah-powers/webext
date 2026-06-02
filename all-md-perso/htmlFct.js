@@ -136,7 +136,8 @@ String.prototype.toDefList = function(){
 	const textListLen = textList.length;
 	var d=-1; var t=0;
 	while (t< textListLen){
-		if (textList[t].includes (": ") && textList[t].count (": ") ===1 && d===-1) d=t;
+		if (textList[t][0] === '<') d=-1;
+		else if (textList[t].includes (": ") && textList[t].count (": ") ===1 && d===-1) d=t;
 		else if (! textList[t].includes (": ") && d>=0){
 			if (t-d >1){
 				for (var l=d; l<t; l++) textList[l] = '<dt>' + textList[l].replace (": ", '</dt><dd>') + '</dd>';
@@ -146,8 +147,9 @@ String.prototype.toDefList = function(){
 		} t+=1;
 	}
 	text = textList.join ('\n');
-	text = text.replaceAll ('\n<dt>', '<dt>')
+/*	text = text.replaceAll ('\n<dt>', '<dt>')
 	text = text.replaceAll ('</dd>\n', '<dd>')
+*/
 	return text;
 }
 String.prototype.toTable = function(){
@@ -502,13 +504,14 @@ function prepareText(){
 	else text = document.body.children[0].innerHTML;
 	// trouver la fin du texte, qui contient les métadonnées
 	if (text.includes ('\n==\n')
-		&& (text.includes ('\nJs: ') || text.includes ('\nJs bas: ') || metaText.includes ('\nScript:\n')
+		&& (text.includes ('\nJs: ') || text.includes ('\nJs bas: ') || text.includes ('\nScript:\n')
 			|| text.includes ('\nCss: ') || text.includes (' {') || text.includes (': '))){
 		const d= text.lastIndexOf ('\n==\n');
-		var metaText = text.substring (d+4).strip();
+		metaText = text.substring (d+4).strip();
 		if (metaText.includes ('\nJs: ') || metaText.includes ('\nJs bas: ') || metaText.includes ('\nScript:\n')
 			|| metaText.includes ('\nCss: ') || metaText.includes (' {') || metaText.includes (': '))
 			text = text.substring (0,d);
+		else metaText ="";
 	}
 	text = text.cleanTxt();
 	// transformer le texte en html

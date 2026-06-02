@@ -25,6 +25,11 @@ function findMetaLocal (metadata, title){
 	var metaText ="";
 	for (var m in metadata) if (! [ 'auteur', 'sujet', 'lien' ].includes (m)){
 		metaText = metaTemplate.replace ('$key', m);
+		if (metadata[m].substring (0,4) === 'http'){
+			const d=1+ metadata[m].lastIndexOf ('/');
+			const titleLink = metadata[m].substring (d).cleanTitle();
+			metadata[m] = "<a href='" + metadata[m] +"'>"+ titleLink + '</a>';
+		}
 		metaText = metaText.replace ('$value', metadata[m]);
 		htmlTemplate = htmlTemplate.replace ('$meta', metaText);
 	}
