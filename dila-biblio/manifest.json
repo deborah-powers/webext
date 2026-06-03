@@ -12,7 +12,9 @@
 			"https://fcp-low.integ01.dev-franceconnect.fr/api/v2/interaction/*",
 			"https://fip1-low.integ01.fcp.fournisseur-d-identite.fr/interaction/*"
 		],
-		"js": [ "logger.js", "taglib.js", "background.js" ]
+		"js": [ "logger.js", "taglib.js", "pages-connect.js" ]
 	}],
+	"background": { "service_worker": "pages-npsl.js" },
+	"action": {},
 	"browser_specific_settings": { "gecko": { "id": "dila-npsl@deborah-powers.fr" }}
 }

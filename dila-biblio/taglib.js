@@ -1,6 +1,6 @@
 const labelDict ={
 	'Nationalité': 'Francaise', 'Situation matrimoniale': 'Célibataire', 'Pays': 'FRANCE',
-	"Numéro d'AIOT": '0040987214', 'Numéro de SIRET': '41816609600069',
+	"Numéro d'AIOT": '0040987214', 'Numéro de SIRET': '41816609600069', 'SIRET bis': '13000918600011',
 	'Nom de la personne en charge du dossier': 'Corado',
 	'Prénom de la personne en charge du dossier': 'Céline',
 	'Code postal / Localité': '35000',
@@ -12,17 +12,27 @@ const labelDict ={
 	'Date de dépôt': '2025-06-15',
 	"Organisme en charge de l'instruction": 'tma sian'
 };
-function getRadioButtons(){
+function getRadioButtonsAndCheckboxes(){
 	const inputs = document.getElementsByTagName ('input');
-	var radioButtons ={};
-	for (var input of inputs) if (input.type === 'radio'){
-		var knownName = false;
-	//	for (var [key, value] of Object.entries (radioButtons)) if (key === input.name) knownName = true;
-		if (radioButtons.hasOwnProperty (input.name)) radioButtons [input.name].push (input);
-		else radioButtons [input.name] =[ input ];
+	var toCheck =[];
+	for (var ip of inputs){
+		if (ip.type === 'radio' || ip.type === 'checkbox') toCheck.push (ip);
 	}
-	return radioButtons;
+	return toCheck;
 }
+function getFileUploader(){
+	const inputs = document.getElementsByTagName ('input');
+	var uploaders =[];
+	for (var ip of inputs){
+		if (ip.type === 'file') uploaders.push (ip);
+	}
+	return uploaders;
+}
+HTMLInputElement.prototype.openFileUploader = function(){
+	if (this.type === 'file'){
+		console.log ('téléversez un fichier pour', this.labels[0].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[0].innerText);
+		this.click();
+}}
 HTMLElement.prototype.findByInnerText = function (message){
 	if (this.innerText.includes (message)){
 		var tagRes = null;
@@ -57,30 +67,37 @@ HTMLElement.prototype.findLabelByInnerText = function (message){
 		else return label;
 }}
 HTMLElement.prototype.findNextInput = function (labelText){
-	const label = this.findLabelByInnerText (labelText);
-	if (label === null) return null;
-	else{
-		const inputId = label.getAttribute ('for');
-		var input = null;
-		if (inputId === undefined || inputId === null){
-			input = label.parentElement.parentElement.getElementsByTagName ('input')[0];
-			if (input === null || input === undefined) input = label.parentElement.parentElement.getElementsByTagName ('select')[0];
-			if (input === null || input === undefined) input = label.parentElement.parentElement.getElementsByTagName ('textarea')[0];
-		}
-		else input = document.getElementById (inputId);
-		return input;
-}}
+	var inputs = document.getElementsByTagName ('input');
+	var i=0
+	var unknow = true;
+	while (i< inputs.length && unknow){
+		if (inputs[i].labels[0].innerText.includes (labelText)){
+			i-=1;
+			unknow = false;
+	} i+=1; }
+	if (! unknow) return inputs[i];
+	inputs = document.getElementsByTagName ('select');
+	i=0
+	unknow = true;
+	while (i< inputs.length && unknow){
+		if (inputs[i].labels[0].innerText.includes (labelText)){
+			i-=1;
+			unknow = false;
+	} i+=1; }
+	if (! unknow) return inputs[i];
+	else return null;
+}
+HTMLInputElement.prototype.clickOn = function (message){
+	var event = new MouseEvent ('click', { bubbles: true, cancelable: true, view: window });
+	this.dispatchEvent (event);
+	if (this.type === 'radio' || this.type === 'checkbox') this.checked = 'true';
+}
 HTMLInputElement.prototype.fillInput = function (message){
-	const typeInput = this.getAttribute ('type');
-	log (message, typeInput);
-	if (typeInput === 'date') log ('date');
-	this.setAttribute ('value', message);
-	this.value = message;
-	var changeEvent = new Event ('change', { bubbles: true });
-	this.dispatchEvent (changeEvent);
+	if (this.type === 'date') this.value = message;	// message = 2002-06-17
+	else if (this.type === 'text') this.value = message;
+	this.clickOn();
 }
 HTMLSelectElement.prototype.fillInput = function (message){
-//	this.focus();
 	const options = this.getElementsByTagName ('option');
 	var o=0;
 	while (o< options.length){
@@ -98,15 +115,18 @@ HTMLSelectElement.prototype.fillFromDict = function (label){
 		if (label.includes (key)) this.fillInput (labelDict[label].substring (0, labelDict[label].length -1));
 }}
 HTMLInputElement.prototype.fillFromDict = function(){
+	if (this.value) return;
 	const label = this.labels[0].children[0].innerText;
 	if (labelDict.hasOwnProperty (label)){
 		if (this.type === 'date') this.value = labelDict[label];
 		else if (this.type === 'text') this.value = labelDict[label].substring (0, labelDict[label].length -1);
 	}
 	else{ for (var [key, value] of Object.entries (labelDict)) if (label.includes (key)){
-		if (this.type === 'date') this.value = labelDict[key];
-		else if (this.type === 'text') this.value = labelDict[key].substring (0, labelDict[key].length -1);
-}}}
+		if (this.type === 'date') this.value = value;
+		else if (this.type === 'text') this.value = value.substring (0, value.length -1);
+	}
+	this.clickOn();
+}}
 function fillInputByLabel (labelText, message){
 	var input = document.body.findNextInput (labelText);
 	if (input === null || input === undefined) log ("pas d'input pour", labelText);

@@ -1,5 +1,4 @@
-// les pages de connection
-function chooseActionOverPage(){
+function fillConnectionPage(){
 	if (window.location.href.includes ('/service-public/protocol/openid-connect/')){
 		const main = document.getElementsByTagName ('main')[0];
 		const buttonFranceConnect = main.getElementsByTagName ('a')[2];
@@ -20,27 +19,5 @@ function chooseActionOverPage(){
 			buttonFranceConnect.click();
 		}, 1000);
 }}
-// setTimeout (chooseActionOverPage, 1500);
-
-// les pages de npsl
-function prefillFields (event){
-	if (event.target.tagName === 'INPUT') event.target.fillFromDict();
-	else if (event.target.tagName === 'SELECT'){
-		const label = this.labels[0].children[0];
-		event.target.fillFromDict (label);
-}}
-document.body.addEventListener ('click', prefillFields);
-document.body.addEventListener ('keyup', function (event){ if (event.key === 'Tab') prefillFields (event); });
-/*
-const boxToCheck =[ "Je m'engage à", "Je prends note" ];
-const inputs = document.getElementsByTagName ('input')
-for (var box of inputs) if (box.type === 'checkbox'){
-	for (var line of boxToCheck) if (box.labels[0].innerText.includes (line)){ box.checked = True; }
-}
-
-const buttonNext = document.getElementById ('btn-next');
-if (buttonNext){
-	buttonNext.click = function (event){
-		log (event);
-		setTimeout (chooseActionOverPage, 3000);
-}}*/
+fillConnectionPage();
+// setTimeout (fillConnectionPage, 1000);
