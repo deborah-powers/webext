@@ -12,6 +12,16 @@ const labelDict ={
 	'Date de dépôt': '2025-06-15',
 	"Organisme en charge de l'instruction": 'tma sian'
 };
+function goNextPage(){
+	const buttonNext = document.getElementById ('btn-next');
+	buttonNext.click();
+}
+function wait (dixiemeDeSeconde){
+	// convertir en milliseconde
+	dixiemeDeSeconde *=100;
+	const dateFin = Date.now() + dixiemeDeSeconde;
+	while (Date.now() < dateFin) continue;
+}
 function getRadioButtonsAndCheckboxes(){
 	const inputs = document.getElementsByTagName ('input');
 	var toCheck =[];
@@ -30,7 +40,7 @@ function getFileUploader(){
 }
 HTMLInputElement.prototype.openFileUploader = function(){
 	if (this.type === 'file'){
-		console.log ('téléversez un fichier pour', this.labels[0].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[0].innerText);
+		log ('téléversez un fichier pour', this.labels[0].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[0].innerText);
 		this.click();
 }}
 HTMLElement.prototype.findByInnerText = function (message){
@@ -71,7 +81,7 @@ HTMLElement.prototype.findNextInput = function (labelText){
 	var i=0
 	var unknow = true;
 	while (i< inputs.length && unknow){
-		if (inputs[i].labels[0].innerText.includes (labelText)){
+		if (inputs[i].labels !== null && inputs[i].labels.length >0 && inputs[i].labels[0].innerText.includes (labelText)){
 			i-=1;
 			unknow = false;
 	} i+=1; }
@@ -87,14 +97,26 @@ HTMLElement.prototype.findNextInput = function (labelText){
 	if (! unknow) return inputs[i];
 	else return null;
 }
-HTMLInputElement.prototype.clickOn = function (message){
+HTMLInputElement.prototype.clickOn = function(){
 	var event = new MouseEvent ('click', { bubbles: true, cancelable: true, view: window });
 	this.dispatchEvent (event);
 	if (this.type === 'radio' || this.type === 'checkbox') this.checked = 'true';
 }
 HTMLInputElement.prototype.fillInput = function (message){
 	if (this.type === 'date') this.value = message;	// message = 2002-06-17
-	else if (this.type === 'text') this.value = message;
+	else if (this.type === 'text'){
+		if (this.role === 'combobox' && false){
+			log ('combobox', this.labels[0].innerText, this.getAttribute ('aria-controls'));
+			this.clickOn();
+			const input = this;
+			setTimeout (function(){
+				const dataList = document.getElementById (input.getAttribute ('aria-controls'));
+				log (dataList);
+			}, 1000);
+			this.value = message;
+		}
+		this.value = message;
+	}
 	this.clickOn();
 }
 HTMLSelectElement.prototype.fillInput = function (message){
@@ -127,6 +149,10 @@ HTMLInputElement.prototype.fillFromDict = function(){
 	}
 	this.clickOn();
 }}
+function clickButtonByText (labelText){
+	var button = document.body.findByInnerText (labelText);
+	button.click();
+}
 function fillInputByLabel (labelText, message){
 	var input = document.body.findNextInput (labelText);
 	if (input === null || input === undefined) log ("pas d'input pour", labelText);
