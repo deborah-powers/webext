@@ -16,6 +16,10 @@ function goNextPage(){
 	const buttonNext = document.getElementById ('btn-next');
 	buttonNext.click();
 }
+function validate(){
+	const buttonValider = document.body.findByInnerText ('Valider');
+	buttonValider.addEventListener ('click', function (event){});
+}
 function wait (dixiemeDeSeconde){
 	// convertir en milliseconde
 	dixiemeDeSeconde *=100;
@@ -158,3 +162,10 @@ function fillInputByLabel (labelText, message){
 	if (input === null || input === undefined) log ("pas d'input pour", labelText);
 	else input.fillInput (message);
 }
+HTMLElement.prototype.findBody = function(){
+	if (this.tagName === 'BODY') return this;
+	else return this.parentElement.findBody();
+}
+document.body.addEventListener ('change', function (event){
+	setTimeout (function(){}, 500);
+});

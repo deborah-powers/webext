@@ -1,0 +1,25 @@
+{
+	"manifest_version": 2,
+	"name": "remplir npsl",
+	"version": "1.0",
+	"description": "remplir les sites npsl de la dila",
+	"icons": { "48": "icon-128.svg" },
+	"permissions": [ "tabs", "activeTab", "scripting" ],
+	"content_scripts": [{
+		"matches": [
+			"https://qualif.auth.service-public.gouv.fr/realms/service-public/protocol/openid-connect/*",
+			"https://fcp-low.integ01.dev-franceconnect.fr/api/v2/interaction/*",
+			"https://fip1-low.integ01.fcp.fournisseur-d-identite.fr/interaction/*"
+		],
+		"js": [ "pages-connect.js" ]
+	}, {
+		"matches": [ "https://psl-int-cgi-pslexec.pic-snau.service-public.fr/mademarche/demarcheGenerique/*" ],
+		"js": [ "logger.js", "taglib.js" ]
+	}],
+	"background": { "scripts": [ "pages-npsl.js" ]},
+	"page_action": {
+		"default_icon": "icon-128.svg",
+		"default_title": "remplir npsl"
+	},
+	"browser_specific_settings": { "gecko": { "id": "dila-biblio@deborah-powers.fr" }}
+}
