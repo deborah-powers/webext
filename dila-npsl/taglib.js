@@ -81,8 +81,8 @@ HTMLElement.prototype.findLabelByInnerText = function (message){
 		else return label;
 }}
 HTMLElement.prototype.findNextInput = function (labelText){
-	var inputs = document.getElementsByTagName ('input');
-	var i=0
+	var inputs = this.getElementsByTagName ('input');
+	var i=0;
 	var unknow = true;
 	while (i< inputs.length && unknow){
 		if (inputs[i].labels !== null && inputs[i].labels.length >0 && inputs[i].labels[0].innerText.includes (labelText)){
@@ -90,16 +90,30 @@ HTMLElement.prototype.findNextInput = function (labelText){
 			unknow = false;
 	} i+=1; }
 	if (! unknow) return inputs[i];
-	inputs = document.getElementsByTagName ('select');
-	i=0
+	inputs = this.getElementsByTagName ('select');
+	i=0;
 	unknow = true;
 	while (i< inputs.length && unknow){
 		if (inputs[i].labels[0].innerText.includes (labelText)){
-			i-=1;
+			i=i-1;
 			unknow = false;
 	} i+=1; }
 	if (! unknow) return inputs[i];
 	else return null;
+}
+HTMLElement.prototype.findHomonymInputs = function (labelText){
+	var inputs = document.getElementsByTagName ('input');
+	var inputsHomonym =[];
+	for (var i=0; i< inputs.length; i++){
+		if (inputs[i].labels !== null && inputs[i].labels.length >0 && inputs[i].labels[0].innerText.includes (labelText))
+			inputsHomonym.push (inputs[i]);
+	}
+	inputs = document.getElementsByTagName ('select');
+	for (var i=0; i< inputs.length; i++){
+		if (inputs[i].labels !== null && inputs[i].labels.length >0 && inputs[i].labels[0].innerText.includes (labelText))
+			inputsHomonym.push (inputs[i]);
+	}
+	return inputsHomonym;
 }
 HTMLInputElement.prototype.clickOn = function(){
 	var event = new MouseEvent ('click', { bubbles: true, cancelable: true, view: window });
@@ -108,6 +122,7 @@ HTMLInputElement.prototype.clickOn = function(){
 }
 HTMLInputElement.prototype.fillInput = function (message){
 	if (this.type === 'date') this.value = message;	// message = 2002-06-17
+	else if (this.type === 'search') this.value = message;
 	else if (this.type === 'text'){
 		if (this.role === 'combobox' && false){
 			log ('combobox', this.labels[0].innerText, this.getAttribute ('aria-controls'));
@@ -123,6 +138,10 @@ HTMLInputElement.prototype.fillInput = function (message){
 	}
 	this.clickOn();
 }
+HTMLSelectElement.prototype.clickOn = function(){
+	var event = new MouseEvent ('click', { bubbles: true, cancelable: true, view: window });
+	this.dispatchEvent (event);
+}
 HTMLSelectElement.prototype.fillInput = function (message){
 	const options = this.getElementsByTagName ('option');
 	var o=0;
@@ -132,9 +151,9 @@ HTMLSelectElement.prototype.fillInput = function (message){
 			this.selectedIndex = options[o].index;
 			this.value = options[o].value;
 			o= options.length;
-		}
-		o+=1;
-}}
+		} o+=1; }
+	this.dispatchEvent (new Event ('change'));
+}
 HTMLSelectElement.prototype.fillFromDict = function (label){
 	if (labelDict.hasOwnProperty (label)) this.fillInput (labelDict[label].substring (0, labelDict[label].length -1));
 	else for (var [key, value] of Object.entries (labelDict)){
@@ -157,15 +176,25 @@ function clickButtonByText (labelText){
 	var button = document.body.findByInnerText (labelText);
 	button.click();
 }
+HTMLElement.prototype.fillInputByLabel = function (labelText, message){
+	if (! this.innerText.includes (labelText)) return;
+	const input = this.findNextInput (labelText);
+	if (input === null || input === undefined) log ("pas d'input pour", labelText);
+	else input.fillInput (message);
+}
 function fillInputByLabel (labelText, message){
 	var input = document.body.findNextInput (labelText);
 	if (input === null || input === undefined) log ("pas d'input pour", labelText);
 	else input.fillInput (message);
 }
-HTMLElement.prototype.findBody = function(){
-	if (this.tagName === 'BODY') return this;
-	else return this.parentElement.findBody();
+HTMLElement.prototype.findContainer = function (containerTag){
+	containerTag = containerTag.toUpperCase();
+	if (this.tagName === containerTag) return this;
+	else return this.parentElement.findContainer (containerTag);
 }
-document.body.addEventListener ('change', function (event){
-	setTimeout (function(){}, 500);
-});
+HTMLElement.prototype.findBody = function(){ return this.findContainer ('body'); }
+/*
+document.body.addEventListener ('change', function (event){ setTimeout (function(){
+	if (document.body.includes ('Commune de mariage')) log ('mariage');
+}, 500); });
+*/
