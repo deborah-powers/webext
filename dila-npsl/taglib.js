@@ -60,6 +60,19 @@ HTMLElement.prototype.findByInnerText = function (message){
 	}
 	else return null;
 }
+HTMLElement.prototype.findListByInnerText = function (message){
+	if (this.innerText.includes (message)){
+		var listRes =[];
+		var listTmp =[];
+		for (var element of this.children){
+			listTmp = element.findListByInnerText (message);
+			for (var child of listTmp) listRes.push (child);
+		}
+		if (listRes.length ===0) return [ this, ];
+		else return listRes;
+	}
+	else return [];
+}
 // trouver les inputs
 HTMLElement.prototype.findLabelByInnerText = function (message){
 	if (! this.innerText.includes (message)) return null;
@@ -80,7 +93,7 @@ HTMLElement.prototype.findLabelByInnerText = function (message){
 		if (label === null) return this;
 		else return label;
 }}
-HTMLElement.prototype.findNextInput = function (labelText){
+HTMLElement.prototype.findInputByLabel = function (labelText){
 	var inputs = this.getElementsByTagName ('input');
 	var i=0;
 	var unknow = true;
@@ -178,12 +191,12 @@ function clickButtonByText (labelText){
 }
 HTMLElement.prototype.fillInputByLabel = function (labelText, message){
 	if (! this.innerText.includes (labelText)) return;
-	const input = this.findNextInput (labelText);
+	const input = this.findInputByLabel (labelText);
 	if (input === null || input === undefined) log ("pas d'input pour", labelText);
 	else input.fillInput (message);
 }
 function fillInputByLabel (labelText, message){
-	var input = document.body.findNextInput (labelText);
+	var input = document.body.findInputByLabel (labelText);
 	if (input === null || input === undefined) log ("pas d'input pour", labelText);
 	else input.fillInput (message);
 }

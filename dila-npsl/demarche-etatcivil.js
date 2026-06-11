@@ -13,27 +13,18 @@ function demarcheE1(){
 	fillInputByLabel ('Motif de votre demande', "Demande d'allocation");
 	setTimeout (function(){ fillInputByLabel ("Nature de l'allocation", 'APL'); }, 500);
 }
-function adresseRochefourchat(){
-	fillInputByLabel ('Écrire mon adresse');
-	setTimeout (function(){
-		fillInputByLabel ('Lieu-dit, commune', 'les châteaux');
-		fillInputByLabel ('Code postal et commune', 'ROCHEFOURCHAT');
-	}, 500);
-}
 function demarcheE3(){
 	if (document.body.innerText.includes ('Je choisis une adresse corrigée')) fillInputByLabel ('11 avenue');
 	else{
 		fillInputByLabel ('En France');
 		setTimeout (function(){
-			if (document.body.innerText.includes ('Code postal et commune')){
-			//	fillInputByLabel ('nom de la voie', '11 avenue Aristide Briand');
+			fillInputByLabel ('Écrire mon adresse');
+			setTimeout (function(){
+				fillInputByLabel ('nom de la voie', '11 avenue Aristide Briand');
 				fillInputByLabel ('Code postal et commune', 'ROCHEFOURCHAT');
 				fillInputByLabel ('Lieu-dit', 'les châteaux');
-			}
-			else adresseRochefourchat();
-		//	else fillInputByLabel ('Adresse', '11 avenue Aristide Briand');
-			fillInputByLabel ('Téléphone', '0678910112');
-		}, 500);
+				fillInputByLabel ('Téléphone', '0678910112');
+		}, 500); }, 500);
 }}
 function demarcheMariageE2(){
 	fillInputByLabel ('Vous êtes', "Titulaire de l'acte");
@@ -78,6 +69,7 @@ function demarcheDecesE2(){
 		fillInputByLabel ('Date du', '2026-05-12');
 		fillInputByLabel ('Madame');
 		fillInputByLabel ('Nom', 'Bernard');
+		fillInputByLabel ("Nom d'usage", 'Guéridon');
 		fillInputByLabel ('Prénom', 'Andrésine');
 	}, 500);
 }

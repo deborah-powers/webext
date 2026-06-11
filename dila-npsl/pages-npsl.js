@@ -13,4 +13,8 @@ chrome.action.onClicked.addListener (function (tab){
 		target: {tabId: tab.id, allFrames: false },
 		files: [ 'demarche-etatcivil.js' ]
 	});
+	else if (tab.url.includes ('depotDossierPACS')) chrome.scripting.executeScript ({
+		target: {tabId: tab.id, allFrames: false },
+		files: [ 'demarche-ddpacs.js' ]
+	});
 });

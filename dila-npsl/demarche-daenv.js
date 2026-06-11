@@ -1,5 +1,5 @@
 function traiterDemandeAutorisationEnvironnementaleE1(){
-	const radioButton = document.body.findNextInput ("Démarrer le dépôt d'un dossier de demande d'autorisation environnementale.");
+	const radioButton = document.body.findInputByLabel ("Démarrer le dépôt d'un dossier de demande d'autorisation environnementale.");
 	radioButton.clickOn();
 	setTimeout (function(){
 		const radioButtons = getRadioButtonsAndCheckboxes();

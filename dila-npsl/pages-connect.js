@@ -11,8 +11,8 @@ function fillConnectionPage(){
 		const buttonFranceConnect = form.getElementsByTagName ('button')[0];
 		buttonFranceConnect.click();
 	}
-	else if (window.location.href.includes ('fournisseur-d-identite.fr/interaction/')){
-		// les données sont déjà pré-entrées
+	else if (window.location.href.includes ('fournisseur-d-identite.fr/interaction/') && false){
+		// page de connection avec un compte. les données sont déjà pré-entrées, me garder le choix d'en changer
 		setTimeout (function(){
 			const main = document.getElementsByTagName ('form')[0];
 			const buttonFranceConnect = main.getElementsByTagName ('button')[0];
