@@ -6,7 +6,7 @@ function demarcheE2(){
 	fillInputByLabel ('Monsieur');
 	fillInputByLabel ('Département', 'Ille et Vilaine');
 	fillInputByLabel ('Nationalité 1', 'française');
-	fillInputByLabel ('Nationalité 2', 'italienne');
+//	fillInputByLabel ('Nationalité 2', 'italienne');
 	fillInputByLabel ('Célibataire');
 	fillInputByLabel ('Non');
 	fillInputByLabel ('Votre adresse de résidence commune');
@@ -21,11 +21,23 @@ function demarcheE3(){
 	//	pays.fillInput ('FRANCE');
 		pays.fillInput ('ITALIE');
 		pays.addEventListener ('blur', function (event){
-			fillInputByLabel ('ville de naissance', 'SIENNE');
-		//	fillInputByLabel ('ville de naissance', 'CORBEIL ESSONNES');
-		//	fillInputByLabel ('Département', 'Essonne');
-			fillInputByLabel ('Nationalité 1', 'française');
-			fillInputByLabel ('Nationalité 2', 'italienne');
+			if (event.target.value === 'FRANCE'){
+				fillInputByLabel ('ville de naissance', 'CORBEIL ESSONNES');
+				fillInputByLabel ('Département', 'Essonne');
+				fillInputByLabel ('Nationalité 1', 'française');
+			}
+			else if (event.target.value === 'ITALIE'){
+				fillInputByLabel ('ville de naissance', 'Sienne');
+				const immigration = document.body.findInputByLabel ('Nationalité 1');
+				immigration.fillInput ('italienne');
+				immigration.addEventListener ('blur', function (event){
+					var immigration = document.body.findByInnerText ("Votre partenaire est-il sous la protection de l'Ofpra");
+					immigration = immigration.findContainer ('fieldset');
+					immigration.fillInputByLabel ('Non');
+					immigration = document.body.findByInnerText ('Votre partenaire est-il en France depuis plus de 1 an ?');
+					immigration = immigration.findContainer ('fieldset');
+					immigration.fillInputByLabel ('Oui');
+			});}
 			fillInputByLabel ('Célibataire');
 			fillInputByLabel ('Non');
 			fillInputByLabel ('Votre adresse de résidence commune');
@@ -59,19 +71,18 @@ function demarcheE5(){
 	goNextPage();
 }
 function demarcheE6(){
-	var bloc = document.body.findByInnerText ('nationalité Française').parentElement;
-	bloc = bloc.findContainer ('fieldset');
-	bloc.fillInputByLabel ("Carte d'identité");
-	bloc = document.body.findByInnerText ('nationalité Italienne').parentElement;
-	bloc = bloc.findContainer ('fieldset');
-	bloc.fillInputByLabel ("Carte d'identité");
+	const identites = document.body.findHomonymInputs ("Carte d'identité");
+	for (var idtt of identites) idtt.clickOn();
 	setTimeout (function(){
-		var uploaders = document.body.findListByInnerText ('Ajouter un fichier');
-		for (var upload of uploaders) upload.click();
-		uploaders = getFileUploader();
-		for (var upload of uploaders) upload.openFileUploader();
-		goNextPage();
-	}, 500);
+		const uploaders = document.body.findListByInnerText ('Ajouter un fichier');
+		log (uploaders.length, 'uploaders');
+		for (var upload of uploaders) upload.parentElement.click();
+		setTimeout (function(){
+			const uploaders = getFileUploader();
+			log (uploaders.length, 'uploaders');
+			for (var upload of uploaders) upload.openFileUploader();
+			goNextPage();
+	}, 500); }, 500);
 }
 if (document.body.innerText.includes ('Étape 1 sur 7')) demarcheE1();
 else if (document.body.innerText.includes ('Étape 2 sur 7')) demarcheE2();
