@@ -15,7 +15,7 @@
 	}, {
 	//	"matches": [ "https://psl-int-cgi-pslexec.pic-snau.service-public.fr/mademarche/demarcheGenerique/*" ],
 		"matches": [ "https://psl-int-cgi-pslexec.pic-snau.service-public.fr/mademarche/*" ],
-		"js": [ "logger.js", "taglib.js" ]
+		"js": [ "logger.js", "lib-tag.js", "lib-input.js", "lib-action.js" ]
 	}],
 	"background": { "service_worker": "pages-npsl.js" },
 	"action": {},

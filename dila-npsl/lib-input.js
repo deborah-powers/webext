@@ -12,20 +12,6 @@ const labelDict ={
 	'Date de dépôt': '2025-06-15',
 	"Organisme en charge de l'instruction": 'tma sian'
 };
-function goNextPage(){
-	const buttonNext = document.getElementById ('btn-next');
-	buttonNext.click();
-}
-function validate(){
-	const buttonValider = document.body.findByInnerText ('Valider');
-	buttonValider.addEventListener ('click', function (event){});
-}
-function wait (dixiemeDeSeconde){
-	// convertir en milliseconde
-	dixiemeDeSeconde *=100;
-	const dateFin = Date.now() + dixiemeDeSeconde;
-	while (Date.now() < dateFin) continue;
-}
 function getRadioButtonsAndCheckboxes(){
 	const inputs = document.getElementsByTagName ('input');
 	var toCheck =[];
@@ -47,33 +33,6 @@ HTMLInputElement.prototype.openFileUploader = function(){
 		log ('téléversez un fichier pour', this.labels[0].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[0].innerText);
 		this.click();
 }}
-HTMLElement.prototype.findByInnerText = function (message){
-	if (this.innerText.includes (message)){
-		var tagRes = null;
-		var c=0;
-		while (c< this.children.length && tagRes === null){
-			tagRes = this.children[c].findByInnerText (message);
-			c+=1;
-		}
-		if (tagRes === null) return this;
-		else return tagRes;
-	}
-	else return null;
-}
-HTMLElement.prototype.findListByInnerText = function (message){
-	if (this.innerText.includes (message)){
-		var listRes =[];
-		var listTmp =[];
-		for (var element of this.children){
-			listTmp = element.findListByInnerText (message);
-			for (var child of listTmp) listRes.push (child);
-		}
-		if (listRes.length ===0) return [ this, ];
-		else return listRes;
-	}
-	else return [];
-}
-// trouver les inputs
 HTMLElement.prototype.findLabelByInnerText = function (message){
 	if (! this.innerText.includes (message)) return null;
 	else if (this.tagName === 'LABEL') return this;
@@ -200,14 +159,3 @@ function fillInputByLabel (labelText, message){
 	if (input === null || input === undefined) log ("pas d'input pour", labelText);
 	else input.fillInput (message);
 }
-HTMLElement.prototype.findContainer = function (containerTag){
-	containerTag = containerTag.toUpperCase();
-	if (this.tagName === containerTag) return this;
-	else return this.parentElement.findContainer (containerTag);
-}
-HTMLElement.prototype.findBody = function(){ return this.findContainer ('body'); }
-/*
-document.body.addEventListener ('change', function (event){ setTimeout (function(){
-	if (document.body.includes ('Commune de mariage')) log ('mariage');
-}, 500); });
-*/

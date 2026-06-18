@@ -1,34 +1,31 @@
-function traiterEtape1(){
-	setTimeout (function(){}, 500);
-}
-function traiterEnfantMajeurProtegeEtape12(){
-	// étape 1
-	const radioButtons = getRadioButtonsAndCheckboxes();
-	radioButtons[2].clickOn();
+function demarcheE1aemp(){
+	fillInputByLabel ('Pour vos enfants mineurs ou majeur protégé');
 	setTimeout (function(){
-		const radioButtons = getRadioButtonsAndCheckboxes();
-		radioButtons[6].clickOn();
-		radioButtons[8].clickOn();
+		fillInputByLabel ('Non');
+		fillInputByLabel ('Enfant majeur protégé');
 		goNextPage();
-		setTimeout (function(){
-			// étape 2
-			const radioButtons = getRadioButtonsAndCheckboxes();
-			radioButtons[2].clickOn();
-			setTimeout (function(){ fillInputByLabel ('Adresse', '72 rue Balzac 94400 Vitry-sur-Sein');	}, 500);
-	}, 500); }, 500);
+	}, 500);
 }
-function traiterEnfantMajeurProtegeEtape3(){
-	fillInputByLabel ('Nom', 'Orian');
-	fillInputByLabel ('Prénom 1', 'David');
-	fillInputByLabel ('Date de naissance', '15/08/1990');
+function demarcheE1b(){
+	fillInputByLabel ('En France');
+	setTimeout (function(){
+		fillInputByLabel ('Adresse', '11 rue Aristide Briand 91290 Arpajon');
+	}, 500);
+}
+function demarcheE1emp(){
+	fillInputByLabel ('Nom', 'Guéridon');
+	fillInputByLabel ('Prénom 1', 'Bernard');
+	fillInputByLabel ('Date de naissance', '06/06/1986');
 	fillInputByLabel ('Pays de naissance', 'FRANCE');
-	setTimeout (function(){ fillInputByLabel ('Commune de naissance', 'Vitr'); }, 500);
+	fillInputByLabel ('Commune de naissance', 'Arpajon');
 	const choixNom = document.getElementById ('idSaisie36');
+	log (choixNom.labels[0]);
 	choixNom.value = 'Dulano';
 //	fillInputByLabel ('Choix 1', 'Durano');
 }
-if (document.body.innerText.includes ('Étape 1 sur 3')) traiterEnfantMajeurProtegeEtape12();
+if (document.body.innerText.includes ('Étape 1 sur 2') && document.body.innerText.includes ('Votre demande')) demarcheE1aemp();
+else if (document.body.innerText.includes ('Étape 1 sur 2') && document.body.innerText.includes ('Quelle est votre identité actuelle ?'))
+	demarcheE1b();
+else if (document.body.innerText.includes ('Étape 1 sur 2') && document.body.innerText.includes ('Votre enfant majeur protégé'))
+	demarcheE1emp();
 else if (document.body.innerText.includes ('Étape 3 sur 4')) traiterEnfantMajeurProtegeEtape3();
-
-const conteneur = document.getElementById ('mainConteneurDePage');
-console.log (conteneur.children);

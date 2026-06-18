@@ -17,4 +17,12 @@ chrome.action.onClicked.addListener (function (tab){
 		target: {tabId: tab.id, allFrames: false },
 		files: [ 'demarche-ddpacs.js' ]
 	});
+	else if (tab.url.includes ('CIPHYTO')) chrome.scripting.executeScript ({
+		target: {tabId: tab.id, allFrames: false },
+		files: [ 'demarche-ciphyto.js' ]
+	});
+	else if (tab.url.includes ('EICPE')) chrome.scripting.executeScript ({
+		target: {tabId: tab.id, allFrames: false },
+		files: [ 'demarche-eicpe.js' ]
+	});
 });
