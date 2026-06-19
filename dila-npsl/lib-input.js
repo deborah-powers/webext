@@ -159,3 +159,38 @@ function fillInputByLabel (labelText, message){
 	if (input === null || input === undefined) log ("pas d'input pour", labelText);
 	else input.fillInput (message);
 }
+function fillInputWhenItAppears (labelText, message){
+	function resolveFunc (resolve){
+		var observer = new MutationObserver (function (mutations){
+			var n=0;
+			const nbNodes = mutations[0].addedNodes.length;
+			while (n< nbNodes && ! mutations[0].addedNodes[n].innerText.includes (labelText)) n+=1;
+			if (n< nbNodes){
+				observer.disconnect();
+				const input = document.body.findInputByLabel (labelText);
+				input.fillInput (message);
+		}});
+		observer.observe (document.body, { childList: true, subtree: true });
+		const element = document.body.findByInnerText (innerText);
+		return resolve (element);
+	}
+	return new Promise (resolveFunc);
+}
+function fillInputWhenContainerAppears (labelText, containerTitle, containerTag, message){
+	function resolveFunc (resolve){
+		var observer = new MutationObserver (function (mutations){
+			var n=0;
+			const nbNodes = mutations[0].addedNodes.length;
+			while (n< nbNodes && ! mutations[0].addedNodes[n].innerText.includes (labelText)) n+=1;
+			if (n< nbNodes){
+				observer.disconnect();
+				var container = document.body.findByInnerText (containerTitle);
+				container = container.findContainer (containerTag);
+				container.fillInputByLabel (labelText, message);
+		}});
+		observer.observe (document.body, { childList: true, subtree: true });
+		const element = document.body.findByInnerText (innerText);
+		return resolve (element);
+	}
+	return new Promise (resolveFunc);
+}

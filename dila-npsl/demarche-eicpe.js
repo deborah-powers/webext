@@ -28,14 +28,13 @@ function demarcheE2(){
 					block.fillInputByLabel ('Masculin');
 					fillInputByLabel ('Quelle est votre date de naissance ?', '1959-06-15');
 					fillInputByLabel ('Siret', '13000918600011');
-					block = document.body.findByInnerText ('Pré-remplir');
-					block.addEventListener ('click', function(){
-						setTimeout (function(){
-							fillInputByLabel ('Nom', 'Guéridon');
-							fillInputByLabel ('Prénom', 'Bertrand');
-		}, 1500); }); }, 500); }, 500); }, 500);
+				}, 500); }, 500); }, 500);
 	}
-	else if (false){
+	else{
+/*		fillInputWhenItAppears ('Téléphone portable', '0678910112');
+		fillInputWhenItAppears ('Adresse électronique', 'moi@gmail.com');
+		fillInputWhenContainerAppears ('Oui', "Est-ce que l'adresse électronique d'échange", 'fieldset');
+*/
 		const block = document.body.findByInnerText ('Pré-remplir');
 		block.click();
 		setTimeout (function(){
@@ -61,15 +60,19 @@ function demarcheE3(){
 	inputs[3].openFileUploader();
 }
 function demarcheE4(){
+//	fillInputByLabel ('Quel est votre adresse ?', '2 Allée Colette Cosnier 35000 Rennes');
 	const input = document.getElementById ('idSaisie57');
 	input.fillInput ('2 Allée Colette Cosnier 35000 Rennes');
-//	fillInputByLabel ('Quel est votre adresse ?', '2 Allée Colette Cosnier 35000 Rennes');
-	setTimeout (function(){
+	input.addEventListener ('blur', function (event){
+		fillInputByLabel ('Localité / Code postal', 'CESSON SEVIGNE');
+		fillInputByLabel ('Préfixe', '000');
+		fillInputByLabel ('Section', 'AK');
+		fillInputByLabel ('N° de parcelle', '0238');
 		const inputs = getFileUploader();
 		console.log (inputs);
 		inputs[0].openFileUploader();
-	}, 500);
-}
+});}
+function demarcheE5(){}
 if (document.body.innerText.includes ('Étape 1 sur 9')) demarcheE1();
 else if (document.body.innerText.includes ('Étape 2 sur 9')) demarcheE2();
 else if (document.body.innerText.includes ('Étape 3 sur 9')) demarcheE3();

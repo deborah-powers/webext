@@ -37,8 +37,21 @@ HTMLElement.prototype.findContainer = function (containerTag){
 }
 HTMLElement.prototype.findBody = function(){ return this.findContainer ('body'); }
 String.prototype.capitalize = function(){ return this[0].toUpperCase() + this.substring (1); }
-/*
-document.body.addEventListener ('change', function (event){ setTimeout (function(){
-	if (document.body.includes ('Commune de mariage')) log ('mariage');
-}, 500); });
-*/
+function waitInputAppears (innerText){
+	function resolveFunc (resolve){
+		var observer = new MutationObserver (function (mutations){
+//			mutations[0].target	élément dans lequel les nouveaux ont été insérés
+//			mutations[0].addedNodes	élements insérés
+			var n=0;
+			const nbNodes = mutations[0].addedNodes.length;
+			while (n< nbNodes && ! mutations[0].addedNodes[n].innerText.includes (innerText)) n+=1;
+			if (n< nbNodes){
+				observer.disconnect();
+				resolve (mutations[0].addedNodes[n]);
+		}});
+		observer.observe (document.body, { childList: true, subtree: true });
+		const element = document.body.findByInnerText (innerText);
+		return resolve (element);
+	}
+	return new Promise (resolveFunc);
+}
