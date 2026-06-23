@@ -53,6 +53,7 @@ HTMLElement.prototype.findLabelByInnerText = function (message){
 		else return label;
 }}
 HTMLElement.prototype.findInputByLabel = function (labelText){
+	if (! document.body.innerText.includes (labelText)) return null;
 	var inputs = this.getElementsByTagName ('input');
 	var i=0;
 	var unknow = true;
@@ -71,8 +72,14 @@ HTMLElement.prototype.findInputByLabel = function (labelText){
 			unknow = false;
 	} i+=1; }
 	if (! unknow) return inputs[i];
-	else return null;
-}
+	else{
+		// dernier recours
+		var element = document.body.findByInnerText (labelText);
+		element = element.parentElement;
+		while (! element.innerHTML.includes ('<input ') && element.tagName !== 'BODY') element = element.parentElement;
+		element = element.getElementsByTagName ('input')[0];
+		return element;
+}}
 HTMLElement.prototype.findHomonymInputs = function (labelText){
 	var inputs = document.getElementsByTagName ('input');
 	var inputsHomonym =[];
@@ -148,18 +155,24 @@ function clickButtonByText (labelText){
 	var button = document.body.findByInnerText (labelText);
 	button.click();
 }
-HTMLElement.prototype.fillInputByLabel = function (labelText, message){
+HTMLElement.prototype.fillInputByLabel = function (labelText, inputValue){
 	if (! this.innerText.includes (labelText)) return;
 	const input = this.findInputByLabel (labelText);
 	if (input === null || input === undefined) log ("pas d'input pour", labelText);
-	else input.fillInput (message);
+	else input.fillInput (inputValue);
 }
-function fillInputByLabel (labelText, message){
+function fillInputByLabel (labelText, inputValue){
 	var input = document.body.findInputByLabel (labelText);
 	if (input === null || input === undefined) log ("pas d'input pour", labelText);
-	else input.fillInput (message);
+	else input.fillInput (inputValue);
 }
-function fillInputWhenItAppears (labelText, message){
+HTMLElement.prototype.addBlurListener = function (labelText, inputValue, functionAtBlur){
+	if (! this.innerText.includes (labelText)) return;
+	const input = this.findInputByLabel (labelText);
+	input.fillInput (inputValue);
+	input.addEventListener ('blur', functionAtBlur);
+}
+function fillInputWhenItAppears (labelText, inputValue){
 	function resolveFunc (resolve){
 		var observer = new MutationObserver (function (mutations){
 			var n=0;
@@ -168,7 +181,7 @@ function fillInputWhenItAppears (labelText, message){
 			if (n< nbNodes){
 				observer.disconnect();
 				const input = document.body.findInputByLabel (labelText);
-				input.fillInput (message);
+				input.fillInput (inputValue);
 		}});
 		observer.observe (document.body, { childList: true, subtree: true });
 		const element = document.body.findByInnerText (innerText);
