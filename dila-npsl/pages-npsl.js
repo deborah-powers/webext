@@ -1,3 +1,4 @@
+
 chrome.action.onClicked.addListener (function (tab){
 	if (! tab.url.includes ('/mademarche/')) return;
 //	if (! tab.url.includes ('/mademarche/demarcheGenerique/')) return;
@@ -24,5 +25,9 @@ chrome.action.onClicked.addListener (function (tab){
 	else if (tab.url.includes ('EICPE')) chrome.scripting.executeScript ({
 		target: {tabId: tab.id, allFrames: false },
 		files: [ 'demarche-eicpe.js' ]
+	});
+	else if (tab.url.includes ('rnipp')) chrome.scripting.executeScript ({
+		target: {tabId: tab.id, allFrames: false },
+		files: [ 'demarche-rnipp.js' ]
 	});
 });
