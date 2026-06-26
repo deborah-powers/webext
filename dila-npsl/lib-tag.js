@@ -4,6 +4,33 @@ function wait (dixiemeDeSeconde){
 	const dateFin = Date.now() + dixiemeDeSeconde;
 	while (Date.now() < dateFin) continue;
 }
+String.prototype.count = function (char){
+	if (! this.includes (char)) return 0;
+	else{
+		var nbOccurences =0;
+		var pos =0;
+		while (this.substring (pos).includes (char)){
+			pos =1+ this.indexOf (char, pos);
+			nbOccurences +=1;
+		}
+		return nbOccurences;
+}}
+HTMLElement.prototype.getElementsByProperties = function (tagName, className){
+	var elements = null;
+	var elementsFin =[]
+	if (tagName){
+		elements = this.getElementsByTagName (tagName);
+		if (className) for (var elm of elements){
+			if (elm.className.includes (className)) elementsFin.push (elm);
+		}
+		else for (var elm of elements){ elementsFin.push (elm); }
+	}
+	else if (className){
+		elements = this.getElementsByClassName (className)
+		for (var elm of elements) elementsFin.push (elm);
+	}
+	return elementsFin;
+}
 HTMLElement.prototype.findByInnerText = function (message){
 	if (this.innerText.includes (message)){
 		var tagRes = null;
