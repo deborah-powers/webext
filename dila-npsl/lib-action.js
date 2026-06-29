@@ -46,8 +46,10 @@ function adresseEnHongrie(){
 	}, 500);
 }
 function naissanceEnHongrie(){
-	fillInputByLabel ('Pays de naissance', 'HONGRIE');
+	document.body.addBlurListener ('Pays de naissance', 'HONGRIE', function(){ fillInputByLabel ('Commune de naissance', 'Budapest'); });
+/*	fillInputByLabel ('Pays de naissance', 'HONGRIE');
 	setTimeout (function(){ fillInputByLabel ('Commune de naissance', 'Budapest'); }, 500);
+	*/
 }
 function pageParents (nomPere, prenomPere, nomMere, prenomMere){
 	if (document.body.innerText.includes ('parent 1 ?')){

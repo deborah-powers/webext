@@ -1,5 +1,5 @@
 function demarcheE2moi(){
-	naissanceEnHongrie();
+	adresseEnFranceArpajon();
 	fillInputByLabel ('Choix 1', 'Plastic');
 }
 function fblurNouveauNomEnfants (event){
@@ -37,7 +37,7 @@ function demarcheL1aemp(){
 	goNextLegacyPage();
 }
 function adresseEnFranceLegacy(){
-	fillInputByLabel ('Numéro et libellé de voie', '11 rue Aristide Briand');
+	fillInputByLabel ('Numéro et libellé de voie', '11 avenue Aristide Briand');
 	fillInputByLabel ('Lieu-dit ou commune délégué ou', 'Les châteaux');
 	fillInputByLabel ('Code postal / Localité (Exemple', 'Arpajon');
 }
@@ -71,6 +71,7 @@ function naissanceEnHongrieLegacy(){
 		input = document.getElementById ('inputAdresseEtrangereLocalite_adresseEtrNaissance');
 		input.value = 'Budapest';
 });}
+function fblurNouveauNomEnfantsLegacy (event){ event.target.findContainer ('FIELDSET').getElementsByTagName ('input')[2].fillInput ('Plastic'); }
 function demarcheL2(){
 	const personne = document.getElementsByTagName ('h2')[0].innerText;
 	if (personne === 'Mes informations personnelles'){
@@ -81,7 +82,7 @@ function demarcheL2(){
 		adresseEnFranceLegacy();
 	}
 	else if (personne.includes ("Redressement de l'adresse")){
-		fillInputByLabel ('11 rue Aristide Briand');
+		fillInputByLabel ('11 avenue Aristide Briand');
 		goNextLegacyPage();
 	}
 	else if (personne.includes ('Enfant(s) mineur(s) et/ou un majeur protégé')){
@@ -93,6 +94,7 @@ function demarcheL2(){
 		enfants[1].fillInputByLabel ('Nom de naissance', 'Guéridon');
 		enfants[1].fillInputByLabel ('Date de naissance', '06/06/2012');
 		enfants[1].fillInputByLabel ('Code postal / Localité de naissance', 'Arpajon');
+		enfants[1].addBlurListener ('Je souhaite un autre nom pour mon enfant', null, fblurNouveauNomEnfantsLegacy);
 		// enfant majeur protégé
 		fillInputByLabel ('Oui');
 		enfants[3].fillInputByLabel ('Garçon');
@@ -100,6 +102,14 @@ function demarcheL2(){
 		enfants[3].fillInputByLabel ('Nom de naissance', 'Guéridon');
 		enfants[3].fillInputByLabel ('Date de naissance', '06/06/1986');
 		enfants[3].fillInputByLabel ('Code postal / Localité de naissance', 'Arpajon');
+		enfants[3].addBlurListener ('Je souhaite un autre nom pour mon enfant', null, fblurNouveauNomEnfantsLegacy);
+}}
+function demarcheL3(){
+	if (document.body.innerText.includes ('Mon adresse de gestion')){
+		fillInputByLabel ('Autre');
+		fillInputByLabel ('Dénomination', 'Bertrand sa');
+		fillInputByLabel ('Référence du dossier', '80008234');
+
 }}
 function demarcheL4(){
 	if (document.body.innerText.includes ('ai pris connaissance du fait que ma demande de publication'))
@@ -112,7 +122,7 @@ if (document.body.innerText.includes ('Étape 2 sur 3') && document.body.innerTe
 	demarcheE2moi();
 else if (document.body.innerText.includes ('Étape 2 sur 3') && document.body.innerText.includes ('enfant mineur'))
 	demarcheE2emi();
-else if (document.body.innerText.includes ('Étape 2 sur 3') && document.body.innerText.includes ('Votre enfant majeur protégé'))
+else if (document.body.innerText.includes ('Étape 2 sur 3') && document.body.innerText.includes ('enfant majeur protégé'))
 	demarcheE2emp();
 else if (document.body.innerText.includes ('Étape 3 sur 3')) demarcheE3();
 // pages de legacy
@@ -120,6 +130,7 @@ else if (document.body.innerText.includes ("Demande de publication d'annonce pr�
 	const etapeNb = document.getElementsByClassName ('current')[0].innerText[15];
 	if (etapeNb === '1') demarcheL1aemp();
 	else if (etapeNb === '2') demarcheL2();
+	else if (etapeNb === '3') demarcheL3();
 	else if (etapeNb === '4') demarcheL4();
 }
 else log ('page inconnue');

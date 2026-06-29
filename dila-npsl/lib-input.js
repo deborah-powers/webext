@@ -94,6 +94,13 @@ HTMLElement.prototype.findHomonymInputs = function (labelText){
 		if (inputs[i].labels !== null && inputs[i].labels.length >0 && inputs[i].labels[0].innerText.includes (labelText))
 			inputsHomonym.push (inputs[i]);
 	}
+	if (inputsHomonym.length ===0 && this.innerText.count (labelText) >1){
+		var labels = this.findListByInnerText (labelText);
+		for (var l=0; l< labels.length; l++){
+			labels[l] = labels[l].parentElement;
+			while (! labels[l].innerHTML.includes ('<input ') && labels[l].tagName !== 'BODY') labels[l] = labels[l].parentElement;
+			inputsHomonym.push (labels[l].getElementsByTagName ('input')[0]);
+	}}
 	return inputsHomonym;
 }
 HTMLInputElement.prototype.clickOn = function(){
@@ -158,10 +165,8 @@ function clickButtonByText (labelText){
 	button.click();
 }
 HTMLElement.prototype.fillInputByLabel = function (labelText, inputValue){
-	log (labelText, inputValue);
 	if (! this.innerText.includes (labelText)) return;
 	const input = this.findInputByLabel (labelText);
-	console.log (input);
 	if (input === null || input === undefined) log ("pas d'input pour", labelText);
 	else input.fillInput (inputValue);
 }
