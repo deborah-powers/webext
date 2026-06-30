@@ -110,7 +110,7 @@ HTMLInputElement.prototype.clickOn = function(){
 }
 HTMLInputElement.prototype.fillInput = function (message){
 	if (this.type === 'date') this.value = message;	// message = 2002-06-17
-	else if (this.type === 'search') this.value = message;
+	else if (this.type === 'search' || this.type === 'number') this.value = message;
 	else if (this.type === 'text'){
 		if (this.role === 'combobox' && false){
 			log ('combobox', this.labels[0].innerText, this.getAttribute ('aria-controls'));
@@ -120,7 +120,7 @@ HTMLInputElement.prototype.fillInput = function (message){
 				const dataList = document.getElementById (input.getAttribute ('aria-controls'));
 				log (dataList);
 			}, 1000);
-			this.value = message;
+		//	this.value = message;
 		}
 		this.value = message;
 	}

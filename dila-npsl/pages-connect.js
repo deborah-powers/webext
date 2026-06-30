@@ -1,5 +1,6 @@
 function fillConnectionPage(){
 	if (window.location.href.includes ('/service-public/protocol/openid-connect/')){
+		// désactiver pour se connecter via les identifiants Service Public
 		const main = document.getElementsByTagName ('main')[0];
 		const buttonFranceConnect = main.getElementsByTagName ('a')[2];
 		buttonFranceConnect.click();

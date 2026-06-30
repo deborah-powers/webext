@@ -30,7 +30,7 @@ function adresseEnFranceRochefourchat(){
 function adresseEnFranceArpajon(){
 	fillInputByLabel ('En France');
 	setTimeout (function(){
-		fillInputByLabel ('Adresse', '11 avenue Aristide Briand, 91290 Arpajon');
+		fillInputByLabel ('Adresse', '11 avenue Aristide Briand, 91290');
 	//	fillInputByLabel ('Téléphone', '0678910112');
 	}, 500);
 }
