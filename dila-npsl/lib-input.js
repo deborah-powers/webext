@@ -160,10 +160,20 @@ HTMLInputElement.prototype.fillFromDict = function(){
 	}
 	this.clickOn();
 }}
-function clickButtonByText (labelText){
-	var button = document.body.findByInnerText (labelText);
+HTMLButtonElement.prototype.clickOn = function(){
+	var event = new MouseEvent ('click', { bubbles: true, cancelable: true, view: window });
+	this.dispatchEvent (event);
+	event = new MouseEvent ('mousedown', { bubbles: true, cancelable: true, view: window });
+	this.dispatchEvent (event);
+	event = new MouseEvent ('mouseup', { bubbles: true, cancelable: true, view: window });
+	this.dispatchEvent (event);
+}
+HTMLElement.prototype.clickButtonByText = function (labelText){
+	var button = this.findByInnerText (labelText);
+	button = button.findContainer ('BUTTON');
 	button.click();
 }
+function clickButtonByText (labelText){ document.body.clickButtonByText (labelText); }
 HTMLElement.prototype.fillInputByLabel = function (labelText, inputValue){
 	if (! this.innerText.includes (labelText)) return;
 	const input = this.findInputByLabel (labelText);

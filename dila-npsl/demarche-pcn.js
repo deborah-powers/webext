@@ -1,37 +1,60 @@
+var enfantsMineurs =[
+	['Bernard', '1986', 'Garçon'],
+	['Clothilde', '2012', 'Fille'], ['Germain', '2013', 'Garçon'], ['Eudes', '2014', 'Garçon'],
+	['Cunégonde', '2015', 'Fille'], ['Evariste', '2016', 'Garçon'], ['Brunoïde', '2017', 'Fille'], ['Mahault', '2018', 'Fille']
+];
 function demarcheE1(){
 	const pqqaInput = document.body.findInputByLabel ("Pour quelqu'un d'autre");
 	pqqaInput.addEventListener ('blur', function (event){ fillInputByLabel ('Adresse', '11 avenue Aristide Briand, 91290'); });
 }
+function validerNvNom (numStr, nvNom){
+	document.body.addBlurListener ('Choix '+ numStr, nvNom, function (event){
+		const field = event.target.findContainer ('FIELDSET');
+		field.clickButtonByText ('Valider');
+});}
 function demarcheE2moi(){
 	adresseEnFranceArpajon();
-	fillInputByLabel ('Choix 1', 'Plastic');
+	validerNvNom ('1', 'Plastic');
 }
 function fblurNouveauNomEnfants (event){
 	fillInputByLabel ('Commune de naissance', 'Arpajon');
 /*	const choixNom = document.getElementById ('idSaisie36');
 	choixNom.value = 'Plastic';
 */
+}
+function demarcheE2enfant (idenf){
+	fillInputByLabel ('Nom', 'Guéridon');
+	fillInputByLabel ('Prénom 1', enfantsMineurs[idenf][0]);
+	fillInputByLabel ('Date de naissance', '06/06/' +enfantsMineurs[idenf][1]);
+	document.body.addBlurListener ('Pays de naissance', 'FRANCE', function (event){
+		fillInputByLabel ('Commune de naissance', 'Arpajon');
+	/*	const choixNom = document.getElementById ('idSaisie36');
+		choixNom.value = 'Plastic';
+	*/
+	});
 	if (document.body.innerText.includes ('Plastic')) fillInputByLabel ('Plastic');
-	else fillInputByLabel ('Choix 1', 'Plastic');
+	else validerNvNom ('1', 'Plastic');
 }
 function demarcheE2emi(){
-	fillInputByLabel ('Nom', 'Guéridon');
-	fillInputByLabel ('Prénom 1', 'Clothilde');
-	fillInputByLabel ('Date de naissance', '06/06/2012');
-	document.body.addBlurListener ('Pays de naissance', 'FRANCE', fblurNouveauNomEnfants);
-	fillInputByLabel ('Non');
+	if (document.body.innerText.includes ('premier')) demarcheE2enfant (1);
+	else if (document.body.innerText.includes ('deuxième')) demarcheE2enfant (2);
+	else if (document.body.innerText.includes ('troisième')) demarcheE2enfant (3);
+	else if (document.body.innerText.includes ('quatrième')) demarcheE2enfant (4);
+	else if (document.body.innerText.includes ('cinquième')) demarcheE2enfant (5);
+	else if (document.body.innerText.includes ('sixième')) demarcheE2enfant (6);
+	else if (document.body.innerText.includes ('septième')) demarcheE2enfant (7);
+//	fillInputByLabel ('Non');
 }
-function demarcheE2emp(){
-	fillInputByLabel ('Nom', 'Guéridon');
-	fillInputByLabel ('Prénom 1', 'Bernard');
-	fillInputByLabel ('Date de naissance', '06/06/1986');
-	document.body.addBlurListener ('Pays de naissance', 'FRANCE', fblurNouveauNomEnfants);
-}
+function demarcheE2emp(){ demarcheE2enfant (0); }
 function demarcheE2pr(){
-	fillInputByLabel ('Nom', 'Dupont');
+	demarcheE2enfant (0);
+/*	fillInputByLabel ('Nom', 'Dupont');
 	fillInputByLabel ('Prénom 1', 'Céline');
 	fillInputByLabel ('Date de naissance', '06/06/1986');
 	document.body.addBlurListener ('Pays de naissance', 'FRANCE', fblurNouveauNomEnfants);
+	if (document.body.innerText.includes ('Plastic')) fillInputByLabel ('Plastic');
+	else validerNvNom ('1', 'Plastic');
+	*/
 	adresseEnFranceArpajon();
 }
 function demarcheE3(){
@@ -39,7 +62,6 @@ function demarcheE3(){
 	fillInputByLabel ('Vous avez pris connaissance');
 	clickButtonByText ('Envoyer votre demande');
 }
-
 function demarcheL1aemp(){
 	log (document.getElementsByClassName ('current')[0].innerText);
 	fillInputByLabel ('Je certifie avoir 18 ans ou plus');
@@ -50,7 +72,8 @@ function demarcheL1aemp(){
 function adresseEnFranceLegacy(){
 	fillInputByLabel ('Numéro et libellé de voie', '11 avenue Aristide Briand');
 	fillInputByLabel ('Lieu-dit ou commune délégué ou', 'Les châteaux');
-	fillInputByLabel ('Code postal / Localité (Exemple', 'Arpajon');
+	fillInputByLabel ('Code postal / Localité (Exemple', '91290 ARPAJON');
+	goNextLegacyPage();
 }
 function adresseEnHongrieLegacy(){
 	const inputAdresse = document.getElementById ('inputAdresseEtrangerePays_adressePays_demandeur');
@@ -114,26 +137,44 @@ function demarcheL2RedAdresse(){
 	fillInputByLabel ('11 avenue Aristide Briand');
 	goNextLegacyPage();
 }
-function fblurNouveauNomEnfantsLegacy (event){ event.target.findContainer ('FIELDSET').getElementsByTagName ('input')[2].fillInput ('Plastic'); }
-function demarcheL2enf(){
-	const enfants = document.body.getElementsByProperties ('fieldset', 'enfant');
-	// enfant mineur
-	clickButtonByText ('Ajouter un enfant');
-	enfants[1].fillInputByLabel ('Fille');
-	enfants[1].fillInputByLabel ('Prénom(s)', 'Clothilde');
-	enfants[1].fillInputByLabel ('Nom de naissance', 'Guéridon');
-	enfants[1].fillInputByLabel ('Date de naissance', '06/06/2012');
-	enfants[1].fillInputByLabel ('Code postal / Localité de naissance', 'Arpajon');
-	enfants[1].addBlurListener ('Je souhaite un autre nom pour mon enfant', null, fblurNouveauNomEnfantsLegacy);
-	// enfant majeur protégé
-	fillInputByLabel ('Oui');
-	enfants[3].fillInputByLabel ('Garçon');
-	enfants[3].fillInputByLabel ('Prénom(s)', 'Bernard');
-	enfants[3].fillInputByLabel ('Nom de naissance', 'Guéridon');
-	enfants[3].fillInputByLabel ('Date de naissance', '06/06/1986');
-	enfants[3].fillInputByLabel ('Code postal / Localité de naissance', 'Arpajon');
-	enfants[3].addBlurListener ('Je souhaite un autre nom pour mon enfant', null, fblurNouveauNomEnfantsLegacy);
+// blocs des enfants legacy
+HTMLElement.prototype.ajouterEnfantLegacy = function (idenf){
+	this.fillInputByLabel (enfantsMineurs[idenf][2]);
+	this.fillInputByLabel ('Prénom(s)', enfantsMineurs[idenf][0]);
+	this.fillInputByLabel ('Nom de naissance', 'Guéridon');
+	this.fillInputByLabel ('Date de naissance', '06/06/' + enfantsMineurs[idenf][1]);
+	this.fillInputByLabel ('Code postal / Localité de naissance', '91290 ARPAJON');
+	this.addBlurListener ('Je souhaite un autre nom pour mon enfant', null, function (event){
+		event.target.findContainer ('FIELDSET').getElementsByTagName ('input')[2].fillInput ('Plastic');
+}); }
+ajouterEnfantLegacy = function (blocName, idenf){
+	var enfant = document.body.findByInnerText (blocName);
+	enfant = enfant.findContainer ('FIELDSET');
+	enfant.ajouterEnfantLegacy (idenf);
 }
+function demarcheL2enf(){
+	if (document.body.innerText.includes ('Enfant 7')) ajouterEnfantLegacy ('Enfant 7', 7);
+	else if (document.body.innerText.includes ('Enfant 6')) ajouterEnfantLegacy ('Enfant 6', 6);
+	else if (document.body.innerText.includes ('Enfant 5')) ajouterEnfantLegacy ('Enfant 5', 5);
+	else if (document.body.innerText.includes ('Enfant 4')) ajouterEnfantLegacy ('Enfant 4', 4);
+	else if (document.body.innerText.includes ('Enfant 3')) ajouterEnfantLegacy ('Enfant 3', 3);
+	else if (document.body.innerText.includes ('Enfant 2')) ajouterEnfantLegacy ('Enfant 2', 2);
+	else if (document.body.innerText.includes ('Enfant 1')) ajouterEnfantLegacy ('Enfant 1', 1);
+	if (document.body.findInputByLabel ('Oui').checked){
+		var enfant = document.body.findByInnerText ('Majeur protégé');
+		enfant = enfant.findContainer ('FIELDSET');
+		enfant = enfant.findInputByLabel ('Prénom(s)')
+		if (! enfant.value) ajouterEnfantLegacy ('Majeur protégé', 0);
+	}
+	else if (false){
+		// premier enfant mineur
+		clickButtonByText ('Ajouter un enfant');
+		ajouterEnfantLegacy ('Enfant 1', 1);
+		// enfant majeur protégé
+		fillInputByLabel ('Oui');
+		ajouterEnfantLegacy ('Majeur protégé', 0);
+}}
+// fin du blocs des enfants legacy
 function demarcheL3(){
 	if (document.body.innerText.includes ('Mon adresse de gestion')){
 		fillInputByLabel ('Autre');
