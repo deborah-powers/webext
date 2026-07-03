@@ -31,18 +31,24 @@ function demarcheE2(){
 				}, 500); }, 500); }, 500);
 	}
 	else{
+/*		fillInputWhenItAppears ('Téléphone portable', '0678910112');
+		fillInputWhenItAppears ('Adresse électronique', 'moi@gmail.com');
+		fillInputWhenContainerAppears ('Oui', "Est-ce que l'adresse électronique d'échange", 'fieldset');
+*/
 		const block = document.body.findByInnerText ('Pré-remplir');
 		block.click();
 		setTimeout (function(){
 			fillInputByLabel ('Nom', 'Guéridon');
 			fillInputByLabel ('Prénom', 'Bertrand');
-			document.body.addBlurListener ('Téléphone portable', '0678910112', function (event){
+			const input = document.body.findInputByLabel ('Téléphone portable');
+			input.fillInput ('0678910112');
+			input.addEventListener ('blur', function (event){
 				setTimeout (function(){
 					fillInputByLabel ('Adresse électronique', 'moi@gmail.com');
 					var block = document.body.findByInnerText ("Est-ce que l'adresse électronique d'échange");
 					block = block.findContainer ('fieldset');
 					block.fillInputByLabel ('Oui');
-		}, 500); }); }, 2500);
+			}, 500); }); }, 1000);
 }}
 function demarcheE3(){
 	fillInputByLabel ('Quel est le nom de votre projet ?', 'test sian');
@@ -54,7 +60,10 @@ function demarcheE3(){
 	inputs[3].openFileUploader();
 }
 function demarcheE4(){
-	document.body.addBlurListener ('Quelle est votre adresse ?', '2 Allée Colette Cosnier 35000 Rennes', function (event){
+//	fillInputByLabel ('Quel est votre adresse ?', '2 Allée Colette Cosnier 35000 Rennes');
+	const input = document.getElementById ('idSaisie57');
+	input.fillInput ('2 Allée Colette Cosnier 35000 Rennes');
+	input.addEventListener ('blur', function (event){
 		fillInputByLabel ('Localité / Code postal', 'CESSON SEVIGNE');
 		fillInputByLabel ('Préfixe', '000');
 		fillInputByLabel ('Section', 'AK');
@@ -62,40 +71,10 @@ function demarcheE4(){
 		const inputs = getFileUploader();
 		console.log (inputs);
 		inputs[0].openFileUploader();
-}); }
-function demarcheE5(){
-	document.body.fillInputByField ("La demande est-elle une régularisation d'activité ?", 'Oui', null);
-	document.body.fillInputByField ("Une ou des rubriques IOTA (Loi sur l'eau) sont-elles connexes aux activités", 'Non', null);
-	clickButtonByText ('Ajouterune rubrique');
-	setTimeout (function (){
-		document.body.addBlurListener ('Rubrique', 'Prélèvement dans un système aquifère, à l', function (event){
-			clickButtonByText ('Sélectionner');
-			setTimeout (function (){
-				fillInputByLabel ('Quantité totale susceptible', '500');
-				fillInputByLabel ('Quantité ajoutée ou retirée', '200');
-		}, 500); });
-		setTimeout (function(){
-			clickButtonByText ('Ajouterune rubrique');
-			setTimeout (function (){
-				document.body.addBlurListener ('Rubrique', 'Elevage de chiens', function (event){
-					const buttons = document.body.findListByInnerText ('Sélectionner');
-					console.log (buttons);
-					clickButtonByText ('Sélectionner');
-					setTimeout (function (){
-						fillInputByLabel ('Quantité totale', '50');
-						fillInputByLabel ('Quantité ajoutée ou retirée', '20');
-	}, 500); }); }, 500); }, 500); }, 500);
-	/*
-	document.body.fillInputByField ("", 'Oui', null);
-	document.body.fillInputByField ();
-	fillInputByLabel ()
-	*/
-}
-function demarcheE6(){}
+});}
+function demarcheE5(){}
 if (document.body.innerText.includes ('Étape 1 sur 9')) demarcheE1();
 else if (document.body.innerText.includes ('Étape 2 sur 9')) demarcheE2();
 else if (document.body.innerText.includes ('Étape 3 sur 9')) demarcheE3();
 else if (document.body.innerText.includes ('Étape 4 sur 9')) demarcheE4();
-else if (document.body.innerText.includes ('Étape 5 sur 9')) demarcheE5();
-
 

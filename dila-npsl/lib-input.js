@@ -191,6 +191,11 @@ HTMLElement.prototype.addBlurListener = function (labelText, inputValue, functio
 	input.fillInput (inputValue);
 	input.addEventListener ('blur', functionAtBlur);
 }
+HTMLElement.prototype.fillInputByField = function (fieldLegend, labelText, inputValue){
+	var block = document.body.findByInnerText (fieldLegend);
+	block = block.findContainer ('fieldset');
+	block.fillInputByLabel (labelText, inputValue);
+}
 function fillInputWhenItAppears (labelText, inputValue){
 	function resolveFunc (resolve){
 		var observer = new MutationObserver (function (mutations){
