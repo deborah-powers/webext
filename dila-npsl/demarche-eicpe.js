@@ -54,42 +54,39 @@ function demarcheE3(){
 	inputs[3].openFileUploader();
 }
 function demarcheE4(){
-	document.body.addBlurListener ('Quelle est votre adresse ?', '2 Allée Colette Cosnier 35000 Rennes', function (event){
+	document.body.addBlurListener ('Quelle est votre adresse ?', '2 Allée Colette Cosnier 35000', function (event){
 		fillInputByLabel ('Localité / Code postal', 'CESSON SEVIGNE');
 		fillInputByLabel ('Préfixe', '000');
 		fillInputByLabel ('Section', 'AK');
 		fillInputByLabel ('N° de parcelle', '0238');
 		const inputs = getFileUploader();
-		console.log (inputs);
 		inputs[0].openFileUploader();
 }); }
 function demarcheE5(){
-	document.body.fillInputByField ("La demande est-elle une régularisation d'activité ?", 'Oui', null);
-	document.body.fillInputByField ("Une ou des rubriques IOTA (Loi sur l'eau) sont-elles connexes aux activités", 'Non', null);
-	clickButtonByText ('Ajouterune rubrique');
-	setTimeout (function (){
-		document.body.addBlurListener ('Rubrique', 'Prélèvement dans un système aquifère, à l', function (event){
-			clickButtonByText ('Sélectionner');
-			setTimeout (function (){
-				fillInputByLabel ('Quantité totale susceptible', '500');
-				fillInputByLabel ('Quantité ajoutée ou retirée', '200');
-		}, 500); });
-		setTimeout (function(){
-			clickButtonByText ('Ajouterune rubrique');
-			setTimeout (function (){
-				document.body.addBlurListener ('Rubrique', 'Elevage de chiens', function (event){
-					const buttons = document.body.findListByInnerText ('Sélectionner');
-					console.log (buttons);
+	if (! document.body.innerText.includes ('Rubrique n° 2')){
+		document.body.fillInputByField ("La demande est-elle une régularisation d'activité ?", 'Oui', null);
+		document.body.fillInputByField ("Une ou des rubriques IOTA (Loi sur l'eau) sont-elles connexes aux activités", 'Oui', null);
+		setTimeout (function(){ fillInputByLabel ('Une ou des rubriques autorisation IOTA'); }, 500);
+		document.body.addClickListener ('Ajouterune rubrique', function (event){
+			if (! document.body.innerText.includes ('Rubrique n° 1')) setTimeout (function(){
+				document.body.addBlurListener ('Rubrique', 'Prélèvement dans un système aq', function (event){
 					clickButtonByText ('Sélectionner');
 					setTimeout (function (){
-						fillInputByLabel ('Quantité totale', '50');
-						fillInputByLabel ('Quantité ajoutée ou retirée', '20');
-	}, 500); }); }, 500); }, 500); }, 500);
-	/*
-	document.body.fillInputByField ("", 'Oui', null);
-	document.body.fillInputByField ();
-	fillInputByLabel ()
-	*/
+						fillInputByLabel ('Quantité totale susceptible', '500');
+						fillInputByLabel ('Quantité ajoutée ou retirée', '200');
+			}, 500); }); }, 500);
+			else setTimeout (function(){
+				document.body.addBlurListener ('Rubrique', 'Elevage de chiens', function (event){
+					const buttons = document.body.findListByInnerText ('Sélectionner');
+					buttons[1].click();
+					setTimeout (function (){
+						fillInputByLabel ('Quantité totale', '100');
+						fillInputByLabel ('Quantité ajoutée ou retirée', '60');
+			}, 500); }); }, 500);
+		});
+		clickButtonByText ('Ajouterune rubrique');
+	}
+	else fillInputByLabel ('Rubrique systématique 1', '8° Aérodromes');
 }
 function demarcheE6(){}
 if (document.body.innerText.includes ('Étape 1 sur 9')) demarcheE1();

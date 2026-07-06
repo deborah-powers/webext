@@ -169,9 +169,10 @@ HTMLButtonElement.prototype.clickOn = function(){
 	this.dispatchEvent (event);
 }
 HTMLElement.prototype.clickButtonByText = function (labelText){
+	if (! this.innerText.includes (labelText)) return;
 	var button = this.findByInnerText (labelText);
 	button = button.findContainer ('BUTTON');
-	button.click();
+	if (button.tagName === 'BUTTON') button.click();
 }
 function clickButtonByText (labelText){ document.body.clickButtonByText (labelText); }
 HTMLElement.prototype.fillInputByLabel = function (labelText, inputValue){
@@ -190,6 +191,12 @@ HTMLElement.prototype.addBlurListener = function (labelText, inputValue, functio
 	const input = this.findInputByLabel (labelText);
 	input.fillInput (inputValue);
 	input.addEventListener ('blur', functionAtBlur);
+}
+HTMLElement.prototype.addClickListener = function (labelText, functionAtClick){
+	if (! this.innerText.includes (labelText)) return;
+	var button = this.findByInnerText (labelText);
+	button = button.findContainer ('BUTTON');
+	if (button.tagName === 'BUTTON') button.addEventListener ('click', functionAtClick);
 }
 HTMLElement.prototype.fillInputByField = function (fieldLegend, labelText, inputValue){
 	var block = document.body.findByInnerText (fieldLegend);
