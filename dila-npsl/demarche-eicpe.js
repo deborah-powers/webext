@@ -88,11 +88,33 @@ function demarcheE5(){
 	}
 	else fillInputByLabel ('Rubrique systématique 1', '8° Aérodromes');
 }
-function demarcheE6(){}
+function demarcheE6(){
+	var inputs = document.body.findHomonymInputs ('Non');
+	for (var ip of inputs) ip.clickOn();
+	inputs = getFileUploader();
+	inputs[0].openFileUploader();
+}
+function demarcheE7(){
+	var inputs = document.body.findHomonymInputs ('Non');
+	for (var ip of inputs) ip.clickOn();
+	fillInputByLabel ('Un projet sur un site existant');
+	inputs = getFileUploader();
+	inputs[0].openFileUploader();
+}
+function demarcheE8(){
+	var inputs = getFileUploader();
+	inputs[0].openFileUploader();
+	inputs[1].openFileUploader();
+	inputs[2].openFileUploader();
+}
 if (document.body.innerText.includes ('Étape 1 sur 9')) demarcheE1();
 else if (document.body.innerText.includes ('Étape 2 sur 9')) demarcheE2();
 else if (document.body.innerText.includes ('Étape 3 sur 9')) demarcheE3();
 else if (document.body.innerText.includes ('Étape 4 sur 9')) demarcheE4();
 else if (document.body.innerText.includes ('Étape 5 sur 9')) demarcheE5();
+else if (document.body.innerText.includes ('Étape 6 sur 9')) demarcheE6();
+else if (document.body.innerText.includes ('Étape 7 sur 9')) demarcheE7();
+else if (document.body.innerText.includes ('Étape 8 sur 9')) demarcheE8();
+else if (document.body.innerText.includes ('Étape 9 sur 9')) getRecap ('eicpe');
 
 

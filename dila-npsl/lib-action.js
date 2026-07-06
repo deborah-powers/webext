@@ -64,3 +64,42 @@ function pageParents (nomPere, prenomPere, nomMere, prenomMere){
 		personne.fillInputByLabel ('Nom', nomMere.capitalize());
 		personne.fillInputByLabel ('Prénom', prenomMere.capitalize());
 }}
+
+var downloadLink = "<a id='download-link' href='data:text/plain;charset=utf-8,$data' download='recap $demarche $date.html'>télécharger</a>";
+var downloadPage = `<!DOCTYPE html><html lang='fr'><head><title>recap $demarche $date</title>
+	<meta name='viewport' content='width=device-width,initial-scale=1'/><meta charset='utf-8'/><base target='_blank'>
+</head><body>
+	<h1>recap $demarche $date</h1>
+	$text
+</body></html>`;
+
+function getToday(){
+	const today = new Date();
+	var todayStr = '0'+ today.getMinutes();
+	if (todayStr.length ===3) todayStr = todayStr.substring (1);
+//	if (todayStr.length ===1) todayStr = '0'+ todayStr;
+	todayStr = today.getHours() +'-'+ todayStr;
+	if (todayStr.length <5) todayStr = '0'+ todayStr;
+	todayStr = today.getDate() +'-'+ todayStr;
+	if (todayStr.length <8) todayStr = '0'+ todayStr;
+	todayStr = today.getMonth() +'-'+ todayStr;
+	if (todayStr.length <11) todayStr = '0'+ todayStr;
+	return todayStr;
+}
+function getRecap (demarche){
+	// préparer le titre
+	const todayStr = getToday();
+	downloadLink = downloadLink.replace ('$demarche', demarche);
+	downloadLink = downloadLink.replace ('$date', todayStr);
+	downloadPage = downloadPage.replaceAll ('$demarche', demarche);
+	downloadPage = downloadPage.replaceAll ('$date', todayStr);
+	// récupérer le récap
+	var tagRecap = document.getElementsByTagName ('form')[0];
+	var containers = tagRecap.getElementsByProperties ('div', 'fr-grid-row');
+	tagRecap = containers[1];
+	downloadPage = downloadPage.replace ('$text', tagRecap.innerHTML);
+	var textEncoded = encodeURIComponent (downloadPage);
+	textEncoded = textEncoded.replaceAll ("'", '%27');
+	downloadLink = downloadLink.replace ('$data', textEncoded);
+	tagRecap.innerHTML = tagRecap.innerHTML + downloadLink;
+}
