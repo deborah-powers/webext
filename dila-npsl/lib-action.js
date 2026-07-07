@@ -76,6 +76,7 @@ var downloadPage = `<!DOCTYPE html><html lang='fr'><head><title>recap $demarche 
 function getToday(){
 	const today = new Date();
 	var todayStr = '0'+ today.getMinutes();
+	log (todayStr, todayStr.length);
 	if (todayStr.length ===3) todayStr = todayStr.substring (1);
 //	if (todayStr.length ===1) todayStr = '0'+ todayStr;
 	todayStr = today.getHours() +'-'+ todayStr;
@@ -87,6 +88,26 @@ function getToday(){
 	return todayStr;
 }
 function getRecap (demarche){
+	// préparer le titre
+	const todayStr = getToday();
+	downloadPage = downloadPage.replaceAll ('$demarche', demarche);
+	downloadPage = downloadPage.replaceAll ('$date', todayStr);
+	// préparer le lien de téléchargement
+	const downloadLink = document.createElement ('a');
+	downloadLink.href = 'data:text/plain;charset=utf-8,';
+	downloadLink.download = "recap "+ demarche +" "+ todayStr + '.html';
+	// récupérer le récap
+	var tagRecap = document.getElementsByTagName ('form')[0];
+	var containers = tagRecap.getElementsByProperties ('div', 'fr-grid-row');
+	tagRecap = containers[1];
+	downloadPage = downloadPage.replace ('$text', tagRecap.innerHTML);
+	// activer le lien
+	var textEncoded = encodeURIComponent (downloadPage);
+	textEncoded = textEncoded.replaceAll ("'", '%27');
+	downloadLink.href = downloadLink.href + textEncoded;
+	downloadLink.click();
+}
+function getRecap_va (demarche){
 	// préparer le titre
 	const todayStr = getToday();
 	downloadLink = downloadLink.replace ('$demarche', demarche);

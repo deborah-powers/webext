@@ -60,6 +60,7 @@ function demarcheE2pr(){
 function demarcheE3(){
 	fillInputByLabel ('Vous certifiez avoir');
 	fillInputByLabel ('Vous avez pris connaissance');
+	getRecap ('pcn');
 	clickButtonByText ('Envoyer votre demande');
 }
 function demarcheL1aemp(){

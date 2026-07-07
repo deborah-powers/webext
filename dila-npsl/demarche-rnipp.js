@@ -11,4 +11,4 @@ function demarcheE2(){
 }
 function demarcheE3(){ if (document.body.innerText.includes ('Adresse email')) fillInputByLabel ('Adresse email', 'moi@gmoi.com'); }
 if (document.body.innerText.includes ('Étape 2 sur 3')) demarcheE2();
-if (document.body.innerText.includes ('Étape 3 sur 3')) demarcheE3();
+if (document.body.innerText.includes ('Étape 3 sur 3')) getRecap ('rnipp');

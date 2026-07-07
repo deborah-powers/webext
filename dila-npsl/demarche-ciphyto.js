@@ -13,3 +13,4 @@ function demarcheE2(){
 }
 if (document.body.innerText.includes ('Étape 1 sur 4')) demarcheE1();
 else if (document.body.innerText.includes ('Étape 2 sur 4')) demarcheE2();
+else if (document.body.innerText.includes ('Étape 4 sur 4')) getRecap ('ciphyto');

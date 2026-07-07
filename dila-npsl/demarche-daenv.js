@@ -122,3 +122,4 @@ else if (document.body.innerText.includes ('Étape 2 sur 9')) traiterDemandeAuto
 else if (document.body.innerText.includes ('Étape 3 sur 9')) traiterDemandeAutorisationEnvironnementaleE3();
 else if (document.body.innerText.includes ('Étape 4 sur 9')) traiterDemandeAutorisationEnvironnementaleE4();
 else if (document.body.innerText.includes ('Étape 5 sur 9')) traiterDemandeAutorisationEnvironnementaleE5();
+else if (document.body.innerText.includes ('Étape 9 sur 9')) getRecap ('daenv');

@@ -112,3 +112,4 @@ else if (document.body.innerText.includes ('Étape 3 sur 7')) demarcheE3();
 else if (document.body.innerText.includes ('Étape 4 sur 7')) demarcheE4();
 else if (document.body.innerText.includes ('Étape 5 sur 7')) demarcheE5();
 else if (document.body.innerText.includes ('Étape 6 sur 7')) demarcheE6();
+else if (document.body.innerText.includes ('Étape 7 sur 7')) getRecap ('ddpacs');

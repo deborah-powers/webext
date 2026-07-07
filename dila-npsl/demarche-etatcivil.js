@@ -109,5 +109,5 @@ else if (document.body.innerText.includes ('acte de naissance')){
 else if (document.body.innerText.includes ('Vérification et envoi')){
 	fillInputByLabel ("sur l’honneur");
 	fillInputByLabel ("sur l'honneur");
+	getRecap ('eciv');
 }
-
