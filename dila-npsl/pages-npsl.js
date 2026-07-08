@@ -30,4 +30,12 @@ chrome.action.onClicked.addListener (function (tab){
 		target: {tabId: tab.id, allFrames: false },
 		files: [ 'demarche-rnipp.js' ]
 	});
+	else if (tab.url.includes ('JeChangeDeCoordonnees')) chrome.scripting.executeScript ({
+		target: {tabId: tab.id, allFrames: false },
+		files: [ 'demarche-jcc.js' ]
+	});
+	else if (tab.url.includes ('DAUA')) chrome.scripting.executeScript ({
+		target: {tabId: tab.id, allFrames: false },
+		files: [ 'demarche-daua.js' ]
+	});
 });

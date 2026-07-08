@@ -117,9 +117,9 @@ function traiterDemandeAutorisationEnvironnementaleE5(){
 						fillInputByLabel ('Rubrique', 'Préparation de produits alimentaire');
 					}, 500); }, 500); }); }, 500);
 }}
-if (document.body.innerText.includes ('Étape 1 sur 9')) traiterDemandeAutorisationEnvironnementaleE1();
-else if (document.body.innerText.includes ('Étape 2 sur 9')) traiterDemandeAutorisationEnvironnementaleE2();
-else if (document.body.innerText.includes ('Étape 3 sur 9')) traiterDemandeAutorisationEnvironnementaleE3();
-else if (document.body.innerText.includes ('Étape 4 sur 9')) traiterDemandeAutorisationEnvironnementaleE4();
-else if (document.body.innerText.includes ('Étape 5 sur 9')) traiterDemandeAutorisationEnvironnementaleE5();
-else if (document.body.innerText.includes ('Étape 9 sur 9')) getRecap ('daenv');
+if (document.body.innerText.includes ('Étape 1 sur 10')) traiterDemandeAutorisationEnvironnementaleE1();
+else if (document.body.innerText.includes ('Étape 2 sur 10')) traiterDemandeAutorisationEnvironnementaleE2();
+else if (document.body.innerText.includes ('Étape 3 sur 10')) traiterDemandeAutorisationEnvironnementaleE3();
+else if (document.body.innerText.includes ('Étape 4 sur 10')) traiterDemandeAutorisationEnvironnementaleE4();
+else if (document.body.innerText.includes ('Étape 5 sur 10')) traiterDemandeAutorisationEnvironnementaleE5();
+else if (document.body.innerText.includes ('Étape 10 sur 10')) getRecap ('daenv');
