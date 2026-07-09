@@ -38,4 +38,8 @@ chrome.action.onClicked.addListener (function (tab){
 		target: {tabId: tab.id, allFrames: false },
 		files: [ 'demarche-daua.js' ]
 	});
+	else chrome.scripting.executeScript ({
+		target: {tabId: tab.id, allFrames: false },
+		files: [ 'demarche-recap.js' ]
+	});
 });

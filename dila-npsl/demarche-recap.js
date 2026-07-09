@@ -1,0 +1,1 @@
+if (document.body.innerText.includes ('Vérification et envoi')) getRecap (window.location.search.substring (14));
