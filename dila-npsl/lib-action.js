@@ -95,7 +95,7 @@ function getRecap (demarche){
 	// préparer le lien de téléchargement
 	const downloadLink = document.createElement ('a');
 	downloadLink.href = 'data:text/plain;charset=utf-8,';
-	downloadLink.download = "recap "+ demarche +" "+ todayStr + '.html';
+	downloadLink.download = demarche +" "+ todayStr + " recap.html";
 	// récupérer le récap
 	var tagRecap = document.getElementsByTagName ('form')[0];
 	var containers = tagRecap.getElementsByProperties ('div', 'fr-grid-row');

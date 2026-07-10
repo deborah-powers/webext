@@ -1,8 +1,3 @@
-/* sirets:
-	41816609600069
-	13000918600011
-*/
-
 function demarcheE1(){
 	fillInputByLabel ("Je m'engage à ce que les fichiers déposés");
 	fillInputByLabel ("Je m'engage à ne déposer aucune pièce");
@@ -55,10 +50,8 @@ function demarcheE3(){
 	for (var ip of inputs) ip.clickOn();
 	inputs = getFileUploader();
 	inputs[0].openFileUploader();
-	setTimeout (function(){
-		inputs[1].openFileUploader();
-		setTimeout (function(){ inputs[3].openFileUploader(); }, 750);
-	}, 750);
+	inputs[1].openFileUploader();
+	inputs[3].openFileUploader();
 }
 function demarcheE4(){
 	document.body.addBlurListener ('Quelle est votre adresse ?', '2 Allée Colette Cosnier 35000', function (event){
@@ -74,15 +67,8 @@ function demarcheE5(){
 		document.body.fillInputByField ("La demande est-elle une régularisation d'activité ?", 'Oui', null);
 		document.body.fillInputByField ("Une ou des rubriques IOTA (Loi sur l'eau) sont-elles connexes aux activités", 'Oui', null);
 		setTimeout (function(){ fillInputByLabel ('Une ou des rubriques autorisation IOTA'); }, 500);
-		document.body.addClickListener ('Ajouter une rubrique', function (event){
+		document.body.addClickListener ('Ajouterune rubrique', function (event){
 			if (! document.body.innerText.includes ('Rubrique n° 1')) setTimeout (function(){
-				document.body.addBlurListener ('Rubrique', "Prélèvement dans un cours d’eau, sa nappe d’accompagnement ou un plan", function (event){
-					clickButtonByText ('Sélectionner');
-					setTimeout (function (){
-						fillInputByLabel ('Quantité totale susceptible', '20');
-						fillInputByLabel ('Quantité ajoutée ou retirée', '15');
-			}, 500); }); }, 500);
-			else if (! document.body.innerText.includes ('Rubrique n° 1') && false) setTimeout (function(){
 				document.body.addBlurListener ('Rubrique', 'Prélèvement dans un système aq', function (event){
 					clickButtonByText ('Sélectionner');
 					setTimeout (function (){
@@ -98,7 +84,7 @@ function demarcheE5(){
 						fillInputByLabel ('Quantité ajoutée ou retirée', '60');
 			}, 500); }); }, 500);
 		});
-		clickButtonByText ('Ajouter une rubrique');
+		clickButtonByText ('Ajouterune rubrique');
 	}
 	else fillInputByLabel ('Rubrique systématique 1', '8° Aérodromes');
 }
@@ -118,10 +104,8 @@ function demarcheE7(){
 function demarcheE8(){
 	var inputs = getFileUploader();
 	inputs[0].openFileUploader();
-	setTimeout (function(){
-		inputs[1].openFileUploader();
-		setTimeout (function(){ inputs[2].openFileUploader(); }, 750);
-	}, 750);
+	inputs[1].openFileUploader();
+	inputs[2].openFileUploader();
 }
 if (document.body.innerText.includes ('Étape 1 sur 9')) demarcheE1();
 else if (document.body.innerText.includes ('Étape 2 sur 9')) demarcheE2();
