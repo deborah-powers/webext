@@ -8,7 +8,11 @@ function fillConnectionPage(){
 	else if (window.location.href.includes ('franceconnect.fr/api/v2/interaction/')){
 		var form = null;
 		if (window.location.href.includes ('/consent')) form = document.getElementsByTagName ('form')[0];	// page de re-connexion
-		else form = document.getElementsByTagName ('form')[2];	// page de connexion
+		else{
+			// page de connexion
+			form = document.getElementsByTagName ('form')[2];
+			if (! form) form = document.getElementsByTagName ('form')[0];
+		}
 		const buttonFranceConnect = form.getElementsByTagName ('button')[0];
 		buttonFranceConnect.click();
 	}

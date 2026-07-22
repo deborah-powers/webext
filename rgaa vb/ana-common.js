@@ -8,6 +8,11 @@ Element.prototype.addInfos = function(){
 	infos = infos +'\n\n\t'+ this.tagName +'\t'+ this.getXpath() +'\n'+ this.infos;
 	this.setAttribute ('infos', this.infos);
 }
+HTMLButtonElement.prototype.addInfos = function(){
+	console.log ('a supprimer');
+	Element.prototype.addInfos.call (this);
+	console.log (this.onclick, getEventListeners (this));
+}
 SVGElement.prototype.addInfosOnHover = function(){
 	if (this.className.animVal.includes ('rgaa-error') || this.className.animVal.includes ('rgaa-highlight')) return true;
 	else return false;

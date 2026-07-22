@@ -23,7 +23,7 @@
 	border-color: purple !important;
 }
 [aria-hidden='false'] { border-style: dashed !important; }
-[hidden]:before { content: 'attr hidden'; }
-[aria-hidden]:before { content: 'attr aria-hidden'; }
-[class*='sr-only']:before, [class*='sronly']:before { content: 'sronly'; }
-.rgaa-hidden:before { content: 'css hidden'; }
+[hidden]:before { content: 'attr hidden '; }
+[aria-hidden]:before { content: 'aria hidden '; }
+[class*='sr-only']:before, [class*='sronly']:before { content: 'sronly '; }
+.rgaa-hidden:before { content: 'css hidden '; }

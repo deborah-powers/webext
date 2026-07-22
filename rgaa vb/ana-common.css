@@ -28,11 +28,12 @@ a#rgaa-download-rapport.moved {
 	bottom: unset;
 	top: 0%;
 }
+/*
 .rgaa-highlight {
 	border-style: dotted !important;
 	border-width: 4px !important;
 	border-color: teal !important;
-}
+}*/
 .rgaa-highlight:hover:before { content: attr(infos); }
 .rgaa-error {
 	border-style: dashed !important;

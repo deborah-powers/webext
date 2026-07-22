@@ -7,6 +7,8 @@ function openInfos(){
 	buttonList.style.overflow = 'hidden';
 }
 window.setTimeout (openInfos, 15000);
+const dodo = 'hello';
+
 function chooseAction (event){
 	// event.target contient le bouton de la popup sur lequel j'ai cliqué
 	var action = event.target.id;
@@ -42,7 +44,17 @@ function chooseAction (event){
 		var listStyle =[];
 		var listScript =[];
 		// choisir les actions
-		if (action === 'elm-structure'){
+		if (action === 'ret-style'){
+			chrome.scripting.removeCSS ({
+				target: {tabId: activeTab.id, allFrames: false},
+				files: [
+					'ana-common.css', 'elm-focus.css', 'elm-focus-interract.css', 'elm-form.css', 'elm-iframe.css', 'elm-image.css', 'elm-interdit.css',
+					'elm-interract.css', 'elm-link.css',
+					'elm-liste.css', 'elm-structure.css', 'elm-table.css', 'elm-titre.css', 'elm-tooltip.css',
+					'text-spacing.css', 'text-widenning.css'
+			]});
+		}
+		else if (action === 'elm-structure'){
 			listStyle =[ 'ana-common.css', 'elm-structure.css' ];
 			listScript =[ 'xpathFct.js', 'ana-common.js', 'elm-structure.js' ];
 		}
@@ -52,7 +64,10 @@ function chooseAction (event){
 		}
 		else if (action === 'elm-titre') listStyle =[ 'ana-common.css', 'elm-titre.css' ];
 		else if (action === 'elm-liste') listStyle =[ 'ana-common.css', 'elm-liste.css' ];
-		else if (action === 'elm-form') listStyle =[ 'ana-common.css', 'elm-form.css' ];
+		else if (action === 'elm-form'){
+			listStyle =[ 'ana-common.css', 'elm-form.css' ];
+			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-common.js', 'elm-form.js' ];
+		}
 		else if (action === 'elm-focus') listStyle =[ 'ana-common.css', 'elm-focus-interract.css', 'elm-focus.css' ];
 		else if (action === 'text-widenning') listStyle =[ 'text-widenning.css' ];
 		else if (action === 'text-spacing') listStyle =[ 'text-spacing.css' ];

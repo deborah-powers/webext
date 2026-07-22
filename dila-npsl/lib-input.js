@@ -181,11 +181,7 @@ HTMLElement.prototype.fillInputByLabel = function (labelText, inputValue){
 	if (input === null || input === undefined) log ("pas d'input pour", labelText);
 	else input.fillInput (inputValue);
 }
-function fillInputByLabel (labelText, inputValue){
-	var input = document.body.findInputByLabel (labelText);
-	if (input === null || input === undefined) log ("pas d'input pour", labelText);
-	else input.fillInput (inputValue);
-}
+function fillInputByLabel (labelText, inputValue){ document.body.fillInputByLabel (labelText, inputValue); }
 HTMLElement.prototype.addBlurListener = function (labelText, inputValue, functionAtBlur){
 	if (! this.innerText.includes (labelText)) return;
 	const input = this.findInputByLabel (labelText);

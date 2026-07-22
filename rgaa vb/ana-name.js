@@ -103,7 +103,8 @@ HTMLElement.prototype.accessibleName = function(){
 		}}
 		if (intituleChildren) intitule = 'enfants: '+ intituleChildren.substring (2);
 	}
-	else if (! this.innerText.isEmpty()) intitule = 'texte: '+ this.innerText.cleanName();
+	else if (! this.innerText.isEmpty()) intitule = 'texte:';
+//	else if (! this.innerText.isEmpty()) intitule = 'texte: '+ this.innerText.cleanName();
 	return intitule;
 }
 HTMLFieldSetElement.prototype.accessibleName = function(){
@@ -159,7 +160,8 @@ SVGSVGElement.prototype.accessibleName = function(){
 		intitule = this.textContent.toLowerCase();
 		intitule = intitule.replaceAll ('\n'," ");
 		intitule = intitule.replaceAll ('\t'," ");
-		intitule = 'texte: '+ intitule.strip();
+		intitule = 'texte:';
+//		intitule = 'texte: '+ intitule.strip();
 	}
 	return intitule;
 }
@@ -170,9 +172,10 @@ Element.prototype.compareNames = function(){
 	const description = this.description();
 	if (description) accessibleName = accessibleName + '\ndesc: '+ description;
 	const visibleName = this.visibleName();
-	if ("" !== visibleName && ! accessibleName.includes (visibleName))
+	if ("" !== visibleName && ! accessibleName.includes (visibleName) && ! accessibleName.includes ('(texte)'))
 		accessibleName = accessibleName + '\nle nom accessible ne reprend pas le nom visible';
 	accessibleName = accessibleName.replaceAll ('(rien) rien', 'rien');
+	accessibleName = accessibleName.replaceAll ('(texte)', 'texte');
 	accessibleName = accessibleName.replace ('nom accessible: rien', 'nom accessible: manquant')
 	return accessibleName;
 }
