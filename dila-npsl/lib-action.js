@@ -83,7 +83,7 @@ function getToday(){
 	if (todayStr.length <5) todayStr = '0'+ todayStr;
 	todayStr = today.getDate() +'-'+ todayStr;
 	if (todayStr.length <8) todayStr = '0'+ todayStr;
-	todayStr = today.getMonth() +'-'+ todayStr;
+	todayStr = (1+ today.getMonth()) +'-'+ todayStr;
 	if (todayStr.length <11) todayStr = '0'+ todayStr;
 	return todayStr;
 }
@@ -99,7 +99,8 @@ function getRecap (demarche){
 	// récupérer le récap
 	var tagRecap = document.getElementsByTagName ('form')[0];
 	var containers = tagRecap.getElementsByProperties ('div', 'fr-grid-row');
-	tagRecap = containers[1];
+	console.log (containers);
+//	tagRecap = containers[1];
 	downloadPage = downloadPage.replace ('$text', tagRecap.innerHTML);
 	// activer le lien
 	var textEncoded = encodeURIComponent (downloadPage);

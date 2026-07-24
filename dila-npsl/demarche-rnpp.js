@@ -26,20 +26,35 @@ function demarcheLegaE1(){
 function demarcheLegaE3(){
 	fillInputByLabel ('Non');
 	setTimeout (function(){
-		fillInputByLabel ('Nom de votre père ou votre mère');
-	/*	var input = document.getElementById ('provenanceNomUsage_input_0_nomDusage');
+		var input = document.getElementById ('provenanceNomUsage_input_0_nomDusage');
 		if (input.clientWidth ===0) input = document.getElementById ('provenanceNouveauNomUsage_input_0_nomDusage');
 		input.clickOn();
 		input = document.getElementById ('motNomUsage_input_2_nomDusage');
 		if (input.clientWidth ===0) input = document.getElementById ('motNouveauNomUsage_input_2_nomDusage');
 		input.clickOn();
-		fillInputByLabel ('Nom de votre père ou votre mère');
+	/*	fillInputByLabel ('Nom de votre père ou votre mère');
 		fillInputByLabel ('Aucun préfixe');
 		*/
 		document.getElementById ('nomUsagePourCourrier_input_0_courrier').clickOn();
+		goNextLegacyPage();
 	}, 500);
 }
-function demarcheLegaE4(){
+function demarcheLegaE6(){
+	const fichiers = getFileUploader();
+	fichiers[0].openFileUploader();
+	setTimeout (function(){
+		fichiers[1].openFileUploader();
+		setTimeout (function(){
+			fichiers[2].openFileUploader();
+			setTimeout (function(){
+				fichiers[3].openFileUploader();
+	}, 500); }, 1000); }, 1500);
+}
+function demarcheLegaE8(){
+	const boxes = getRadioButtonsAndCheckboxes();
+	for (var chbox of boxes) chbox.clickOn();
+	getRecap ('rnpp');
+//	document.body.clickButtonByText ('Envoyer ma');
 }
 function demarcheE1(){
 }
@@ -59,4 +74,8 @@ if (document.body.innerText.includes ('Étape 1 sur 6')) demarcheE1();
 else if (document.body.innerText.includes ('Étape 1 sur 8')) demarcheLegaE1();
 else if (document.body.innerText.includes ('Étape 2 sur 8')) goNextLegacyPage();
 else if (document.body.innerText.includes ('Étape 3 sur 8')) demarcheLegaE3();
-else if (document.body.innerText.includes ('Étape 8 sur 8')) getRecap ('rnpp');
+else if (document.body.innerText.includes ('Étape 4 sur 8')) goNextLegacyPage();	// pré-rempli
+else if (document.body.innerText.includes ('Étape 5 sur 8')) goNextLegacyPage();
+else if (document.body.innerText.includes ('Étape 6 sur 8')) demarcheLegaE6();
+else if (document.body.innerText.includes ('Étape 7 sur 8')) goNextLegacyPage();
+else if (document.body.innerText.includes ('Étape 8 sur 8')) demarcheLegaE8();

@@ -82,7 +82,7 @@ function chooseAction (event){
 		}
 		else if (action === 'elm-interract'){
 			listStyle =[ 'ana-common.css', 'elm-focus-interract.css', 'elm-interract.css' ];
-			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-contrast.js', 'ana-common.js', 'elm-interract.js' ];
+			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-contrast.js', 'ana-common.js', 'elm-form.js', 'elm-interract.js' ];
 		}
 		else if (action === 'elm-link'){
 			listStyle =[ 'ana-common.css', 'elm-link.css' ];

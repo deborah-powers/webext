@@ -10,6 +10,7 @@ const autoCompletionValues =[ 'name', 'given-name', 'additional-name', 'family-n
 	'email', 'impp', 'off'
 ];
 const inputControles =[ 'number', 'email', 'password', 'tel', 'url', 'color', 'date', 'time', 'datetime-local', 'datetime', 'month', 'week' ];
+HTMLLabelElement.prototype.addInfosOnHover = function(){ return true; }
 
 HTMLInputElement.prototype.computeInfos = function(){
 	var inputInfos = this.type;
@@ -60,8 +61,12 @@ HTMLLabelElement.prototype.addInfos = function(){
 	this.setAttribute ('infos', this.infos);
 //	for (var child of this.children) child.addInfosRec();
 }
-var labels = document.getElementsByTagName ('label');
-for (var label of labels) label.addInfos();
+
+infos = infos +'\n\n== Les inputs et selects\n';
+var interractives = document.getElementsByTagName ('label');
+interractives.setNbItemMax ('inputs et select');
+for (var i=0; i< nbItemMax; i++) interractives[i].addInfos();
+downloadAnalyse ('formulaires');
 
 /*
 HTMLFormElement

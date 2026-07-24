@@ -31,7 +31,7 @@ function getFileUploader(){
 HTMLInputElement.prototype.openFileUploader = function(){
 	if (this.type === 'file'){
 		log ('téléversez un fichier pour', this.labels[0].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[0].innerText);
-		this.click();
+		this.clickOn();
 }}
 HTMLElement.prototype.findLabelByInnerText = function (message){
 	if (! this.innerText.includes (message)) return null;
@@ -124,6 +124,7 @@ HTMLInputElement.prototype.fillInput = function (message){
 		}
 		this.value = message;
 	}
+	log (message, this.id, this.type);
 	this.clickOn();
 }
 HTMLSelectElement.prototype.clickOn = function(){
@@ -178,6 +179,7 @@ function clickButtonByText (labelText){ document.body.clickButtonByText (labelTe
 HTMLElement.prototype.fillInputByLabel = function (labelText, inputValue){
 	if (! this.innerText.includes (labelText)) return;
 	const input = this.findInputByLabel (labelText);
+	log (labelText, input.id);
 	if (input === null || input === undefined) log ("pas d'input pour", labelText);
 	else input.fillInput (inputValue);
 }

@@ -9,7 +9,6 @@ HTMLAnchorElement.prototype.addInfosOnHover = function(){
 	if (this.id === 'rgaa-download-rapport') return false;
 	else return true;
 }
-HTMLInputElement.prototype.addInfosOnHover = function(){ return true; }
 HTMLSelectElement.prototype.addInfosOnHover = function(){ return true; }
 HTMLTextAreaElement.prototype.addInfosOnHover = function(){ return true; }
 
@@ -29,6 +28,7 @@ infos = infos +'\n\n== Les boutons rôle\n';
 interractives = document.body.getAllByRole ('button');
 interractives.setNbItemMax ('role bouton');
 for (var i=0; i< nbItemMax; i++) interractives[i].addInfos();
+/*
 infos = infos +'\n\n== Les inputs\n';
 var interractives = document.getElementsByTagName ('input');
 interractives.setNbItemMax ('input');
@@ -36,6 +36,7 @@ for (var i=0; i< nbItemMax; i++) interractives[i].addInfos();
 infos = infos +'\n\n== Les selects\n';
 var interractives = document.getElementsByTagName ('select');
 interractives.setNbItemMax ('select');
+*/
 for (var i=0; i< nbItemMax; i++) interractives[i].addInfos();
 infos = infos +'\n\n== Les textareas\n';
 var interractives = document.getElementsByTagName ('textarea');
