@@ -1,5 +1,6 @@
 /* doutes sur l'utilisation du focus */
-*:hover:before, *:focus:before, a#rgaa-download-rapport {
+*:hover:after, *:focus:after, a#rgaa-download-rapport {
+	box-sizing: border-box;
 	display: block;
 	background-color: ivory;
 	opacity: 1;
@@ -19,9 +20,9 @@
 	bottom: 2em;
 	z-index: 20;
 }
-*:hover:before, *:focus:before {
+*:hover:after, *:focus:after {
 	content: none;
-	right: 0;
+	right: 0%;
 }
 a#rgaa-download-rapport { left: 0; }
 a#rgaa-download-rapport.moved {
@@ -34,13 +35,13 @@ a#rgaa-download-rapport.moved {
 	border-width: 4px !important;
 	border-color: teal !important;
 }*/
-.rgaa-highlight:hover:before { content: attr(infos); }
+.rgaa-highlight:hover:after { content: attr(infos); }
 .rgaa-error {
 	border-style: dashed !important;
 	border-width: 4px !important;
 	border-color: deeppink !important;
 }
-.rgaa-error:hover:before { content: 'erreur:\A' attr(infos); }
+.rgaa-error:hover:after { content: 'erreur:\A' attr(infos); }
 /* couleurs
 rouge
 bleu

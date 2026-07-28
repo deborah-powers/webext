@@ -3,50 +3,59 @@
 form, [role='form'], [role='group'], fieldset, legend, input, textarea, label, form button, button[form], select, optgroup, option, datalist,
 [role='radiogroup'], [role='button'], [role='progressbar'], [role='slider'], [role='spinbutton'], [role='textbox'], [role='listbox'],
 [role='searchbox'], [role='combobox'], [role='option'], [role='checkbox'], [role='radio'], [role='switch'], [role='group'] [role] {
-	border-width: 4px !important;
-	box-sizing: border-box !important;
+	color: black !important;
+	background-color: white !important;
+	box-sizing: border-box;
 }
 form:hover, [role='form']:hover, [role='group']:hover, fieldset:hover, legend:hover, input:hover, textarea:hover, label:hover,
 form button:hover, button[form]:hover, select:hover, optgroup:hover, option:hover,
 form:focus, [role='group']:focus, fieldset:focus, legend:focus, input:focus, textarea:focus, label:focus,
 form button:focus, button[form]:focus, select:focus, optgroup:focus, option:focus
-	{ border-width: 8px !important; }
-fieldset, legend, input, textarea, label, select, optgroup, option { border-style: dotted !important; }
-form, form fieldset, form legend, form input, form textarea, form label, form button, form select, form optgroup, form option,
-[role='form'] [role] { border-style: solid !important; }
-form, [role='form'] { border-color: #666 !important; }
-[role='form'] [role] { border-color: #F63 !important; }
+	{ font-weight: bold !important; }
+form, [role='form'], fieldset, [role='group'], [role='radiogroup'], [role='form'] [role='group'], [role='form'] [role='radiogroup'] {
+	border-width: 4px !important;
+	border-style: solid !important;
+}
+form, [role='form'] { border-color: deeppink !important; }
 fieldset, [role='group'], [role='radiogroup'], [role='form'] [role='group'], [role='form'] [role='radiogroup']
-	{ border-color: #444 !important; }
+	{ border-color: deepskyblue !important; }
 select {
 	color: #550 !important;
 	background-color: ivory !important;
-	border-color: #660 !important;
 }
 optgroup { border-color: #963 !important; }
 option, [role='option'] {
 	color: #900 !important;
 	background-color: ivory !important;
-	border-color: #C00 !important;
-	border-style: none !important;
 }
-legend { border-color: #93F !important; }
-label { border-color: #C09 !important; }
+legend, form h3, [role='form'] h3 { color: #93F !important; }
+label { color: #C09 !important; }
 input, textarea, [role='progressbar'], [role='slider'], [role='spinbutton'], [role='textbox'], [role='listbox'], [role='searchbox'],
 [role='combobox'], [role='checkbox'], [role='radio'], [role='switch']
-	{ border-color: #36C !important; }
+	{ color: #36C !important; }
 
 form button, input[type='button'], button[form], input[type='submit'], input[type='reset'], input[type='image'], [role='button'], button[form] {
-	border-color: #399 !important;
+	color: #399 !important;
+	background-color: lightgreen !important;
 }
 datalist {
 	display: block !important;
+	color: black;
 	border-color: #F3C !important;
 }
 [aria-invalid='true'] { background-color: pink !important; }
-button[form]:hover:before { content: 'bouton pour formulaire (' attr(form) ')' !important; }
-label:hover:before { content: attr(infos); }
-label *:hover:before, legend *:hover:before { content: none; }
+button[form]:hover:after { content: 'bouton pour formulaire (' attr(form) ')' !important; }
+/*
+form:hover:after { content: 'form'; }
+[role='form']:hover:after { content: 'role form'; }
+fieldset:hover:after { content: 'fieldset'; }
+[role='group']:hover:after { content: 'group'; }
+[role='radiogroup']:hover:after { content: 'radiogroup'; }
+*/
+legend:hover:after { content: 'legend'; }
+form h3:hover:after, [role='form'] h3:hover:after { content: 'h3'; }
+label:hover:after { content: attr(infos); }
+label *:hover:after, legend *:hover:after, h3 *:hover:after { content: none; }
 /*
 .rgaa-highlight, label.rgaa-highlight * {
 	background-color: yellow !important;
