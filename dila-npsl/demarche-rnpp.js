@@ -50,6 +50,17 @@ function demarcheLegaE6(){
 				fichiers[3].openFileUploader();
 	}, 500); }, 1000); }, 1500);
 }
+function demarcheLegaE7(){
+	if (document.body.innerText.includes ('Avez-vous déjà acheté votre timbre électronique')){
+		fillInputByLabel ("Oui, vous l’avez acheté et vous avez son numéro");
+		// l'option d'acheter un timbre fait sortir de la démarche
+		setTimeout (function(){
+			fillInputByLabel ('Numéro du timbre électronique', '0000000000000000');
+			goNextLegacyPage();
+		}, 500);
+	}
+	else goNextLegacyPage();
+}
 function demarcheLegaE8(){
 	const boxes = getRadioButtonsAndCheckboxes();
 	for (var chbox of boxes) chbox.clickOn();
@@ -77,5 +88,5 @@ else if (document.body.innerText.includes ('Étape 3 sur 8')) demarcheLegaE3();
 else if (document.body.innerText.includes ('Étape 4 sur 8')) goNextLegacyPage();	// pré-rempli
 else if (document.body.innerText.includes ('Étape 5 sur 8')) goNextLegacyPage();
 else if (document.body.innerText.includes ('Étape 6 sur 8')) demarcheLegaE6();
-else if (document.body.innerText.includes ('Étape 7 sur 8')) goNextLegacyPage();
+else if (document.body.innerText.includes ('Étape 7 sur 8')) demarcheLegaE7();
 else if (document.body.innerText.includes ('Étape 8 sur 8')) demarcheLegaE8();

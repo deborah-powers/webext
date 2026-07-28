@@ -76,7 +76,6 @@ var downloadPage = `<!DOCTYPE html><html lang='fr'><head><title>recap $demarche 
 function getToday(){
 	const today = new Date();
 	var todayStr = '0'+ today.getMinutes();
-	log (todayStr, todayStr.length);
 	if (todayStr.length ===3) todayStr = todayStr.substring (1);
 //	if (todayStr.length ===1) todayStr = '0'+ todayStr;
 	todayStr = today.getHours() +'-'+ todayStr;
@@ -86,6 +85,30 @@ function getToday(){
 	todayStr = (1+ today.getMonth()) +'-'+ todayStr;
 	if (todayStr.length <11) todayStr = '0'+ todayStr;
 	return todayStr;
+}
+String.prototype.delPaddingTag = function(){
+}
+String.prototype.cleanForShow = function(){
+	var htmlText = this.cleanHtml();
+	htmlText = htmlText.delScripts();
+	htmlText = htmlText.delComments();
+	htmlText = htmlText.delHiddenInputs();
+	var d=0;
+	var f=0;
+	var textList = htmlText.split ('<');
+	for (var l=1; l< textList.length; l++){
+		f= textList[l].indexOf ('>');
+		d= textList[l].indexOf (" ");
+		if (d>f || textList[l].substring (0,f).includes ('<') || ! textList[l].substring (0,f).includes (" ")) continue;
+		else if (textList[l].substring (0,d) === 'input') continue;
+		textList[l] = textList[l].substring (0,d) + textList[l].substring (f);
+	}
+	htmlText = textList.join ('<');
+	htmlText = htmlText.delAttributeFamily ('aria');
+	htmlText = htmlText.delAttributeFamily ('data');
+	const attributes =[ 'class', 'id', 'role', 'style', 'title', 'required' ];
+	for (var attr of attributes) htmlText = htmlText.delAttribute (attr);
+	return htmlText;
 }
 function getRecap (demarche){
 	// préparer le titre
@@ -98,30 +121,39 @@ function getRecap (demarche){
 	downloadLink.download = demarche +" "+ todayStr + " recap.html";
 	// récupérer le récap
 	var tagRecap = document.getElementsByTagName ('form')[0];
-	var containers = tagRecap.getElementsByProperties ('div', 'fr-grid-row');
-	console.log (containers);
-//	tagRecap = containers[1];
-	downloadPage = downloadPage.replace ('$text', tagRecap.innerHTML);
+	const tagStock = document.createElement ('div');
+	if (window.location.href.includes ('npsl')){
+		// pour npsl
+		var containers = tagRecap.getElementsByProperties ('div', 'fr-grid-row');
+		tagRecap = containers[1];
+		tagStock.innerHTML = tagRecap.innerHTML;
+	}
+	else{
+		// pour legacy
+		var containers = tagRecap.getElementsByProperties ('div', 'cadre-recap');
+		for (var contain of containers) tagStock.innerHTML = tagStock.innerHTML + contain.outerHTML;
+	}
+	tagStock.innerHTML = tagStock.innerHTML.cleanHtml();
+	tagStock.removeComments();
+	for (var a= tagStock.attributes.length -1; a>=0; a--) tagStock.removeAttribute (tagStock.attributes[a].name);
+	tagStock.innerHTML = tagStock.innerHTML.delHiddenInputs();
+/*	tagStock.innerHTML = tagStock.innerHTML.replaceAll ('</h3></div>', '</h3>');
+	tagStock.innerHTML = tagStock.innerHTML.replaceAll ('<div><div></div><h3> ', '<h3>');
+	*/
+	tagStock.delAttributes();
+	tagStock.delIds();
+	tagStock.innerHTML = tagStock.innerHTML.replaceAll ('<div>', "");
+	tagStock.innerHTML = tagStock.innerHTML.replaceAll ('</div>', "");
+	tagStock.innerHTML = tagStock.innerHTML.replaceAll ('</span><span>', " ");
+	tagStock.innerHTML = tagStock.innerHTML.replaceAll ('<span>', "");
+	tagStock.innerHTML = tagStock.innerHTML.replaceAll ('</span>', "");
+	tagStock.simplifyNesting();
+	tagStock.innerHTML = tagStock.innerHTML.cleanHtml();
+//	const tagRecapText = tagRecap.innerHTML.cleanForShow();
+	downloadPage = downloadPage.replace ('$text', tagStock.innerHTML);
 	// activer le lien
 	var textEncoded = encodeURIComponent (downloadPage);
 	textEncoded = textEncoded.replaceAll ("'", '%27');
 	downloadLink.href = downloadLink.href + textEncoded;
 	downloadLink.click();
-}
-function getRecap_va (demarche){
-	// préparer le titre
-	const todayStr = getToday();
-	downloadLink = downloadLink.replace ('$demarche', demarche);
-	downloadLink = downloadLink.replace ('$date', todayStr);
-	downloadPage = downloadPage.replaceAll ('$demarche', demarche);
-	downloadPage = downloadPage.replaceAll ('$date', todayStr);
-	// récupérer le récap
-	var tagRecap = document.getElementsByTagName ('form')[0];
-	var containers = tagRecap.getElementsByProperties ('div', 'fr-grid-row');
-	tagRecap = containers[1];
-	downloadPage = downloadPage.replace ('$text', tagRecap.innerHTML);
-	var textEncoded = encodeURIComponent (downloadPage);
-	textEncoded = textEncoded.replaceAll ("'", '%27');
-	downloadLink = downloadLink.replace ('$data', textEncoded);
-	tagRecap.innerHTML = tagRecap.innerHTML + downloadLink;
 }
