@@ -2,16 +2,16 @@
 dépend de textFct.js
 basé sur python/htmlFct.py
 */
-const toReplace =[[ '\ncode\n', '\nCode\n' ], [ '\ncode: ', '\nCode: ' ], [ '\nfig\n', '\nFig\n' ]];
-const listTagsContainer =[ 'ul', 'ol', 'dl', 'table', 'nav', 'div', 'fieldset', 'form', 'figure', 'math', 'section', 'article', 'body', 'header', 'footer', 'main' ]
-const listTagsIntern =[ 'i', 'b', 'em', 'span', 'strong', 'thead', 'tbody' ]
-const tagHtml =[
+var toReplace =[[ '\ncode\n', '\nCode\n' ], [ '\ncode: ', '\nCode: ' ], [ '\nfig\n', '\nFig\n' ]];
+var listTagsContainer =[ 'ul', 'ol', 'dl', 'table', 'nav', 'div', 'fieldset', 'form', 'figure', 'math', 'section', 'article', 'body', 'header', 'footer', 'main' ]
+var listTagsIntern =[ 'i', 'b', 'em', 'span', 'strong', 'thead', 'tbody' ]
+var tagHtml =[
 	['\n<h1>', '\n== '], ['\n<h2>', '\n** '], ['\n<h3>', '\n-- '], ['\n<h4>', '\n__ '], ['\n<h5>', '\n## '], ['\n<h6>', '\n++ '],
 	["\n<hr class='h1'/>\n", '\n==\n'], ["\n<hr class='h2'/>\n", '\n**\n'], ["\n<hr class='h3'/>\n", '\n--\n'],
 	["\n<hr>\n", '\n**\n'], ["\n<hr/>\n", '\n**\n'],
 	['\n<figure>', '\nFig\n'], ['\n<xmp>!', '\nCode\n'], ['\n<xmp>: ', '\nCode: '], ['\n<li>', '\n\t']
 ]
-const protocols =[ 'https://', 'http://', 'file:///' ];
+var protocols =[ 'https://', 'http://', 'file:///' ];
 
 String.prototype.toHtml = function(){
 	var text = this.cleanTxt();

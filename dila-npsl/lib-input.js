@@ -20,19 +20,24 @@ function getRadioButtonsAndCheckboxes(){
 	}
 	return toCheck;
 }
+/*
+Here is the event logged by Firebug when selecting a file with Firebug:
+click clientX=885, clientY=207
+blur
+focus
+change
+DOMActivate
+DOMActivate
+mouseout clientX=162, clientY=27
+onchanged
+*/
 function getFileUploader(){
 	const inputs = document.getElementsByTagName ('input');
 	var uploaders =[];
-	for (var ip of inputs){
-		if (ip.type === 'file') uploaders.push (ip);
-	}
+	for (var ip of inputs){ if (ip.type === 'file') uploaders.push (ip); }
 	return uploaders;
 }
-HTMLInputElement.prototype.openFileUploader = function(){
-	if (this.type === 'file'){
-		log ('téléversez un fichier pour', this.labels[0].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[0].innerText);
-		this.clickOn();
-}}
+HTMLInputElement.prototype.openFileUploader = function(){ if (this.type === 'file') this.clickOn(); }
 HTMLElement.prototype.findLabelByInnerText = function (message){
 	if (! this.innerText.includes (message)) return null;
 	else if (this.tagName === 'LABEL') return this;
@@ -120,11 +125,9 @@ HTMLInputElement.prototype.fillInput = function (message){
 				const dataList = document.getElementById (input.getAttribute ('aria-controls'));
 				log (dataList);
 			}, 1000);
-		//	this.value = message;
 		}
 		this.value = message;
 	}
-	log (message, this.id, this.type);
 	this.clickOn();
 }
 HTMLSelectElement.prototype.clickOn = function(){
@@ -179,7 +182,6 @@ function clickButtonByText (labelText){ document.body.clickButtonByText (labelTe
 HTMLElement.prototype.fillInputByLabel = function (labelText, inputValue){
 	if (! this.innerText.includes (labelText)) return;
 	const input = this.findInputByLabel (labelText);
-	log (labelText, input.id);
 	if (input === null || input === undefined) log ("pas d'input pour", labelText);
 	else input.fillInput (inputValue);
 }

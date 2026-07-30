@@ -2,10 +2,10 @@
 fonctionne avec htmlFct.js
 basé sur python/textFct.py
 */
-const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZaàâbcdeéêèëfghiîïjkmlmnoôpqrstuûvwxyz0123456789-\xe7\xc7';
-const punctuation = '.?:\n\t!;,';
-const brackets = '({[]})"\' ';
-const weirdChars =[
+var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZaàâbcdeéêèëfghiîïjkmlmnoôpqrstuûvwxyz0123456789-\xe7\xc7';
+var punctuation = '.?:\n\t!;,';
+var brackets = '({[]})"\' ';
+var weirdChars =[
 	['« ', '"'], [' »', '"'], ['«', '"'], ['»', '"'], ['–', '-'], ['‘', "'"], ['’', "'"], ['“', '"'], ['”', '"'], ['"', '"'], ['&hellip;', '...'], ['&#8230;', '...'], ['…', '...'],
 	['\n ', '\n'], ['\r', ''], [' \n', '\n'], ["\\'", "'"], ['\\n', '\n'], ['\\r', ''], ['\\t', '\t'],
 	['\\u00c2', 'Â'], ['\\u00ca', 'Ê'], ['\\u00cb', 'Ë'], ['\\u00ce', 'Î'], ['\\u00cf', 'Ï'], ['\\u00d4', 'Ô'], ['\\u00d6', 'Ö'], ['\\u00db', 'Û'], ['\\u00e0', 'à'], ['\\u00e2', 'â'], ['\\u00e7', 'ç'], ['\\u00e8', 'è'], ['\\u00e9', 'é'], ['\\u00ea', 'ê'], ['\\u00eb', 'ë'], ['\\u00ee', 'î'], ['\\u00ef', 'ï'], ['\\u00f4', 'ô'], ['\\u00f6', 'ö'], ['\\u00fb', 'û'],
@@ -15,27 +15,27 @@ const weirdChars =[
 	['&mdash;', ' '], ['&nbsp;', ''], ['&oelig;', 'oe'], ['&quot;', ''], ['&lt;', '<'], ['&gt;', '>'], ['&lsquo;', '"'], ['&ldquo;', '"'], ['&rdquo;', '"'], ['&rsquo;', "'"], ['&laquo;', '"'], ['&raquo;', '"'], ['&#8220;', '"'], ['&#8221;', '"'], ['&#8211;', '-'],
 	['&amp;', '&'], ['&#x27;', "'"], ['&#039', "'"], ['&#160;', ' '], ['&#39;', "'"], ['&#8217;', "'"], ['\n" ', '\n"']
 ];
-const urlWords =[
+var urlWords =[
 	['. gif', '.gif'], ['. com', '.com'], ['. org', '.org'], ['. net', '.net'], ['. fr', '.fr'], ['. gouv.fr', '.gouv.fr'], ['. ico', '.ico'],
 	[': /', ':/'], [': \\', ':\\'], ['C:\\', 'file:///C:\\'], ['C:/', 'file:///C:/'], ['localhost: ', 'localhost:'], [': 80', ':80'], ['www. ', 'www.'],
 	['. bmp', '.bmp'], ['. jpeg', '.jpeg'], ['. jpg', '.jpg'], ['. png', '.png'], ['. css', '.css'], ['. js', '.js']
 ];
-const imgExtension =[ 'jpg', 'jpeg', 'bmp', 'gif', 'png' ];
-const points =[ '\n', '. ', '! ', '? ', ': ', ':\t', '\n_ ', '\n* ', '\n- ', '\n--> ', '\n\t', '\n++ ', '\n## ', '\n__ ', '\n-- ', '\n** ', '\n== '];
-const uppercaseLetters =[
+var imgExtension =[ 'jpg', 'jpeg', 'bmp', 'gif', 'png' ];
+var points =[ '\n', '. ', '! ', '? ', ': ', ':\t', '\n_ ', '\n* ', '\n- ', '\n--> ', '\n\t', '\n++ ', '\n## ', '\n__ ', '\n-- ', '\n** ', '\n== '];
+var uppercaseLetters =[
 	'aA', 'àA', 'bB', 'cC', '\xe7\xc7', 'dD', 'eE', 'éE', 'èE', 'êE', 'ëE', 'fF', 'gG', 'hH', 'iI', 'îI', 'ïI', 'jJ', 'kK', 'lL', 'mM', 'nN', 'oO', '\xf4\xe4', 'pP', 'qQ', 'rR', 'sS', 'tT', 'uU', 'vV', 'wW', 'xX', 'yY', 'zZ'
 ];
-const wordsBeginMaj =[ 'paris', 'rueil', 'avon', 'valo', 'leto', 'mars', 'mai', 'juin', 'papa', 'papi', 'victo', 'france', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche', 'janvier', 'février', 'avril', 'juillet', 'août', 'aout', 'septembre', 'octobre', 'novembre', 'décembre', 'decembre', 'deborah', 'powers', 'cadiot', 'maman', 'mamie', 'régine', 'tony', 'robert', 'simplon', 'loïc', 'jared', 'ville valo', 'shelby', 'magritte', 'gabin', 'makaron', 'malmaison', 'fontainebleau', 'issy', 'moulineaux', 'châte', 'chateaudun', 'michelet', 'chatelet', 'C:\\', 'users\\', 'desktop\\' ];
-const wordsBeginMin =[ 'Deborah.powers', 'Deborah.noisetier', 'Http', 'File:///', '\nPg_' ];
-const wordsFullMaj =[ '\\lenovo\\', 'i3f' ]
-const codeKeywords =[
+var wordsBeginMaj =[ 'paris', 'rueil', 'avon', 'valo', 'leto', 'mars', 'mai', 'juin', 'papa', 'papi', 'victo', 'france', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche', 'janvier', 'février', 'avril', 'juillet', 'août', 'aout', 'septembre', 'octobre', 'novembre', 'décembre', 'decembre', 'deborah', 'powers', 'cadiot', 'maman', 'mamie', 'régine', 'tony', 'robert', 'simplon', 'loïc', 'jared', 'ville valo', 'shelby', 'magritte', 'gabin', 'makaron', 'malmaison', 'fontainebleau', 'issy', 'moulineaux', 'châte', 'chateaudun', 'michelet', 'chatelet', 'C:\\', 'users\\', 'desktop\\' ];
+var wordsBeginMin =[ 'Deborah.powers', 'Deborah.noisetier', 'Http', 'File:///', '\nPg_' ];
+var wordsFullMaj =[ '\\lenovo\\', 'i3f' ]
+var codeKeywords =[
 	'set schema', 'declare', 'begin', 'do $$', 'update', 'select', 'from', 'inner join', 'outer join', 'left outer join', 'where',
 	'having', 'group by', 'order by', 'insert into', 'if', 'elseif', 'end', 'loop', 'perform', 'drop ',
 	'cd', 'psql', 'git', 'return', 'mvn', 'python', 'else',
 	'def', 'class', 'console.log', 'var', 'const ', 'function ', 'private ', 'protected', 'public',
 	'log.debug', 'log.info'
 ];
-const titleChars = '=*-_#+~';
+var titleChars = '=*-_#+~';
 function exists (object){
 	if (object === null || object === undefined) return false;
 	else if (typeof (object) == 'string') return (! object.isEmpty());

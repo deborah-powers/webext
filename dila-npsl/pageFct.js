@@ -2,7 +2,7 @@
 dépend de textFct.js et htmlFct.js
 fonctionne avec cleanAction.js
 */
-const urlBackend = 'http://localhost:1407/';
+var urlBackend = 'http://localhost:1407/';
 
 function sendToBackend(){
 	// récupérer les métadonnées
