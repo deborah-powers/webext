@@ -1,3 +1,5 @@
+/* ------------------------ fonctions de la legacy ------------------------ */
+
 function demarcheLegaE1CasOui(){
 	document.getElementById ('estRenouvelePremiereFois_input_0_passeportEnLigne').clickOn();
 	setTimeout (function(){
@@ -25,10 +27,7 @@ function demarcheLegaE1CasNon(){
 	demarcheLegaE1CasNonFinPage();
 }
 function demarcheLegaE1(){
-	/*/ non coché par défaut. oui est intéressant aussi
-	if (document.body.innerText.includes ("Est-ce qu'un ou plusieurs visas en cours de validité vous obligent à conserver votre passeport actuel ?"))
-		document.getElementById ('validiteVisas_input_1_validiteVisas').clickOn();
-	*/
+	// non coché par défaut. oui est intéressant aussi
 		document.body.addBlurListener ('Pays de résidence', 'australi', function (event){
 			fillInputByLabel ('Oui');
 			setTimeout (function(){
@@ -81,6 +80,9 @@ function demarcheLegaE6(){
 		else goNextLegacyPage();
 }}
 function demarcheLegaE7(){
+	/* bon timbre: 0000000000000000
+	mauvais timbre: 0000000000000001
+	*/
 	if (document.body.innerText.includes ('Avez-vous déjà acheté votre timbre électronique')){
 		fillInputByLabel ("Oui, vous l’avez acheté et vous avez son numéro");
 		// l'option d'acheter un timbre fait sortir de la démarche
@@ -97,28 +99,105 @@ function demarcheLegaE8(){
 	getRecap ('rnpp');
 	document.body.clickButtonByText ('Envoyer ma');
 }
-function demarcheLegaE9(){
-	const linkDownload = document.getElementById ('confirmationTelechargement_btn_cofirmationPaseport');
-	linkDownload.click();
-	clickButtonByText ('Terminer');
+/* ------------------------ fonctions de la npsl ------------------------ */
+
+function demarcheE1CasOui(){
+	fillInputByField ('Avez-vous utilisé cette démarche en ligne', 'Oui');
+	setTimeout (function(){
+		fillInputByField ('Renouvelez-vous votre passeport pour corriger une erreur', 'Oui');
+		setTimeout (function(){
+			document.body.addBlurListener ('Numéro du titre concerné', '12ab12345', function (event){
+				setTimeout (function(){
+					var element = document.body.findByInnerText ('Je soussigné(e), certifie avoir constaté');
+					element = element.findContainer ('fieldset');
+					const checkboxes = element.getElementsByTagName ('input');
+					for (var box of checkboxes) box.addEventListener ('click', function (event){
+						setTimeout (function(){ fillInputByField ("Est-ce qu'un ou plusieurs visas en cours de validité", 'Non'); }, 500);
+	}); }, 800); }); }, 500); }, 500);
+}
+function demarcheE1CasNon(){
+	fillInputByField ('Avez-vous utilisé cette démarche en ligne', 'Non');
+	setTimeout (function(){
+		var element = document.body.findByInnerText ('Pour quelle raison renouvelez-vous votre passeport ?');
+		element = element.findContainer ('div');
+		const raisonsRenouv = element.getElementsByTagName ('input');
+		for (var raison of raisonsRenouv) raison.addEventListener ('click', function (event){
+			setTimeout (function(){
+				fillInputByField ('Voulez-vous renouveler gratuitement', 'Oui');
+				setTimeout (function(){ fillInputByField ("Est-ce qu'un ou plusieurs visas en cours de validité", 'Non'); }, 500);
+	}, 500); }, 500); });
 }
 function demarcheE1(){
+	if (document.body.innerText.includes ('Pays de résidence'))
+		document.body.addBlurListener ('Pays de résidence', 'australi', function (event){
+			fillInputByLabel ('Oui');
+			setTimeout (function(){
+				document.body.addBlurListener ('Date de délivrance', '2024-05-14', function (event){
+					document.body.addBlurListener ("Date d'expiration", '2034-05-14', function (event){
+						demarcheE1CasNon();
+	}); }); }, 500); });
+	else if (document.body.innerText.includes ('Votre démarche avec le consulat')) goNextPage();
 }
 function demarcheE2(){
+	var NomUsageBloc = document.body.findByInnerText ('Voulez-vous supprimer ou modifier votre nom');
+	NomUsageBloc = NomUsageBloc.findContainer ('fieldset');
+	const NomUsageList = NomUsageBloc.getElementsByTagName ('input');
+	NomUsageList[0].addEventListener ('click', function (event){ setTimeout (function(){
+	// conserver le nom d'usage
+		fillInputByLabel ('Nom de votre père ou votre mère');
+		fillInputByLabel ('Aucun préfixe');
+		fillInputByField ('Voulez-vous utiliser votre nom', 'Oui');
+		goNextPage();
+	}, 500); });
+	NomUsageList[2].addEventListener ('click', function (event){ setTimeout (function(){
+		// modifier le nom d'usage
+		fillInputByLabel ('Nom de votre époux ou épouse');
+		fillInputByLabel ('Époux ou épouse');
+		fillInputByField ('Voulez-vous utiliser votre nom', 'Nom');
+		fillInputByLabel ("Nouveau nom d'usage", 'flix-flox');
+		fillInputByField ('Voulez-vous utiliser votre nom', 'Oui');
+		goNextPage();
+	}, 500); });
+}
+function demarcheE3(){
+	fillInputByLabel ('Père');
+	fillInputByField ('Lien de parenté du parent 2', 'Mère');
+	goNextPage();
+}
+function demarcheE4(){
 	document.getElementById ('').clickOn();
 	fillInputByLabel ('');
 	setTimeout (function(){}, 500);
 	document.body.addBlurListener ('', '', function (event){});
 	fichiers[0].onchange = function(){}
 }
-function demarcheE3(){
+function demarcheE7(){
+	const boxes = getRadioButtonsAndCheckboxes();
+	for (var chbox of boxes) chbox.clickOn();
+	getRecap ('rnpp');
+//	document.body.clickButtonByText ('Envoyer votre demande');
 }
-function demarcheE5(){
+function demarcheE8(){
+	document.getElementById ('').clickOn();
+	fillInputByLabel ('');
+	setTimeout (function(){}, 500);
+	document.body.addBlurListener ('', '', function (event){});
+	fichiers[0].onchange = function(){}
 }
 // log (window.location.search);
-// pages de npsl
-if (document.body.innerText.includes ('Étape 1 sur 6')) demarcheE1();
-// pages de legacy
+/* ------------------------ pages de la npsl ------------------------ */
+
+if (document.body.innerText.includes ('Étape 1 sur 7')) demarcheE1();
+else if (document.body.innerText.includes ('Étape 2 sur 7')) demarcheE2();
+else if (document.body.innerText.includes ('Étape 3 sur 7')) demarcheE3();	// pré-rempli avec des erreurs
+else if (document.body.innerText.includes ('Étape 4 sur 7')) goNextPage();	// pré-rempli
+else if (document.body.innerText.includes ('Étape 5 sur 7')) demarcheLegaE6();
+else if (document.body.innerText.includes ('Étape 6 sur 7')) goNextPage();	// pré-rempli
+else if (document.body.innerText.includes ('Étape 7 sur 7')) demarcheE7();
+else if (document.body.innerText.includes ('a été envoyée')) terminerDemarche();
+
+/* ------------------------ pages de la legacy ------------------------ */
+
 else if (document.body.innerText.includes ('Étape 1 sur 8')) demarcheLegaE1();
 else if (document.body.innerText.includes ('Étape 2 sur 8')) goNextLegacyPage();
 else if (document.body.innerText.includes ('Étape 3 sur 8')) demarcheLegaE3();
@@ -127,4 +206,4 @@ else if (document.body.innerText.includes ('Étape 5 sur 8')) goNextLegacyPage()
 else if (document.body.innerText.includes ('Étape 6 sur 8')) demarcheLegaE6();
 else if (document.body.innerText.includes ('Étape 7 sur 8')) demarcheLegaE7();
 else if (document.body.innerText.includes ('Étape 8 sur 8')) demarcheLegaE8();
-else if (document.body.innerText.includes ('a été envoyée')) demarcheLegaE9();
+else if (document.body.innerText.includes ('a été envoyée')) terminerDemarcheLegacy();

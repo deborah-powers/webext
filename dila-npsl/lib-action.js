@@ -64,6 +64,7 @@ function pageParents (nomPere, prenomPere, nomMere, prenomMere){
 		personne.fillInputByLabel ('Nom', nomMere.capitalize());
 		personne.fillInputByLabel ('Prénom', prenomMere.capitalize());
 }}
+/* ------------------------ fin de la démarche ------------------------ */
 
 var downloadLink = "<a id='download-link' href='data:text/plain;charset=utf-8,$data' download='recap $demarche $date.html'>télécharger</a>";
 var downloadPage = `<!DOCTYPE html><html lang='fr'><head><title>recap $demarche $date</title>
@@ -122,17 +123,18 @@ function getRecap (demarche){
 	// récupérer le récap
 	var tagRecap = document.getElementsByTagName ('form')[0];
 	const tagStock = document.createElement ('div');
-	if (window.location.href.includes ('npsl')){
-		// pour npsl
+	if (window.location.search.includes ('codeDemarche=')){
+		log ('npsl');
 		var containers = tagRecap.getElementsByProperties ('div', 'fr-grid-row');
 		tagRecap = containers[1];
 		tagStock.innerHTML = tagRecap.innerHTML;
 	}
-	else{
+	else if (window.location.search.includes ('execution=')){
 		// pour legacy
 		var containers = tagRecap.getElementsByProperties ('div', 'cadre-recap');
 		for (var contain of containers) tagStock.innerHTML = tagStock.innerHTML + contain.outerHTML;
 	}
+	else return;
 	tagStock.innerHTML = tagStock.innerHTML.cleanHtml();
 	tagStock.removeComments();
 	for (var a= tagStock.attributes.length -1; a>=0; a--) tagStock.removeAttribute (tagStock.attributes[a].name);
@@ -156,4 +158,13 @@ function getRecap (demarche){
 	textEncoded = textEncoded.replaceAll ("'", '%27');
 	downloadLink.href = downloadLink.href + textEncoded;
 	downloadLink.click();
+}
+function terminerDemarche(){
+	const linkDownload = document.body.findByInnerText ('Télécharger votre récapitulatif');
+	linkDownload.click();
+}
+function terminerDemarcheLegacy(){
+	const linkDownload = document.getElementById ('confirmationTelechargement_btn_cofirmationPaseport');
+	linkDownload.click();
+	clickButtonByText ('Terminer');
 }

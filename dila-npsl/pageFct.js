@@ -58,7 +58,11 @@ HTMLElement.prototype.simplifyNesting = function(){
 	if ([ 'SCRIPT', 'NOSCRIPT', 'STYLE', 'HEADER', 'FOOTER' ].includes (this.tagName)) this.parentElement.removeChild (this);
 	else if (! [ 'IMG', 'BR', 'HR', 'INPUT', 'TEXTAREA', 'svg' ].includes (this.tagName)){
 		for (var c= this.children.length -1; c>=0; c--) this.children[c].simplifyNesting();
-		if (this.innerHTML.isEmpty()) this.parentElement.removeChild (this);
+		if (this.innerHTML.isEmpty()){
+			log (this);
+			log (this.parentElement);
+			this.parentElement.removeChild (this);
+		}
 		else if (this.innerText.isEmpty() && this.children.length ===0) this.parentElement.removeChild (this);
 		else if (this.innerText.isEmpty() &&! this.innerHTML.includes ('<img') &&! this.innerHTML.includes ('<svg'))
 			this.parentElement.removeChild (this);

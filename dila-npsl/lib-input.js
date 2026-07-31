@@ -77,15 +77,19 @@ HTMLElement.prototype.findInputByLabel = function (labelText){
 			unknow = false;
 	} i+=1; }
 	if (! unknow) return inputs[i];
-	else if (this.innerText.count (labelText) ===1){
+//	else if (this.innerText.count (labelText) ===1){
+	else{
 		// dernier recours
 		var element = this.findByInnerText (labelText);
 		element = element.parentElement;
-		while (! element.innerHTML.includes ('<input ') && element.tagName !== 'BODY') element = element.parentElement;
-		element = element.getElementsByTagName ('input')[0];
+		while (element.tagName !== 'BODY' && ! element.innerHTML.includes ('<input ') && ! element.innerHTML.includes ('<select '))
+			element = element.parentElement;
+		if (element.innerHTML.includes ('<input ')) element = element.getElementsByTagName ('input')[0];
+		else if (element.innerHTML.includes ('<select ')) element = element.getElementsByTagName ('select')[0];
+		else element = null;
 		return element;
 	}
-	else return null;
+//	else return null;
 }
 HTMLElement.prototype.findHomonymInputs = function (labelText){
 	var inputs = document.getElementsByTagName ('input');
@@ -199,9 +203,13 @@ HTMLElement.prototype.addClickListener = function (labelText, functionAtClick){
 	if (button.tagName === 'BUTTON') button.addEventListener ('click', functionAtClick);
 }
 HTMLElement.prototype.fillInputByField = function (fieldLegend, labelText, inputValue){
-	var block = document.body.findByInnerText (fieldLegend);
-	block = block.findContainer ('fieldset');
+	const blockLegend = document.body.findByInnerText (fieldLegend);
+	var block = blockLegend.findContainer ('fieldset');
+	if (block.tagName === 'BODY') block = blockLegend.findContainer ('div');
 	block.fillInputByLabel (labelText, inputValue);
+}
+function fillInputByField (fieldLegend, labelText, inputValue){
+	document.body.fillInputByField (fieldLegend, labelText, inputValue);
 }
 function fillInputWhenItAppears (labelText, inputValue){
 	function resolveFunc (resolve){
