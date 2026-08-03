@@ -9,7 +9,7 @@
 		"matches": [
 			"https://qualif.auth.service-public.gouv.fr/realms/service-public/protocol/openid-connect/*",
 			"https://*/api/v2/interaction/*",
-			"https://fip1-low.integ01.fcp.fournisseur-d-identite.fr/interaction/*"
+			"https://*.fournisseur-d-identite.fr/interaction/*"
 		],
 		"js": [ "pages-connect.js" ]
 	}, {

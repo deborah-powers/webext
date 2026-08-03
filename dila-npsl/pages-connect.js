@@ -16,10 +16,13 @@ function fillConnectionPage(){
 		const buttonFranceConnect = form.getElementsByTagName ('button')[0];
 		buttonFranceConnect.click();
 	}
-	else if (window.location.href.includes ('fournisseur-d-identite.fr/interaction/') && false){
-		// page de connection avec un compte. les données sont déjà pré-entrées, me garder le choix d'en changer
+	else if (window.location.href.includes ('fournisseur-d-identite.fr/interaction/')){
+		// page de connection avec france connect. certaines données sont déjà pré-entrées. désactiver ou modifier pour changer de compte
 		setTimeout (function(){
 			const main = document.getElementsByTagName ('form')[0];
+			const userFields = main.getElementsByTagName ('input');
+			userFields[1].value = 'test_BERTRAND';
+			userFields[2].value = '123';
 			const buttonFranceConnect = main.getElementsByTagName ('button')[0];
 			buttonFranceConnect.click();
 		}, 1000);

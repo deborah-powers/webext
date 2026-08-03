@@ -12,25 +12,15 @@ const labelDict ={
 	'Date de dépôt': '2025-06-15',
 	"Organisme en charge de l'instruction": 'tma sian'
 };
-function getRadioButtonsAndCheckboxes(){
-	const inputs = document.getElementsByTagName ('input');
+HTMLElement.prototype.getRadioButtonsAndCheckboxes = function(){
+	const inputs = this.getElementsByTagName ('input');
 	var toCheck =[];
 	for (var ip of inputs){
 		if (ip.type === 'radio' || ip.type === 'checkbox') toCheck.push (ip);
 	}
 	return toCheck;
 }
-/*
-Here is the event logged by Firebug when selecting a file with Firebug:
-click clientX=885, clientY=207
-blur
-focus
-change
-DOMActivate
-DOMActivate
-mouseout clientX=162, clientY=27
-onchanged
-*/
+function getRadioButtonsAndCheckboxes(){ return document.body.getRadioButtonsAndCheckboxes(); }
 function getFileUploader(){
 	const inputs = document.getElementsByTagName ('input');
 	var uploaders =[];

@@ -15,7 +15,7 @@ String.prototype.count = function (char){
 		}
 		return nbOccurences;
 }}
-HTMLElement.prototype.containsText = function (message){ return this.innerText.includes ('message'); }
+HTMLElement.prototype.containsText = function (message){ return this.innerText.includes (message); }
 HTMLElement.prototype.getElementsByProperties = function (tagName, className){
 	var elements = null;
 	var elementsFin =[]

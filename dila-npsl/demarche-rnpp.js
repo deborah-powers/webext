@@ -18,7 +18,7 @@ function demarcheLegaE1CasNonFinPage(){
 	}); }, 500);
 }
 function demarcheLegaE1CasNon(){
-	if (document.body.innerText.includes ('Que souhaitez-vous modifier sur votre passeport actuel ?')){
+	if (document.body.containsText ('Que souhaitez-vous modifier sur votre passeport actuel ?')){
 		// changement d'état civil
 	//	fillInputByLabel ("nom d'usage");
 		document.getElementById ('nomUsage_input_nomUsage').clickOn();
@@ -83,7 +83,7 @@ function demarcheLegaE7(){
 	/* bon timbre: 0000000000000000
 	mauvais timbre: 0000000000000001
 	*/
-	if (document.body.innerText.includes ('Avez-vous déjà acheté votre timbre électronique')){
+	if (document.body.containsText ('Avez-vous déjà acheté votre timbre électronique')){
 		fillInputByLabel ("Oui, vous l’avez acheté et vous avez son numéro");
 		// l'option d'acheter un timbre fait sortir de la démarche
 		setTimeout (function(){
@@ -101,34 +101,53 @@ function demarcheLegaE8(){
 }
 /* ------------------------ fonctions de la npsl ------------------------ */
 
+function visaExists (event){ fillInputByField ("Est-ce qu'un ou plusieurs visas en cours de validité", 'Non'); }
+function renoveForFree (event){
+	fillInputByField ('Voulez-vous renouveler gratuitement', 'Oui');
+	setTimeout (visaExists, 500);
+}
+function fillPassportError(){
+	setTimeout (function(){
+		document.body.addBlurListener ('Numéro du titre concerné', '12ab12345', function (event){
+			setTimeout (function(){
+				var element = document.body.findByInnerText ('Je soussigné(e), certifie avoir constaté');
+				element = element.findContainer ('fieldset');
+				const checkboxes = element.getRadioButtonsAndCheckboxes();
+				for (var box of checkboxes) box.addEventListener ('click', function (event){
+					setTimeout (visaExists, 500);
+	}); }, 800); }); }, 500);
+}
 function demarcheE1CasOui(){
 	fillInputByField ('Avez-vous utilisé cette démarche en ligne', 'Oui');
 	setTimeout (function(){
 		fillInputByField ('Renouvelez-vous votre passeport pour corriger une erreur', 'Oui');
-		setTimeout (function(){
-			document.body.addBlurListener ('Numéro du titre concerné', '12ab12345', function (event){
-				setTimeout (function(){
-					var element = document.body.findByInnerText ('Je soussigné(e), certifie avoir constaté');
-					element = element.findContainer ('fieldset');
-					const checkboxes = element.getElementsByTagName ('input');
-					for (var box of checkboxes) box.addEventListener ('click', function (event){
-						setTimeout (function(){ fillInputByField ("Est-ce qu'un ou plusieurs visas en cours de validité", 'Non'); }, 500);
-	}); }, 800); }); }, 500); }, 500);
+		fillPassportError();
+	}, 500);
 }
 function demarcheE1CasNon(){
 	fillInputByField ('Avez-vous utilisé cette démarche en ligne', 'Non');
 	setTimeout (function(){
 		var element = document.body.findByInnerText ('Pour quelle raison renouvelez-vous votre passeport ?');
 		element = element.findContainer ('div');
-		const raisonsRenouv = element.getElementsByTagName ('input');
-		for (var raison of raisonsRenouv) raison.addEventListener ('click', function (event){
-			setTimeout (function(){
-				fillInputByField ('Voulez-vous renouveler gratuitement', 'Oui');
-				setTimeout (function(){ fillInputByField ("Est-ce qu'un ou plusieurs visas en cours de validité", 'Non'); }, 500);
-	}, 500); }, 500); });
+		const raisonsRenouv = getRadioButtonsAndCheckboxes();
+		raisonsRenouv[0].addEventListener ('click', visaExists);
+		raisonsRenouv[1].addEventListener ('click', renoveForFree);
+		raisonsRenouv[2].addEventListener ('click', function (event){
+			var container = document.body.findByInnerText ('Que souhaitez-vous modifier sur votre passeport');
+			container = container.findContainer ('div');
+			const boxes = container.getRadioButtonsAndCheckboxes();
+			for (var chbox of boxes) chbox.clickOn();
+		});
+		raisonsRenouv[3].addEventListener ('click', renoveForFree);
+		raisonsRenouv[5].addEventListener ('click', function (event){
+			renoveForFree (event);
+			fillPassportError();
+		});
+		raisonsRenouv[6].addEventListener ('click', visaExists);
+	}, 500);
 }
 function demarcheE1(){
-	if (document.body.innerText.includes ('Pays de résidence'))
+	if (document.body.containsText ('Pays de résidence'))
 		document.body.addBlurListener ('Pays de résidence', 'australi', function (event){
 			fillInputByLabel ('Oui');
 			setTimeout (function(){
@@ -136,7 +155,7 @@ function demarcheE1(){
 					document.body.addBlurListener ("Date d'expiration", '2034-05-14', function (event){
 						demarcheE1CasNon();
 	}); }); }, 500); });
-	else if (document.body.innerText.includes ('Votre démarche avec le consulat')) goNextPage();
+	else if (document.body.containsText ('Votre démarche avec le consulat')) goNextPage();
 }
 function demarcheE2(){
 	var NomUsageBloc = document.body.findByInnerText ('Voulez-vous supprimer ou modifier votre nom');
@@ -187,23 +206,23 @@ function demarcheE8(){
 // log (window.location.search);
 /* ------------------------ pages de la npsl ------------------------ */
 
-if (document.body.innerText.includes ('Étape 1 sur 7')) demarcheE1();
-else if (document.body.innerText.includes ('Étape 2 sur 7')) demarcheE2();
-else if (document.body.innerText.includes ('Étape 3 sur 7')) demarcheE3();	// pré-rempli avec des erreurs
-else if (document.body.innerText.includes ('Étape 4 sur 7')) goNextPage();	// pré-rempli
-else if (document.body.innerText.includes ('Étape 5 sur 7')) demarcheLegaE6();
-else if (document.body.innerText.includes ('Étape 6 sur 7')) goNextPage();	// pré-rempli
-else if (document.body.innerText.includes ('Étape 7 sur 7')) demarcheE7();
-else if (document.body.innerText.includes ('a été envoyée')) terminerDemarche();
+if (document.body.containsText ('Étape 1 sur 7')) demarcheE1();
+else if (document.body.containsText ('Étape 2 sur 7')) demarcheE2();
+else if (document.body.containsText ('Étape 3 sur 7')) demarcheE3();	// pré-rempli avec des erreurs
+else if (document.body.containsText ('Étape 4 sur 7')) goNextPage();	// pré-rempli
+else if (document.body.containsText ('Étape 5 sur 7')) demarcheLegaE6();
+else if (document.body.containsText ('Étape 6 sur 7')) goNextPage();	// pré-rempli
+else if (document.body.containsText ('Étape 7 sur 7')) demarcheE7();
+else if (document.body.containsText ('a été envoyée')) terminerDemarche();
 
 /* ------------------------ pages de la legacy ------------------------ */
 
-else if (document.body.innerText.includes ('Étape 1 sur 8')) demarcheLegaE1();
-else if (document.body.innerText.includes ('Étape 2 sur 8')) goNextLegacyPage();
-else if (document.body.innerText.includes ('Étape 3 sur 8')) demarcheLegaE3();
-else if (document.body.innerText.includes ('Étape 4 sur 8')) goNextLegacyPage();	// pré-rempli
-else if (document.body.innerText.includes ('Étape 5 sur 8')) goNextLegacyPage();
-else if (document.body.innerText.includes ('Étape 6 sur 8')) demarcheLegaE6();
-else if (document.body.innerText.includes ('Étape 7 sur 8')) demarcheLegaE7();
-else if (document.body.innerText.includes ('Étape 8 sur 8')) demarcheLegaE8();
-else if (document.body.innerText.includes ('a été envoyée')) terminerDemarcheLegacy();
+else if (document.body.containsText ('Étape 1 sur 8')) demarcheLegaE1();
+else if (document.body.containsText ('Étape 2 sur 8')) goNextLegacyPage();
+else if (document.body.containsText ('Étape 3 sur 8')) demarcheLegaE3();
+else if (document.body.containsText ('Étape 4 sur 8')) goNextLegacyPage();	// pré-rempli
+else if (document.body.containsText ('Étape 5 sur 8')) goNextLegacyPage();
+else if (document.body.containsText ('Étape 6 sur 8')) demarcheLegaE6();
+else if (document.body.containsText ('Étape 7 sur 8')) demarcheLegaE7();
+else if (document.body.containsText ('Étape 8 sur 8')) demarcheLegaE8();
+else if (document.body.containsText ('a été envoyée')) terminerDemarcheLegacy();
