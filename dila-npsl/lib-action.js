@@ -124,7 +124,6 @@ function getRecap (demarche){
 	var tagRecap = document.getElementsByTagName ('form')[0];
 	const tagStock = document.createElement ('div');
 	if (window.location.search.includes ('codeDemarche=')){
-		log ('npsl');
 		var containers = tagRecap.getElementsByProperties ('div', 'fr-grid-row');
 		tagRecap = containers[1];
 		tagStock.innerHTML = tagRecap.innerHTML;
@@ -160,9 +159,15 @@ function getRecap (demarche){
 	downloadLink.click();
 }
 function terminerDemarche(){
-	const linkDownload = document.body.findByInnerText ('Télécharger votre récapitulatif');
+	var linkDownload = document.body.findByInnerText ('Télécharger votre récapitulatif');
+	linkDownload = linkDownload.findContainer ('a');
 	linkDownload.click();
-}
+	if (document.body.containsText ('Télécharger le flux')){
+		linkDownload = document.body.findByInnerText ('Télécharger le flux');
+		linkDownload = linkDownload.findContainer ('a');
+		linkDownload.click();
+		setTimeout (function(){ clickButtonByText ('Terminer'); }, 500);
+}}
 function terminerDemarcheLegacy(){
 	const linkDownload = document.getElementById ('confirmationTelechargement_btn_cofirmationPaseport');
 	linkDownload.click();

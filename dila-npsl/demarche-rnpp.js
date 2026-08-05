@@ -101,10 +101,14 @@ function demarcheLegaE8(){
 }
 /* ------------------------ fonctions de la npsl ------------------------ */
 
-function visaExists (event){ fillInputByField ("Est-ce qu'un ou plusieurs visas en cours de validité", 'Non'); }
+function visaExists (event){
+	setTimeout (function(){ fillInputByField ("Est-ce qu'un ou plusieurs visas en cours de validité", 'Non'); }, 500);
+}
 function renoveForFree (event){
-	fillInputByField ('Voulez-vous renouveler gratuitement', 'Oui');
-	setTimeout (visaExists, 500);
+	setTimeout (function(){
+		fillInputByField ('Voulez-vous renouveler gratuitement', 'Oui');
+		visaExists();
+	}, 500);
 }
 function fillPassportError(){
 	setTimeout (function(){
@@ -114,7 +118,7 @@ function fillPassportError(){
 				element = element.findContainer ('fieldset');
 				const checkboxes = element.getRadioButtonsAndCheckboxes();
 				for (var box of checkboxes) box.addEventListener ('click', function (event){
-					setTimeout (visaExists, 500);
+					visaExists();
 	}); }, 800); }); }, 500);
 }
 function demarcheE1CasOui(){
@@ -129,7 +133,7 @@ function demarcheE1CasNon(){
 	setTimeout (function(){
 		var element = document.body.findByInnerText ('Pour quelle raison renouvelez-vous votre passeport ?');
 		element = element.findContainer ('div');
-		const raisonsRenouv = getRadioButtonsAndCheckboxes();
+		const raisonsRenouv = element.getRadioButtonsAndCheckboxes();
 		raisonsRenouv[0].addEventListener ('click', visaExists);
 		raisonsRenouv[1].addEventListener ('click', renoveForFree);
 		raisonsRenouv[2].addEventListener ('click', function (event){
@@ -184,17 +188,25 @@ function demarcheE3(){
 	goNextPage();
 }
 function demarcheE4(){
-	document.getElementById ('').clickOn();
-	fillInputByLabel ('');
-	setTimeout (function(){}, 500);
-	document.body.addBlurListener ('', '', function (event){});
-	fichiers[0].onchange = function(){}
+	fillInputByLabel ('Indicatif', '+1 (CANADA)');
+	goNextPage();
+}
+function demarcheE6(){
+	/* bon timbre: 0000000000000000
+	mauvais timbre: 0000000000000001
+	*/
+	if (document.body.containsText ('Avez-vous déjà acheté votre timbre électronique')){
+		fillInputByLabel ("Oui, vous");
+		// l'option d'acheter un timbre fait sortir de la démarche
+		setTimeout (function(){ fillInputByLabel ('Numéro du timbre électronique', '0000000000000000'); }, 500);
+	}
+	else goNextPage();
 }
 function demarcheE7(){
 	const boxes = getRadioButtonsAndCheckboxes();
 	for (var chbox of boxes) chbox.clickOn();
 	getRecap ('rnpp');
-//	document.body.clickButtonByText ('Envoyer votre demande');
+	document.body.clickButtonByText ('Envoyer votre demande');
 }
 function demarcheE8(){
 	document.getElementById ('').clickOn();
@@ -203,15 +215,14 @@ function demarcheE8(){
 	document.body.addBlurListener ('', '', function (event){});
 	fichiers[0].onchange = function(){}
 }
-// log (window.location.search);
 /* ------------------------ pages de la npsl ------------------------ */
 
 if (document.body.containsText ('Étape 1 sur 7')) demarcheE1();
 else if (document.body.containsText ('Étape 2 sur 7')) demarcheE2();
 else if (document.body.containsText ('Étape 3 sur 7')) demarcheE3();	// pré-rempli avec des erreurs
-else if (document.body.containsText ('Étape 4 sur 7')) goNextPage();	// pré-rempli
+else if (document.body.containsText ('Étape 4 sur 7')) demarcheE4();	// pré-rempli
 else if (document.body.containsText ('Étape 5 sur 7')) demarcheLegaE6();
-else if (document.body.containsText ('Étape 6 sur 7')) goNextPage();	// pré-rempli
+else if (document.body.containsText ('Étape 6 sur 7')) demarcheE6();
 else if (document.body.containsText ('Étape 7 sur 7')) demarcheE7();
 else if (document.body.containsText ('a été envoyée')) terminerDemarche();
 

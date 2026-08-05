@@ -6,11 +6,10 @@ form, [role='form'], [role='group'], fieldset, legend, input, textarea, label, f
 	color: black !important;
 	background-color: white !important;
 	box-sizing: border-box;
+	max-width: 100%;
 }
-form:hover, [role='form']:hover, [role='group']:hover, fieldset:hover, legend:hover, input:hover, textarea:hover, label:hover,
-form button:hover, button[form]:hover, select:hover, optgroup:hover, option:hover,
-form:focus, [role='group']:focus, fieldset:focus, legend:focus, input:focus, textarea:focus, label:focus,
-form button:focus, button[form]:focus, select:focus, optgroup:focus, option:focus
+input:hover, textarea:hover, label:hover, form button:hover, button[form]:hover, select:hover, optgroup:hover, option:hover,
+input:focus, textarea:focus, label:focus, form button:focus, button[form]:focus, select:focus, optgroup:focus, option:focus
 	{ font-weight: bold !important; }
 form, [role='form'], fieldset, [role='group'], [role='radiogroup'], [role='form'] [role='group'], [role='form'] [role='radiogroup'] {
 	border-width: 4px !important;
@@ -34,9 +33,10 @@ input, textarea, [role='progressbar'], [role='slider'], [role='spinbutton'], [ro
 [role='combobox'], [role='checkbox'], [role='radio'], [role='switch']
 	{ color: #36C !important; }
 
-form button, input[type='button'], button[form], input[type='submit'], input[type='reset'], input[type='image'], [role='button'], button[form] {
-	color: #399 !important;
-	background-color: lightgreen !important;
+form button, input[type='button'], button[form], input[type='submit'], input[type='reset'], input[type='image'],
+[role='button'] {
+	color: black !important;
+	background-color: #DFD !important;
 }
 datalist {
 	display: block !important;
@@ -44,7 +44,8 @@ datalist {
 	border-color: #F3C !important;
 }
 [aria-invalid='true'] { background-color: pink !important; }
-button[form]:hover:after { content: 'bouton pour formulaire (' attr(form) ')' !important; }
+button[form]:hover:after { content: "bouton innadapté " attr(type, 'sans type') " pour le formulaire " attr(form) !important; }
+button[form][type='submit']:hover:after { content: "bouton pour formulaire " attr(form) !important; }
 /*
 form:hover:after { content: 'form'; }
 [role='form']:hover:after { content: 'role form'; }

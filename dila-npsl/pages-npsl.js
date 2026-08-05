@@ -42,6 +42,10 @@ chrome.action.onClicked.addListener (function (tab){
 		target: {tabId: tab.id, allFrames: false },
 		files: [ 'textFct.js', 'htmlFct.js', 'pageFct.js', 'demarche-rnpp.js' ]
 	});
+	else if (tab.url.includes ('ModificationAIOT')) chrome.scripting.executeScript ({
+		target: {tabId: tab.id, allFrames: false },
+		files: [ 'textFct.js', 'htmlFct.js', 'pageFct.js', 'demarche-maiot.js' ]
+	});
 	else chrome.scripting.executeScript ({
 		target: {tabId: tab.id, allFrames: false },
 		files: [ 'textFct.js', 'htmlFct.js', 'pageFct.js', 'demarche-recap.js' ]

@@ -49,6 +49,7 @@ HTMLElement.prototype.addInfosRec = function(){
 	for (var child of this.children) child.addInfosRec();
 	this.setAttribute ('infos', this.infos);
 }
+HTMLLabelElement.prototype.addInfosOnHover = function(){ return true; }
 HTMLLabelElement.prototype.addInfos = function(){
 	var label = this.getAttribute ('for');
 	if (! label) this.infos = 'label sans input associé';
@@ -58,14 +59,35 @@ HTMLLabelElement.prototype.addInfos = function(){
 		input.addEventListener ('mouseover', function (event){ event.target.labels[0].classList.add ('rgaa-highlight'); });
 		input.addEventListener ('mouseout', function (event){ event.target.labels[0].classList.remove ('rgaa-highlight'); });
 	}
+	infos = infos + this.infos;
 	this.setAttribute ('infos', this.infos);
 //	for (var child of this.children) child.addInfosRec();
 }
-
-infos = infos +'\n\n== Les inputs et selects\n';
+HTMLButtonElement.prototype.addInfosOnHover = function(){
+	const formulaire = this.getAttribute ('form');
+	if (formulaire === undefined || formulaire === null) return false;
+	else return true;
+}
+HTMLButtonElement.prototype.addInfos = function(){
+	const formulaire = this.getAttribute ('form');
+	if (formulaire === undefined || formulaire === null) return;
+	this.infos = 'formulaire '+ formulaire +'\n';
+	if (this.type === undefined || this.type === null) this.infos = this.infos + 'type manquant. devrait être submit';
+	if (this.type === 'submit') this.infos = this.infos + 'type OK';
+	else this.infos = this.infos + 'type innadapté '+ this.type +'. devrait être submit';
+	infos = infos + this.infos;
+	this.setAttribute ('infos', this.infos);
+}
+infos = infos +'\n\n== Les inputs et selects\n\n';
 var interractives = document.getElementsByTagName ('label');
 interractives.setNbItemMax ('inputs et select');
 for (var i=0; i< nbItemMax; i++) interractives[i].addInfos();
+
+infos = infos +'\n\n== Les boutons associés aux formulaires\n\n';
+interractives = document.getElementsByTagName ('button');
+interractives.setNbItemMax ('boutons associés aux formulaires');
+for (var i=0; i< nbItemMax; i++) interractives[i].addInfos();
+
 downloadAnalyse ('formulaires');
 
 /*

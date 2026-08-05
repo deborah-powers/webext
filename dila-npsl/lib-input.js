@@ -67,6 +67,15 @@ HTMLElement.prototype.findInputByLabel = function (labelText){
 			unknow = false;
 	} i+=1; }
 	if (! unknow) return inputs[i];
+	inputs = this.getElementsByTagName ('textarea');
+	i=0;
+	unknow = true;
+	while (i< inputs.length && unknow){
+		if (inputs[i].labels !== null && inputs[i].labels.length >0 && inputs[i].labels[0].innerText.includes (labelText)){
+			i=i-1;
+			unknow = false;
+	} i+=1; }
+	if (! unknow) return inputs[i];
 //	else if (this.innerText.count (labelText) ===1){
 	else{
 		// dernier recours
@@ -101,6 +110,11 @@ HTMLElement.prototype.findHomonymInputs = function (labelText){
 			inputsHomonym.push (labels[l].getElementsByTagName ('input')[0]);
 	}}
 	return inputsHomonym;
+}
+HTMLTextAreaElement.prototype.fillInput = function (message){
+	this.value = message;
+	var event = new MouseEvent ('click', { bubbles: true, cancelable: true, view: window });
+	this.dispatchEvent (event);
 }
 HTMLInputElement.prototype.clickOn = function(){
 	var event = new MouseEvent ('click', { bubbles: true, cancelable: true, view: window });
