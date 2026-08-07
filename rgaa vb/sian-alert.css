@@ -1,0 +1,30 @@
+input.rgaa-highlight {
+	background-color: pink;
+}
+.fr-alert:hover > div:before {
+	content: "alerte " attr(id) " sans input";
+}
+.fr-alert.rgaa-highlight:hover > div:before {
+	content: "alerte " attr(id) " associée à un input";
+}
+:before {
+	box-sizing: border-box;
+	display: block;
+	background-color: ivory;
+	opacity: 1;
+	color: #420;
+	font-size: 18px;
+	font-weight: normal;
+	font-style: normal;
+	font-family: georgia, serif;
+	text-transform: none;
+	text-decoration: none;
+	border: double 8px deeppink;
+	border-radius: 0.5em;
+	padding: 0.5em;
+	white-space: pre-wrap;
+	max-width: 30vw;
+	position: fixed;
+	bottom: 2em;
+	z-index: 20;
+}

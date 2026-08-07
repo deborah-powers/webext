@@ -44,7 +44,11 @@ function chooseAction (event){
 		var listStyle =[];
 		var listScript =[];
 		// choisir les actions
-		if (action === 'ret-style'){
+		if (action === 'sian-alert'){
+			listStyle =[ 'sian-alert.css' ];
+			listScript =[ 'sian-alert.js' ];
+		}
+		else if (action === 'ret-style'){
 			chrome.scripting.removeCSS ({
 				target: {tabId: activeTab.id, allFrames: false},
 				files: [
