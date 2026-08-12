@@ -5,6 +5,7 @@ button, a, input, select, textarea, [role='button'], [role='link'] {
 a, [role='link'] { border-color: deeppink !important; }
 button, [role='button'] { border-color: cornflowerblue !important; }
 input, select, textarea { border-color: springgreen !important; }
+input + label { color: #C09 !important; }
 
 [role='presentation'] button, [role='presentation'] a, [role='presentation'] input, [role='presentation'] select, [role='presentation'] textarea, [role='presentation'] [role='button'], [role='presentation'] [role='link'],
 [aria-hidden='true'] button, [aria-hidden='true'] a, [aria-hidden='true'] input, [aria-hidden='true'] select, [aria-hidden='true'] textarea, [aria-hidden='true'] [role='button'], [aria-hidden='true'] [role='link'],

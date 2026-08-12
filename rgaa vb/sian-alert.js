@@ -1,5 +1,5 @@
-const alertes = document.getElementsByClassName ('fr-alert');
-const inputs = document.getElementsByTagName ('input');
+var alertes = document.getElementsByClassName ('fr-alert');
+var inputs = document.getElementsByTagName ('input');
 
 HTMLElement.prototype.isAlert = function(){
 	if (this.className.includes ('fr-alert')) return true;
@@ -7,20 +7,29 @@ HTMLElement.prototype.isAlert = function(){
 	return this.parentElement.isAlert();
 }
 HTMLElement.prototype.findAlertId = function(){
-	if (this.id !== null && this.id !== undefined) return this.id;
-	var id=0;
-	if (this.children[0].className.includes ('sr-only')) id=1;
-	return this.children[id].id;
+	if (this.id !== null && this.id !== undefined && this.id !=="") return this.id;
+	var i=0;
+	if (this.children[0].className.includes ('sr-only')) i=1;
+	while (i< this.children.length && [null, undefined, ""].includes (this.children[i].id)) i+=1;
+	if (i< this.children.length) return this.children[i].id;
+	else return null;
 }
 HTMLInputElement.prototype.findInputStartingAlert = function (alertId){
 	const description = this.getAttribute ('aria-describedby');
-	if (description === null || description === undefined) return false;
+	if (description === null || description === undefined || description ==="") return false;
 	else if (description.includes (alertId)) return true;
+	else return false;
 }
 HTMLElement.prototype.findInputStartingAlert = function(){
 	const alertId = this.findAlertId();
-	var i=0;
-	while (i< inputs.length &&! inputs[i].findInputStartingAlert (alertId)) i+=1;
-	if (i< inputs.length) inputs[i].classList.add ('rgaa-highlight');
-}
+//	if (alertId === null) this.classList.add ('rgaa-error');
+	if (alertId === null) return;
+	else{
+		var i=0;
+		while (i< inputs.length &&! inputs[i].findInputStartingAlert (alertId)) i+=1;
+		if (i< inputs.length){
+			console.log (i, alertId);
+//			inputs[i].classList.add ('rgaa-highlight');
+			this.classList.add ('rgaa-highlight');
+}}}
 for (var alert of alertes) alert.findInputStartingAlert();

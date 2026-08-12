@@ -1,13 +1,33 @@
-input.rgaa-highlight {
-	background-color: pink;
+/*
+la liaison avec un input (rgaa-highlight) est calculée par sian-alert.js.
+le script n'agit que sur les alertes visibles. il faut le relancer à chaque fois qu'une nouvelle alerte apparaît.
+
+input.rgaa-highlight { background-color: pink !important; }
+*/
+input[aria-describedby*='alerte'] { border: solid 2px deeppink !important; }
+input[aria-describedby*='alerte'] + label { color: #C09 !important; }
+input[aria-describedby*='alerte']:hover + label:after { content: "description reliant à une alerte"; }
+
+.fr-alert:not(:has([id])) { background-color: pink !important; }
+.fr-alert:not(:has([id])):hover:after { content: "pas d'id"; }
+
+.fr-alert > [id] { background-color: #FFCC99 !important; }
+.fr-alert:hover > [id]:after { content: "alerte " attr(id) "\Asans input,\Ani marqueur d'alerte"; }
+
+.fr-alert.rgaa-highlight > [id] { background-color: yellow !important; }
+.fr-alert.rgaa-highlight:hover > [id]:after { content: "alerte " attr(id) "\A associée à un input,\Asans marqueur d'alerte"; }
+
+.fr-alert > [id][role='alert'], .fr-alert > [id][aria-live='assertive'] { background-color: lightgreen !important; }
+.fr-alert:hover > [id][role='alert']:after, .fr-alert:hover > [id][aria-live='assertive']:after {
+	content: "alerte " attr(id) "\Asans input,\A avec marqueur d'alerte";
 }
-.fr-alert:hover > div:before {
-	content: "alerte " attr(id) " sans input";
+.fr-alert.rgaa-highlight > [id][role='alert'], .fr-alert.rgaa-highlight > [id][aria-live='assertive'] {
+	background-color: lightblue !important;
 }
-.fr-alert.rgaa-highlight:hover > div:before {
-	content: "alerte " attr(id) " associée à un input";
+.fr-alert.rgaa-highlight:hover > [id][role='alert']:after, .fr-alert.rgaa-highlight:hover > [id][aria-live='assertive']:after {
+	content: "alerte " attr(id) "\A associée à un input,\A avec marqueur d'alerte";
 }
-:before {
+.fr-alert:not(:has([id])):after, .fr-alert > [id]:after, input[aria-describedby*='alerte']:hover + label:after {
 	box-sizing: border-box;
 	display: block;
 	background-color: ivory;
@@ -26,5 +46,6 @@ input.rgaa-highlight {
 	max-width: 30vw;
 	position: fixed;
 	bottom: 2em;
+	right: 2em;
 	z-index: 20;
 }

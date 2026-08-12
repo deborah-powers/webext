@@ -66,7 +66,7 @@ function pageParents (nomPere, prenomPere, nomMere, prenomMere){
 }}
 /* ------------------------ fin de la démarche ------------------------ */
 
-var downloadLink = "<a id='download-link' href='data:text/plain;charset=utf-8,$data' download='recap $demarche $date.html'>télécharger</a>";
+var downloadLink = "<a id='download-link' href='data:text/plain;charset=utf-8,$data' download='recap $demarche $psl $date.html'>télécharger</a>";
 var downloadPage = `<!DOCTYPE html><html lang='fr'><head><title>recap $demarche $date</title>
 	<meta name='viewport' content='width=device-width,initial-scale=1'/><meta charset='utf-8'/><base target='_blank'>
 </head><body>
@@ -119,21 +119,25 @@ function getRecap (demarche){
 	// préparer le lien de téléchargement
 	const downloadLink = document.createElement ('a');
 	downloadLink.href = 'data:text/plain;charset=utf-8,';
-	downloadLink.download = demarche +" "+ todayStr + " recap.html";
+	var psl = 'psl';
+	if (window.location.search.includes ('codeDemarche=')) psl = 'npsl';
+	else if (window.location.search.includes ('execution=')) psl = 'lega';
+	else return;
+	downloadLink.download = demarche +" "+ todayStr +" "+ psl +" recap.html";
 	// récupérer le récap
 	var tagRecap = document.getElementsByTagName ('form')[0];
 	const tagStock = document.createElement ('div');
 	if (window.location.search.includes ('codeDemarche=')){
+		// pour npsl
 		var containers = tagRecap.getElementsByProperties ('div', 'fr-grid-row');
 		tagRecap = containers[1];
 		tagStock.innerHTML = tagRecap.innerHTML;
 	}
-	else if (window.location.search.includes ('execution=')){
+	else{
 		// pour legacy
 		var containers = tagRecap.getElementsByProperties ('div', 'cadre-recap');
 		for (var contain of containers) tagStock.innerHTML = tagStock.innerHTML + contain.outerHTML;
 	}
-	else return;
 	tagStock.innerHTML = tagStock.innerHTML.cleanHtml();
 	tagStock.removeComments();
 	for (var a= tagStock.attributes.length -1; a>=0; a--) tagStock.removeAttribute (tagStock.attributes[a].name);

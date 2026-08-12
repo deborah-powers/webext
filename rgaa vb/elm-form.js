@@ -55,9 +55,13 @@ HTMLLabelElement.prototype.addInfos = function(){
 	if (! label) this.infos = 'label sans input associé';
 	else{
 		const input = document.getElementById (label);
-		this.infos = input.computeInfos();
-		input.addEventListener ('mouseover', function (event){ event.target.labels[0].classList.add ('rgaa-highlight'); });
+		if (input.tagName === 'INPUT') this.infos = 'input ';
+		else if (input.tagName === 'SELECT') this.infos = 'select\n';
+		else this.infos = input.tagName.toLowerCase() +'\n';
+		this.infos = this.infos + input.computeInfos();
+/*		input.addEventListener ('mouseover', function (event){ event.target.labels[0].classList.add ('rgaa-highlight'); });
 		input.addEventListener ('mouseout', function (event){ event.target.labels[0].classList.remove ('rgaa-highlight'); });
+*/
 	}
 	infos = infos + this.infos;
 	this.setAttribute ('infos', this.infos);

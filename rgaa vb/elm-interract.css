@@ -9,10 +9,19 @@ a:hover:before {
 	min-width: 30%;
 	min-height: 3em;
 }
-[role='link']:hover:before { content: 'role lien\A' attr(infos) !important; }
-input:hover:before { content: 'input ' attr(type) '\A' attr(infos); }
-select:hover:before { content: 'secteur\A' attr(infos) !important; }
+a *:hover:before { content: none; }
+
+[role='link']:hover:before { content: 'rôle lien\A' attr(infos) !important; }
+label:hover:before { content: attr(infos); }
+label *:hover:before { content: none; }
+select:hover:before { content: 'selecteur\A' attr(infos) !important; }
+select *:hover:before { content: none; }
 textarea:hover:before { content: 'text area\A' attr(infos) !important; }
-button:hover:before { content: 'button\A' attr(infos) !important; }
-button[form]:hover:before { content: 'button pour formulaire (' attr(form) ')\A' attr(infos) !important; }
+button:hover:before { content: 'bouton\A' attr(infos) !important; }
+button *:hover:before { content: none; }
 [role='button']:hover:before { content: 'rôle bouton\A' attr(infos) !important; }
+[role='button'] *:hover:before { content: none; }
+/*
+input:hover + label:before { content: 'input ' attr(type, 'inconnu') '\A' attr(infos); }
+button[form]:hover:before { content: 'bouton pour formulaire (' attr(form) ')\A' attr(infos) !important; }
+*/

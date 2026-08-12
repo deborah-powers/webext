@@ -68,11 +68,6 @@ function chooseAction (event){
 		}
 		else if (action === 'elm-titre') listStyle =[ 'ana-common.css', 'elm-titre.css' ];
 		else if (action === 'elm-liste') listStyle =[ 'ana-common.css', 'elm-liste.css' ];
-		else if (action === 'elm-form'){
-			listStyle =[ 'ana-common.css', 'elm-form.css' ];
-			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-common.js', 'elm-form.js' ];
-		}
-		else if (action === 'elm-focus') listStyle =[ 'ana-common.css', 'elm-focus-interract.css', 'elm-focus.css' ];
 		else if (action === 'text-widenning') listStyle =[ 'text-widenning.css' ];
 		else if (action === 'text-spacing') listStyle =[ 'text-spacing.css' ];
 		else if (action === 'window-shrinking' && false && true) listStyle =[ 'ana-shrink.css' ];
@@ -84,6 +79,11 @@ function chooseAction (event){
 			listStyle =[ 'ana-common.css', 'elm-cache.css' ];
 			listScript =[ 'elm-cache.js' ];
 		}
+		else if (action === 'elm-form'){
+			listStyle =[ 'ana-common.css', 'elm-form.css' ];
+			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-common.js', 'elm-form.js' ];
+		}
+		else if (action === 'elm-focus') listStyle =[ 'ana-common.css', 'elm-focus-interract.css', 'elm-focus.css' ];
 		else if (action === 'elm-interract'){
 			listStyle =[ 'ana-common.css', 'elm-focus-interract.css', 'elm-interract.css' ];
 			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-contrast.js', 'ana-common.js', 'elm-form.js', 'elm-interract.js' ];

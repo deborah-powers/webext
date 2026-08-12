@@ -36,8 +36,11 @@ function demarcheE2(){
 			fillInputByLabel ('Non soumise à évaluation environnementale');
 			fillInputByLabel ('Oui');
 			setTimeout (function(){
-				fillInputByLabel ("Numéro d'AIOT", '0040987214');
-	}, 500); }, 500); }, 500);
+			//	fillInputByLabel ("Numéro d'AIOT", '0040987214');
+				fillInputByLabel ("Connaissez-vous votre numéro d'AIOT ?");
+				setTimeout (function(){
+					goNextPage();
+	}, 500); }, 500); }, 500); }, 500);
 }
 function demarcheE3(){
 	fillInputByLabel ("Nom de l'AIOT", 'les flots bleux');
@@ -46,6 +49,11 @@ function demarcheE3(){
 function demarcheE4(){
 	fillInputByLabel ('Nom du projet', "camping renove");
 	fillInputByLabel ('Description synthétique', 'nouvelle machine de nettoyage oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo');
+	fillInputByLabel ('Modification du bâti');
+}
+function demarcheE5(){
+	fillInputByLabel ('Aucun risque, nuisance ou impact potentiel');
+	fillInputByLabel ('Aucune mise à jour nécessaire');
 }
 function demarcheE8(){
 	setTimeout (function(){
@@ -63,3 +71,4 @@ if (document.body.containsText ('Étape 1 sur 9')) demarcheE1AiotConnu();
 else if (document.body.containsText ('Étape 2 sur 9')) demarcheE2();
 else if (document.body.containsText ('Étape 3 sur 9')) demarcheE3();
 else if (document.body.containsText ('Étape 4 sur 9')) demarcheE4();
+else if (document.body.containsText ('Étape 5 sur 9')) demarcheE5();
