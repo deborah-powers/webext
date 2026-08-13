@@ -45,11 +45,11 @@ a area, a canvas, a img, a input[type='image'], a object, a svg, a [role='img'],
 img, area { border-style: dashed; }
 
 /* affichage des infos au survol */
-[role='img']:hover:before, [role='presentation']:hover:before { content: 'role\A' attr(infos); }
-.rgaa-bgimg.rgaa-bgnocolor:hover:before { content: attr(infos); }
-img:hover:before, img[role]:hover:before { content: 'img alt: ' attr(alt, 'manquant') '\A' attr(infos); }
-svg:hover:before, svg[role]:hover:before { content: 'svg\A' attr(infos); }
-area:hover:before, area[role]:hover:before { content: 'area\A alt: ' attr(alt, 'manquant') '\A' attr(infos); }
-canvas:hover:before, canvas[role]:hover:before { content: 'canvas\A' attr(infos); }
-object:hover:before, object[role]:hover:before { content: 'object\A' attr(infos); }
-input[type='image']:hover:before { content: 'input image\A alt: ' attr(alt, 'manquant') '\A' attr(infos); }
+[role='img']:hover:after, [role='presentation']:hover:after { content: 'role\A' attr(infos); }
+.rgaa-bgimg.rgaa-bgnocolor:hover:after { content: attr(infos); }
+img:hover:after, img[role]:hover:after { content: 'img alt: ' attr(alt, 'manquant') '\A' attr(infos); }
+svg:hover:after, svg[role]:hover:after { content: 'svg\A' attr(infos); }
+area:hover:after, area[role]:hover:after { content: 'area\A alt: ' attr(alt, 'manquant') '\A' attr(infos); }
+canvas:hover:after, canvas[role]:hover:after { content: 'canvas\A' attr(infos); }
+object:hover:after, object[role]:hover:after { content: 'object\A' attr(infos); }
+input[type='image']:hover:after { content: 'input image\A alt: ' attr(alt, 'manquant') '\A' attr(infos); }

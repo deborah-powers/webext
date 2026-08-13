@@ -23,5 +23,5 @@ table[role='none'] [axis], table[role='none'] [role='rowheader'], table[role='no
 
 .rgaa-highlight[aria-describedby] { border-style: solid !important; }
 
-table:hover:before { content: 'table\A' attr(infos); }
-[role='table']:hover:before { content: 'role table\A' attr(infos); }
+table:hover:after { content: 'table\A' attr(infos); }
+[role='table']:hover:after { content: 'role table\A' attr(infos); }

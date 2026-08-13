@@ -14,10 +14,10 @@ ol >*, ul >*, dl >*, [role='list'] >* {
 	border-color: inherit !important;
 }
 ol > li, ul > li, dl > dt, dl > dd, [role='list'] > [role='listitem'] { border-style: none; }
-ol:hover:before { content: 'ol'; }
-ul:hover:before { content: 'ul'; }
-dl:hover:before { content: 'dl'; }
-[role='list']:hover:before { content: 'role liste'; }
+ol:hover:after { content: 'ol'; }
+ul:hover:after { content: 'ul'; }
+dl:hover:after { content: 'dl'; }
+[role='list']:hover:after { content: 'role liste'; }
 
 /* a en-dehors des listes */
 a {
@@ -33,5 +33,5 @@ q, blockquote {
 }
 q { border-width: 2px !important; }
 blockquote { border-width: 4px !important; }
-blockquote:hover:before { content: 'blockquote'; }
-q:hover:before { content: 'quote'; }
+blockquote:hover:after { content: 'blockquote'; }
+q:hover:after { content: 'quote'; }

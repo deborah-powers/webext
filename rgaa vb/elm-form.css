@@ -37,6 +37,7 @@ form button, input[type='button'], button[form], input[type='submit'], input[typ
 [role='button'] {
 	color: black !important;
 	background-color: #DFD !important;
+	border: solid 2px #787 !important;
 }
 datalist {
 	display: block !important;
@@ -63,4 +64,3 @@ label *:hover:after, legend *:hover:after, h3 *:hover:after { content: none; }
 	color: orange !important;
 	border-width: 8px !important;
 }*/
-

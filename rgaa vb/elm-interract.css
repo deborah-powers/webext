@@ -4,24 +4,24 @@
 	border-width: 4px !important;
 	border-color: orangered !important;
 }
-a:hover:before {
+a:hover:after {
 	content: 'ancre\A' attr(infos) !important;
 	min-width: 30%;
 	min-height: 3em;
 }
-a *:hover:before { content: none; }
+a *:hover:after { content: none; }
 
-[role='link']:hover:before { content: 'rôle lien\A' attr(infos) !important; }
-label:hover:before { content: attr(infos); }
-label *:hover:before { content: none; }
-select:hover:before { content: 'selecteur\A' attr(infos) !important; }
-select *:hover:before { content: none; }
-textarea:hover:before { content: 'text area\A' attr(infos) !important; }
-button:hover:before { content: 'bouton\A' attr(infos) !important; }
-button *:hover:before { content: none; }
-[role='button']:hover:before { content: 'rôle bouton\A' attr(infos) !important; }
-[role='button'] *:hover:before { content: none; }
+[role='link']:hover:after { content: 'rôle lien\A' attr(infos) !important; }
+label:hover:after { content: attr(infos); }
+label *:hover:after { content: none; }
+select:hover:after { content: 'selecteur\A' attr(infos) !important; }
+select *:hover:after { content: none; }
+textarea:hover:after { content: 'text area\A' attr(infos) !important; }
+button:hover:after { content: 'bouton\A' attr(infos) !important; }
+button *:hover:after { content: none; }
+[role='button']:hover:after { content: 'rôle bouton\A' attr(infos) !important; }
+[role='button'] *:hover:after { content: none; }
 /*
-input:hover + label:before { content: 'input ' attr(type, 'inconnu') '\A' attr(infos); }
-button[form]:hover:before { content: 'bouton pour formulaire (' attr(form) ')\A' attr(infos) !important; }
+input:hover + label:after { content: 'input ' attr(type, 'inconnu') '\A' attr(infos); }
+button[form]:hover:after { content: 'bouton pour formulaire (' attr(form) ')\A' attr(infos) !important; }
 */

@@ -11,12 +11,12 @@ canvas { border-color: #F80 !important; }
 object { border-color: #08F !important; }
 embed { border-color: #F08 !important; }
 
-bgsound:hover:before { content: 'bgsound'; }
-audio:hover:before { content: 'audio'; }
-video:hover:before { content: 'video'; }
-svg:hover:before { content: 'svg'; }
-img[src$='.gif']:hover:before { content: 'gif'; }
-canvas:hover:before { content: 'canvas'; }
-object:hover:before { content: 'object'; }
-embed:hover:before { content: 'embed'; }
+bgsound:hover:after { content: 'bgsound'; }
+audio:hover:after { content: 'audio'; }
+video:hover:after { content: 'video'; }
+svg:hover:after { content: 'svg'; }
+img[src$='.gif']:hover:after { content: 'gif'; }
+canvas:hover:after { content: 'canvas'; }
+object:hover:after { content: 'object'; }
+embed:hover:after { content: 'embed'; }
 

@@ -15,5 +15,5 @@ button[tabindex='-1'], a[tabindex='-1'], input[tabindex='-1'], select[tabindex='
 [disabled], button[disabled], a[disabled], input[disabled], select[disabled], textarea[disabled], [role='button'][disabled], [role='link'][disabled]
 	{ border-style: dashed !important; }
 /*
-main[tabindex]:hover:before { content: none; }
+main[tabindex]:hover:after { content: none; }
 */

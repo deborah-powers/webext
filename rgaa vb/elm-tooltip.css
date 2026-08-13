@@ -6,7 +6,7 @@
 [aria-describedby] { border-color: springgreen !important; }
 [role='tooltip'] { border-color: cornflowerblue !important; }
 /*
-[aria-describedby][tabindex='-1']:hover:before { content: 'attribut tabindex négatif'; }
-[aria-describedby]:hover:before { content: 'attribut tabindex manquant'; }
+[aria-describedby][tabindex='-1']:hover:after { content: 'attribut tabindex négatif'; }
+[aria-describedby]:hover:after { content: 'attribut tabindex manquant'; }
 */
-[aria-describedby][tabindex]:hover:before { content: 'attribut tabindex: ' attr(tabindex, 'manquant'); }
+[aria-describedby][tabindex]:hover:after { content: 'attribut tabindex: ' attr(tabindex, 'manquant'); }

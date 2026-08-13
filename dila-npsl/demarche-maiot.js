@@ -36,8 +36,10 @@ function demarcheE2(){
 			fillInputByLabel ('Non soumise à évaluation environnementale');
 			fillInputByLabel ('Oui');
 			setTimeout (function(){
-			//	fillInputByLabel ("Numéro d'AIOT", '0040987214');
+			/*	fillInputByLabel ("Numéro d'AIOT", '0040987214');
 				fillInputByLabel ("Connaissez-vous votre numéro d'AIOT ?");
+			*/
+				fillInputByLabel ("Je ne connais pas le numéro d'AIOT");
 				setTimeout (function(){
 					goNextPage();
 	}, 500); }, 500); }, 500); }, 500);
@@ -54,6 +56,17 @@ function demarcheE4(){
 function demarcheE5(){
 	fillInputByLabel ('Aucun risque, nuisance ou impact potentiel');
 	fillInputByLabel ('Aucune mise à jour nécessaire');
+	setTimeout (function(){
+		fillInputByLabel ("Aucun arrêté ministériel n'est applicable à la modification");
+		setTimeout (function(){
+			fillInputByLabel ('Compatible avec les plans, schémas et documents de planification');
+			setTimeout (function(){
+				fillInputByLabel ('Aucune procédure');
+				setTimeout (function(){
+					goNextPage();
+	}, 500); }, 500); }, 500); }, 500);
+}
+function demarcheE6(){
 }
 function demarcheE8(){
 	setTimeout (function(){

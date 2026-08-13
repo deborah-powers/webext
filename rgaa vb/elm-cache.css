@@ -22,7 +22,7 @@
 	opacity: 1;
 }
 [aria-hidden='false'] { border-style: dashed !important; }
-[hidden]:before { content: 'attr hidden '; }
-[aria-hidden]:before { content: 'aria hidden '; }
-[class*='sr-only']:before, [class*='sronly']:before { content: 'sronly '; }
-.rgaa-hidden:before { content: 'css hidden '; }
+[hidden]:after { content: 'attr hidden '; }
+[aria-hidden]:after { content: 'aria hidden '; }
+[class*='sr-only']:after, [class*='sronly']:after { content: 'sronly '; }
+.rgaa-hidden:after { content: 'css hidden '; }

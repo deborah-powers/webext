@@ -12,24 +12,24 @@
 [role='presentation'] [tabindex], [aria-hidden='true'] [tabindex],
 [tabindex][role='presentation'], [tabindex][aria-hidden='true'], [tabindex='-1'] { border-style: dashed !important; }
 
-a:hover:before { content: 'lien'; }
-button:hover:before { content: 'bouton'; }
-input:hover:before { content: 'input ', attr(type); }
-select:hover:before { content: 'select'; }
-textarea:hover:before { content: 'textarea'; }
-[role='button']:hover:before { content: 'rôle bouton'; }
-[role='link']:hover:before { content: 'rôle lien'; }
-[tabindex]:hover:before { content: 'tabindex: ' attr(tabindex); }
-a[tabindex]:hover:before { content: 'lien, tabindex: ' attr(tabindex); }
-button[tabindex]:hover:before { content: 'bouton, tabindex: ' attr(tabindex); }
-input[tabindex]:hover:before { content: 'input ', attr(type), ', tabindex: ' attr(tabindex); }
-select[tabindex]:hover:before { content: 'select, tabindex: ' attr(tabindex); }
-textarea[tabindex]:hover:before { content: 'textarea, tabindex: ' attr(tabindex); }
-[role='button'][tabindex]:hover:before { content: 'rôle bouton, tabindex: ' attr(tabindex); }
-[role='link'][tabindex]:hover:before { content: 'rôle lien, tabindex: ' attr(tabindex); }
+a:hover:after { content: 'lien'; }
+button:hover:after { content: 'bouton'; }
+input:hover:after { content: 'input ', attr(type); }
+select:hover:after { content: 'select'; }
+textarea:hover:after { content: 'textarea'; }
+[role='button']:hover:after { content: 'rôle bouton'; }
+[role='link']:hover:after { content: 'rôle lien'; }
+[tabindex]:hover:after { content: 'tabindex: ' attr(tabindex); }
+a[tabindex]:hover:after { content: 'lien, tabindex: ' attr(tabindex); }
+button[tabindex]:hover:after { content: 'bouton, tabindex: ' attr(tabindex); }
+input[tabindex]:hover:after { content: 'input ', attr(type), ', tabindex: ' attr(tabindex); }
+select[tabindex]:hover:after { content: 'select, tabindex: ' attr(tabindex); }
+textarea[tabindex]:hover:after { content: 'textarea, tabindex: ' attr(tabindex); }
+[role='button'][tabindex]:hover:after { content: 'rôle bouton, tabindex: ' attr(tabindex); }
+[role='link'][tabindex]:hover:after { content: 'rôle lien, tabindex: ' attr(tabindex); }
 /*
-main[tabindex]:hover:before { content: none; }
+main[tabindex]:hover:after { content: none; }
 réparer les exès
 */
 body[tabindex] { border-style: none; }
-body[tabindex]:hover:before { content: none; }
+body[tabindex]:hover:after { content: none; }

@@ -16,12 +16,12 @@ nav, [role='navigation'] { border-color: skyblue !important; }
 aside { border-color: orangered !important; }
 [role='search'] { border-color: maroon !important; }
 input[role='search'], textarea[role='search'] { border-style: solid; }
-main:hover:before { content: 'main'; }
-header:hover:before { content: 'header'; }
-footer:hover:before { content: 'footer'; }
-nav:hover:before { content: 'barre de navigation'; }
-aside:hover:before { content: 'aside. role: ' attr(role, 'absent'); }
-header[role='banner']:hover:before { content: 'header principal'; }
-footer[role='contentinfo']:hover:before { content: 'pied de page'; }
-nav[role='navigation']:hover:before { content: 'barre de navigation principale\A' attr(infos); }
+main:hover:after { content: 'main'; }
+header:hover:after { content: 'header'; }
+footer:hover:after { content: 'footer'; }
+nav:hover:after { content: 'barre de navigation'; }
+aside:hover:after { content: 'aside. role: ' attr(role, 'absent'); }
+header[role='banner']:hover:after { content: 'header principal'; }
+footer[role='contentinfo']:hover:after { content: 'pied de page'; }
+nav[role='navigation']:hover:after { content: 'barre de navigation principale\A' attr(infos); }
 

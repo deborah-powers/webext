@@ -33,16 +33,36 @@ HTMLInputElement.prototype.computeInfos = function(){
 	attribut = this.getAttribute ('aria-autocomplete');
 	if (attribut) inputInfos = inputInfos +' aria-autocomplete: '+ attribut;
 	inputInfos = inputInfos.replaceAll ('\n ','\n');
-	return inputInfos;
+	return inputInfos.strip();
 }
 HTMLSelectElement.prototype.computeInfos = function(){
-	var inputInfos = this.type +'\n';
+	var inputInfos ="";
 	// required
 	var attribut = this.getAttribute ('required');
-	if (attribut) inputInfos = inputInfos +' required';
+	if (attribut) inputInfos = 'required';
 	attribut = this.getAttribute ('aria-required');
 	if (attribut) inputInfos = inputInfos +' aria-required';
-	return inputInfos;
+	return inputInfos.strip();
+}
+HTMLTextAreaElement.prototype.computeInfos = function (message){
+	var inputInfos ="";
+	// required
+	var attribut = this.getAttribute ('required');
+	if (attribut) inputInfos = 'required';
+	attribut = this.getAttribute ('aria-required');
+	if (attribut) inputInfos = inputInfos +' aria-required';
+	// auto-complete
+	inputInfos = inputInfos +'\n';
+	attribut = this.getAttribute ('autocomplete');
+	if (attribut){
+		inputInfos = inputInfos +' autocomplete';
+		if (! autoCompletionValues.includes (attribut)) inputInfos = inputInfos +' invalide';
+		inputInfos = inputInfos +': '+ attribut;
+	}
+	attribut = this.getAttribute ('aria-autocomplete');
+	if (attribut) inputInfos = inputInfos +' aria-autocomplete: '+ attribut;
+	inputInfos = inputInfos.replaceAll ('\n ','\n');
+	return inputInfos.strip();
 }
 HTMLElement.prototype.addInfosRec = function(){
 	this.infos = this.parentElement.infos;
