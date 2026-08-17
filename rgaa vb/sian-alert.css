@@ -4,9 +4,12 @@ le script n'agit que sur les alertes visibles. il faut le relancer à chaque foi
 
 input.rgaa-highlight { background-color: pink !important; }
 */
-input[aria-describedby*='alerte'] { border: solid 2px deeppink !important; }
-input[aria-describedby*='alerte'] + label { color: #C09 !important; }
-input[aria-describedby*='alerte']:hover + label:after { content: "description reliant à une alerte"; }
+input[aria-describedby*='alerte'], input[aria-describedby*='warning'], input[aria-describedby*='info']
+	{ border: solid 2px deeppink !important; }
+input[aria-describedby*='alerte'] + label, input[aria-describedby*='warning'] + label, input[aria-describedby*='info'] + label
+	{ color: #C09 !important; }
+input[aria-describedby*='alerte']:hover + label:after, input[aria-describedby*='warning']:hover + label:after, input[aria-describedby*='info']:hover + label:after
+	{ content: "description reliant à une alerte"; }
 
 .fr-alert:not(:has([id])) { background-color: pink !important; }
 .fr-alert:not(:has([id])):hover:after { content: "pas d'id"; }
@@ -27,7 +30,8 @@ input[aria-describedby*='alerte']:hover + label:after { content: "description re
 .fr-alert.rgaa-highlight:hover > [id][role='alert']:after, .fr-alert.rgaa-highlight:hover > [id][aria-live='assertive']:after {
 	content: "alerte " attr(id) "\A associée à un input,\A avec marqueur d'alerte";
 }
-.fr-alert:not(:has([id])):after, .fr-alert > [id]:after, input[aria-describedby*='alerte']:hover + label:after {
+.fr-alert:not(:has([id])):after, .fr-alert > [id]:after,
+input[aria-describedby*='alerte'] + label:after, input[aria-describedby*='warning'] + label:after, input[aria-describedby*='info'] + label:after {
 	box-sizing: border-box;
 	display: block;
 	background-color: ivory;

@@ -64,6 +64,7 @@ function pageParents (nomPere, prenomPere, nomMere, prenomMere){
 		personne.fillInputByLabel ('Nom', nomMere.capitalize());
 		personne.fillInputByLabel ('Prénom', prenomMere.capitalize());
 }}
+
 /* ------------------------ fin de la démarche ------------------------ */
 
 var downloadLink = "<a id='download-link' href='data:text/plain;charset=utf-8,$data' download='recap $demarche $psl $date.html'>télécharger</a>";

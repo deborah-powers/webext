@@ -11,13 +11,9 @@ form, [role='form'], [role='group'], fieldset, legend, input, textarea, label, f
 input:hover, textarea:hover, label:hover, form button:hover, button[form]:hover, select:hover, optgroup:hover, option:hover,
 input:focus, textarea:focus, label:focus, form button:focus, button[form]:focus, select:focus, optgroup:focus, option:focus
 	{ font-weight: bold !important; }
-form, fieldset, fieldset[role='group'], fieldset[role='radiogroup'] {
+form, [role='form'], fieldset, [role='group'], [role='radiogroup'], [role='form'] [role='group'], [role='form'] [role='radiogroup'] {
 	border-width: 4px !important;
 	border-style: solid !important;
-}
-[role='form'], [role='group'], [role='radiogroup'] {
-	border-width: 4px !important;
-	border-style: dotted !important;
 }
 form, [role='form'] { border-color: deeppink !important; }
 fieldset, [role='group'], [role='radiogroup'], [role='form'] [role='group'], [role='form'] [role='radiogroup']
