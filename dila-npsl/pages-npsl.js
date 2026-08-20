@@ -18,6 +18,14 @@ chrome.action.onClicked.addListener (function (tab){
 		target: {tabId: tab.id, allFrames: false },
 		files: [ 'textFct.js', 'htmlFct.js', 'pageFct.js', 'demarche-ddpacs.js' ]
 	});
+	else if (tab.url.includes ('DDmariage')) chrome.scripting.executeScript ({
+		target: {tabId: tab.id, allFrames: false },
+		files: [ 'textFct.js', 'htmlFct.js', 'pageFct.js', 'demarche-ddmariage.js' ]
+	});
+	else if (tab.url.includes ('TranscriptionActe')) chrome.scripting.executeScript ({
+		target: {tabId: tab.id, allFrames: false },
+		files: [ 'textFct.js', 'htmlFct.js', 'pageFct.js', 'demarche-transcription.js' ]
+	});
 	else if (tab.url.includes ('CIPHYTO')) chrome.scripting.executeScript ({
 		target: {tabId: tab.id, allFrames: false },
 		files: [ 'textFct.js', 'htmlFct.js', 'pageFct.js', 'demarche-ciphyto.js' ]
@@ -41,6 +49,10 @@ chrome.action.onClicked.addListener (function (tab){
 	else if (tab.url.includes ('RenouvPasseport')) chrome.scripting.executeScript ({
 		target: {tabId: tab.id, allFrames: false },
 		files: [ 'textFct.js', 'htmlFct.js', 'pageFct.js', 'demarche-rnpp.js' ]
+	});
+	else if (tab.url.includes ('INSRegistreFR')) chrome.scripting.executeScript ({
+		target: {tabId: tab.id, allFrames: false },
+		files: [ 'textFct.js', 'htmlFct.js', 'pageFct.js', 'demarche-irf.js' ]
 	});
 	else if (tab.url.includes ('ModificationAIOT')) chrome.scripting.executeScript ({
 		target: {tabId: tab.id, allFrames: false },

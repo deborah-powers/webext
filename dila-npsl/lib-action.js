@@ -58,11 +58,34 @@ function pageParents (nomPere, prenomPere, nomMere, prenomMere){
 		personne.fillInputByLabel ('Père');
 		personne.fillInputByLabel ('Nom', nomPere.capitalize());
 		personne.fillInputByLabel ('Prénom', prenomPere.capitalize());
-		personne = document.body.findByInnerText ('parent 2 ?').parentElement;
-		personne = personne.findContainer ('fieldset');
-		personne.fillInputByLabel ('Mère');
-		personne.fillInputByLabel ('Nom', nomMere.capitalize());
-		personne.fillInputByLabel ('Prénom', prenomMere.capitalize());
+		if (personne.containsText ('Votre parent 1 est-il décédé ?')){
+			personne.fillInputByField ('Votre parent 1 est-il décédé ?', 'Non');
+			setTimeout (function(){
+				personne.fillInputByLabel ('Quelle est son activité', 'artisan');
+				personne.fillInputByLabel ('En France');
+				setTimeout (function(){
+					personne.fillInputByLabel ('Adresse', '20 Rue Lecourbe');
+					// parent 2
+					personne = document.body.findByInnerText ('parent 2 ?').parentElement;
+					personne = personne.findContainer ('fieldset');
+					personne.fillInputByLabel ('Mère');
+					personne.fillInputByLabel ('Nom', nomMere.capitalize());
+					personne.fillInputByLabel ('Prénom', prenomMere.capitalize());
+					personne.fillInputByField ('Votre parent 2 est-il décédé ?', 'Non');
+					setTimeout (function(){
+						personne.fillInputByLabel ('Quelle est son activité', 'couturière');
+						personne.fillInputByLabel ('En France');
+						setTimeout (function(){
+							personne.fillInputByLabel ('Adresse', '20 Rue Lecourbe');
+					}, 500); }, 500);
+		}, 500); }, 500); }
+		else{
+			personne = document.body.findByInnerText ('parent 2 ?').parentElement;
+			personne = personne.findContainer ('fieldset');
+			personne.fillInputByLabel ('Mère');
+			personne.fillInputByLabel ('Nom', nomMere.capitalize());
+			personne.fillInputByLabel ('Prénom', prenomMere.capitalize());
+		}
 }}
 
 /* ------------------------ fin de la démarche ------------------------ */

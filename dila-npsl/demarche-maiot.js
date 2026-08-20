@@ -97,18 +97,6 @@ function demarcheE7(){
 			fillInputByField ('Voulez-vous indiquer une deuxième adresse e-mail', 'Non');
 	}, 2500);
 }}
-function demarcheE8(){
-	setTimeout (function(){
-		fillInputByLabel ('');
-	}, 500);
-	document.getElementById ('').clickOn();
-	fillInputByLabel ('');
-	fillInputByField ('', '');
-	setTimeout (function(){}, 500);
-	document.body.addBlurListener ('', '', function (event){});
-	fichiers[0].onchange = function(){}
-}
-
 if (document.body.containsText ('Étape 1 sur 9')) demarcheE1AiotConnu();
 else if (document.body.containsText ('Étape 2 sur 9')) demarcheE2();
 else if (document.body.containsText ('Étape 3 sur 9')) demarcheE3();

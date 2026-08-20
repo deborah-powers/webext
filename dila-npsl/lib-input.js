@@ -207,7 +207,7 @@ HTMLElement.prototype.addClickListener = function (labelText, functionAtClick){
 	if (button.tagName === 'BUTTON') button.addEventListener ('click', functionAtClick);
 }
 HTMLElement.prototype.fillInputByField = function (fieldLegend, labelText, inputValue){
-	const blockLegend = document.body.findByInnerText (fieldLegend);
+	const blockLegend = this.findByInnerText (fieldLegend);
 	var block = blockLegend.findContainer ('fieldset');
 	if (block.tagName === 'BODY') block = blockLegend.findContainer ('div');
 	block.fillInputByLabel (labelText, inputValue);
