@@ -28,4 +28,3 @@ function fillConnectionPage(){
 		}, 1000);
 }}
 fillConnectionPage();
-// setTimeout (fillConnectionPage, 1000);

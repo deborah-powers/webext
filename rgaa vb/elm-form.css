@@ -31,14 +31,13 @@ option, [role='option'] {
 	color: #900 !important;
 	background-color: ivory !important;
 }
-legend, form h3, [role='form'] h3 { color: #93F !important; }
+legend, form h3, [role='form'] h3, legend * { color: #93F !important; }
 label { color: #C09 !important; }
 input, textarea, [role='progressbar'], [role='slider'], [role='spinbutton'], [role='textbox'], [role='listbox'], [role='searchbox'],
 [role='combobox'], [role='checkbox'], [role='radio'], [role='switch']
 	{ color: #36C !important; }
 
-form button, input[type='button'], button[form], input[type='submit'], input[type='reset'], input[type='image'],
-[role='button'] {
+form button, input[type='button'], button[form], input[type='submit'], input[type='reset'], input[type='image'], 4[role='button'] {
 	color: black !important;
 	background-color: #DFD !important;
 	border: solid 2px #787 !important;
