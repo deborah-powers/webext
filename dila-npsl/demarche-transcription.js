@@ -55,6 +55,10 @@ function demarcheE2parent2(){
 	fillInputByLabel ('Pays de naissance', 'Algerie');
 	fillInputByLabel ('Localité ou ville de naissance', 'Alger');
 }
+function demarcheE4(){
+	fillInputByLabel ("certifie sur l'honneur l'exactitude des informations fournies");
+	getRecap ('trancription');
+}
 function demarcheE8(){
 	setTimeout (function(){
 		fillInputByLabel ('');
@@ -73,4 +77,6 @@ else if (document.body.innerText.includes ('Étape 2 sur 4')){
 	else if (document.body.containsText ("Le parent 1 de l'enfant")) goNextPage();
 	else if (document.body.containsText ("Le parent 2 de l'enfant")) demarcheE2parent2();
 }
+else if (document.body.containsText ('Étape 4 sur 4')) demarcheE4();
+else if (document.body.containsText ('a été envoyée')) terminerDemarcheLegacy();
 
