@@ -58,6 +58,7 @@ function demarcheE2parent2(){
 function demarcheE4(){
 	fillInputByLabel ("certifie sur l'honneur l'exactitude des informations fournies");
 	getRecap ('trancription');
+	clickButtonByText ('Envoyer votre demande');
 }
 function demarcheE8(){
 	setTimeout (function(){
