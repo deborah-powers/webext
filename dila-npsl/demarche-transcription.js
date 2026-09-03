@@ -79,5 +79,4 @@ else if (document.body.innerText.includes ('Étape 2 sur 4')){
 	else if (document.body.containsText ("Le parent 2 de l'enfant")) demarcheE2parent2();
 }
 else if (document.body.containsText ('Étape 4 sur 4')) demarcheE4();
-else if (document.body.containsText ('a été envoyée')) terminerDemarcheLegacy();
-
+else if (document.body.containsText ('a été envoyée')) terminerDemarche();
