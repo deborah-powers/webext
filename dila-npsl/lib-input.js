@@ -27,7 +27,7 @@ function getFileUploader(){
 	for (var ip of inputs){ if (ip.type === 'file') uploaders.push (ip); }
 	return uploaders;
 }
-HTMLInputElement.prototype.openFileUploader = function(){ if (this.type === 'file') this.clickOn(); }
+HTMLInputElement.prototype.openFileUploader = function(){ if (this.type === 'file') this.click(); }
 HTMLElement.prototype.findLabelByInnerText = function (message){
 	if (! this.innerText.includes (message)) return null;
 	else if (this.tagName === 'LABEL') return this;

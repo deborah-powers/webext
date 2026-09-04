@@ -55,6 +55,28 @@ function demarcheE2parent2(){
 	fillInputByLabel ('Pays de naissance', 'Algerie');
 	fillInputByLabel ('Localité ou ville de naissance', 'Alger');
 }
+function demarcheE3(){
+	const fichiers = getFileUploader();
+	var f=0;
+	var noRequired = true;
+	while (f< fichiers.length && noRequired){
+		isRequired = fichiers[f].getAttribute ('aria-required');
+		if (isRequired ==="" || isRequired === 'true'){
+			fichiers[f].openFileUploader();
+			f= fichiers.length;
+			noRequired = false;
+		}
+		else if (isRequired !== 'false'){
+			isRequired = fichiers[f].getAttribute ('required');
+			if (isRequired ==="" || isRequired === 'true'){
+				fichiers[f].openFileUploader();
+				f= fichiers.length;
+				noRequired = false;
+		}}
+		f+=1;
+	}
+	if (noRequired) goNextPage();
+}
 function demarcheE4(){
 	fillInputByLabel ("certifie sur l'honneur l'exactitude des informations fournies");
 	getRecap ('trancription');
@@ -72,11 +94,12 @@ function demarcheE8(){
 	fichiers[0].onchange = function(){}
 	goNextPage();
 }
-if (document.body.innerText.includes ('Étape 1 sur 4')) demarcheE1();
-else if (document.body.innerText.includes ('Étape 2 sur 4')){
+if (document.body.containsText ('Étape 1 sur 4')) demarcheE1();
+else if (document.body.containsText ('Étape 2 sur 4')){
 	if (document.body.containsText ("Quel est le nom de l'enfant sur l'acte de naissance étranger ?")) demarcheE2enfant();
 	else if (document.body.containsText ("Le parent 1 de l'enfant")) goNextPage();
 	else if (document.body.containsText ("Le parent 2 de l'enfant")) demarcheE2parent2();
 }
+else if (document.body.containsText ('Étape 3 sur 4')) demarcheE3();
 else if (document.body.containsText ('Étape 4 sur 4')) demarcheE4();
 else if (document.body.containsText ('a été envoyée')) terminerDemarche();
