@@ -56,43 +56,14 @@ function demarcheE2parent2(){
 	fillInputByLabel ('Localité ou ville de naissance', 'Alger');
 }
 function demarcheE3(){
-	const fichiers = getFileUploader();
-	var f=0;
-	var noRequired = true;
-	while (f< fichiers.length && noRequired){
-		isRequired = fichiers[f].getAttribute ('aria-required');
-		if (isRequired ==="" || isRequired === 'true'){
-			fichiers[f].openFileUploader();
-			f= fichiers.length;
-			noRequired = false;
-		}
-		else if (isRequired !== 'false'){
-			isRequired = fichiers[f].getAttribute ('required');
-			if (isRequired ==="" || isRequired === 'true'){
-				fichiers[f].openFileUploader();
-				f= fichiers.length;
-				noRequired = false;
-		}}
-		f+=1;
-	}
-	if (noRequired) goNextPage();
+	const fichiers = getFileUploaderRequired();
+	if (fichiers.length >0) fichiers[0].openFileUploader();
+	else goNextPage();
 }
 function demarcheE4(){
 	fillInputByLabel ("certifie sur l'honneur l'exactitude des informations fournies");
 	getRecap ('trancription');
 	clickButtonByText ('Envoyer votre demande');
-}
-function demarcheE8(){
-	setTimeout (function(){
-		fillInputByLabel ('');
-	}, 500);
-	document.getElementById ('').clickOn();
-	fillInputByLabel ('');
-	fillInputByField ('', '');
-	setTimeout (function(){}, 500);
-	document.body.addBlurListener ('', '', function (event){});
-	fichiers[0].onchange = function(){}
-	goNextPage();
 }
 if (document.body.containsText ('Étape 1 sur 4')) demarcheE1();
 else if (document.body.containsText ('Étape 2 sur 4')){

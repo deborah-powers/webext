@@ -58,6 +58,10 @@ chrome.action.onClicked.addListener (function (tab){
 		target: {tabId: tab.id, allFrames: false },
 		files: [ 'textFct.js', 'htmlFct.js', 'pageFct.js', 'demarche-maiot.js' ]
 	});
+	else if (tab.url.includes ('arnaqueInternet')) chrome.scripting.executeScript ({
+		target: {tabId: tab.id, allFrames: false },
+		files: [ 'textFct.js', 'htmlFct.js', 'pageFct.js', 'demarche-ai.js' ]
+	});
 	else chrome.scripting.executeScript ({
 		target: {tabId: tab.id, allFrames: false },
 		files: [ 'textFct.js', 'htmlFct.js', 'pageFct.js', 'demarche-recap.js' ]

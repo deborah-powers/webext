@@ -208,13 +208,6 @@ function demarcheE7(){
 	getRecap ('rnpp');
 	document.body.clickButtonByText ('Envoyer votre demande');
 }
-function demarcheE8(){
-	document.getElementById ('').clickOn();
-	fillInputByLabel ('');
-	setTimeout (function(){}, 500);
-	document.body.addBlurListener ('', '', function (event){});
-	fichiers[0].onchange = function(){}
-}
 /* ------------------------ pages de la npsl ------------------------ */
 
 if (document.body.containsText ('Étape 1 sur 7')) demarcheE1();

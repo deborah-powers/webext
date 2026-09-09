@@ -84,17 +84,6 @@ function demarcheE5(){
 		parent2.setInfoTemoin ('durand', 'valentin', 'ingénieur', '24 Rue Lecourbe');
 	}, 1500);
 }
-function demarcheE8(){
-	setTimeout (function(){
-		fillInputByLabel ('');
-	}, 500);
-	document.getElementById ('').clickOn();
-	fillInputByLabel ('');
-	fillInputByField ('', '');
-	setTimeout (function(){}, 500);
-	document.body.addBlurListener ('', '', function (event){});
-	fichiers[0].onchange = function(){}
-}
 function demarcheE6(){
 	// TODO à adapter
 	const identites = document.body.findHomonymInputs ("Carte d'identité");

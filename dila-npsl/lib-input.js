@@ -28,6 +28,27 @@ function getFileUploader(){
 	return uploaders;
 }
 HTMLInputElement.prototype.openFileUploader = function(){ if (this.type === 'file') this.click(); }
+function openFileUploaderRequired(){
+	const inputs = getFileUploader();
+	log (inputs.length);
+	var uploader = null;
+	var isRequired = true;
+	var f=0;
+	while (f< inputs.length && uploader ===null){
+		isRequired = inputs[f].getAttribute ('aria-required');
+		if (isRequired ==="" || isRequired === 'true') uploader = inputs[f];
+		else if (isRequired !== 'false'){
+			isRequired = inputs[f].getAttribute ('required');
+			if (isRequired ==="" || isRequired === 'true') uploader = inputs[f];
+		}
+		f+=1;
+	}
+	if (uploader !== null){
+		uploader.openFileUploader();
+		return true;
+	}
+	else return false;
+}
 HTMLElement.prototype.findLabelByInnerText = function (message){
 	if (! this.innerText.includes (message)) return null;
 	else if (this.tagName === 'LABEL') return this;
