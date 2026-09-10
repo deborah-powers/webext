@@ -24,11 +24,42 @@ function demarcheE1(){
 		fillInputByLabel ('Numéro et libellé de voie', '72 rue Balzac');
 		fillInputByLabel ('Code postal / Localité', 'paris 01');
 }}
+function demarcheE2(){
+	fillInputByLabel ('Pseudonyme');
+	fillInputByLabel ('Homme');
+	fillInputByLabel ('Entre le', '2026-09-05');
+	fillInputByLabel ('Et le', '2026-09-07');
+	fillInputByLabel ('Résumé des échanges', "on s'envoyait des sms");
+	fillInputByField ("Vous a-t-on demandé de verser de l'argent ?", 'Oui');
+	fillInputByField ("Avez-vous encaissé de l'argent", 'Non');
+	fillInputByField ('Avez-vous reçu un courriel ou des documents vous incitant à verser', 'Oui');
+	fillInputByField ("Avez-vous transmis des copies de pièces d'identité", 'Non');
+	fillInputByLabel ('Date de la première menace', '2026-09-06');
+	fillInputByLabel ('Nombre de relances', '5');
+	fillInputByLabel ('Message de la menace', "j'ai votre adresse, je sais où votre chat traine");
+	fillInputByField ('La menace a-t-elle été mise à exécution ?', 'Non');
+	fillInputByField ('', 'Oui');
+	fillInputByField ('', 'Non');
+	setTimeout (function(){
+		fillInputByLabel ('Quel est son pseudonyme', 'harthure');
+		fillInputByLabel ("Indiquez-nous la nature ou l'objet de ce document", 'sms');
+	}, 500);
+}
 function demarcheE3Paiement(){
 	fillInputByLabel ('Mode de paiement utilisé', 'Bitcoins');
 	fillInputByLabel ('Montant en euros', '400');
 	fillInputByField ('Le paiement a-t-il été débité ?', 'Oui');
 	setTimeout (function(){ fillInputByLabel ('Date du paiement', '2026-09-07'); }, 500);
+}
+function demarcheE3(){
+	fillInputByField ("Vous a-t-on demandé de verser de l'argent ?", 'Oui');
+	fillInputByField ("Avez-vous encaissé de l'argent", 'Non');
+	setTimeout (function(){
+		fillInputByLabel ('Mode de paiement utilisé', 'Bitcoins');
+		fillInputByLabel ('Montant en euros', '400');
+		fillInputByField ('Le paiement a-t-il été débité ?', 'Oui');
+		setTimeout (function(){ fillInputByLabel ('Date du paiement', '2026-09-07'); }, 500);
+	}, 500);
 }
 function demarcheE4(){
 	fillInputByLabel ('Non');
@@ -49,43 +80,21 @@ function demarcheEpaE2(){
 	fillInputByLabel ('Sur quel site était-elle publiée', 'Amazon.fr');
 	fillInputByLabel ('Type de bien', 'Maison');
 	fillInputByLabel ('Pays', 'franc');
-	fillInputByLabel ('Pseudonyme');
-	fillInputByLabel ('Homme');
-	fillInputByLabel ('Entre le', '2026-09-05');
-	fillInputByLabel ('Et le', '2026-09-07');
 	fillInputByLabel ('Résumé des échanges', "il m'a proposé de louer sa villa pendant deux semaines");
 	fillInputByField ('Avez-vous transmis des copies de pièces', 'Non');
 	fillInputByField ('Avez-vous reçu une ou plusieurs photos du bien', 'Oui');
 	fillInputByField ('Avez-vous reçu un courriel ou des documents vous incitant', 'Oui');
+	demarcheE2();
 	setTimeout (function(){
-		fillInputByLabel ('Quel est son pseudonyme ?', 'harthure');
 		fillInputByLabel ("Indiquez-nous la nature ou l'objet de ce document", 'un mail me demandant de faire un versement');
 		const fichiers = getFileUploader();
 		fichiers[0].openFileUploader();
 		setTimeout (function(){ fillInputByLabel ('Descriptif du fichier', 'le mail en question') }, 500);
 	}, 500);
 }
-function demarcheEpaE3Pf(){
-	fillInputByField ("Vous a-t-on demandé de verser de l'argent ?", 'Oui');
-	fillInputByField ("Avez-vous encaissé de l'argent", 'Non');
-	setTimeout (function(){ demarcheE3Paiement(); }, 500);
-}
 function demarcheEpaE3Interlocuteur(){
 	fillInputByLabel ('Non');
 	goNextPage();
-}
-function demarcheEasE2(){
-	fillInputByLabel ('Homme');
-	fillInputByLabel ('Pseudonyme');
-	fillInputByLabel ('Entre le', '2026-09-05');
-	fillInputByLabel ('Et le', '2026-09-07');
-	fillInputByLabel ('Résumé des échanges', "on s'envoyait des sms");
-	fillInputByField ("Vous a-t-on demandé de verser de l'argent ?", 'Oui');
-	fillInputByField ("Avez-vous encaissé de l'argent", 'Non');
-	setTimeout (function(){
-		fillInputByLabel ('Quel est son pseudonyme ?', 'harthure');
-		fillInputByLabel ("Indiquez-nous la nature ou l'objet de ce document", 'sms');
-	}, 500);
 }
 function demarcheE8(){
 	setTimeout (function(){
@@ -106,14 +115,12 @@ if (document.body.containsText ('Étape 1 sur 5')){
 else if (document.body.containsText ('Étape 2 sur 5')){
 	if (document.body.containsText ('escroquerie à la petite annonce')) demarcheEpaE2();
 	else if (document.body.containsText ('rançongiciel')) demarcheRancongicielE2();
-	else if (document.body.containsText ('escroquerie aux sentiments')) demarcheEasE2();
+	else demarcheE2();
 }
 else if (document.body.containsText ('Étape 3 sur 5')){
-	if (document.body.containsText ('escroquerie à la petite annonce')){
-		if (document.body.containsText ('Préjudice financier')) demarcheEpaE3Pf();
-		else demarcheEpaE3Interlocuteur();
-	}
-	else if (document.body.containsText ('rançongiciel')) demarcheE3Paiement();
+	if (document.body.containsText ('rançongiciel')) demarcheE3Paiement();
+	else if (document.body.containsText ('Préjudice financier')) demarcheE3();
+	else demarcheEpaE3Interlocuteur();
 }
 else if (document.body.containsText ('Étape 4 sur 5')) demarcheE4();
 else if (document.body.containsText ('Étape 5 sur 5')) demarcheE5();

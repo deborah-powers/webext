@@ -215,6 +215,16 @@ HTMLElement.prototype.fillInputByLabel = function (labelText, inputValue){
 	else input.fillInput (inputValue);
 }
 function fillInputByLabel (labelText, inputValue){ document.body.fillInputByLabel (labelText, inputValue); }
+HTMLElement.prototype.uncheckInputByLabel = function (labelText){
+	if (! this.innerText.includes (labelText)) return;
+	const input = this.findInputByLabel (labelText);
+	if (input === null || input === undefined) log ("pas d'input pour", labelText);
+	else if (input.type !== 'checkbox' && input.type !== 'radio') log ("pas de bouton pour", labelText);
+	else{
+		input.clickOn();
+		input.checked = 'false';
+}}
+function uncheckInputByLabel (labelText){ document.body.uncheckInputByLabel (labelText); }
 HTMLElement.prototype.addBlurListener = function (labelText, inputValue, functionAtBlur){
 	if (! this.innerText.includes (labelText)) return;
 	const input = this.findInputByLabel (labelText);
@@ -228,6 +238,8 @@ HTMLElement.prototype.addClickListener = function (labelText, functionAtClick){
 	if (button.tagName === 'BUTTON') button.addEventListener ('click', functionAtClick);
 }
 HTMLElement.prototype.fillInputByField = function (fieldLegend, labelText, inputValue){
+	if (! this.innerText.includes (labelText) ||! this.innerText.includes (fieldLegend)) return;
+	log (fieldLegend, '/', labelText);
 	const blockLegend = this.findByInnerText (fieldLegend);
 	var block = blockLegend.findContainer ('fieldset');
 	if (block.tagName === 'BODY') block = blockLegend.findContainer ('div');
