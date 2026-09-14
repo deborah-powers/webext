@@ -62,6 +62,10 @@ chrome.action.onClicked.addListener (function (tab){
 		target: {tabId: tab.id, allFrames: false },
 		files: [ 'textFct.js', 'htmlFct.js', 'pageFct.js', 'demarche-ai.js' ]
 	});
+	else if (tab.url.includes ('DeclarationIncidentAccident')) chrome.scripting.executeScript ({
+		target: {tabId: tab.id, allFrames: false },
+		files: [ 'textFct.js', 'htmlFct.js', 'pageFct.js', 'demarche-diaic.js' ]
+	});
 	else chrome.scripting.executeScript ({
 		target: {tabId: tab.id, allFrames: false },
 		files: [ 'textFct.js', 'htmlFct.js', 'pageFct.js', 'demarche-recap.js' ]

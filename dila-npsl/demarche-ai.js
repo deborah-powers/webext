@@ -96,18 +96,6 @@ function demarcheEpaE3Interlocuteur(){
 	fillInputByLabel ('Non');
 	goNextPage();
 }
-function demarcheE8(){
-	setTimeout (function(){
-		fillInputByLabel ('');
-	}, 500);
-	document.getElementById ('').clickOn();
-	fillInputByLabel ('');
-	fillInputByField ('', '');
-	setTimeout (function(){}, 500);
-	document.body.addBlurListener ('', '', function (event){});
-	fichiers[0].onchange = function(){}
-	goNextPage();
-}
 if (document.body.containsText ('Étape 1 sur 5')){
 	if (document.body.containsText ('Avertissement')) goNextPage();
 	else if (document.body.containsText ('Mes informations personnelles')) demarcheE1();
