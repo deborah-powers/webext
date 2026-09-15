@@ -1,9 +1,9 @@
 /*
 la liaison avec un input (rgaa-highlight) est calculée par sian-alert.js.
 le script n'agit que sur les alertes visibles. il faut le relancer à chaque fois qu'une nouvelle alerte apparaît.
-
-input.rgaa-highlight { background-color: pink !important; }
 */
+input.rgaa-highlight { background-color: pink !important; }
+
 input[aria-describedby*='alerte'], input[aria-describedby*='warning'], input[aria-describedby*='info']
 	{ border: solid 2px deeppink !important; }
 input[aria-describedby*='alerte'] + label, input[aria-describedby*='warning'] + label, input[aria-describedby*='info'] + label

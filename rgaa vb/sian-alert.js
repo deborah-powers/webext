@@ -29,7 +29,7 @@ HTMLElement.prototype.findInputStartingAlert = function(){
 		while (i< inputs.length &&! inputs[i].findInputStartingAlert (alertId)) i+=1;
 		if (i< inputs.length){
 			console.log (i, alertId);
-//			inputs[i].classList.add ('rgaa-highlight');
+			inputs[i].classList.add ('rgaa-highlight');
 			this.classList.add ('rgaa-highlight');
 }}}
 for (var alert of alertes) alert.findInputStartingAlert();

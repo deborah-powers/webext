@@ -41,12 +41,27 @@ function demarcheE4(){
 		fillInputByLabel ('DDETSPP');
 		clickButtonByText ('Ajouter une rubrique');
 		setTimeout (function(){
-			fillInputByLabel ('Rubrique', 'elevage de coléo');
+		//	fillInputByLabel ('Rubrique', 'elevage de coléo');
+			document.body.addBlurListener ('Rubrique', 'elevage de coléo', function (event){ clickButtonByText ('Valider'); });
 	}, 500); }, 500);
 }
 function demarcheE5(){
 	fillInputByLabel ('Chargement ou déchargement de matières dangereuses par camion');
 	goNextPage();
+}
+function demarcheE6(){
+	fillInputByLabel ('Autre phénomène dangereux');
+	setTimeout (function(){ fillInputByLabel ('Quelle est la nature', 'explosion de lisier'); }, 500);
+}
+function demarcheE7(){
+	fillInputByLabel ('Date de début', '2026-09-14');
+	fillInputByLabel ('Heure de début', '14:30')
+	fillInputByLabel ('Date de fin', '2026-09-14');
+	fillInputByLabel ('Heure de fin', '23:30');
+	fillInputByLabel ('Odeurs anormales');
+	fillInputByLabel ("Un personnel de l'établissement");
+	fillInputByLabel ('Agression externe non humaine');
+	fillInputByLabel ('Où et comment s', "La récente crue à rempli le puit où nous stockons le lisier et l'a fait dégorger. le lisier a donc atterrit dans le champ stérile voisin.");
 }
 function demarcheE8(){
 	setTimeout (function(){
@@ -66,3 +81,5 @@ else if (document.body.containsText ('Étape 2 sur 12')) demarcheE2();
 else if (document.body.containsText ('Étape 3 sur 12')) demarcheE3();
 else if (document.body.containsText ('Étape 4 sur 12')) demarcheE4();
 else if (document.body.containsText ('Étape 5 sur 12')) demarcheE5();
+else if (document.body.containsText ('Étape 6 sur 12')) demarcheE6();
+else if (document.body.containsText ('Étape 7 sur 12')) demarcheE7();
