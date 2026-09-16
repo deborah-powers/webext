@@ -16,9 +16,11 @@ HTMLInputElement.prototype.computeInfos = function(){
 	var inputInfos = this.type;
 	// valeur controllée
 	if (inputControles.includes (this.type)) inputInfos = inputInfos +' valeur contrôlée';
+	var attribut = this.getAttribute ('aria-controls');
+	if (this.type === 'radio' || this.type === 'checkbox' && exists (attribut)) inputInfos = inputInfos +'\naffiche '+ attribut;
 	inputInfos = inputInfos +'\n';
 	// required
-	var attribut = this.getAttribute ('required');
+	attribut = this.getAttribute ('required');
 	if (attribut) inputInfos = inputInfos +' required';
 	attribut = this.getAttribute ('aria-required');
 	if (attribut) inputInfos = inputInfos +' aria-required';

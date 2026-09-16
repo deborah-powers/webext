@@ -42,6 +42,12 @@ form button, input[type='button'], button[form], input[type='submit'], input[typ
 	background-color: #DFD !important;
 	border: solid 2px #787 !important;
 }
+input[type='radio'][aria-expended], input[type='radio'][aria-controls], input[type='checkbox'][aria-expended],
+input[type='checkbox'][aria-controls] {
+	background-color: #DDF !important;
+	border: dashed 2px #778 !important;
+}
+input[type='radio'][aria-expended][aria-controls], input[type='checkbox'][aria-expended][aria-controls] { border-style: solid !important; }
 datalist {
 	display: block !important;
 	color: black;

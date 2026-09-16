@@ -1,9 +1,11 @@
 /* fonctionne avec elm-focus-interract.css */
-[aria-live], [role='alert'], [role='status'], [role='log'], [role='progressbar'], [role='timer'], [role='marquee'] {
-	border-style: solid !important;
+[aria-live], [role='region'], [role='alert'], [role='status'], [role='log'], [role='progressbar'], [role='timer'], [role='marquee'] {
 	border-width: 4px !important;
 	border-color: orangered !important;
 }
+[aria-live], [role='region'] { border-style: dashed !important; }
+[role='region'][aria-live], [role='alert'], [role='status'], [role='log'], [role='progressbar'], [role='timer'], [role='marquee']
+	{ border-style: solid !important; }
 a:hover:after {
 	content: 'ancre\A' attr(infos) !important;
 	min-width: 30%;
