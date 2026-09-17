@@ -90,6 +90,9 @@ function demarcheE12(){
 	clickButtonByText ('Envoyer votre demande');
 }
 function demarcheE13(){
+	var uploaderOpened = openFileUploaderRequired();
+	if (uploaderOpened) uploaderOpened = openFileUploaderRequired();
+	else{}
 	setTimeout (function(){
 		fillInputByLabel ('');
 	}, 500);

@@ -28,9 +28,9 @@ function getFileUploader(){
 	return uploaders;
 }
 HTMLInputElement.prototype.openFileUploader = function(){ if (this.type === 'file') this.click(); }
+
 function openFileUploaderRequired(){
 	const inputs = getFileUploader();
-	log (inputs.length);
 	var uploader = null;
 	var isRequired = true;
 	var f=0;
@@ -43,7 +43,7 @@ function openFileUploaderRequired(){
 		}
 		f+=1;
 	}
-	if (uploader !== null){
+	if (uploader !== null && uploader !== undefined){
 		uploader.openFileUploader();
 		return true;
 	}
@@ -225,6 +225,15 @@ HTMLElement.prototype.uncheckInputByLabel = function (labelText){
 		input.checked = 'false';
 }}
 function uncheckInputByLabel (labelText){ document.body.uncheckInputByLabel (labelText); }
+HTMLElement.prototype.addBlurListenerRubrique = function (rubriqueName, functionAtBlur){
+	if (! this.innerText.includes ('Rubrique')) return;
+	const input = this.findInputByLabel ('Rubrique');
+	input.fillInput (rubriqueName);
+	input.addEventListener ('blur', function (event){
+		clickButtonByText ('Sélectionner');
+		functionAtBlur();
+	});
+}
 HTMLElement.prototype.addBlurListener = function (labelText, inputValue, functionAtBlur){
 	if (! this.innerText.includes (labelText)) return;
 	const input = this.findInputByLabel (labelText);
