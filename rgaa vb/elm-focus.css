@@ -11,7 +11,7 @@ input, select, textarea { border-color: springgreen !important; }
 body [tabindex]:not(body [tabindex='-1']) {
 	border-style: solid !important;
 	border-width: 4px !important;
-	border-color: mediumvioletred !important;
+	border-color: orange !important;
 }
 [role='presentation'] button, [role='presentation'] a, [role='presentation'] input, [role='presentation'] select, [role='presentation'] textarea, [role='presentation'] [role='button'], [role='presentation'] [role='link'],
 [aria-hidden='true'] button, [aria-hidden='true'] a, [aria-hidden='true'] input, [aria-hidden='true'] select, [aria-hidden='true'] textarea, [aria-hidden='true'] [role='button'], [aria-hidden='true'] [role='link'],
@@ -32,37 +32,48 @@ input:focus + label {
 	font-weight: bold !important;
 	color: teal !important;
 }
-
-/* tests d'affichage */
-form:focus {
-	border: unset !important;
+main:focus, form:focus, div:focus, section:focus, fielset:focus {
+	/* éffacer des affichages en trop */
 	background-color: unset !important;
 	font-weight: unset !important;
 	color: unset !important;
 }
-
-div:focus { background-color: orangered !important; }
-section:focus { background-color: green !important; }
-fielset:focus { background-color: purple !important; }
-/* --- */
-
-
-a:hover:after { content: 'lien'; }
+a:hover:after {
+	content: 'lien';
+	width: 8em !important;
+	min-height: 4em !important;
+}
 button:hover:after { content: 'bouton'; }
-input:hover:after { content: 'input ', attr(type); }
+input + label:hover:after { content: 'input, probablement radio ou checkbox'; }
 select:hover:after { content: 'select'; }
 textarea:hover:after { content: 'textarea'; }
 [role='button']:hover:after { content: 'rôle bouton'; }
 [role='link']:hover:after { content: 'rôle lien'; }
-body [tabindex]:hover:after { content: 'tabindex: ' attr(tabindex); }
 a[tabindex]:hover:after { content: 'lien, tabindex: ' attr(tabindex); }
 button[tabindex]:hover:after { content: 'bouton, tabindex: ' attr(tabindex); }
-input[tabindex]:hover:after { content: 'input ', attr(type), ', tabindex: ' attr(tabindex); }
+input[tabindex] + label:hover:after { content: 'input, probablement radio ou checkbox tabindex: ' attr(tabindex); }
 select[tabindex]:hover:after { content: 'select, tabindex: ' attr(tabindex); }
 textarea[tabindex]:hover:after { content: 'textarea, tabindex: ' attr(tabindex); }
 [role='button'][tabindex]:hover:after { content: 'rôle bouton, tabindex: ' attr(tabindex); }
 [role='link'][tabindex]:hover:after { content: 'rôle lien, tabindex: ' attr(tabindex); }
+
+label[for=input:hover[id]] { background-color: papayawhip; }
+input[id]
+
 /*
+body [tabindex]:hover:after, main[tabindex]:hover:after, form[tabindex]:hover:after, div[tabindex]:hover:after, section[tabindex]:hover:after, fielset[tabindex]:hover:after,
+body:focus:after, main:focus:after, form:focus:after, div:focus:after, section:focus:after, fielset:focus:after {
+	content: "cadre cliquable à la souris. peut-être en conséquense d'un évênement js";
+/*	tabindex='-1' rend les éléments inaccessibles par tabulation, mais on peut toujours cliquer dessus /
+}
+body [tabindex]:hover:after, body:focus:after { content: "body cliquable à la souris. peut-être en conséquense d'un évênement js"; }
+main[tabindex]:hover:after, main:focus:after { content: "main cliquable à la souris. peut-être en conséquense d'un évênement js"; }
+section[tabindex]:hover:after, section:focus:after { content: "section cliquable à la souris. peut-être en conséquense d'un évênement js"; }
+article[tabindex]:hover:after, article:focus:after { content: "article cliquable à la souris. peut-être en conséquense d'un évênement js"; }
+div[tabindex]:hover:after, div:focus:after { content: "div cliquable à la souris. peut-être en conséquense d'un évênement js"; }
+form[tabindex]:hover:after, form:focus:after { content: "form cliquable à la souris. peut-être en conséquense d'un évênement js"; }
+fielset[tabindex]:hover:after, fielset:focus:after { content: "fielset cliquable à la souris. peut-être en conséquense d'un évênement js"; }
+
 main[tabindex]:hover:after { content: none; }
 réparer les exès
 body[tabindex] { border-style: none; }

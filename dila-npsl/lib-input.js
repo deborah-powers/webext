@@ -201,11 +201,17 @@ HTMLButtonElement.prototype.clickOn = function(){
 	event = new MouseEvent ('mouseup', { bubbles: true, cancelable: true, view: window });
 	this.dispatchEvent (event);
 }
-HTMLElement.prototype.clickButtonByText = function (labelText){
-	if (! this.innerText.includes (labelText)) return;
+HTMLElement.prototype.findButtonByText = function (labelText){
+	if (! this.innerText.includes (labelText)) return null;
 	var button = this.findByInnerText (labelText);
 	button = button.findContainer ('BUTTON');
-	if (button.tagName === 'BUTTON') button.click();
+	if (button.tagName === 'BUTTON') return button;
+	else return null;
+}
+HTMLElement.prototype.clickButtonByText = function (labelText){
+	if (! this.innerText.includes (labelText)) return;
+	var button = this.findButtonByText (labelText);
+	if (button) button.click();
 }
 function clickButtonByText (labelText){ document.body.clickButtonByText (labelText); }
 HTMLElement.prototype.fillInputByLabel = function (labelText, inputValue){
@@ -225,6 +231,12 @@ HTMLElement.prototype.uncheckInputByLabel = function (labelText){
 		input.checked = 'false';
 }}
 function uncheckInputByLabel (labelText){ document.body.uncheckInputByLabel (labelText); }
+HTMLElement.prototype.setFocusByLabel = function (labelText){
+	var input = this.findInputByLabel (labelText);
+	if (input === null || input === undefined) input = this.findButtonByText (labelText);
+	if (input) input.focus();
+}
+function setFocusByLabel (labelText){ document.body.setFocusByLabel (labelText); }
 HTMLElement.prototype.addBlurListenerRubrique = function (rubriqueName, functionAtBlur){
 	if (! this.innerText.includes ('Rubrique')) return;
 	const input = this.findInputByLabel ('Rubrique');

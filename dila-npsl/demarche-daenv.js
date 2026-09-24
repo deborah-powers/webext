@@ -43,15 +43,17 @@ function demarcheE2(){
 						radioButtons[13].clickOn();
 						fillInputByLabel ('naissance', '2002-03-14');
 						fillInputByLabel ('de SIRET', '41816609600069');
+						setFocusByLabel ('naissance');
 					}, 500); }, 500); }, 500); }, 500);
 	}else{
 		// deuxième partie, après la saisie du siret
 		const buttonFill = document.body.findByInnerText ('Pré-remplir');
 		buttonFill.click();
 		setTimeout (function(){
-			fillInputByLabel ('Numéro et libellé de voie', '72 rue Balzac');
+		//	fillInputByLabel ('Numéro et libellé de voie', '72 rue Balzac');
 			fillInputByLabel ('Téléphone principal', '0678910112');
 			fillInputByLabel ('Adresse e-mail', 'moi@gmoi.com');
+			setFocusByLabel ('Téléphone principal');
 		}, 500);
 }}
 function demarcheE3(){
@@ -60,24 +62,24 @@ function demarcheE3(){
 		fillInputByLabel ('Quel est le nom de votre projet ?', 'test rgaa sian');
 		const radioButtons = getRadioButtonsAndCheckboxes();
 		radioButtons[1].clickOn();	// 1 pour non, 0 pour oui
-		radioButtons[2].clickOn();
+		radioButtons[3].clickOn();
 		radioButtons[5].clickOn();
 		setTimeout (function(){
 			fillInputByLabel ("Nom de l'autorisation ou de la déclaration", 'numéro 04008');
 			fillInputByLabel ('Date de dépôt', '15/09/2026');
 			fillInputByLabel ("Organisme en charge de l'instruction", 'coeur de doudou');
-			uploaderOpened = openFileUploaderRequired();
+			setFocusByLabel ('Quel est le nom de votre projet ?');
 		}, 500);
 }}
 function demarcheE4(){
-	const radioButtons = getRadioButtonsAndCheckboxes();
+	var radioButtons = getRadioButtonsAndCheckboxes();
 	if (radioButtons.length ===1) fillInputByLabel ('Adresse', '72 rue Balzac');
-	else if (radioButtons.length >5){
+	else{
 		var uploaderOpened = openFileUploaderRequired();
 		if (! uploaderOpened){
-			radioButtons[0].clickOn();
+		//	radioButtons[0].clickOn();	saisir l'adresse manuellement
 			setTimeout (function(){
-				var radioButtons = getRadioButtonsAndCheckboxes();
+				radioButtons = getRadioButtonsAndCheckboxes();
 				radioButtons[3].clickOn();
 				setTimeout (function(){
 					uploaderOpened = openFileUploaderRequired();
@@ -85,7 +87,6 @@ function demarcheE4(){
 					radioButtons[5].clickOn();
 					setTimeout (function(){
 						uploaderOpened = openFileUploaderRequired();
-						goNextPage();
 				}, 500); }, 500); }, 500);
 }}}
 function demarcheE5(){

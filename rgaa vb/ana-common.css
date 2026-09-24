@@ -1,11 +1,11 @@
 /* doutes sur l'utilisation du focus */
 *:hover:after, *:focus:after, a#rgaa-download-rapport {
-	box-sizing: border-box;
-	display: block;
-	background-color: ivory;
+	box-sizing: border-box !important;
+	display: block !important;
+	background-color: ivory !important;
 	opacity: 1;
-	color: #420;
-	font-size: 18px;
+	color: #420 !important;
+	font-size: 18px !important;
 	font-weight: normal;
 	font-style: normal;
 	font-family: georgia, serif;
@@ -19,6 +19,15 @@
 	position: fixed;
 	bottom: 2em;
 	z-index: 20;
+	/* si after est utilisé pour ajouter une icône, l'éffacer */
+	mask: none !important;
+	mask-image: none !important;
+	mask-clip: none !important;
+	mask-border: none !important;
+	clip: none !important;
+	clip-path: none !important;
+	background-clip: none !important;
+	offset-path: none !important;
 }
 *:hover:after, *:focus:after {
 	content: none;
