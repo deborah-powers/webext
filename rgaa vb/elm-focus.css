@@ -1,16 +1,51 @@
-/* fonctionne avec elm-focus-interract.css */
-:focus {
+button, a, input, select, textarea, [role='button'], [role='link'] {
 	border-style: solid !important;
 	border-width: 4px !important;
-	border-color: orangered !important;
 }
-[tabindex] {
+input + label { color: #C09 !important; }
+a, [role='link'] { border-color: deeppink !important; }
+button, [role='button'] { border-color: cornflowerblue !important; }
+input, select, textarea { border-color: springgreen !important; }
+
+/* body [tabindex] {*/
+body [tabindex]:not(body [tabindex='-1']) {
 	border-style: solid !important;
 	border-width: 4px !important;
-	border-color: teal !important;
+	border-color: mediumvioletred !important;
 }
-[role='presentation'] [tabindex], [aria-hidden='true'] [tabindex],
-[tabindex][role='presentation'], [tabindex][aria-hidden='true'], [tabindex='-1'] { border-style: dashed !important; }
+[role='presentation'] button, [role='presentation'] a, [role='presentation'] input, [role='presentation'] select, [role='presentation'] textarea, [role='presentation'] [role='button'], [role='presentation'] [role='link'],
+[aria-hidden='true'] button, [aria-hidden='true'] a, [aria-hidden='true'] input, [aria-hidden='true'] select, [aria-hidden='true'] textarea, [aria-hidden='true'] [role='button'], [aria-hidden='true'] [role='link'],
+button[role='presentation'], a[role='presentation'], input[role='presentation'], select[role='presentation'], textarea[role='presentation'],
+[tabindex][aria-hidden='true'], button[aria-hidden='true'], a[aria-hidden='true'], input[aria-hidden='true'], select[aria-hidden='true'], textarea[aria-hidden='true'], [role='button'][aria-hidden='true'], [role='link'][aria-hidden='true'],
+button[tabindex='-1'], a[tabindex='-1'], input[tabindex='-1'], select[tabindex='-1'], textarea[tabindex='-1'], [role='button'][tabindex='-1'], [role='link'][tabindex='-1'],
+[disabled], button[disabled], a[disabled], input[disabled], select[disabled], textarea[disabled], [role='button'][disabled], [role='link'][disabled],
+[role='presentation'] [tabindex], [aria-hidden='true'] [tabindex], [tabindex][role='presentation'], [tabindex][aria-hidden='true'], [tabindex='-1']
+	{ border-style: dashed !important; }
+/* body [tabindex='-1'], */
+body *:focus {
+	border: solid 4px teal !important;
+	background-color: pink !important;
+	font-weight: bold !important;
+	color: teal !important;
+}
+input:focus + label {
+	font-weight: bold !important;
+	color: teal !important;
+}
+
+/* tests d'affichage */
+form:focus {
+	border: unset !important;
+	background-color: unset !important;
+	font-weight: unset !important;
+	color: unset !important;
+}
+
+div:focus { background-color: orangered !important; }
+section:focus { background-color: green !important; }
+fielset:focus { background-color: purple !important; }
+/* --- */
+
 
 a:hover:after { content: 'lien'; }
 button:hover:after { content: 'bouton'; }
@@ -19,7 +54,7 @@ select:hover:after { content: 'select'; }
 textarea:hover:after { content: 'textarea'; }
 [role='button']:hover:after { content: 'rôle bouton'; }
 [role='link']:hover:after { content: 'rôle lien'; }
-[tabindex]:hover:after { content: 'tabindex: ' attr(tabindex); }
+body [tabindex]:hover:after { content: 'tabindex: ' attr(tabindex); }
 a[tabindex]:hover:after { content: 'lien, tabindex: ' attr(tabindex); }
 button[tabindex]:hover:after { content: 'bouton, tabindex: ' attr(tabindex); }
 input[tabindex]:hover:after { content: 'input ', attr(type), ', tabindex: ' attr(tabindex); }
@@ -30,6 +65,6 @@ textarea[tabindex]:hover:after { content: 'textarea, tabindex: ' attr(tabindex);
 /*
 main[tabindex]:hover:after { content: none; }
 réparer les exès
-*/
 body[tabindex] { border-style: none; }
 body[tabindex]:hover:after { content: none; }
+*/

@@ -7,9 +7,9 @@ function demarcheE1(){
 		radioButtons[5].clickOn();
 		radioButtons[6].clickOn();
 		radioButtons[7].clickOn();
-		radioButtons[3].clickOn();
+		radioButtons[4].clickOn();	// 3 pour noter le numéro d'aiot
 		setTimeout (function(){
-			fillInputByLabel ("Numéro d'AIOT", '0040987214');
+		//	fillInputByLabel ("Numéro d'AIOT", '0040987214');
 			const radioButtons = getRadioButtonsAndCheckboxes();
 			radioButtons[5].clickOn();
 			setTimeout (function(){
@@ -18,6 +18,7 @@ function demarcheE1(){
 				setTimeout (function(){
 					const radioButtons = getRadioButtonsAndCheckboxes();
 					radioButtons[10].clickOn();
+					goNextPage();
 				}, 500); }, 500); }, 500); }, 500);
 }
 function demarcheE2(){
@@ -58,9 +59,15 @@ function demarcheE3(){
 	if (! uploaderOpened){
 		fillInputByLabel ('Quel est le nom de votre projet ?', 'test rgaa sian');
 		const radioButtons = getRadioButtonsAndCheckboxes();
-		radioButtons[1].clickOn();
-		radioButtons[3].clickOn();
+		radioButtons[1].clickOn();	// 1 pour non, 0 pour oui
+		radioButtons[2].clickOn();
 		radioButtons[5].clickOn();
+		setTimeout (function(){
+			fillInputByLabel ("Nom de l'autorisation ou de la déclaration", 'numéro 04008');
+			fillInputByLabel ('Date de dépôt', '15/09/2026');
+			fillInputByLabel ("Organisme en charge de l'instruction", 'coeur de doudou');
+			uploaderOpened = openFileUploaderRequired();
+		}, 500);
 }}
 function demarcheE4(){
 	const radioButtons = getRadioButtonsAndCheckboxes();
@@ -68,7 +75,7 @@ function demarcheE4(){
 	else if (radioButtons.length >5){
 		var uploaderOpened = openFileUploaderRequired();
 		if (! uploaderOpened){
-			radioButtons[1].clickOn();
+			radioButtons[0].clickOn();
 			setTimeout (function(){
 				var radioButtons = getRadioButtonsAndCheckboxes();
 				radioButtons[3].clickOn();

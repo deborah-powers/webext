@@ -1,16 +1,13 @@
 /* https://accessibilite.numerique.gouv.fr/methode/glossaire/#champ-de-saisie-de-formulaire */
 
-form, [role='form'], [role='group'], fieldset, legend, input, textarea, label, form button, button[form], select, optgroup, option, datalist,
-[role='radiogroup'], [role='button'], [role='progressbar'], [role='slider'], [role='spinbutton'], [role='textbox'], [role='listbox'],
-[role='searchbox'], [role='combobox'], [role='option'], [role='checkbox'], [role='radio'], [role='switch'], [role='group'] [role] {
-	color: black !important;
-	background-color: white !important;
-	box-sizing: border-box;
-	max-width: 100%;
+input:focus, textarea:focus, form button:focus, button[form]:focus, select:focus, optgroup:focus, option:focus {
+	border: solid 4px teal !important;
+	background-color: pink !important;
 }
-input:hover, textarea:hover, label:hover, form button:hover, button[form]:hover, select:hover, optgroup:hover, option:hover,
-input:focus, textarea:focus, label:focus, form button:focus, button[form]:focus, select:focus, optgroup:focus, option:focus
-	{ font-weight: bold !important; }
+input:focus + label {
+	font-weight: bold !important;
+	color: teal !important;
+}
 form, fieldset, fieldset[role='group'], fieldset[role='radiogroup'] {
 	border-width: 4px !important;
 	border-style: solid !important;
@@ -27,27 +24,20 @@ select {
 	background-color: ivory !important;
 }
 optgroup { border-color: #963 !important; }
-option, [role='option'] {
-	color: #900 !important;
-	background-color: ivory !important;
-}
 legend, form h3, [role='form'] h3, legend * { color: #93F !important; }
 label { color: #C09 !important; }
-input, textarea, [role='progressbar'], [role='slider'], [role='spinbutton'], [role='textbox'], [role='listbox'], [role='searchbox'],
-[role='combobox'], [role='checkbox'], [role='radio'], [role='switch']
-	{ color: #36C !important; }
-
-form button, input[type='button'], button[form], input[type='submit'], input[type='reset'], input[type='image'], 4[role='button'] {
+form button, input[type='button'], button[form], input[type='submit'], input[type='reset'], input[type='image'], [role='button'] {
 	color: black !important;
 	background-color: #DFD !important;
 	border: solid 2px #787 !important;
 }
-input[type='radio'][aria-expended], input[type='radio'][aria-controls], input[type='checkbox'][aria-expended],
-input[type='checkbox'][aria-controls] {
-	background-color: #DDF !important;
+input[type='radio'][aria-expended] + label, input[type='radio'][aria-controls] + label, input[type='checkbox'][aria-expended] + label,
+input[type='checkbox'][aria-controls] + label {
 	border: dashed 2px #778 !important;
 }
-input[type='radio'][aria-expended][aria-controls], input[type='checkbox'][aria-expended][aria-controls] { border-style: solid !important; }
+input[type='radio'][aria-expended][aria-controls] + label, input[type='checkbox'][aria-expended][aria-controls] + label {
+	border-style: solid !important;
+}
 datalist {
 	display: block !important;
 	color: black;
@@ -56,20 +46,7 @@ datalist {
 [aria-invalid='true'] { background-color: pink !important; }
 button[form]:hover:after { content: "bouton innadapté " attr(type, 'sans type') " pour le formulaire " attr(form) !important; }
 button[form][type='submit']:hover:after { content: "bouton pour formulaire " attr(form) !important; }
-/*
-form:hover:after { content: 'form'; }
-[role='form']:hover:after { content: 'role form'; }
-fieldset:hover:after { content: 'fieldset'; }
-[role='group']:hover:after { content: 'group'; }
-[role='radiogroup']:hover:after { content: 'radiogroup'; }
-*/
 legend:hover:after { content: 'legend'; }
 form h3:hover:after, [role='form'] h3:hover:after { content: 'h3'; }
 label:hover:after { content: attr(infos); }
 label *:hover:after, legend *:hover:after, h3 *:hover:after { content: none; }
-/*
-.rgaa-highlight, label.rgaa-highlight * {
-	background-color: yellow !important;
-	color: orange !important;
-	border-width: 8px !important;
-}*/

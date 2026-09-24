@@ -2,18 +2,36 @@ button, a, input, select, textarea, [role='button'], [role='link'] {
 	border-style: solid !important;
 	border-width: 4px !important;
 }
+input + label { color: #C09 !important; }
 a, [role='link'] { border-color: deeppink !important; }
 button, [role='button'] { border-color: cornflowerblue !important; }
 input, select, textarea { border-color: springgreen !important; }
-input + label { color: #C09 !important; }
 
 [role='presentation'] button, [role='presentation'] a, [role='presentation'] input, [role='presentation'] select, [role='presentation'] textarea, [role='presentation'] [role='button'], [role='presentation'] [role='link'],
 [aria-hidden='true'] button, [aria-hidden='true'] a, [aria-hidden='true'] input, [aria-hidden='true'] select, [aria-hidden='true'] textarea, [aria-hidden='true'] [role='button'], [aria-hidden='true'] [role='link'],
 button[role='presentation'], a[role='presentation'], input[role='presentation'], select[role='presentation'], textarea[role='presentation'],
 [tabindex][aria-hidden='true'], button[aria-hidden='true'], a[aria-hidden='true'], input[aria-hidden='true'], select[aria-hidden='true'], textarea[aria-hidden='true'], [role='button'][aria-hidden='true'], [role='link'][aria-hidden='true'],
-button[tabindex='-1'], a[tabindex='-1'], input[tabindex='-1'], select[tabindex='-1'], textarea[tabindex='-1'], [role='button'][tabindex='-1'], [role='link'][tabindex='-1'],
+[tabindex='-1'], button[tabindex='-1'], a[tabindex='-1'], input[tabindex='-1'], select[tabindex='-1'], textarea[tabindex='-1'], [role='button'][tabindex='-1'], [role='link'][tabindex='-1'],
 [disabled], button[disabled], a[disabled], input[disabled], select[disabled], textarea[disabled], [role='button'][disabled], [role='link'][disabled]
 	{ border-style: dashed !important; }
+
+body *:focus {
+	border: solid 4px teal !important;
+	background-color: pink !important;
+	font-weight: bold !important;
+	color: teal !important;
+}
+input:focus + label {
+	font-weight: bold !important;
+	color: teal !important;
+}
+form:focus, div:focus, section:focus, fieldset:focus {
+	border: unset !important;
+	background-color: unset !important;
+	font-weight: unset !important;
+	color: unset !important;
+}
 /*
+input + label { color: #C09 !important; }
 main[tabindex]:hover:after { content: none; }
 */
