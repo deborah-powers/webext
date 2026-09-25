@@ -73,7 +73,10 @@ function demarcheE3(){
 }}
 function demarcheE4(){
 	var radioButtons = getRadioButtonsAndCheckboxes();
-	if (radioButtons.length ===1) fillInputByLabel ('Adresse', '72 rue Balzac');
+	if (radioButtons.length ===1){
+		fillInputByLabel ('Adresse', '72 rue Balzac');
+		setFocusByLabel ('Adresse');
+	}
 	else{
 		var uploaderOpened = openFileUploaderRequired();
 		if (! uploaderOpened){
@@ -87,6 +90,7 @@ function demarcheE4(){
 					radioButtons[5].clickOn();
 					setTimeout (function(){
 						uploaderOpened = openFileUploaderRequired();
+						setFocusByLabel ('Continuer');
 				}, 500); }, 500); }, 500);
 }}}
 function demarcheE5(){
