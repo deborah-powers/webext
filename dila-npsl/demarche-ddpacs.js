@@ -24,14 +24,21 @@ function naissanceItalie(){
 			immigration.fillInputByLabel ('Oui');
 });});}
 function demarcheE1(){
-	if (! document.body.innerText.includes ('nom de la voie')) fillInputByLabel ('Code postal et commune', 'ARPAJON');
-	else fillInputByLabel ('nom de la voie', '11 avenue Aristide Briand');
+	if (! document.body.innerText.includes ('nom de la voie')){
+		fillInputByLabel ('Code postal et commune', 'ARPAJON');
+		setFocusByLabel ('Code postal et commune');
+	}
+	else{
+		fillInputByLabel ('nom de la voie', '11 avenue Aristide Briand');
+		setFocusByLabel ('nom de la voie');
+	}
 }
 function demarcheE2(){
 	if (document.body.innerText.includes ('Qui êtes-vous ?')){
 		fillInputByLabel ('Monsieur');
 //		fillInputByLabel ('Département', 'Ille et Vilaine');
-		fillInputByLabel ('ville de naissance', 'LILLE');
+		fillInputByLabel ('ville de naissance', 'lille');
+		setFocusByLabel ('ville de naissance');
 		fillInputByLabel ('Département', 'Nord');
 		fillInputByLabel ('Nationalité 1', 'française');
 //		fillInputByLabel ('Nationalité 2', 'italienne');
@@ -45,6 +52,7 @@ function demarcheE3(){
 	if (document.body.innerText.includes ('Qui est votre partenaire')){
 		fillInputByLabel ('Madame');
 		fillInputByLabel ('Nom', 'Gucci');
+		setFocusByLabel ('Nom');
 		fillInputByLabel ('Prénom 1', 'Sylvia');
 		fillInputByLabel ('Date de naissance', '12/02/1962');
 		const pays = document.body.findInputByLabel ('Pays de naissance');
@@ -54,7 +62,7 @@ function demarcheE3(){
 			if (event.target.value === 'FRANCE'){
 			//	fillInputByLabel ('ville de naissance', 'CORBEIL ESSONNES');
 			//	fillInputByLabel ('Département', 'Essonne');
-				fillInputByLabel ('ville de naissance', 'LILLE');
+				fillInputByLabel ('ville de naissance', 'lille');
 				fillInputByLabel ('Département', 'Nord');
 				fillInputByLabel ('Nationalité 1', 'française');
 			}
@@ -93,6 +101,18 @@ function demarcheE5(){
 	goNextPage();
 }
 function demarcheE6(){
+	if (document.body.containsText ('Ajouter un fichier')){
+		fillInputByLabel ("Carte d'identité");
+		setTimeout (function(){
+			const uploaders = document.body.findListByInnerText ('Ajouter un fichier');
+			for (var upload of uploaders) upload.parentElement.click();
+			setTimeout (function(){ const fileUploaded = openFileUploaderRequired(); }, 500);
+	}, 500); }
+	else{
+		const fileUploaded = openFileUploaderRequired();
+		if (! fileUploaded) goNextPage();
+}}
+function demarcheE6_va(){
 	const identites = document.body.findHomonymInputs ("Carte d'identité");
 	for (var idtt of identites) idtt.clickOn();
 	setTimeout (function(){
@@ -106,10 +126,14 @@ function demarcheE6(){
 			goNextPage();
 	}, 500); }, 500);
 }
+function demarcheE7(){
+	fillInputByLabel ("J'accepte les conditions générales d'utilisation");
+	getRecap ('ddpacs');
+}
 if (document.body.innerText.includes ('Étape 1 sur 7')) demarcheE1();
 else if (document.body.innerText.includes ('Étape 2 sur 7')) demarcheE2();
 else if (document.body.innerText.includes ('Étape 3 sur 7')) demarcheE3();
 else if (document.body.innerText.includes ('Étape 4 sur 7')) demarcheE4();
 else if (document.body.innerText.includes ('Étape 5 sur 7')) demarcheE5();
 else if (document.body.innerText.includes ('Étape 6 sur 7')) demarcheE6();
-else if (document.body.innerText.includes ('Étape 7 sur 7')) getRecap ('ddpacs');
+else if (document.body.innerText.includes ('Étape 7 sur 7')) demarcheE7();

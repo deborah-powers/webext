@@ -19,6 +19,7 @@ a area[aria-hidden='true'], a canvas[aria-hidden='true'], a img[aria-hidden='tru
 area[alt], canvas, img[alt], input[type='image'][alt], object, svg, .rgaa-bgimg { border-style: solid !important; }
 
 /* les images de fond sans couleur de doublage */
+.rgaa-bgimg { border-style: solid !important; }
 .rgaa-bgimg.rgaa-bgnocolor { border-style: dashed !important; }
 
 /* les couleurs distingant les différents objets */

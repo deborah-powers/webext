@@ -1,5 +1,5 @@
 const modelHtml = 'common-page.html';	// les modèles doivent être déclarés dans manifest.json / web_accessible_resources
-var htmlTemplate = openRessourceLocal (modelHtml);
+var htmlTemplate = openfileWebExt (modelHtml);
 var pageOriginale = document.body.innerText;
 
 const title = window.location.href.findTitleFromUrl();

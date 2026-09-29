@@ -1,27 +1,19 @@
-const themeTable = '<table><caption>$titre</caption><tr><th>critère</th><th>conformité</th><th>dérrogation</th><th>critère</th><th>commentaire</th></tr><tr><td>$lignes</td></tr></table>';
-const modelHtml = 'file:///C:/Users/deborah.powers/Desktop/cgi/rgaa-grille-page.html';	// les modèles doivent être déclarés dans manifest.json / web_accessible_resources
+const themeTable = '<table><caption>$titre$</caption><tr><th>critère</th><th>conformité</th><th>dérrogation</th><th>critère</th><th>commentaire</th></tr><tr><td>$lignes</td></tr></table>';
+const modelHtml = 'rgaa-grille-page.html';	// les modèles doivent être déclarés dans manifest.json / web_accessible_resources
 
-crutialData =`
-	strip: function (text, char){ return text.strip (char); },
-	fromModel: function (text, model){ return text.fromModel (model); },
-	toModel: function (text, dataDict){ return text.toModel (dataDict); },
-	sliceWords: function (text, wordD, wordF){ return text.sliceWords (wordD, wordF); },
-	count: function (text, word){ return text.count (word); }
-`;
-const htmlLib = callLibrary ([ 'textFct' ]);
 // les métadonnées
-var htmlTemplate = openRessource (modelHtml);
+var htmlTemplate = openRessourceLocal (modelHtml);
 var pageOriginale = document.body.innerText;
 
 function trouverMetadonneeHeader (nomMeta, codeMeta){
 	var d=2+ nomMeta.length + pageOriginale.indexOf (nomMeta +": ");
 	pageOriginale = pageOriginale.substring (d);
 	d= pageOriginale.indexOf ('\n');
-	htmlTemplate = htmlTemplate.replaceAll ('$'+ codeMeta, pageOriginale.substring (0,d));
+	htmlTemplate = htmlTemplate.replaceAll ('$'+ codeMeta +'$', pageOriginale.substring (0,d));
 	pageOriginale = pageOriginale.substring (d+1);
 }
 trouverMetadonneeHeader ("ate d'audit", 'date');
-trouverMetadonneeHeader ('age audité', 'page');
+trouverMetadonneeHeader ('age auditée', 'page');
 trouverMetadonneeHeader ('ien de la page', 'lien');
 
 // l'audit
@@ -36,7 +28,7 @@ for (var t=1; t< tables.length; t++){
 }
 pageOriginale = tables.join ("");
 tables = pageOriginale.split ('\n');
-for (var t=1; t< tables.length; t++) if (3=== htmlLib.count (tables[t], '\t')){ tables[t] = tables[t] +'\t.'; }
+for (var t=1; t< tables.length; t++) if (3=== tables[t].count ('\t')){ tables[t] = tables[t] +'\t.'; }
 pageOriginale = tables.join ('\n');
 // traiter les critères
 tables = pageOriginale.split ('\n== ');
@@ -45,19 +37,19 @@ for (var t=0; t< tables.length; t++){
 	d= tables[t].indexOf ('\n')
 	tableau = themeTable.replace ('$titre$', tables[t].substring (0,d));
 	tables[t] = tables[t].substring (d+1);
-	tables[t] = htmlLib.strip (tables[t]);
+	tables[t] = tables[t].trim();
 	tables[t] = tables[t].replaceAll ('\n', '</td></tr><tr><td>');
 	tables[t] = tables[t].replaceAll ('\t', '</td><td>');
 	tables[t] = tableau.replace ('$lignes', tables[t]);
 }
 tableau = tables.join ('\n');
 // calculer le score
-const nbCf = htmlLib.count (tableau, '>c<');
-const nbNc = htmlLib.count (tableau, '>nc<');
-const nbNa = htmlLib.count (tableau, '>na<');
-const nbNt = htmlLib.count (tableau, '>nt<');
-const nbDe = htmlLib.count (tableau, '>d<');
-const score = 100* nbCf / (nbCf + htmlLib.count (tableau, '>nc</td><td>n<'));
+const nbCf = tableau.count ('>c<');
+const nbNc = tableau.count ('>nc<');
+const nbNa = tableau.count ('>na<');
+const nbNt = tableau.count ('>nt<');
+const nbDe = tableau.count ('>d<');
+const score = 100* nbCf / (nbCf + tableau.count ('>nc</td><td>n<'));
 var conformite = 'non conforme';
 if (score ===100) conformite = 'totalement conforme';
 else if (score >=50) conformite = 'partiellement conforme';
