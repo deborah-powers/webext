@@ -1,18 +1,31 @@
+/* bases */
+table, tr, th, td, [role='table'], [role='row'], [role='rowheader'], [role='columnheader'], [role='cell'] { border-collapse: separate !important; }
 table, [role='table'] {
 	border-style: solid !important;
 	border-width: 4px !important;
 	border-color: deeppink !important;
 }
-table[role='presentation'], table[role='none'] { border-color: limegreen !important; }
 [role='table'] { border-color: orangered !important; }
-tr, th, td, [role='row'], [role='rowheader'], [role='columnheader'], [role='cell'] {
+/* repérer les intrus */
+table >*, [role='table'] >*{
 	border-color: inherit !important;
 	border-width: inherit !important;
+	border-style: dotted !important;
+	margin: 4px !important;
+	padding: 4px !important;
 }
-th { border-style: dashed !important; }
-th[scope] { border-style: solid !important; }
-td[headers], [role='cell'][headers] { border-style: solid !important; }
+table > tr, [role='table'] > [role='row']{ border-style: none !important; }
+tr >*, [role='row'] >*{
+	border-color: inherit !important;
+	border-width: inherit !important;
+	border-style: dotted !important;
+}
+[role='row'] > [role='rowheader'], [role='row'] > [role='columnheader'] { border-style: none !important; }
+tr > th, tr > td, [role='row'] > [role='cell'] { border-style: dashed !important; }
+tr > th[scope], tr > td[headers], [role='row'] > [role='cell'][headers] { border-style: none !important; }
 
+/* tableau de présentation */
+table[role='presentation'], table[role='none'] { border-color: limegreen !important; }
 table[role='presentation'] th, table[role='presentation'] > thead, table[role='presentation'] > tfoot, table[role='presentation'] > caption,
 table[role='presentation'] [scope], table[role='presentation'] [headers], table[role='presentation'] [colgroup],
 table[role='presentation'] [axis], table[role='presentation'] [role='rowheader'], table[role='presentation'] [role='columnheader'],
@@ -21,7 +34,8 @@ table[role='none'] [scope], table[role='none'] [headers], table[role='none'] [co
 table[role='none'] [axis], table[role='none'] [role='rowheader'], table[role='none'] [role='columnheader']
 	{ border-style: dashed !important; }
 
+/* --- */
 .rgaa-highlight[aria-describedby] { border-style: solid !important; }
-
-table:hover:after { content: 'table\A' attr(infos); }
-[role='table']:hover:after { content: 'role table\A' attr(infos); }
+*:hover:after { content: none !important; }
+table:hover:after { content: 'table\A' attr(infos) !important; }
+[role='table']:hover:after { content: 'role table\A' attr(infos) !important; }

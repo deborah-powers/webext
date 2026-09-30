@@ -121,7 +121,7 @@ HTMLTableElement.prototype.accessibleName = function(){
 	if ('aria-' === intitule.substring (0,5)) return intitule;
 	else if (this.innerHTML.includes ('</caption>')){
 		const legend = this.getElementsByTagName ('caption')[0];
-		return 'caption '+ legend.accessibleName();
+		return 'caption: '+ legend.accessibleName();
 	}
 	else if ('title' === intitule.substring (0,5)) return intitule;
 	else return "rien: rien";

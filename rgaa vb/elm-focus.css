@@ -38,11 +38,7 @@ main:focus, form:focus, div:focus, section:focus, fielset:focus {
 	font-weight: unset !important;
 	color: unset !important;
 }
-a:hover:after {
-	content: 'lien';
-	width: 8em !important;
-	min-height: 4em !important;
-}
+a:hover:after { content: 'lien'; }
 button:hover:after { content: 'bouton'; }
 input + label:hover:after { content: 'input, probablement radio ou checkbox'; }
 select:hover:after { content: 'select'; }

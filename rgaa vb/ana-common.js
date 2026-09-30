@@ -23,7 +23,7 @@ Element.prototype.addClassError = function(){ this.addClass ('rgaa-error'); }
 Element.prototype.addClassHighlight = function(){ this.addClass ('rgaa-highlight'); }
 
 // fonctions de base pour les string
-const blankChars = '\n \t';
+var blankChars = '\n \t';
 function exists (item){
 	if (item === null || item === undefined) return false;
 	else if (item.constructor === String) return item.exists();

@@ -25,7 +25,7 @@ a {
 	border-width: 4px !important;
 	border-color: limegreen !important;
 }
-ol a, ul a { border-style: none !important; }
+ol a, ul a { border-color: teal !important; }
 /* les citations */
 q, blockquote {
 	border-style: solid !important;

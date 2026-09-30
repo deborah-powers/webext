@@ -1,27 +1,21 @@
-main, [role='main'], header, [role='banner'], footer, [role='contentinfo'], nav, [role='navigation'], aside, [role='search']
-	{ border-width: 4px !important; }
-[role='main'], header, footer, nav, aside { border-style: solid !important; }
-main, [role='main'], [role='banner'], [role='contentinfo'], [role='navigation'], [role='search'] { border-style: dashed !important; }
+main, [role='main'], header, [role='banner'], footer, [role='contentinfo'], nav, [role='navigation'], aside, [role='search'] {
+	border-width: 4px !important;
+	border-color: deeppink !important;
+	border-style: solid !important;
+}
+main[role='main'], header[role='banner'], footer[role='contentinfo'], nav[role='navigation'], aside, input[role='search'], textarea[role='search']
+	{ border-color: limegreen !important; }
 main[aria-hidden='true'], header[role='banner'][aria-hidden='true'], footer[role='contentinfo'][aria-hidden='true'],
 main[hidden], header[role='banner'][hidden], footer[role='contentinfo'][hidden]
-	{ border-style: dotted !important; }
-main[role='main'], header[role='banner'], footer[role='contentinfo'], nav[role='navigation'] {
-	border-style: double !important;
-	border-width: 8px !important;
-}
-main, [role='main'] { border-color: deeppink !important; }
-header, [role='banner'] { border-color: forestgreen !important; }
-footer, [role='contentinfo'] { border-color: springgreen !important; }
-nav, [role='navigation'] { border-color: skyblue !important; }
-aside { border-color: orangered !important; }
-[role='search'] { border-color: maroon !important; }
-input[role='search'], textarea[role='search'] { border-style: solid; }
-main:hover:after { content: 'main'; }
-header:hover:after { content: 'header'; }
-footer:hover:after { content: 'footer'; }
-nav:hover:after { content: 'barre de navigation'; }
-aside:hover:after { content: 'aside. role: ' attr(role, 'absent'); }
-header[role='banner']:hover:after { content: 'header principal'; }
-footer[role='contentinfo']:hover:after { content: 'pied de page'; }
-nav[role='navigation']:hover:after { content: 'barre de navigation principale\A' attr(infos); }
+	{ border-style: dashed !important; }
+
+main:hover:after, [role='main']:hover:after { content: 'main secondaire, qui doit être invisible' !important; }
+header:hover:after { content: 'header secondaire' !important; }
+footer:hover:after { content: 'footer secondaire' !important; }
+nav:hover:after { content: 'barre de navigation interne' !important; }
+aside:hover:after { content: 'aside. role: ' attr(role, 'absent') !important; }
+main[role='main']:hover:after { content: 'main principal' !important; }
+header[role='banner']:hover:after { content: 'tête de page' !important; }
+footer[role='contentinfo']:hover:after { content: 'pied de page' !important; }
+nav[role='navigation']:hover:after { content: 'barre de navigation principale\A' attr(infos) !important; }
 
