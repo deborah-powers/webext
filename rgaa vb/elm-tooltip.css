@@ -4,9 +4,35 @@
 
 [title] { border-color: deeppink !important; }
 [aria-describedby] { border-color: springgreen !important; }
-[role='tooltip'] { border-color: cornflowerblue !important; }
+[role='tooltip'] {
+	border-color: orangered !important;
+	/* rendre les éléments visibles */
+	display: block !important;
+	visibility: visible !important;
+	overflow: visible !important;
+	width: auto !important;
+	height: auto !important;
+	margin: auto !important;
+	white-space: normal !important;
+	position: static;
+	opacity: 1;
+	font-size: 1em !important;
+	color: #420 !important;
+	background-color: ivory !important;
+	padding: 1% !important;
+	/* supprimer les masques */
+	mask: none !important;
+	mask-image: none !important;
+	mask-clip: none !important;
+	mask-border: none !important;
+	clip: none !important;
+	clip-path: none !important;
+	-webkit-clip-path: none !important;
+	background-clip: none !important;
+	offset-path: none !important;
+}
 /*
 [aria-describedby][tabindex='-1']:hover:after { content: 'attribut tabindex négatif'; }
 [aria-describedby]:hover:after { content: 'attribut tabindex manquant'; }
 */
-[aria-describedby][tabindex]:hover:after { content: 'attribut tabindex: ' attr(tabindex, 'manquant'); }
+[aria-describedby][tabindex]:hover:after { content: 'attribut tabindex: ' attr(tabindex); }

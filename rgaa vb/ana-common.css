@@ -32,12 +32,13 @@
 	mask-border: none !important;
 	clip: none !important;
 	clip-path: none !important;
+	-webkit-clip-path: none !important;
 	background-clip: none !important;
 	offset-path: none !important;
 }
 a:hover:after, a:focus:after, button:hover:after, button:focus:after {
-	width: unset !important;
-	height: unset !important;
+	width: auto !important;
+	height: auto !important;
 }
 a#rgaa-download-rapport { left: 0; }
 a#rgaa-download-rapport.moved {

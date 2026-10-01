@@ -1,18 +1,10 @@
-[hidden], [aria-hidden], .rgaa-hidden, [class*='sr-only'], [class*='sronly'] {
-	display: block !important;
-	visibility: visible !important;
-	font-size: 1em !important;
-	color: #420 !important;
-	background-color: ivory !important;
-	padding: 1%;
+[hidden], [aria-hidden], .rgaa-hidden, [class*='sr-only'], [class*='sronly'], dialog {
+	/* marqueur facile à repérer */
 	border-width: 4px !important;
 	border-style: solid !important;
-}
-[class*='sr-only'], [class*='sronly'] {
-	clip: unset !important;
-	clip-path: unset !important;
-	-webkit-clip-path: none !important;
-	border: solid 4px deeppink !important;
+	/* rendre les éléments visibles */
+	display: block !important;
+	visibility: visible !important;
 	overflow: visible !important;
 	width: auto !important;
 	height: auto !important;
@@ -20,9 +12,30 @@
 	white-space: normal !important;
 	position: static;
 	opacity: 1;
+	font-size: 1em !important;
+	color: #420 !important;
+	background-color: ivory !important;
+	padding: 1% !important;
+	/* supprimer les masques */
+	mask: none !important;
+	mask-image: none !important;
+	mask-clip: none !important;
+	mask-border: none !important;
+	clip: none !important;
+	clip-path: none !important;
+	-webkit-clip-path: none !important;
+	background-clip: none !important;
+	offset-path: none !important;
 }
+dialog { border-color: deeppink !important; }
+[hidden], [aria-hidden] { border-color: orangered !important; }
+[class*='sr-only'], [class*='sronly'] { border-color: limegreen !important; }
+.rgaa-hidden { border-color: purple !important; }
+
 [aria-hidden='false'] { border-style: dashed !important; }
-[hidden]:after { content: 'attr hidden '; }
-[aria-hidden]:after { content: 'aria hidden '; }
-[class*='sr-only']:after, [class*='sronly']:after { content: 'sronly '; }
-.rgaa-hidden:after { content: 'css hidden '; }
+dialog:hover:after { content: 'dialog'; }
+[hidden]:before { content: 'attr hidden '; }
+[aria-hidden]:before { content: 'aria hidden '; }
+[class*='sr-only']:before, [class*='sronly']:before { content: 'sronly '; }
+.rgaa-hidden:before { content: 'css hidden '; }
+script.rgaa-hidden:before { content: 'script ' attr(src, 'sans source'); }
