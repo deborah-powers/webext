@@ -90,7 +90,7 @@ function pageParents (nomPere, prenomPere, nomMere, prenomMere){
 
 /* ------------------------ fin de la démarche ------------------------ */
 
-var downloadLink = "<a id='download-link' href='data:text/plain;charset=utf-8,$data' download='recap $demarche $psl $date.html'>télécharger</a>";
+var downloadLinkVa = "<a id='download-link' href='data:text/plain;charset=utf-8,$data' download='recap $demarche $psl $date.html'>télécharger</a>";
 var downloadPage = `<!DOCTYPE html><html lang='fr'><head><title>recap $demarche $date</title>
 	<meta name='viewport' content='width=device-width,initial-scale=1'/><meta charset='utf-8'/><base target='_blank'>
 </head><body>
@@ -110,8 +110,6 @@ function getToday(){
 	todayStr = (1+ today.getMonth()) +'-'+ todayStr;
 	if (todayStr.length <11) todayStr = '0'+ todayStr;
 	return todayStr;
-}
-String.prototype.delPaddingTag = function(){
 }
 String.prototype.cleanForShow = function(){
 	var htmlText = this.cleanHtml();
@@ -185,19 +183,4 @@ function getRecap (demarche){
 	textEncoded = textEncoded.replaceAll ("'", '%27');
 	downloadLink.href = downloadLink.href + textEncoded;
 	downloadLink.click();
-}
-function terminerDemarche(){
-	var linkDownload = document.body.findByInnerText ('Télécharger votre récapitulatif');
-	linkDownload = linkDownload.findContainer ('a');
-	linkDownload.click();
-	if (document.body.containsText ('Télécharger le flux')){
-		linkDownload = document.body.findByInnerText ('Télécharger le flux');
-		linkDownload = linkDownload.findContainer ('a');
-		linkDownload.click();
-		setTimeout (function(){ clickButtonByText ('Terminer'); }, 500);
-}}
-function terminerDemarcheLegacy(){
-	const linkDownload = document.getElementById ('confirmationTelechargement_btn_cofirmationPaseport');
-	linkDownload.click();
-	clickButtonByText ('Terminer');
 }

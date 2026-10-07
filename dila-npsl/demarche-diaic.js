@@ -89,22 +89,6 @@ function demarcheE12(){
 	getRecap ('diaic');
 	clickButtonByText ('Envoyer votre demande');
 }
-function demarcheE13(){
-	var uploaderOpened = openFileUploaderRequired();
-	if (uploaderOpened) uploaderOpened = openFileUploaderRequired();
-	else{}
-	setTimeout (function(){
-		fillInputByLabel ('');
-	}, 500);
-	document.getElementById ('').clickOn();
-	fillInputByLabel ('');
-	fillInputByField ('', '');
-	setTimeout (function(){}, 500);
-	document.body.addBlurListener ('', '', function (event){});
-	fichiers[0].onchange = function(){}
-	goNextPage();
-}
-
 if (document.body.containsText ('Étape 1 sur 12')) goNextPage();
 else if (document.body.containsText ('Étape 2 sur 12')) demarcheE02();
 else if (document.body.containsText ('Étape 3 sur 12')) demarcheE03();
