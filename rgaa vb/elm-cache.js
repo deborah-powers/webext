@@ -1,5 +1,5 @@
 Element.prototype.isHidden = function(){
-	if (this.className.includes ('sr-only') || this.className.includes ('sronly')) return true;
+	if (this.className.includes ('sr-only') || this.className.includes ('sronly') || this.className.includes ('hidden')) return true;
 	else if (exists (this.getAttribute ('hidden')) || exists (this.getAttribute ('aria-hidden'))) return true;
 	const style = window.getComputedStyle (this);
 	if (style.display === 'none' || style.visibility === 'hidden' || style.fontSize === '0px'){

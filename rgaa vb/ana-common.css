@@ -1,5 +1,5 @@
 /* doutes sur l'utilisation du focus */
-*:hover:after, *:focus:after, a#rgaa-download-rapport {
+*:hover:after, *:focus:after, a#rgaa-download-rapport, dialog#rgaa-legend {
 	box-sizing: border-box !important;
 	display: block !important;
 	background-color: ivory !important;
@@ -44,6 +44,18 @@ a#rgaa-download-rapport { left: 0; }
 a#rgaa-download-rapport.moved {
 	bottom: unset;
 	top: 0%;
+}
+dialog#rgaa-legend {
+	display: none;
+	grid-template-columns: 1fr 8em;
+	padding: 0em;
+}
+dialog#rgaa-legend[open] { display: grid; }
+dialog#rgaa-legend > div { grid-column: 1/3; }
+dialog#rgaa-legend >*{
+	width: unset;
+	height: unset;
+	margin: 0;
 }
 /*
 .rgaa-highlight {

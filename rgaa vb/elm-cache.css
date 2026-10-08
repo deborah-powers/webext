@@ -1,4 +1,4 @@
-[hidden], [aria-hidden], .rgaa-hidden, [class*='sr-only'], [class*='sronly'], dialog {
+[hidden], [aria-hidden], .rgaa-hidden, [class*='sr-only'], [class*='sronly'], [class*='hidden'], dialog {
 	/* marqueur facile à repérer */
 	border-width: 4px !important;
 	border-style: solid !important;
@@ -10,8 +10,8 @@
 	height: auto !important;
 	margin: auto !important;
 	white-space: normal !important;
-	position: static;
-	opacity: 1;
+	position: static !important;
+	opacity: 1 !important;
 	font-size: 1em !important;
 	color: #420 !important;
 	background-color: ivory !important;
@@ -30,12 +30,14 @@
 dialog { border-color: deeppink !important; }
 [hidden], [aria-hidden] { border-color: orangered !important; }
 [class*='sr-only'], [class*='sronly'] { border-color: limegreen !important; }
-.rgaa-hidden { border-color: purple !important; }
+.rgaa-hidden, [class*='hidden'] { border-color: purple !important; }
+[aria-hidden='false'] { border-style: dotted !important; }
 
-[aria-hidden='false'] { border-style: dashed !important; }
-dialog:hover:after { content: 'dialog'; }
-[hidden]:before { content: 'attr hidden '; }
-[aria-hidden]:before { content: 'aria hidden '; }
-[class*='sr-only']:before, [class*='sronly']:before { content: 'sronly '; }
-.rgaa-hidden:before { content: 'css hidden '; }
-script.rgaa-hidden:before { content: 'script ' attr(src, 'sans source'); }
+[hidden]:before { content: 'attr hidden ' !important; }
+[aria-hidden]:before { content: 'aria hidden  !important'; }
+[class*='sr-only']:before, [class*='sronly']:before { content: 'sronly ' !important; }
+.rgaa-hidden:before { content: 'css hidden ' !important; }
+[class*='hidden']:before { content: 'class hidden ' !important; }
+/*
+dialog:before { content: 'dialog' !important; }
+*/

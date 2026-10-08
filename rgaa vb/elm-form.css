@@ -1,21 +1,19 @@
 /* https://accessibilite.numerique.gouv.fr/methode/glossaire/#champ-de-saisie-de-formulaire */
-
+form, fieldset, legend, [role='form'], [role='group'], [role='radiogroup'], datalist, textarea {
+	box-sizing: border-box !important;
+	border-width: 4px !important;
+}
 input:focus, textarea:focus, form button:focus, button[form]:focus, select:focus, optgroup:focus, option:focus {
-	border: solid 4px teal !important;
+	border-style: solid !important;
+	border-color: teal !important;
 	background-color: pink !important;
 }
 input:focus + label {
 	font-weight: bold !important;
 	color: teal !important;
 }
-form, fieldset, fieldset[role='group'], fieldset[role='radiogroup'] {
-	border-width: 4px !important;
-	border-style: solid !important;
-}
-[role='form'], [role='group'], [role='radiogroup'] {
-	border-width: 4px !important;
-	border-style: dotted !important;
-}
+form, fieldset, fieldset[role='group'], fieldset[role='radiogroup'] { border-style: solid !important; }
+[role='form'], [role='group'], [role='radiogroup'] { border-style: dotted !important; }
 form, [role='form'] { border-color: deeppink !important; }
 fieldset, [role='group'], [role='radiogroup'], [role='form'] [role='group'], [role='form'] [role='radiogroup']
 	{ border-color: deepskyblue !important; }
@@ -40,13 +38,13 @@ input[type='radio'][aria-expended][aria-controls] + label, input[type='checkbox'
 }
 datalist {
 	display: block !important;
-	color: black;
+	color: black !important;
 	border-color: #F3C !important;
 }
 [aria-invalid='true'] { background-color: pink !important; }
 button[form]:hover:after { content: "bouton innadapté " attr(type, 'sans type') " pour le formulaire " attr(form) !important; }
 button[form][type='submit']:hover:after { content: "bouton pour formulaire " attr(form) !important; }
-legend:hover:after { content: 'legend'; }
-form h3:hover:after, [role='form'] h3:hover:after { content: 'h3'; }
-label:hover:after { content: attr(infos); }
-label *:hover:after, legend *:hover:after, h3 *:hover:after { content: none; }
+legend:hover:after { content: 'legend' !important; }
+form h3:hover:after, [role='form'] h3:hover:after { content: 'h3' !important; }
+label:hover:after { content: attr(infos) !important; }
+label *:hover:after, legend *:hover:after, h3 *:hover:after { content: none !important; }

@@ -51,6 +51,14 @@ String.prototype.strip = function(){
 	while (newString.includes ('\n\n')) newString = newString.replaceAll ('\n\n', '\n');
 	return newString;
 }
+function addLegende (legendText){
+	legendText = legendText.replaceAll ('\n', '<br/>');
+	var legendStructure = "<h3>légende</h3><button command='close' commandfor='rgaa-legend' title='fermer la légende'>OK</button><div>$text</div>";
+	const legendBloc = document.createElement ('dialog');
+	legendBloc.id = 'rgaa-legend';
+	legendBloc.innerHTML = legendStructure.replace ('$text', legendText);
+	legendBloc.addAttribute ('open', "");
+}
 // fonctions utilitaires
 Element.prototype.getAllByRole = function (myRole){
 	var items =[];

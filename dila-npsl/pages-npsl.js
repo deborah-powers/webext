@@ -73,6 +73,10 @@ chrome.action.onClicked.addListener (function (tab){
 		target: {tabId: tab.id, allFrames: false },
 		files: [ 'demarche-cr.js' ]
 	});
+	else if (tab.url.includes ('DICPE')) chrome.scripting.executeScript ({
+		target: {tabId: tab.id, allFrames: false },
+		files: [ 'demarche-dicpe.js' ]
+	});
 	else if (tab.title.includes ('Vérification et envoi')) chrome.scripting.executeScript ({
 		target: {tabId: tab.id, allFrames: false },
 		files: [ 'demarche-recap.js' ]

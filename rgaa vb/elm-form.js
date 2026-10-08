@@ -17,7 +17,7 @@ HTMLInputElement.prototype.computeInfos = function(){
 	// valeur controllée
 	if (inputControles.includes (this.type)) inputInfos = inputInfos +' valeur contrôlée';
 	var attribut = this.getAttribute ('aria-controls');
-	if (this.type === 'radio' || this.type === 'checkbox' && exists (attribut)) inputInfos = inputInfos +'\naffiche '+ attribut;
+	if ((this.type === 'radio' || this.type === 'checkbox') && exists (attribut)) inputInfos = inputInfos +'\naffiche '+ attribut;
 	inputInfos = inputInfos +'\n';
 	// required
 	attribut = this.getAttribute ('required');
@@ -74,7 +74,7 @@ HTMLElement.prototype.addInfosRec = function(){
 HTMLLabelElement.prototype.addInfosOnHover = function(){ return true; }
 HTMLLabelElement.prototype.addInfos = function(){
 	var label = this.getAttribute ('for');
-	if (! label) this.infos = 'label sans input associé';
+	if (! label) this.infos = 'sans input associé';
 	else{
 		const input = document.getElementById (label);
 		if (input.tagName === 'INPUT') this.infos = 'input ';
