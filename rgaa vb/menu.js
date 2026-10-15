@@ -33,14 +33,16 @@ function chooseAction (event){
 	}
 	chrome.tabs.query ({currentWindow: true, active: true}, function (tabs){
 		var activeTab = tabs[0];
+		const fileCss =[
+			'ana-common.css', 'ana-shrink.css', 'elm-cache.css', 'elm-focus.css', 'elm-focus-interract.css', 'elm-form.css',
+			'elm-iframe.css', 'elm-image.css', 'elm-interdit.css', 'elm-interract.css', 'elm-link.css', 'elm-liste.css', 'elm-media.css',
+			'elm-presentation.css', 'elm-structure.css', 'elm-table.css', 'elm-titre.css', 'elm-tooltip.css', 'sian-alert.css',
+			'text-spacing.css', 'text-widenning.css'
+		];
 		chrome.scripting.removeCSS ({
 			target: {tabId: activeTab.id, allFrames: false},
-			files: [
-				'ana-common.css', 'elm-focus.css', 'elm-focus-interract.css', 'elm-form.css', 'elm-iframe.css', 'elm-image.css', 'elm-interdit.css',
-				'elm-interract.css', 'elm-link.css',
-				'elm-liste.css', 'elm-structure.css', 'elm-table.css', 'elm-titre.css', 'elm-tooltip.css',
-				'text-spacing.css', 'text-widenning.css'
-		]});
+			files: fileCss
+		});
 		var listStyle =[];
 		var listScript =[];
 		// choisir les actions
@@ -51,13 +53,8 @@ function chooseAction (event){
 		else if (action === 'ret-style'){
 			chrome.scripting.removeCSS ({
 				target: {tabId: activeTab.id, allFrames: false},
-				files: [
-					'ana-common.css', 'elm-focus.css', 'elm-focus-interract.css', 'elm-form.css', 'elm-iframe.css', 'elm-image.css', 'elm-interdit.css',
-					'elm-interract.css', 'elm-link.css',
-					'elm-liste.css', 'elm-structure.css', 'elm-table.css', 'elm-titre.css', 'elm-tooltip.css',
-					'text-spacing.css', 'text-widenning.css'
-			]});
-		}
+				files: fileCss
+		}); }
 		else if (action === 'elm-structure'){
 			listStyle =[ 'ana-common.css', 'elm-structure.css' ];
 			listScript =[ 'xpathFct.js', 'ana-common.js', 'elm-structure.js' ];
@@ -105,7 +102,12 @@ function chooseAction (event){
 			listScript =[ 'xpathFct.js', 'ana-name.js', 'ana-common.js', 'elm-image.js' ];
 		}
 		else if (action === 'elm-media') listStyle =[ 'ana-common.css', 'elm-media.css' ];
-		else if (action === 'del-style') listScript = [ 'del-style.js' ];
+		else if (action === 'del-style'){
+			listScript = [ 'del-style.js' ];
+			chrome.scripting.removeCSS ({
+				target: {tabId: activeTab.id, allFrames: false},
+				files: fileCss
+		}); }
 		// lancer les actions
 		if (listStyle.length >0) chrome.scripting.insertCSS ({
 			target: {tabId: activeTab.id, allFrames: false},
