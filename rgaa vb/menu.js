@@ -46,7 +46,7 @@ function chooseAction (event){
 		var listStyle =[];
 		var listScript =[];
 		// choisir les actions
-		else if (action === 'ret-style'){
+		if (action === 'ret-style'){
 			chrome.scripting.removeCSS ({
 				target: {tabId: activeTab.id, allFrames: false},
 				files: fileCss
